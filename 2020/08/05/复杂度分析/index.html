@@ -1,0 +1,583 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"richard-xiong.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="时间与复杂度分析时间复杂度###理解   T(n) :    是所有代码执行的时间 O:    表示代码的执行时间 T(n) 与 f(n) 表达式成正比 f(n) :    表示每行代码执行的次数总和 这就是大 O 时间复杂度表示法。大 O 时间复杂度实际上并不具体表示代码真正的执行时间，而是表示代码执行时间随数据规模增长的变化趋势，所以，也叫作渐进时间复杂度（asymptotic time co">
+<meta property="og:type" content="article">
+<meta property="og:title" content="复杂度分析">
+<meta property="og:url" content="https://richard-xiong.github.io/2020/08/05/%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90/index.html">
+<meta property="og:site_name" content="XingServer">
+<meta property="og:description" content="时间与复杂度分析时间复杂度###理解   T(n) :    是所有代码执行的时间 O:    表示代码的执行时间 T(n) 与 f(n) 表达式成正比 f(n) :    表示每行代码执行的次数总和 这就是大 O 时间复杂度表示法。大 O 时间复杂度实际上并不具体表示代码真正的执行时间，而是表示代码执行时间随数据规模增长的变化趋势，所以，也叫作渐进时间复杂度（asymptotic time co">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://static001.geekbang.org/resource/image/22/ef/22900968aa2b190072c985a08b0e92ef.png">
+<meta property="og:image" content="https://static001.geekbang.org/resource/image/37/0a/3723793cc5c810e9d5b06bc95325bf0a.jpg">
+<meta property="og:image" content="https://static001.geekbang.org/resource/image/9b/9a/9b1c88264e7a1a20b5954be9bc4bec9a.jpg">
+<meta property="article:published_time" content="2020-08-04T22:31:19.000Z">
+<meta property="article:modified_time" content="2020-08-09T13:49:52.062Z">
+<meta property="article:author" content="Richard">
+<meta property="article:tag" content="algorithm">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://static001.geekbang.org/resource/image/22/ef/22900968aa2b190072c985a08b0e92ef.png">
+
+<link rel="canonical" href="https://richard-xiong.github.io/2020/08/05/%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>复杂度分析 | XingServer</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="XingServer" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">XingServer</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">19</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">13</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">23</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/05/%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          复杂度分析
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-04 22:31:19" itemprop="dateCreated datePublished" datetime="2020-08-04T22:31:19Z">2020-08-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-09 13:49:52" itemprop="dateModified" datetime="2020-08-09T13:49:52Z">2020-08-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h1 id="时间与复杂度分析"><a href="#时间与复杂度分析" class="headerlink" title="时间与复杂度分析"></a>时间与复杂度分析</h1><h2 id="时间复杂度"><a href="#时间复杂度" class="headerlink" title="时间复杂度"></a>时间复杂度</h2><p>###理解 </p>
+<p><img src="https://static001.geekbang.org/resource/image/22/ef/22900968aa2b190072c985a08b0e92ef.png" alt="img"></p>
+<p>T(n) :    是所有代码执行的时间</p>
+<p>O:    表示代码的执行时间 T(n) 与 f(n) 表达式成正比</p>
+<p>f(n) :    表示每行代码执行的次数总和</p>
+<p>这就是大 O 时间复杂度表示法。大 O 时间复杂度实际上并不具体表示代码真正的执行时间，而是表示代码执行时间随数据规模增长的变化趋势，所以，也叫作渐进时间复杂度（asymptotic time complexity），简称时间复杂度。</p>
+<p>我们通常会忽略掉公式中的常量、低阶、系数，只需要记住一个最大的阶就可以了；所以我们在分析代码的时间复杂度的时候只需要关注执行次数最大的那一段代码就可以了</p>
+<h3 id="代码复杂度量级"><a href="#代码复杂度量级" class="headerlink" title="代码复杂度量级"></a>代码复杂度量级</h3><p><img src="https://static001.geekbang.org/resource/image/37/0a/3723793cc5c810e9d5b06bc95325bf0a.jpg" alt="img"></p>
+<p>####复杂度量级分类</p>
+<p>多项式量级和非多项式量级，</p>
+<p>#####非多项式量级</p>
+<h6 id="增数阶O-2-n-和阶乘阶-O-n"><a href="#增数阶O-2-n-和阶乘阶-O-n" class="headerlink" title="增数阶O($2^n$) 和阶乘阶 O(n!)"></a>增数阶O($2^n$) 和阶乘阶 O(n!)</h6><p>非多项式量级也叫Non-Deterministic Polynomial 非确定多项式，因为当n越来越大的时候，非多项式量级算法的执行时间急剧增大。</p>
+<p>#####多项式量级的时间复杂度</p>
+<h6 id="O-1"><a href="#O-1" class="headerlink" title="O(1)"></a>O(1)</h6><p>理解：O(1)只是常量级时间复杂度的一种表示、并不是只执行了一行代码，比如下面 即便代码有三行它的时间复杂度也是O(1)而不是O(3)</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> i = <span class="number">8</span>; </span><br><span class="line"><span class="keyword">var</span> j = <span class="number">6</span>; </span><br><span class="line"><span class="keyword">var</span> sum = i + j;</span><br></pre></td></tr></table></figure>
+
+<h6 id="O-log-2n-amp-O-nlog-2n"><a href="#O-log-2n-amp-O-nlog-2n" class="headerlink" title="O($log_2n$)&amp;O($nlog_2n$)"></a>O($log_2n$)&amp;O($nlog_2n$)</h6><p>for example O($log_2n$)</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> i=<span class="number">1</span>; </span><br><span class="line"><span class="keyword">for</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> i&lt;=n &#123;</span><br><span class="line">        <span class="keyword">break</span> </span><br><span class="line">    &#125;</span><br><span class="line">  i = i * <span class="number">2</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>根据前面时间复杂度分析、i=i*2 和 if 语句执行的次数最多。我们只要知道这两行代码执行了多少次就能算出这段代码的时间复杂度。 </p>
+<p><img src="https://static001.geekbang.org/resource/image/9b/9a/9b1c88264e7a1a20b5954be9bc4bec9a.jpg" alt="img"></p>
+<p> 所以我们只要知道x是多少 我们就能知道i=i*2 和if语句执行的次数是多少。通过$2^x=n$ 转换得出 x= $log_2n$</p>
+<p>所以这段代码的时间复杂度是 2$log_2n$ 因为2是常数可以省略，所以这段代码最终的时间复杂度是$log_2n$</p>
+<p>for example O($nlog_2n$)</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> i=<span class="number">1</span>; </span><br><span class="line"><span class="keyword">for</span> &#123;</span><br><span class="line">  <span class="keyword">if</span> i&lt;=n &#123;</span><br><span class="line">        <span class="keyword">break</span> </span><br><span class="line">    &#125;</span><br><span class="line">  i = i * <span class="number">3</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>根据上面的思路可以很容易的看出这段代码的时间复杂度是 $log_3n$ ,实际是不管是以2为底、以3为底，还是以10为底，我们都可以把所有对数阶的时间复杂度都记为$log_2n$ ；我们知道对数之间是可以相互转化的，$log_3n = log_32<em>log_2n$  所以O($log_3n$) =O(C</em> $log_2n$) 其中C= $log_32 $  是一个常量、根据大O表示法可以忽略系数，即 </p>
+<p>O(Cf(n)) = O(f(n))。所以，O($log_2n$) 就等于 O($log_3n$)。</p>
+<h6 id="O-m-n-、O-m-n"><a href="#O-m-n-、O-m-n" class="headerlink" title="O(m+n)、O(m*n)"></a>O(m+n)、O(m*n)</h6><p>for example</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">cal</span><span class="params">( m, n <span class="keyword">int</span>)</span> <span class="title">int</span></span>&#123;</span><br><span class="line">  <span class="keyword">var</span> sum_1 = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">var</span> i = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">for</span> (; i &lt; m; ++i) &#123;</span><br><span class="line">    sum_1 = sum_1 + i;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">var</span> sum_2 = <span class="number">0</span>;</span><br><span class="line">  <span class="keyword">var</span> j = <span class="number">1</span>;</span><br><span class="line">  <span class="keyword">for</span> (; j &lt; n; ++j) &#123;</span><br><span class="line">    sum_2 = sum_2 + j;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">return</span> sum_1 + sum_2;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>从代码中我们可以看出，m、n是两个数据规模，我们无法评估出m、n谁的量级大、所以我们在表达复杂度的时候就不能简单的利用加法法则省略其中的一个，所以上面的代码复杂度是O(m+n)。</p>
+<h5 id="总结复杂度分析法则"><a href="#总结复杂度分析法则" class="headerlink" title="总结复杂度分析法则"></a>总结复杂度分析法则</h5><p>1）单段代码看高频：比如循环。<br>2）多段代码取最大：比如一段代码中有单循环和多重循环，那么取多重循环的复杂度。<br>3）嵌套代码求乘积：比如递归、多重循环等<br>4）多个规模求加法：比如方法有两个参数控制两个循环的次数，那么这时就取二者复杂度相加</p>
+<h2 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h2><h3 id="理解"><a href="#理解" class="headerlink" title="理解"></a>理解</h3><p>与时间复杂度类比、空间复杂度就是渐进空间复杂度（asymptotic space complexity），表示算法的存储空间与数据规模之间的增长关系。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">print</span><span class="params">(n <span class="keyword">int</span> n)</span></span>&#123;</span><br><span class="line">  <span class="keyword">var</span> i = <span class="number">0</span></span><br><span class="line">  slice := <span class="built_in">make</span>([]<span class="keyword">int</span>,n)</span><br><span class="line">  <span class="keyword">for</span> (;i&lt;=n;i++)&#123;</span><br><span class="line">    slice[i]=i*i</span><br><span class="line">  &#125;</span><br><span class="line">  logs.<span class="built_in">println</span>(slice)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>跟分析时间复杂度一样，看到第二行，我们申请了一个空间存储变量 i，但是它是常量阶的跟数据规模没有关系、所以我们可以忽略，第三行我们申请了一个长度和容量都为n的切片，除此之外下面代码没有占用额外的存储空间、所以这段代码占用的空间复杂度为O(n)</p>
+<p>我们常见的空间复杂度是O(1)、O(n)、O( $n^2$ )</p>
+<h2 id="最好、最坏、平均、均摊时间复杂度分析"><a href="#最好、最坏、平均、均摊时间复杂度分析" class="headerlink" title="最好、最坏、平均、均摊时间复杂度分析"></a>最好、最坏、平均、均摊时间复杂度分析</h2><p>最好情况时间复杂度（best case time complexity）、最坏情况时间复杂度（worst case time complexity）</p>
+<p>平均情况时间复杂度（average case time complexity）、均摊时间复杂度（amortized time complexity）</p>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章推荐</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/08/07/leetcode 数组-合并区间/" rel="bookmark">合并区间</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/08/07/leetcode 数组-寻找数组的中心索引/" rel="bookmark">寻找数组的中心索引</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/08/07/leetcode 数组-搜索插入位置/" rel="bookmark">搜索插入位置</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/08/07/test/" rel="bookmark">合并区间</a></div>
+    </li>
+  </ul>
+
+        <div class="reward-container">
+  <div>Donate comment here.</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.jpeg" alt="Richard 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpeg" alt="Richard 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/algorithm/" rel="tag"># algorithm</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/05/article-title/" rel="prev" title="article title">
+      <i class="fa fa-chevron-left"></i> article title
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/05/golang-%E5%9F%BA%E7%A1%80-%E4%B8%80/" rel="next" title="golang 基础(一)">
+      golang 基础(一) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E4%B8%8E%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90"><span class="nav-number">1.</span> <span class="nav-text">时间与复杂度分析</span></a><ol class="nav-child"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">1.1.</span> <span class="nav-text">时间复杂度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%A3%E7%A0%81%E5%A4%8D%E6%9D%82%E5%BA%A6%E9%87%8F%E7%BA%A7"><span class="nav-number">1.1.1.</span> <span class="nav-text">代码复杂度量级</span></a><ol class="nav-child"><li class="nav-item nav-level-6"><a class="nav-link" href="#%E5%A2%9E%E6%95%B0%E9%98%B6O-2-n-%E5%92%8C%E9%98%B6%E4%B9%98%E9%98%B6-O-n"><span class="nav-number">1.1.1.0.0.1.</span> <span class="nav-text">增数阶O($2^n$) 和阶乘阶 O(n!)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#O-1"><span class="nav-number">1.1.1.0.0.2.</span> <span class="nav-text">O(1)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#O-log-2n-amp-O-nlog-2n"><span class="nav-number">1.1.1.0.0.3.</span> <span class="nav-text">O($log_2n$)&amp;O($nlog_2n$)</span></a></li><li class="nav-item nav-level-6"><a class="nav-link" href="#O-m-n-%E3%80%81O-m-n"><span class="nav-number">1.1.1.0.0.4.</span> <span class="nav-text">O(m+n)、O(m*n)</span></a></li></ol></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%80%BB%E7%BB%93%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90%E6%B3%95%E5%88%99"><span class="nav-number">1.1.1.0.1.</span> <span class="nav-text">总结复杂度分析法则</span></a></li></ol></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E7%A9%BA%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">1.2.</span> <span class="nav-text">空间复杂度</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%90%86%E8%A7%A3"><span class="nav-number">1.2.1.</span> <span class="nav-text">理解</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E6%9C%80%E5%A5%BD%E3%80%81%E6%9C%80%E5%9D%8F%E3%80%81%E5%B9%B3%E5%9D%87%E3%80%81%E5%9D%87%E6%91%8A%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90"><span class="nav-number">1.3.</span> <span class="nav-text">最好、最坏、平均、均摊时间复杂度分析</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Richard"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Richard</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/RomanSeven7" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;RomanSeven7" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:nizhidaoiedeyisima@gmail.com" title="E-Mail → mailto:nizhidaoiedeyisima@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/p/1005056204086487" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;p&#x2F;1005056204086487" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Richard</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">61k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">56 分钟</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
