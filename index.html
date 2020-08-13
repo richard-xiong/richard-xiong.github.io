@@ -123,17 +123,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">19</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">23</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">13</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">17</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">23</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">27</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -379,125 +379,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/leetcode%20%E6%95%B0%E7%BB%84-%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/07/leetcode%20%E6%95%B0%E7%BB%84-%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4/" class="post-title-link" itemprop="url">合并区间</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-06 22:08:43" itemprop="dateCreated datePublished" datetime="2020-08-06T22:08:43Z">2020-08-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-09 13:49:52" itemprop="dateModified" datetime="2020-08-09T13:49:52Z">2020-08-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/leetcode/%E6%95%B0%E7%BB%84/" itemprop="url" rel="index"><span itemprop="name">数组</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.8k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="合并区间"><a href="#合并区间" class="headerlink" title="合并区间"></a>合并区间</h3><p>给出一个区间的集合，请合并所有重叠的区间。</p>
-<p>示例 1:</p>
-<p>输入: [[1,3],[2,6],[8,10],[15,18]]<br>输出: [[1,6],[8,10],[15,18]]<br>解释: 区间 [1,3] 和 [2,6] 重叠, 将它们合并为 [1,6].<br>示例 2:</p>
-<p>输入: [[1,4],[4,5]]<br>输出: [[1,5]]<br>解释: 区间 [1,4] 和 [4,5] 可被视为重叠区间。</p>
-<p>Go</p>
-<p>作者：力扣 (LeetCode)<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/leetbook/read/array-and-string/c5tv3/">https://leetcode-cn.com/leetbook/read/array-and-string/c5tv3/</a><br>来源：力扣（LeetCode）<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">解法一</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">pivotIndex</span><span class="params">(nums []<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    result:=<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> result &lt; <span class="built_in">len</span>(nums) &#123;</span><br><span class="line"></span><br><span class="line">        left:=<span class="function"><span class="keyword">func</span><span class="params">()</span> <span class="title">int</span></span>&#123;</span><br><span class="line">            <span class="keyword">var</span> sum <span class="keyword">int</span></span><br><span class="line">            <span class="keyword">for</span> _,item :=<span class="keyword">range</span> nums[<span class="number">0</span>:result] &#123;</span><br><span class="line">                sum+=item</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> sum</span><br><span class="line">        &#125;</span><br><span class="line">        right:=<span class="function"><span class="keyword">func</span><span class="params">()</span> <span class="title">int</span></span>&#123;</span><br><span class="line">            <span class="keyword">var</span> sum <span class="keyword">int</span></span><br><span class="line">            <span class="keyword">for</span> _,item  :=<span class="keyword">range</span> nums[result+<span class="number">1</span>:] &#123;</span><br><span class="line">                sum+=item</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> sum</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> right() == left() &#123;</span><br><span class="line">            <span class="keyword">return</span> result</span><br><span class="line">        &#125;</span><br><span class="line">        result ++</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>执行结果：</p>
-<p>通过</p>
-<p>显示详情</p>
-<p>执行用时：336 ms, 在所有 Go 提交中击败了6.46%的用户</p>
-<p>内存消耗：5.8 MB, 在所有 Go 提交中击败了93.18%的用户</p>
-<p>方法二：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">pivotIndex</span><span class="params">(nums []<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    result := <span class="number">0</span></span><br><span class="line">    readAll := <span class="function"><span class="keyword">func</span><span class="params">()</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">        gte0 := <span class="literal">false</span></span><br><span class="line">        lte0 := <span class="literal">false</span></span><br><span class="line">        <span class="keyword">for</span> _, item := <span class="keyword">range</span> nums &#123;</span><br><span class="line">            <span class="keyword">if</span> item &gt;= <span class="number">0</span> &#123;</span><br><span class="line">                gte0 = <span class="literal">true</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                lte0 = <span class="literal">true</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> gte0 &amp;&amp; lte0 &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    loadAll := readAll()</span><br><span class="line">    <span class="keyword">for</span> result &lt; <span class="built_in">len</span>(nums) &#123;</span><br><span class="line">        <span class="keyword">var</span> left <span class="keyword">int</span></span><br><span class="line">        <span class="keyword">var</span> right <span class="keyword">int</span></span><br><span class="line">        <span class="keyword">if</span> result &gt; <span class="number">0</span> &#123;</span><br><span class="line">            <span class="keyword">for</span> _, item := <span class="keyword">range</span> nums[:result] &#123;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> item == <span class="number">0</span> &#123;</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                &#125;</span><br><span class="line">                left += item</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> _, item := <span class="keyword">range</span> nums[result+<span class="number">1</span>:] &#123;</span><br><span class="line">            <span class="keyword">if</span> item == <span class="number">0</span> &#123;</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            &#125;</span><br><span class="line">            right += item</span><br><span class="line">            <span class="keyword">if</span> right &gt; left &amp;&amp; !loadAll &#123;</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> left == right &#123;</span><br><span class="line">            <span class="keyword">return</span> result</span><br><span class="line">        &#125;</span><br><span class="line">        result++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>显示详情</p>
-<p>执行用时：424 ms, 在所有 Go 提交中击败了5.26%的用户</p>
-<p>内存消耗：5.8 MB, 在所有 Go 提交中击败了100.00%的用户</p>
-<p>解法三：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">pivotIndex</span><span class="params">(nums []<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> sum <span class="keyword">int</span></span><br><span class="line">    <span class="keyword">for</span> _,item:=<span class="keyword">range</span> nums &#123;</span><br><span class="line">        sum+=item</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> leftSum <span class="keyword">int</span></span><br><span class="line">    <span class="keyword">for</span> index,item:=<span class="keyword">range</span> nums &#123;</span><br><span class="line">        <span class="keyword">if</span> leftSum==sum-item-leftSum &#123;</span><br><span class="line">            <span class="keyword">return</span> index</span><br><span class="line">        &#125;</span><br><span class="line">        leftSum+=item</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>  <span class="number">-1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行用时：24 ms, 在所有 Go 提交中击败了82.78%的用户</p>
-<p>内存消耗：6 MB, 在所有 Go 提交中击败了86.36%的用户</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/k8s-pod%E7%9A%84%E7%8A%B6%E6%80%81%E4%B8%BAevicted/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -713,6 +594,108 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/leetcode%20%E6%95%B0%E7%BB%84-%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/07/leetcode%20%E6%95%B0%E7%BB%84-%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4/" class="post-title-link" itemprop="url">合并区间</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-06 22:08:43" itemprop="dateCreated datePublished" datetime="2020-08-06T22:08:43Z">2020-08-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-11 03:12:37" itemprop="dateModified" datetime="2020-08-11T03:12:37Z">2020-08-11</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/leetcode/%E6%95%B0%E7%BB%84/" itemprop="url" rel="index"><span itemprop="name">数组</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>318</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="合并区间"><a href="#合并区间" class="headerlink" title="合并区间"></a>合并区间</h3><p>给出一个区间的集合，请合并所有重叠的区间。</p>
+<p>示例 1:</p>
+<p>输入: [[1,3],[2,6],[8,10],[15,18]]<br>输出: [[1,6],[8,10],[15,18]]<br>解释: 区间 [1,3] 和 [2,6] 重叠, 将它们合并为 [1,6].<br>示例 2:</p>
+<p>输入: [[1,4],[4,5]]<br>输出: [[1,5]]<br>解释: 区间 [1,4] 和 [4,5] 可被视为重叠区间。</p>
+<p>Go</p>
+<p>作者：力扣 (LeetCode)<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/leetbook/read/array-and-string/c5tv3/">https://leetcode-cn.com/leetbook/read/array-and-string/c5tv3/</a><br>来源：力扣（LeetCode）<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<p>思路： 安装数组中第一数排序 然后合并  </p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/leetcode%20%E6%95%B0%E7%BB%84-%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -804,125 +787,6 @@
 <p>这个题目主要是考二分查找 </p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">searchInsert</span><span class="params">(nums []<span class="keyword">int</span>, target <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    n:=<span class="built_in">len</span>(nums)</span><br><span class="line">    left,right:=<span class="number">0</span>,n<span class="number">-1</span></span><br><span class="line">    ans:=n</span><br><span class="line">    <span class="keyword">for</span> left&lt;=right &#123;</span><br><span class="line">        mid:=(right-left)&gt;&gt;<span class="number">1</span>+left</span><br><span class="line">        <span class="keyword">if</span> target&lt;= nums[mid] &#123;</span><br><span class="line">            right=mid<span class="number">-1</span></span><br><span class="line">            ans=mid</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            left=mid+<span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>  ans</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/test/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/07/test/" class="post-title-link" itemprop="url">合并区间</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-06 22:08:43" itemprop="dateCreated datePublished" datetime="2020-08-06T22:08:43Z">2020-08-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-08 13:41:54" itemprop="dateModified" datetime="2020-08-08T13:41:54Z">2020-08-08</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/leetcode/%E6%95%B0%E7%BB%84/" itemprop="url" rel="index"><span itemprop="name">数组</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.8k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="合并区间"><a href="#合并区间" class="headerlink" title="合并区间"></a>合并区间</h3><p>给出一个区间的集合，请合并所有重叠的区间。</p>
-<p>示例 1:</p>
-<p>输入: [[1,3],[2,6],[8,10],[15,18]]<br>输出: [[1,6],[8,10],[15,18]]<br>解释: 区间 [1,3] 和 [2,6] 重叠, 将它们合并为 [1,6].<br>示例 2:</p>
-<p>输入: [[1,4],[4,5]]<br>输出: [[1,5]]<br>解释: 区间 [1,4] 和 [4,5] 可被视为重叠区间。</p>
-<p>Go</p>
-<p>作者：力扣 (LeetCode)<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/leetbook/read/array-and-string/c5tv3/">https://leetcode-cn.com/leetbook/read/array-and-string/c5tv3/</a><br>来源：力扣（LeetCode）<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">解法一</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">pivotIndex</span><span class="params">(nums []<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    result:=<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> result &lt; <span class="built_in">len</span>(nums) &#123;</span><br><span class="line"></span><br><span class="line">        left:=<span class="function"><span class="keyword">func</span><span class="params">()</span> <span class="title">int</span></span>&#123;</span><br><span class="line">            <span class="keyword">var</span> sum <span class="keyword">int</span></span><br><span class="line">            <span class="keyword">for</span> _,item :=<span class="keyword">range</span> nums[<span class="number">0</span>:result] &#123;</span><br><span class="line">                sum+=item</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> sum</span><br><span class="line">        &#125;</span><br><span class="line">        right:=<span class="function"><span class="keyword">func</span><span class="params">()</span> <span class="title">int</span></span>&#123;</span><br><span class="line">            <span class="keyword">var</span> sum <span class="keyword">int</span></span><br><span class="line">            <span class="keyword">for</span> _,item  :=<span class="keyword">range</span> nums[result+<span class="number">1</span>:] &#123;</span><br><span class="line">                sum+=item</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> sum</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> right() == left() &#123;</span><br><span class="line">            <span class="keyword">return</span> result</span><br><span class="line">        &#125;</span><br><span class="line">        result ++</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>执行结果：</p>
-<p>通过</p>
-<p>显示详情</p>
-<p>执行用时：336 ms, 在所有 Go 提交中击败了6.46%的用户</p>
-<p>内存消耗：5.8 MB, 在所有 Go 提交中击败了93.18%的用户</p>
-<p>方法二：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">pivotIndex</span><span class="params">(nums []<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    result := <span class="number">0</span></span><br><span class="line">    readAll := <span class="function"><span class="keyword">func</span><span class="params">()</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">        gte0 := <span class="literal">false</span></span><br><span class="line">        lte0 := <span class="literal">false</span></span><br><span class="line">        <span class="keyword">for</span> _, item := <span class="keyword">range</span> nums &#123;</span><br><span class="line">            <span class="keyword">if</span> item &gt;= <span class="number">0</span> &#123;</span><br><span class="line">                gte0 = <span class="literal">true</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                lte0 = <span class="literal">true</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> gte0 &amp;&amp; lte0 &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    loadAll := readAll()</span><br><span class="line">    <span class="keyword">for</span> result &lt; <span class="built_in">len</span>(nums) &#123;</span><br><span class="line">        <span class="keyword">var</span> left <span class="keyword">int</span></span><br><span class="line">        <span class="keyword">var</span> right <span class="keyword">int</span></span><br><span class="line">        <span class="keyword">if</span> result &gt; <span class="number">0</span> &#123;</span><br><span class="line">            <span class="keyword">for</span> _, item := <span class="keyword">range</span> nums[:result] &#123;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> item == <span class="number">0</span> &#123;</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                &#125;</span><br><span class="line">                left += item</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> _, item := <span class="keyword">range</span> nums[result+<span class="number">1</span>:] &#123;</span><br><span class="line">            <span class="keyword">if</span> item == <span class="number">0</span> &#123;</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            &#125;</span><br><span class="line">            right += item</span><br><span class="line">            <span class="keyword">if</span> right &gt; left &amp;&amp; !loadAll &#123;</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> left == right &#123;</span><br><span class="line">            <span class="keyword">return</span> result</span><br><span class="line">        &#125;</span><br><span class="line">        result++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>显示详情</p>
-<p>执行用时：424 ms, 在所有 Go 提交中击败了5.26%的用户</p>
-<p>内存消耗：5.8 MB, 在所有 Go 提交中击败了100.00%的用户</p>
-<p>解法三：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">pivotIndex</span><span class="params">(nums []<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> sum <span class="keyword">int</span></span><br><span class="line">    <span class="keyword">for</span> _,item:=<span class="keyword">range</span> nums &#123;</span><br><span class="line">        sum+=item</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> leftSum <span class="keyword">int</span></span><br><span class="line">    <span class="keyword">for</span> index,item:=<span class="keyword">range</span> nums &#123;</span><br><span class="line">        <span class="keyword">if</span> leftSum==sum-item-leftSum &#123;</span><br><span class="line">            <span class="keyword">return</span> index</span><br><span class="line">        &#125;</span><br><span class="line">        leftSum+=item</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>  <span class="number">-1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行用时：24 ms, 在所有 Go 提交中击败了82.78%的用户</p>
-<p>内存消耗：6 MB, 在所有 Go 提交中击败了86.36%的用户</p>
 
       
     </div>
@@ -1043,7 +907,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/%E6%96%87%E4%BB%B6%E5%A4%B9%E5%A4%8D%E5%88%B6cp/">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/algorithm-%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -1057,7 +921,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/08/07/%E6%96%87%E4%BB%B6%E5%A4%B9%E5%A4%8D%E5%88%B6cp/" class="post-title-link" itemprop="url">文件夹复制cp</a>
+            <a href="/2020/08/07/algorithm-%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">algorithm-希尔排序</a>
         </h2>
 
         <div class="post-meta">
@@ -1074,7 +938,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-09 13:49:52" itemprop="dateModified" datetime="2020-08-09T13:49:52Z">2020-08-09</time>
+                <time title="修改时间：2020-08-13 13:46:36" itemprop="dateModified" datetime="2020-08-13T13:46:36Z">2020-08-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1082,11 +946,11 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                  <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/%E8%BF%90%E7%BB%B4/" itemprop="url" rel="index"><span itemprop="name">运维</span></a>
+                  <a href="/categories/algorithm/sort/" itemprop="url" rel="index"><span itemprop="name">sort</span></a>
                 </span>
             </span>
 
@@ -1096,7 +960,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>516</span>
+              <span>1.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -1115,22 +979,15 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="文件夹复制"><a href="#文件夹复制" class="headerlink" title="文件夹复制"></a>文件夹复制</h3><ol>
-<li><p>正常的复制命令</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cp -rf /www/cms.whd.com/conf/  mycms/</span><br><span class="line">-r 是递归的意思，会把问价下的子文件目录都会复制</span><br><span class="line">-f 参数是强制复制，比如你在a文件中有个文件名叫b，然后你把c文件夹里面的另一个文件名叫做b的复制到a里面，这个时候回冲突，然后会提示你要不要继续复制，加上-f就不会提示你了。</span><br><span class="line"></span><br><span class="line">但是当我们执行上面的那个命令时还是会提示你要不要覆盖</span><br></pre></td></tr></table></figure>
+          <h3 id="希尔排序的思路"><a href="#希尔排序的思路" class="headerlink" title="希尔排序的思路"></a>希尔排序的思路</h3><p><strong>希尔排序是把记录按下标的一定增量分组，对每组使用直接插入排序算法排序；随着增量逐渐减少，每组包含的关键词越来越多，当增量减至1时，整个文件恰被分成一组，算法便终止。</strong></p>
+<p>序列是比较常用的，也是希尔建议的增量，称为希尔增量，但其实这个增量序列不是最优的。此处我们做示例使用希尔增量。</p>
+<p><img src="https://images2015.cnblogs.com/blog/1024555/201611/1024555-20161128110416068-1421707828.png" alt="img"></p>
+<p>上代码</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    <span class="string">&quot;time&quot;</span></span><br><span class="line">    <span class="string">&quot;math/rand&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> length = <span class="number">15</span></span><br><span class="line">    <span class="keyword">var</span> list []<span class="keyword">int</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 以时间戳为种子生成随机数，保证每次运行数据不重复</span></span><br><span class="line">    r := rand.New(rand.NewSource(time.Now().UnixNano()))</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; length; i++ &#123;</span><br><span class="line">        list = <span class="built_in">append</span>(list, <span class="keyword">int</span>(r.Intn(<span class="number">1000</span>)))</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Println(list)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 这里就以n/2为增量z</span></span><br><span class="line">    gap := <span class="number">2</span></span><br><span class="line">    step := length / gap</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> step &gt;= <span class="number">1</span> &#123;</span><br><span class="line">        <span class="comment">// 这里按步长开始每个分组的排序</span></span><br><span class="line">        <span class="keyword">for</span> i := step; i &lt; length; i++ &#123;</span><br><span class="line">            <span class="comment">// 将按步长分组的子队列用直接插入排序算法进行排序</span></span><br><span class="line">            insertionSortByStep(list, step)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 完成一轮后再次缩小增量</span></span><br><span class="line">        step /= gap</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 输出每轮缩小增量各组排序后的结果</span></span><br><span class="line">        fmt.Println(list)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这里把上篇直接选择排序的算法抽出来，并将步长从1改成step</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">insertionSortByStep</span><span class="params">(tree []<span class="keyword">int</span>, step <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> i := step; i &lt; <span class="built_in">len</span>(tree); i++ &#123;</span><br><span class="line">        <span class="keyword">for</span> j := i; j &gt;= step &amp;&amp; tree[j] &lt; tree[j-step]; j -= step &#123;</span><br><span class="line">            tree[j], tree[j-step] = tree[j-step], tree[j]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
-
-</li>
-</ol>
-<ol start="2">
-<li><p>直接使用命令实习 (推荐)</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> \cp -rf &#x2F;www&#x2F;cms.whd.com&#x2F;conf&#x2F;  &#x2F;www&#x2F;cms.manager&#x2F;core&#x2F;conf&#x2F;</span><br><span class="line">如果写在脚本中可以使用下面的方式 $(pwd) 或者 $&#96;pwd&#96; 来获取当前的目录路径</span><br><span class="line"> \cp -rf &#x2F;www&#x2F;cms.whd.com&#x2F;conf&#x2F; $(pwd)&#x2F;target&#x2F;cms.manager&#x2F;bdp&#x2F;core&#x2F;conf&#x2F;</span><br><span class="line">我们看到 只是在命令前加了一个反斜杠（\），这样就不会再次确认了，而且只在命令中起作用比较好。</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ol>
+<h3 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h3><p>最坏情况：O($ \log n^2$)<br>最好情况:    O($ \log 2n$)<br>平均情况：  O($ \log 2/3n$)  </p>
+<h3 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h3><p>因为没有借助额外的空间 空间浮渣度为<code>O(1)</code></p>
+<p>Shell排序比冒泡排序快5倍，比插入排序大致快2倍。Shell排序比起QuickSort，MergeSort，HeapSort慢很多。但是它相对比较简单，它适合于数据量在5000以下并且速度并不是特别重要的场合。它对于数据量较小的数列重复排序是非常好的。</p>
 
       
     </div>
@@ -1150,7 +1007,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/nginx%E7%9A%84%E4%BD%BF%E7%94%A8/">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/algorithm-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -1164,7 +1021,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/08/07/nginx%E7%9A%84%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">nginx的使用</a>
+            <a href="/2020/08/07/algorithm-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">algorithm-归并排序</a>
         </h2>
 
         <div class="post-meta">
@@ -1174,14 +1031,14 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-08-06 21:20:18" itemprop="dateCreated datePublished" datetime="2020-08-06T21:20:18Z">2020-08-06</time>
+              <time title="创建时间：2020-08-06 21:56:21" itemprop="dateCreated datePublished" datetime="2020-08-06T21:56:21Z">2020-08-06</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-09 13:49:52" itemprop="dateModified" datetime="2020-08-09T13:49:52Z">2020-08-09</time>
+                <time title="修改时间：2020-08-13 13:20:52" itemprop="dateModified" datetime="2020-08-13T13:20:52Z">2020-08-13</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -1189,11 +1046,11 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                  <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/%E8%BF%90%E7%BB%B4/" itemprop="url" rel="index"><span itemprop="name">运维</span></a>
+                  <a href="/categories/algorithm/sort/" itemprop="url" rel="index"><span itemprop="name">sort</span></a>
                 </span>
             </span>
 
@@ -1203,7 +1060,108 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.4k</span>
+              <span>1.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="归并排序的思路"><a href="#归并排序的思路" class="headerlink" title="归并排序的思路"></a>归并排序的思路</h3><p>将一排数据，进行左右不断地进行划分（递[归]），然后再对比左右两边的数据后再(合[并])，这就是”归并排序“。</p>
+<blockquote>
+<p>注意：[左右]对比，是指左的第一个元素，与右边的第一个元素进行对比，哪个小，就先放到结果的第一位，然后左或右取出了元素的那边的索引进行++，没有取出的元素的，则不用进行++。 比较完后，还要分别将左，右的剩余的元素，追加到结果列的后面</p>
+</blockquote>
+<h2 id="归并排序-MergeSort"><a href="#归并排序-MergeSort" class="headerlink" title="归并排序(MergeSort)"></a>归并排序(MergeSort)</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line">import <span class="string">&quot;time&quot;</span></span><br><span class="line">import number <span class="string">&quot;github.com/emacsist/go-common/helper/number&quot;</span></span><br><span class="line"></span><br><span class="line">func <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    data := number.GenerateInt(100000, 100000)</span><br><span class="line">    start := makeTimestamp()</span><br><span class="line">    // fmt.Printf(<span class="string">&quot;%v\n&quot;</span>, data)</span><br><span class="line">    data = mergeSort(data)</span><br><span class="line">    fmt.Printf(<span class="string">&quot;cost %v ms \n&quot;</span>, makeTimestamp()-start)</span><br><span class="line">    // fmt.Printf(<span class="string">&quot;%v\n&quot;</span>, data)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//------------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">func makeTimestamp() int64 &#123;</span><br><span class="line">    <span class="built_in">return</span> time.Now().UnixNano() / int64(time.Millisecond)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func mergeSort(data []int) []int &#123;</span><br><span class="line">    <span class="keyword">if</span> len(data) &lt;= 1 &#123;</span><br><span class="line">        <span class="built_in">return</span> data</span><br><span class="line">    &#125;</span><br><span class="line">    //递[归]</span><br><span class="line">    middle := len(data) / 2</span><br><span class="line">    //不断地进行左右对半划分</span><br><span class="line">    left := mergeSort(data[:middle])</span><br><span class="line">    right := mergeSort(data[middle:])</span><br><span class="line">    //合[并]</span><br><span class="line">    <span class="built_in">return</span> merge(left, right)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func merge(left, right []int) (result []int) &#123;</span><br><span class="line">    l, r := 0, 0</span><br><span class="line"></span><br><span class="line">    // 注意：[左右]对比，是指左的第一个元素，与右边的第一个元素进行对比，哪个小，就先放到结果的第一位，然后左或右取出了元素的那边的索引进行++</span><br><span class="line">    <span class="keyword">for</span> l &lt; len(left) &amp;&amp; r &lt; len(right) &#123;</span><br><span class="line">        //从小到大排序.</span><br><span class="line">        <span class="keyword">if</span> left[l] &gt; right[r] &#123;</span><br><span class="line">            result = append(result, right[r])</span><br><span class="line">            //因为处理了右边的第r个元素，所以r的指针要向前移动一个单位</span><br><span class="line">            r++</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            result = append(result, left[l])</span><br><span class="line">            //因为处理了左边的第l个元素，所以l的指针要向前移动一个单位</span><br><span class="line">            l++</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // 比较完后，还要分别将左，右的剩余的元素，追加到结果列的后面(不然就漏咯）。</span><br><span class="line">    result = append(result, left[l:]...)</span><br><span class="line">    result = append(result, right[r:]...)</span><br><span class="line">    <span class="built_in">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h3><p>假设解决最后的子问题用时为常数c，则对于n个待排序记录来说整个问题的规模为<code>cn</code>。</p>
+<p><img src="https://img-blog.csdn.net/20170909101802866?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzYzMDY0NzQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>从这个递归树可以看出，第一层时间代价为cn，第二层时间代价为<code>cn/2+cn/2=cn…..</code>每一层代价都是<code>cn</code>，总共有<code>logn+1</code>层。所以总的时间代价为<code>cn*(logn+1)</code>.时间复杂度是<code>o(nlogn)</code>.</p>
+<h3 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h3><p>需要使用辅助数组的长度和待排序的数组相同 ，因此空间复杂度还是<code>O(n)</code></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/algorithm-%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/07/algorithm-%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">algorithm-插入排序</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-06 21:56:21" itemprop="dateCreated datePublished" datetime="2020-08-06T21:56:21Z">2020-08-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-13 12:56:31" itemprop="dateModified" datetime="2020-08-13T12:56:31Z">2020-08-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/sort/" itemprop="url" rel="index"><span itemprop="name">sort</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>892</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -1222,36 +1180,23 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="正向代理与反向代理"><a href="#正向代理与反向代理" class="headerlink" title="正向代理与反向代理"></a>正向代理与反向代理</h3><ol>
-<li><p>我们常说的代理服务器（多指 VPN），一般就是正向代理。它的特点有：隐藏了真实的请求客户端，服务端不知道真实的客户端是谁，客户端请求的服务都由代理服务器代替来请求；「正向代理」指一对一或多对一，Server 不知道请求的 Client 都是哪些人。</p>
-<img src="/images/%E6%AD%A3%E5%90%91%E4%BB%A3%E7%90%86.png" alt="正向代理" style="zoom:33%;" />
-</li>
-<li><p>反向代理恰好跟正向代理相反。同时反向代理一般是负载均衡的一个原理。按照上面所说，正向代理是一对一或多对一，那么反向代理就是一对多</p>
-</li>
-</ol>
-<img src="/images/%E5%8F%8D%E5%90%91%E4%BB%A3%E7%90%86.png" alt="反向代理" style="zoom:33%;" />
-
-<p><strong>两者的区别在于代理的对象不一样：正向代理代理的对象是客户端，反向代理代理的对象是服务端。</strong></p>
-<h3 id="nginx的使用"><a href="#nginx的使用" class="headerlink" title="nginx的使用"></a>nginx的使用</h3><h4 id="启动nginx"><a href="#启动nginx" class="headerlink" title="启动nginx"></a>启动nginx</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./nginx -c nginx.conf</span><br></pre></td></tr></table></figure>
-
-<h4 id="重启nginx"><a href="#重启nginx" class="headerlink" title="重启nginx"></a>重启nginx</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">./nginx -s reload</span><br></pre></td></tr></table></figure>
+          <h3 id="插入排序的思路"><a href="#插入排序的思路" class="headerlink" title="插入排序的思路"></a>插入排序的思路</h3><p>它的基本思想是将一个记录<strong>插入</strong>到已经排好序的有序表中，从而一个新的、记录数增1的有序表。</p>
+<p>直接的例子就是玩扑克的时候，想象一下，分牌的时候，大家轮流的从一组牌中抽取最上面的一张，然后将它以某种顺序插入到我们的左手中。比如，我们想要从小到大排列我们的扑克牌。</p>
+<p>标准方法：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">insertionSort</span><span class="params">(data []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    lo, hi := <span class="number">0</span>, <span class="built_in">len</span>(data) <span class="comment">// 获取数组的长度</span></span><br><span class="line">    <span class="keyword">for</span> i := lo + <span class="number">1</span>; i &lt; hi; i++ &#123; <span class="comment">// </span></span><br><span class="line">        <span class="keyword">for</span> j := i; j &gt; lo &amp;&amp; data[j] &lt; data[j<span class="number">-1</span>]; j-- &#123;</span><br><span class="line">            data[j], data[j<span class="number">-1</span>] = data[j<span class="number">-1</span>], data[j]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
-<h4 id="nginx-conf配置熟知"><a href="#nginx-conf配置熟知" class="headerlink" title="nginx.conf配置熟知"></a>nginx.conf配置熟知</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">user root; # 表示nginx是用root用户启动的</span><br><span class="line">worker_processes auto; # 设置nginx的线程数 默认是机器内核的数量</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="获取真实ip"><a href="#获取真实ip" class="headerlink" title="获取真实ip"></a>获取真实ip</h4><ol>
-<li><p>这个功能依赖于http_realip_module  在安装nginx的时候 需要带上 <code>--with-http_realip_module</code> </p>
-</li>
-<li><p>查看已安装的nginx是否支持这个模块</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">./tools/nginx/sbin/nginx -V</span><br><span class="line"><span class="meta">&gt;</span></span><br><span class="line">nginx version: nginx/1.12.2</span><br><span class="line">built by gcc 7.3.1 20180303 (Red Hat 7.3.1-5) (GCC)</span><br><span class="line">built with OpenSSL 1.1.0h  27 Mar 2018</span><br><span class="line">TLS SNI support enabled</span><br><span class="line">configure arguments: --prefix=/home/work/tools/nginx --with-http_ssl_module --with-http_sub_module --with-http_gunzip_module --with-http_gzip_static_module --with-http_stub_status_module --with-stream=dynamic --with-compat --with-pcre=/home/work/pcre-8.40 --with-zlib=/home/work/zlib-1.2.11 --with-openssl=/home/work/openssl-1.1.0h</span><br></pre></td></tr></table></figure>
+<p>这种方法 就是如果后面有一个需要前插操作的数值，找到指定位置之后还会继续和它前面的数值进行比较，针对这一点我们可以优化一下</p>
+<p>优化一：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">insertionSort</span><span class="params">(data []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    lo, hi= <span class="number">0</span>, <span class="built_in">len</span>(data)</span><br><span class="line">    <span class="keyword">for</span> i := lo + <span class="number">1</span>; i &lt; hi; i++ &#123;</span><br><span class="line">        <span class="keyword">for</span> j := i; j &gt; lo; j-- &#123;</span><br><span class="line">            <span class="keyword">if</span>  data[j] &lt; data[j<span class="number">-1</span>]&#123;</span><br><span class="line">                data[j], data[j<span class="number">-1</span>] = data[j<span class="number">-1</span>], data[j]</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
-</li>
-</ol>
-<h4 id="设置server"><a href="#设置server" class="headerlink" title="设置server"></a>设置server</h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 80;</span><br><span class="line">    server_name  xxx.xx.com; # 绑定域名</span><br><span class="line">    access_log  /data/logs/nginx-access.log  main;</span><br><span class="line">    error_log   /data/logs/nginx-error.log;</span><br><span class="line">    location / &#123; # 设置反向代理的location </span><br><span class="line">             real_ip_header X-Forwarded-For; </span><br><span class="line">             set_real_ip_from x.x.x.x/x; # Ip/network of the reverse proxy (or ip received into REMOTE_ADDR)</span><br><span class="line">             proxy_set_header Host $host;</span><br><span class="line">             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;</span><br><span class="line">             proxy_set_header X-Real-IP $remote_addr;</span><br><span class="line">             proxy_pass http://localhost:8080;  # 设置要反向代理的地址</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
+<h3 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h3><p>在最坏情况下，数组完全逆序，插入第2个元素时要考察前1个元素，插入第3个元素时，要考虑前2个元素，……，插入第N个元素，要考虑前 <code>N - 1</code> 个元素。因此，最坏情况下的比较次数是 <code>1 + 2 + 3 + ... + (N - 1)</code>，等差数列求和，结果为 <code>N^2 / 2</code>，所以最坏情况下的复杂度为 <code>O(N^2)</code>。</p>
+<p>最好情况下，数组已经是有序的，每插入一个元素，只需要考查前一个元素，因此最好情况下，插入排序的时间复杂度为<code>O(N)</code>。</p>
+<p>平均时间复杂度  <code>(O(N^2)+O(n))/2=O(n^2)</code></p>
+<h3 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h3><p>因为没有借助额外的空间 空间浮渣度为<code>O(1)</code></p>
 
       
     </div>
@@ -1338,20 +1283,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">23</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1399,13 +1344,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">61k</span>
+    <span title="站点总字数">70k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">56 分钟</span>
+    <span title="站点阅读时长">1:04</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

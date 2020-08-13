@@ -1,0 +1,562 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"richard-xiong.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="#goloang 性能调优 字符串性能测试1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859package concat_stringimport (    &quot;bytes&quot;    &quot;fmt&quot;">
+<meta property="og:type" content="article">
+<meta property="og:title" content="go-性能调优-字符串">
+<meta property="og:url" content="https://richard-xiong.github.io/2020/08/05/go-%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98-%E5%AD%97%E7%AC%A6%E4%B8%B2/index.html">
+<meta property="og:site_name" content="XingServer">
+<meta property="og:description" content="#goloang 性能调优 字符串性能测试1234567891011121314151617181920212223242526272829303132333435363738394041424344454647484950515253545556575859package concat_stringimport (    &quot;bytes&quot;    &quot;fmt&quot;">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-08-04T22:34:46.000Z">
+<meta property="article:modified_time" content="2020-08-13T09:54:18.544Z">
+<meta property="article:author" content="Richard">
+<meta property="article:tag" content="go">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://richard-xiong.github.io/2020/08/05/go-%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98-%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>go-性能调优-字符串 | XingServer</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="XingServer" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">XingServer</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">23</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">17</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">27</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/05/go-%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98-%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          go-性能调优-字符串
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-04 22:34:46" itemprop="dateCreated datePublished" datetime="2020-08-04T22:34:46Z">2020-08-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-13 09:54:18" itemprop="dateModified" datetime="2020-08-13T09:54:18Z">2020-08-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go/" itemprop="url" rel="index"><span itemprop="name">go</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/" itemprop="url" rel="index"><span itemprop="name">性能调优</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <p>#goloang 性能调优</p>
+<h2 id="字符串性能测试"><a href="#字符串性能测试" class="headerlink" title="字符串性能测试"></a>字符串性能测试</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">package concat_string</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">    &quot;bytes&quot;</span><br><span class="line">    &quot;fmt&quot;</span><br><span class="line">    &quot;strconv&quot;</span><br><span class="line">    &quot;strings&quot;</span><br><span class="line">    &quot;testing&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">const numbers &#x3D; 100</span><br><span class="line"></span><br><span class="line">func BenchmarkSprintf(b *testing.B) &#123;</span><br><span class="line">    b.ResetTimer()</span><br><span class="line">    for idx :&#x3D; 0; idx &lt; b.N; idx++ &#123;</span><br><span class="line">        var s string</span><br><span class="line">        for i :&#x3D; 0; i &lt; numbers; i++ &#123;</span><br><span class="line">            s &#x3D; fmt.Sprintf(&quot;%v%v&quot;, s, i)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    b.StopTimer()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func BenchmarkStringBuilder(b *testing.B) &#123;</span><br><span class="line">    b.ResetTimer()</span><br><span class="line">    for idx :&#x3D; 0; idx &lt; b.N; idx++ &#123;</span><br><span class="line">        var builder strings.Builder</span><br><span class="line">        for i :&#x3D; 0; i &lt; numbers; i++ &#123;</span><br><span class="line">            builder.WriteString(strconv.Itoa(i))</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        _ &#x3D; builder.String()</span><br><span class="line">    &#125;</span><br><span class="line">    b.StopTimer()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func BenchmarkBytesBuf(b *testing.B) &#123;</span><br><span class="line">    b.ResetTimer()</span><br><span class="line">    for idx :&#x3D; 0; idx &lt; b.N; idx++ &#123;</span><br><span class="line">        var buf bytes.Buffer</span><br><span class="line">        for i :&#x3D; 0; i &lt; numbers; i++ &#123;</span><br><span class="line">            buf.WriteString(strconv.Itoa(i))</span><br><span class="line">        &#125;</span><br><span class="line">        _ &#x3D; buf.String()</span><br><span class="line">    &#125;</span><br><span class="line">    b.StopTimer()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func BenchmarkStringAdd(b *testing.B) &#123;</span><br><span class="line">    b.ResetTimer()</span><br><span class="line">    for idx :&#x3D; 0; idx &lt; b.N; idx++ &#123;</span><br><span class="line">        var s string</span><br><span class="line">        for i :&#x3D; 0; i &lt; numbers; i++ &#123;</span><br><span class="line">            s +&#x3D; strconv.Itoa(i)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    b.StopTimer()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行  go test -bench=. -run=none<br><br>output：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mfxing  go test -bench&#x3D;. -run&#x3D;none </span><br><span class="line">goos: darwin</span><br><span class="line">goarch: amd64</span><br><span class="line">pkg: go.doglobal.net&#x2F;duapps&#x2F;do-feed&#x2F;service</span><br><span class="line">BenchmarkSprintf-4                100000             17347 ns&#x2F;op</span><br><span class="line">BenchmarkStringBuilder-4         2000000               899 ns&#x2F;op</span><br><span class="line">BenchmarkBytesBuf-4              1000000              1225 ns&#x2F;op</span><br><span class="line">BenchmarkStringAdd-4              300000              5683 ns&#x2F;op</span><br><span class="line">PASS</span><br><span class="line">ok      go.doglobal.net&#x2F;duapps&#x2F;do-feed&#x2F;service  7.630s</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><b>从结果可以看出 StringBuilder是最快的 899 ns/op， bytes.buffer次之，string += 拼的方式性较差，fmt.Sprintf()的方式性能最差是17347 ns/op。</p>
+<p>接下来我们分析下为什么fmt.Sprintf()性能较stringbuilder 的性能差了这么多，通过 -cpuprofile profile.out的参数 将内存分配的信息输出到profile.out中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mfxing  go test -bench&#x3D;. -benchmem -cpuprofile profile.out</span><br><span class="line">goos: darwin</span><br><span class="line">goarch: amd64</span><br><span class="line">pkg: go.doglobal.net&#x2F;duapps&#x2F;do-feed&#x2F;service</span><br><span class="line">BenchmarkSprintf-4                100000             19934 ns&#x2F;op           12180 B&#x2F;op        297 allocs&#x2F;op</span><br><span class="line">BenchmarkStringBuilder-4         2000000               914 ns&#x2F;op             504 B&#x2F;op          6 allocs&#x2F;op</span><br><span class="line">BenchmarkBytesBuf-4              1000000              1318 ns&#x2F;op             688 B&#x2F;op          4 allocs&#x2F;op</span><br><span class="line">BenchmarkStringAdd-4              200000              6383 ns&#x2F;op            9776 B&#x2F;op         99 allocs&#x2F;op</span><br><span class="line">PASS</span><br><span class="line">ok      go.doglobal.net&#x2F;duapps&#x2F;do-feed&#x2F;service  7.767s</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><b> 从结果我们可以看出 stringbuilder和butes.buffer内存分配次数相差不多分别为6次和4次，string 拼接的方式 将近是buffer和builder的25倍，而fmt.springf()的方式，每次内存分配次数达到近300次</p>
+<p>我们可以借助go tool pprof 来查看下程序代码的详细执行时间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line">go tool pprof profile.out</span><br><span class="line">mfxing  go tool pprof profile.out</span><br><span class="line">Type: cpu</span><br><span class="line">Time: Sep 16, 2019 at 1:55pm (CST)</span><br><span class="line">Duration: 7.74s, Total samples &#x3D; 7.72s (99.72%)</span><br><span class="line">Entering interactive mode (type &quot;help&quot; for commands, &quot;o&quot; for options)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">查看下fmt.springf</span><br><span class="line">(pprof) list BenchmarkSprintf的执行情况</span><br><span class="line">Total: 7.72s</span><br><span class="line">ROUTINE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; go.doglobal.net&#x2F;duapps&#x2F;do-feed&#x2F;service.BenchmarkSprintf in &#x2F;Users&#x2F;mengfanxing_g&#x2F;godev&#x2F;src&#x2F;go.doglobal.net&#x2F;duapps&#x2F;do-feed&#x2F;service&#x2F;contact_string_test.go</span><br><span class="line">      10ms      910ms (flat, cum) 11.79% of Total</span><br><span class="line">         .          .     13:func BenchmarkSprintf(b *testing.B) &#123;</span><br><span class="line">         .          .     14:   b.ResetTimer()</span><br><span class="line">         .          .     15:   for idx :&#x3D; 0; idx &lt; b.N; idx++ &#123;</span><br><span class="line">         .          .     16:           var s string</span><br><span class="line">         .          .     17:           for i :&#x3D; 0; i &lt; numbers; i++ &#123;</span><br><span class="line">      10ms      910ms     18:                   s &#x3D; fmt.Sprintf(&quot;%v%v&quot;, s, i)</span><br><span class="line">         .          .     19:           &#125;</span><br><span class="line">         .          .     20:   &#125;</span><br><span class="line">         .          .     21:   b.StopTimer()</span><br><span class="line">         .          .     22:&#125;</span><br><span class="line">         .          .     23:</span><br><span class="line">(pprof) </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">查看下字符串拼接的执行情况</span><br><span class="line"></span><br><span class="line">ROUTINE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; go.doglobal.net&#x2F;duapps&#x2F;do-feed&#x2F;service.BenchmarkStringAdd in &#x2F;Users&#x2F;mengfanxing_g&#x2F;godev&#x2F;src&#x2F;go.doglobal.net&#x2F;duapps&#x2F;do-feed&#x2F;service&#x2F;contact_string_test.go</span><br><span class="line">      20ms      410ms (flat, cum)  5.31% of Total</span><br><span class="line">         .          .     49:func BenchmarkStringAdd(b *testing.B) &#123;</span><br><span class="line">         .          .     50:   b.ResetTimer()</span><br><span class="line">         .          .     51:   for idx :&#x3D; 0; idx &lt; b.N; idx++ &#123;</span><br><span class="line">         .          .     52:           var s string</span><br><span class="line">         .          .     53:           for i :&#x3D; 0; i &lt; numbers; i++ &#123;</span><br><span class="line">      20ms      410ms     54:                   s +&#x3D; strconv.Itoa(i)</span><br><span class="line">         .          .     55:           &#125;</span><br><span class="line">         .          .     56:</span><br><span class="line">         .          .     57:   &#125;</span><br><span class="line">         .          .     58:   b.StopTimer()</span><br><span class="line">         .          .     59:&#125;</span><br><span class="line">(pprof) </span><br><span class="line"></span><br><span class="line">查看下bytes.buffer的执行情况</span><br><span class="line">(pprof) list BenchmarkBytesBuf</span><br><span class="line">ROUTINE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; go.doglobal.net&#x2F;duapps&#x2F;do-feed&#x2F;service.BenchmarkBytesBuf in &#x2F;Users&#x2F;mengfanxing_g&#x2F;godev&#x2F;src&#x2F;go.doglobal.net&#x2F;duapps&#x2F;do-feed&#x2F;service&#x2F;contact_string_test.go</span><br><span class="line">      20ms      360ms (flat, cum)  4.66% of Total</span><br><span class="line">         .          .     36:</span><br><span class="line">         .          .     37:func BenchmarkBytesBuf(b *testing.B) &#123;</span><br><span class="line">         .          .     38:   b.ResetTimer()</span><br><span class="line">         .          .     39:   for idx :&#x3D; 0; idx &lt; b.N; idx++ &#123;</span><br><span class="line">         .          .     40:           var buf bytes.Buffer</span><br><span class="line">      10ms       10ms     41:           for i :&#x3D; 0; i &lt; numbers; i++ &#123;</span><br><span class="line">      10ms      320ms     42:                   buf.WriteString(strconv.Itoa(i))</span><br><span class="line">         .          .     43:           &#125;</span><br><span class="line">         .       30ms     44:           _ &#x3D; buf.String()</span><br><span class="line">         .          .     45:   &#125;</span><br><span class="line">         .          .     46:   b.StopTimer()</span><br><span class="line">         .          .     47:&#125;</span><br><span class="line">         .          .     48:</span><br><span class="line">         .          .     49:func BenchmarkStringAdd(b *testing.B) &#123;</span><br><span class="line">(pprof) </span><br><span class="line"></span><br><span class="line">查看下bytes.buffer的执行情况</span><br><span class="line">(pprof) list BenchmarkStringBuilder</span><br><span class="line">ROUTINE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; go.doglobal.net&#x2F;duapps&#x2F;do-feed&#x2F;service.BenchmarkStringBuilder in &#x2F;Users&#x2F;mengfanxing_g&#x2F;godev&#x2F;src&#x2F;go.doglobal.net&#x2F;duapps&#x2F;do-feed&#x2F;service&#x2F;contact_string_test.go</span><br><span class="line">      50ms      750ms (flat, cum)  9.72% of Total</span><br><span class="line">         .          .     21:   b.StopTimer()</span><br><span class="line">         .          .     22:&#125;</span><br><span class="line">         .          .     23:</span><br><span class="line">         .          .     24:func BenchmarkStringBuilder(b *testing.B) &#123;</span><br><span class="line">         .          .     25:   b.ResetTimer()</span><br><span class="line">      20ms       20ms     26:   for idx :&#x3D; 0; idx &lt; b.N; idx++ &#123;</span><br><span class="line">         .          .     27:           var builder strings.Builder</span><br><span class="line">      10ms       10ms     28:           for i :&#x3D; 0; i &lt; numbers; i++ &#123;</span><br><span class="line">      20ms      720ms     29:                   builder.WriteString(strconv.Itoa(i))</span><br><span class="line">         .          .     30:</span><br><span class="line">         .          .     31:           &#125;</span><br><span class="line">         .          .     32:           _ &#x3D; builder.String()</span><br><span class="line">         .          .     33:   &#125;</span><br><span class="line">         .          .     34:   b.StopTimer()</span><br><span class="line">(pprof) </span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在 Golang 1.10 以前，你可以使用bytes.Buffer来优化：一定程度上避免上面每进行一次拼接操作就重新申请新的内存空间存放中间字符串的问题。但这里依然有一个小问题： byte.String() 会有一次 []byte -&gt; string 类型转换。而这个操作是会进行一次内存分配和内容拷贝的。<br><br>如果你现在已经在使用 golang 1.10, 那么你还有一个更好的选择：strings.Builder<br><br> 原理解析关键代码摘选如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">type Builder struct &#123;</span><br><span class="line">    addr *Builder &#x2F;&#x2F; of receiver, to detect copies by value</span><br><span class="line">    buf  []byte &#x2F;&#x2F; 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Write appends the contents of p to b&#39;s buffer.</span><br><span class="line">&#x2F;&#x2F; Write always returns len(p), nil.</span><br><span class="line">func (b *Builder) Write(p []byte) (int, error) &#123;</span><br><span class="line">    b.copyCheck()</span><br><span class="line">    b.buf &#x3D; append(b.buf, p...) &#x2F;&#x2F; 2</span><br><span class="line">    return len(p), nil</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; String returns the accumulated string.</span><br><span class="line">func (b *Builder) String() string &#123;</span><br><span class="line">    return *(*string)(unsafe.Pointer(&amp;b.buf))  &#x2F;&#x2F; 3</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (b *Builder) copyCheck() &#123;</span><br><span class="line">    if b.addr &#x3D;&#x3D; nil &#123;</span><br><span class="line">        &#x2F;&#x2F; 4</span><br><span class="line">        &#x2F;&#x2F; This hack works around a failing of Go&#39;s escape analysis</span><br><span class="line">        &#x2F;&#x2F; that was causing b to escape and be heap allocated.</span><br><span class="line">        &#x2F;&#x2F; See issue 23382.</span><br><span class="line">        &#x2F;&#x2F; TODO: once issue 7921 is fixed, this should be reverted to</span><br><span class="line">        &#x2F;&#x2F; just &quot;b.addr &#x3D; b&quot;.</span><br><span class="line">        b.addr &#x3D; (*Builder)(noescape(unsafe.Pointer(b)))</span><br><span class="line">    &#125; else if b.addr !&#x3D; b &#123;</span><br><span class="line">        panic(&quot;strings: illegal use of non-zero Builder copied by value&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>1、与byte.Buffer思路类似，既然 string 在构建过程中会不断的被销毁重建，那么就尽量避免这个问题，底层使用一个 buf []byte 来存放字符串的内容。</li>
+<li>2、对于写操作，就是简单的将byte写入到 buf 即可。</li>
+<li>3、为了解决bytes.Buffer.String()存在的[]byte -&gt; string类型转换和内存拷贝问题，这里使用了一个unsafe.Pointer的存指针转换操作，实现了直接将buf []byte转换为 string类型，同时避免了内存充分配的问题</li>
+</ul>
+<p>结论：<br></p>
+<ul>
+<li>golang中的string类型也是只读且不可变的。因此，这种拼接字符串的方式会导致大量的string创建、销毁和内存分配。如果你拼接的字符串比较多的话，这显然不是一个正确的姿势。</li>
+<li>fmt.springf() 内部使用 []byte 实现，不像直接运算符这种会产生很多临时的字符串，但是内部的逻辑比较复杂，有很多额外的判断，还用到了 interface</li>
+<li>go1.10之前推荐使用buffer 、go1.10以后推荐使用builder</li>
+</ul>
+
+    </div>
+
+    
+    
+    
+      
+  <div class="popular-posts-header">相关文章推荐</div>
+  <ul class="popular-posts">
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/08/05/go-语法糖实现原理/" rel="bookmark">go-语法糖原理-多重赋值</a></div>
+    </li>
+    <li class="popular-posts-item">
+      <div class="popular-posts-title"><a href="/2020/08/05/golang-基础-一/" rel="bookmark">golang 基础(一)</a></div>
+    </li>
+  </ul>
+
+        <div class="reward-container">
+  <div>Donate comment here.</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.jpeg" alt="Richard 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpeg" alt="Richard 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/go/" rel="tag"># go</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/05/%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90/" rel="prev" title="复杂度分析">
+      <i class="fa fa-chevron-left"></i> 复杂度分析
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/05/golang-%E5%9F%BA%E7%A1%80-%E4%B8%80/" rel="next" title="golang 基础(一)">
+      golang 基础(一) <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E7%AC%A6%E4%B8%B2%E6%80%A7%E8%83%BD%E6%B5%8B%E8%AF%95"><span class="nav-number">1.</span> <span class="nav-text">字符串性能测试</span></a></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Richard"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Richard</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/RomanSeven7" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;RomanSeven7" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:nizhidaoiedeyisima@gmail.com" title="E-Mail → mailto:nizhidaoiedeyisima@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/p/1005056204086487" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;p&#x2F;1005056204086487" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Richard</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">70k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:04</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

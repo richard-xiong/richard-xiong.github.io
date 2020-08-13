@@ -123,17 +123,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">19</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">23</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">13</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">17</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">23</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">27</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -196,6 +196,688 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/06/Go-%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Gin%E6%A1%86%E6%9E%B6-%E4%B8%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/06/Go-%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Gin%E6%A1%86%E6%9E%B6-%E4%B8%80/" class="post-title-link" itemprop="url">Go 语言学习笔记 Gin框架(一)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-05 19:39:39" itemprop="dateCreated datePublished" datetime="2020-08-05T19:39:39Z">2020-08-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-09 13:49:52" itemprop="dateModified" datetime="2020-08-09T13:49:52Z">2020-08-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go/" itemprop="url" rel="index"><span itemprop="name">go</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go/gin/" itemprop="url" rel="index"><span itemprop="name">gin</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="Go-语言学习笔记-Gin框架-一"><a href="#Go-语言学习笔记-Gin框架-一" class="headerlink" title="Go 语言学习笔记 Gin框架(一)"></a>Go 语言学习笔记 Gin框架(一)</h1><h2 id="httprouter的性能"><a href="#httprouter的性能" class="headerlink" title="httprouter的性能"></a>httprouter的性能</h2><table>
+<thead>
+<tr>
+<th>Benchmark name</th>
+<th>(1)</th>
+<th>(2)</th>
+<th>(3)</th>
+<th>(4)</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>BenchmarkGin_GithubAll</strong></td>
+<td><strong>30000</strong></td>
+<td><strong>48375</strong></td>
+<td><strong>0</strong></td>
+<td><strong>0</strong></td>
+</tr>
+<tr>
+<td>BenchmarkAce_GithubAll</td>
+<td>10000</td>
+<td>134059</td>
+<td>13792</td>
+<td>167</td>
+</tr>
+<tr>
+<td>BenchmarkBear_GithubAll</td>
+<td>5000</td>
+<td>534445</td>
+<td>86448</td>
+<td>943</td>
+</tr>
+<tr>
+<td>BenchmarkBeego_GithubAll</td>
+<td>3000</td>
+<td>592444</td>
+<td>74705</td>
+<td>812</td>
+</tr>
+</tbody></table>
+<ul>
+<li>(1): Total Repetitions achieved in constant time, higher means more confident result</li>
+<li>(2): Single Repetition Duration (ns/op), lower is better</li>
+<li>(3): Heap Memory (B/op), lower is better</li>
+<li>(4): Average Allocations per Repetition (allocs/op), lower is better</li>
+</ul>
+<h2 id="内置使用了jsoniter"><a href="#内置使用了jsoniter" class="headerlink" title="内置使用了jsoniter"></a>内置使用了jsoniter</h2><p>Gin uses <code>encoding/json</code> as default json package but you can change to <a target="_blank" rel="noopener" href="https://github.com/json-iterator/go">jsoniter</a> by build from other tags.</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> go build -tags=jsoniter .</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="router-api支持restful"><a href="#router-api支持restful" class="headerlink" title="router api支持restful"></a>router api支持restful</h2><h3 id="支持GET-POST-PUT-PATCH-DELETE-and-OPTIONS"><a href="#支持GET-POST-PUT-PATCH-DELETE-and-OPTIONS" class="headerlink" title="支持GET, POST, PUT, PATCH, DELETE and OPTIONS"></a>支持GET, POST, PUT, PATCH, DELETE and OPTIONS</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// Creates a gin router with default middleware:</span></span><br><span class="line">    <span class="comment">// logger and recovery (crash-free) middleware</span></span><br><span class="line">    router := gin.Default()</span><br><span class="line"></span><br><span class="line">    router.GET(<span class="string">&quot;/someGet&quot;</span>, getting)</span><br><span class="line">    router.POST(<span class="string">&quot;/somePost&quot;</span>, posting)</span><br><span class="line">    router.PUT(<span class="string">&quot;/somePut&quot;</span>, putting)</span><br><span class="line">    router.DELETE(<span class="string">&quot;/someDelete&quot;</span>, deleting)</span><br><span class="line">    router.PATCH(<span class="string">&quot;/somePatch&quot;</span>, patching)</span><br><span class="line">    router.HEAD(<span class="string">&quot;/someHead&quot;</span>, head)</span><br><span class="line">    router.OPTIONS(<span class="string">&quot;/someOptions&quot;</span>, options)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// By default it serves on :8080 unless a</span></span><br><span class="line">    <span class="comment">// PORT environment variable was defined.</span></span><br><span class="line">    router.Run()</span><br><span class="line">    <span class="comment">// router.Run(&quot;:3000&quot;) for a hard coded port</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="支持路径中带有参数"><a href="#支持路径中带有参数" class="headerlink" title="支持路径中带有参数"></a>支持路径中带有参数</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    router := gin.Default()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// This handler will match /user/john but will not match /user/ or /user</span></span><br><span class="line">    router.GET(<span class="string">&quot;/user/:name&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">        name := c.Param(<span class="string">&quot;name&quot;</span>)</span><br><span class="line">        c.String(http.StatusOK, <span class="string">&quot;Hello %s&quot;</span>, name)</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// However, this one will match /user/john/ and also /user/john/send</span></span><br><span class="line">    <span class="comment">// If no other routers match /user/john, it will redirect to /user/john/</span></span><br><span class="line">    router.GET(<span class="string">&quot;/user/:name/*action&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">        name := c.Param(<span class="string">&quot;name&quot;</span>)</span><br><span class="line">        action := c.Param(<span class="string">&quot;action&quot;</span>)</span><br><span class="line">        message := name + <span class="string">&quot; is &quot;</span> + action</span><br><span class="line">        c.String(http.StatusOK, message)</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// For each matched request Context will hold the route definition</span></span><br><span class="line">    router.POST(<span class="string">&quot;/user/:name/*action&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">        c.FullPath() == <span class="string">&quot;/user/:name/*action&quot;</span> <span class="comment">// true</span></span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    router.Run(<span class="string">&quot;:8080&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="支持url地址中kv获取"><a href="#支持url地址中kv获取" class="headerlink" title="支持url地址中kv获取"></a>支持url地址中kv获取</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    router := gin.Default()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Query string parameters are parsed using the existing underlying request object.</span></span><br><span class="line">    <span class="comment">// The request responds to a url matching:  /welcome?firstname=Jane&amp;lastname=Doe</span></span><br><span class="line">    router.GET(<span class="string">&quot;/welcome&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">        firstname := c.DefaultQuery(<span class="string">&quot;firstname&quot;</span>, <span class="string">&quot;Guest&quot;</span>)</span><br><span class="line">        lastname := c.Query(<span class="string">&quot;lastname&quot;</span>) <span class="comment">// shortcut for c.Request.URL.Query().Get(&quot;lastname&quot;)</span></span><br><span class="line"></span><br><span class="line">        c.String(http.StatusOK, <span class="string">&quot;Hello %s %s&quot;</span>, firstname, lastname)</span><br><span class="line">    &#125;)</span><br><span class="line">    router.Run(<span class="string">&quot;:8080&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="支持获取form表单中的kv"><a href="#支持获取form表单中的kv" class="headerlink" title="支持获取form表单中的kv"></a>支持获取form表单中的kv</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    router := gin.Default()</span><br><span class="line"></span><br><span class="line">    router.POST(<span class="string">&quot;/form_post&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">        message := c.PostForm(<span class="string">&quot;message&quot;</span>)</span><br><span class="line">        nick := c.DefaultPostForm(<span class="string">&quot;nick&quot;</span>, <span class="string">&quot;anonymous&quot;</span>) <span class="comment">// nick获取不到就赋值为anonymous</span></span><br><span class="line"></span><br><span class="line">        c.JSON(<span class="number">200</span>, gin.H&#123;</span><br><span class="line">            <span class="string">&quot;status&quot;</span>:  <span class="string">&quot;posted&quot;</span>,</span><br><span class="line">            <span class="string">&quot;message&quot;</span>: message,</span><br><span class="line">            <span class="string">&quot;nick&quot;</span>:    nick,</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">    router.Run(<span class="string">&quot;:8080&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="支持url和post-form-联合的取值"><a href="#支持url和post-form-联合的取值" class="headerlink" title="支持url和post form 联合的取值"></a>支持url和post form 联合的取值</h3><p>请求:</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">POST</span> <span class="string">/post?id=1234&amp;page=1</span> HTTP/1.1</span><br><span class="line"><span class="attribute">Content-Type</span>: application/x-www-form-urlencoded</span><br><span class="line"></span><br><span class="line">name=manu&amp;message=this_is_great</span><br></pre></td></tr></table></figure>
+
+<p>接收：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    router := gin.Default()</span><br><span class="line"></span><br><span class="line">    router.POST(<span class="string">&quot;/post&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">        id := c.Query(<span class="string">&quot;id&quot;</span>)</span><br><span class="line">        page := c.DefaultQuery(<span class="string">&quot;page&quot;</span>, <span class="string">&quot;0&quot;</span>)</span><br><span class="line">        name := c.PostForm(<span class="string">&quot;name&quot;</span>)</span><br><span class="line">        message := c.PostForm(<span class="string">&quot;message&quot;</span>)</span><br><span class="line"></span><br><span class="line">        fmt.Printf(<span class="string">&quot;id: %s; page: %s; name: %s; message: %s&quot;</span>, id, page, name, message)</span><br><span class="line">    &#125;)</span><br><span class="line">    router.Run(<span class="string">&quot;:8080&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结果:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id: 1234; page: 1; name: manu; message: this_is_great</span><br></pre></td></tr></table></figure>
+
+<p>###支持post form传递map</p>
+<p>请求：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">POST &#x2F;post?ids[a]&#x3D;1234&amp;ids[b]&#x3D;hello HTTP&#x2F;1.1</span><br><span class="line">Content-Type: application&#x2F;x-www-form-urlencoded</span><br><span class="line"></span><br><span class="line">names[first]&#x3D;thinkerou&amp;names[second]&#x3D;tianou</span><br></pre></td></tr></table></figure>
+
+<p>接收：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    router := gin.Default()</span><br><span class="line"></span><br><span class="line">    router.POST(<span class="string">&quot;/post&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">        ids := c.QueryMap(<span class="string">&quot;ids&quot;</span>)</span><br><span class="line">        names := c.PostFormMap(<span class="string">&quot;names&quot;</span>)</span><br><span class="line"></span><br><span class="line">        fmt.Printf(<span class="string">&quot;ids: %v; names: %v&quot;</span>, ids, names)</span><br><span class="line">    &#125;)</span><br><span class="line">    router.Run(<span class="string">&quot;:8080&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>结果：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ids: map[b:hello a:1234], names: map[second:tianou first:thinkerou]</span><br></pre></td></tr></table></figure>
+
+<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h2 id="上传文件"><a href="#上传文件" class="headerlink" title="上传文件"></a>上传文件</h2><h3 id="单个文件"><a href="#单个文件" class="headerlink" title="单个文件"></a>单个文件</h3><p>请求：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST http://localhost:8080/upload \</span><br><span class="line">  -F &quot;file=@/Users/appleboy/test.zip&quot; \</span><br><span class="line">  -H &quot;Content-Type: multipart/form-data&quot;</span><br></pre></td></tr></table></figure>
+
+<p>接收：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    router := gin.Default()</span><br><span class="line">    <span class="comment">// Set a lower memory limit for multipart forms (default is 32 MiB)</span></span><br><span class="line">    <span class="comment">// router.MaxMultipartMemory = 8 &lt;&lt; 20  // 8 MiB</span></span><br><span class="line">    router.POST(<span class="string">&quot;/upload&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">        <span class="comment">// single file</span></span><br><span class="line">        file, _ := c.FormFile(<span class="string">&quot;file&quot;</span>)</span><br><span class="line">        log.Println(file.Filename)</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Upload the file to specific dst.</span></span><br><span class="line">        <span class="comment">// c.SaveUploadedFile(file, dst)</span></span><br><span class="line"></span><br><span class="line">        c.String(http.StatusOK, fmt.Sprintf(<span class="string">&quot;&#x27;%s&#x27; uploaded!&quot;</span>, file.Filename))</span><br><span class="line">    &#125;)</span><br><span class="line">    router.Run(<span class="string">&quot;:8080&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="多个文件"><a href="#多个文件" class="headerlink" title="多个文件"></a>多个文件</h3><p>请求：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST http://localhost:8080/upload \</span><br><span class="line">  -F &quot;upload[]=@/Users/appleboy/test1.zip&quot; \</span><br><span class="line">  -F &quot;upload[]=@/Users/appleboy/test2.zip&quot; \</span><br><span class="line">  -H &quot;Content-Type: multipart/form-data&quot;</span><br></pre></td></tr></table></figure>
+
+<p>接收：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    router := gin.Default()</span><br><span class="line">    <span class="comment">// Set a lower memory limit for multipart forms (default is 32 MiB)</span></span><br><span class="line">    <span class="comment">// router.MaxMultipartMemory = 8 &lt;&lt; 20  // 8 MiB</span></span><br><span class="line">    router.POST(<span class="string">&quot;/upload&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">        <span class="comment">// Multipart form</span></span><br><span class="line">        form, _ := c.MultipartForm()</span><br><span class="line">        files := form.File[<span class="string">&quot;upload[]&quot;</span>]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> _, file := <span class="keyword">range</span> files &#123;</span><br><span class="line">            log.Println(file.Filename)</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Upload the file to specific dst.</span></span><br><span class="line">            <span class="comment">// c.SaveUploadedFile(file, dst)</span></span><br><span class="line">        &#125;</span><br><span class="line">        c.String(http.StatusOK, fmt.Sprintf(<span class="string">&quot;%d files uploaded!&quot;</span>, <span class="built_in">len</span>(files)))</span><br><span class="line">    &#125;)</span><br><span class="line">    router.Run(<span class="string">&quot;:8080&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="路由分组"><a href="#路由分组" class="headerlink" title="路由分组"></a>路由分组</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    router := gin.Default()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Simple group: v1</span></span><br><span class="line">    v1 := router.Group(<span class="string">&quot;/v1&quot;</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        v1.POST(<span class="string">&quot;/login&quot;</span>, loginEndpoint)</span><br><span class="line">        v1.POST(<span class="string">&quot;/submit&quot;</span>, submitEndpoint)</span><br><span class="line">        v1.POST(<span class="string">&quot;/read&quot;</span>, readEndpoint)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Simple group: v2</span></span><br><span class="line">    v2 := router.Group(<span class="string">&quot;/v2&quot;</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        v2.POST(<span class="string">&quot;/login&quot;</span>, loginEndpoint)</span><br><span class="line">        v2.POST(<span class="string">&quot;/submit&quot;</span>, submitEndpoint)</span><br><span class="line">        v2.POST(<span class="string">&quot;/read&quot;</span>, readEndpoint)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    router.Run(<span class="string">&quot;:8080&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h2><h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">r := gin.New() <span class="comment">//初始化一个空白的gin</span></span><br></pre></td></tr></table></figure>
+
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">r := gin.Default() <span class="comment">// 初始化一个带有Logger and Recovery 中间件的gin</span></span><br></pre></td></tr></table></figure>
+
+<h4 id="加载中间件"><a href="#加载中间件" class="headerlink" title="加载中间件"></a>加载中间件</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//默认情况下，gin.DefaultWriter=os.Stdout</span></span><br><span class="line">r.Use(gin.Logger())</span><br><span class="line"><span class="comment">//Recovery 中间件可以从任何panic中恢复，如果出现panic，则会写入500。</span></span><br><span class="line">r.Use(gin.Recovery())</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<h4 id="指定路由使用中间件"><a href="#指定路由使用中间件" class="headerlink" title="指定路由使用中间件"></a>指定路由使用中间件</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 对于每个路由中间件，您可以添加任意数量的</span></span><br><span class="line">r.GET(<span class="string">&quot;/benchmark&quot;</span>, MyBenchLogger(), benchEndpoint)</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="指定group添加authorized-认证"><a href="#指定group添加authorized-认证" class="headerlink" title="指定group添加authorized 认证"></a>指定group添加authorized 认证</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">authorized := r.Group(<span class="string">&quot;/&quot;</span>)</span><br><span class="line"><span class="comment">// 每个组中间件！在本例中，我们使用自定义创建的//AuthRequired（）中间件就在“authorized”组中。</span></span><br><span class="line">authorized.Use(AuthRequired())</span><br><span class="line">&#123;</span><br><span class="line">  authorized.POST(<span class="string">&quot;/login&quot;</span>, loginEndpoint)</span><br><span class="line">  authorized.POST(<span class="string">&quot;/submit&quot;</span>, submitEndpoint)</span><br><span class="line">  authorized.POST(<span class="string">&quot;/read&quot;</span>, readEndpoint)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 还可以嵌套使用</span></span><br><span class="line">  testing := authorized.Group(<span class="string">&quot;testing&quot;</span>)</span><br><span class="line">  testing.GET(<span class="string">&quot;/analytics&quot;</span>, analyticsEndpoint)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h4 id="自定义日志"><a href="#自定义日志" class="headerlink" title="自定义日志"></a>自定义日志</h4><p>#####设置日志输出格式 </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    router := gin.New()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// LoggerWithFormatter middleware will write the logs to gin.DefaultWriter</span></span><br><span class="line">    <span class="comment">// By default gin.DefaultWriter = os.Stdout</span></span><br><span class="line">    router.Use(gin.LoggerWithFormatter(<span class="function"><span class="keyword">func</span><span class="params">(param gin.LogFormatterParams)</span> <span class="title">string</span></span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// your custom format</span></span><br><span class="line">        <span class="keyword">return</span> fmt.Sprintf(<span class="string">&quot;%s - [%s] \&quot;%s %s %s %d %s \&quot;%s\&quot; %s\&quot;\n&quot;</span>,</span><br><span class="line">                param.ClientIP,</span><br><span class="line">                param.TimeStamp.Format(time.RFC1123),</span><br><span class="line">                param.Method,</span><br><span class="line">                param.Path,</span><br><span class="line">                param.Request.Proto,</span><br><span class="line">                param.StatusCode,</span><br><span class="line">                param.Latency,</span><br><span class="line">                param.Request.UserAgent(),</span><br><span class="line">                param.ErrorMessage,</span><br><span class="line">        )</span><br><span class="line">    &#125;))</span><br><span class="line">    router.Use(gin.Recovery())</span><br><span class="line"></span><br><span class="line">    router.GET(<span class="string">&quot;/ping&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">        c.String(<span class="number">200</span>, <span class="string">&quot;pong&quot;</span>)</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    router.Run(<span class="string">&quot;:8080&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>输出：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">::1 - [Fri, 07 Dec 2018 17:04:38 JST] &quot;GET &#x2F;ping HTTP&#x2F;1.1 200 122.767µs &quot;Mozilla&#x2F;5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;71.0.3578.80 Safari&#x2F;537.36&quot; &quot;</span><br></pre></td></tr></table></figure>
+
+<h5 id="控制日志颜色"><a href="#控制日志颜色" class="headerlink" title="控制日志颜色"></a>控制日志颜色</h5><p>关闭日志颜色</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gin.DisableConsoleColor()</span><br></pre></td></tr></table></figure>
+
+<p>开启日志颜色</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gin.ForceConsoleColor()</span><br></pre></td></tr></table></figure>
+
+<h2 id="参数绑定和校验"><a href="#参数绑定和校验" class="headerlink" title="参数绑定和校验"></a>参数绑定和校验</h2><p>支持json、xml、yaml 和标准化form values</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/06/restful-%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/06/restful-%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/" class="post-title-link" itemprop="url">URL及参数设计规范</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-05 19:39:39" itemprop="dateCreated datePublished" datetime="2020-08-05T19:39:39Z">2020-08-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-09 13:49:52" itemprop="dateModified" datetime="2020-08-09T13:49:52Z">2020-08-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">架构设计</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/restful/" itemprop="url" rel="index"><span itemprop="name">restful</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="URL及参数设计规范"><a href="#URL及参数设计规范" class="headerlink" title="URL及参数设计规范"></a><strong>URL及参数设计规范</strong></h1><h2 id="1-uri设计规范"><a href="#1-uri设计规范" class="headerlink" title="1.uri设计规范"></a>1.uri设计规范</h2><ol>
+<li>uri末尾不需要出现斜杠/</li>
+<li>在uri中使用斜杠/是表达层级关系的。</li>
+<li>在uri中可以使用连接符-, 来提升可读性。<br>比如 <a target="_blank" rel="noopener" href="http://xxx.com/xx-yy">http://xxx.com/xx-yy</a> 比 <a target="_blank" rel="noopener" href="http://xxx.com/xx_yy%E4%B8%AD%E7%9A%84%E5%8F%AF%E8%AF%BB%E6%80%A7%E6%9B%B4%E5%A5%BD%E3%80%82">http://xxx.com/xx_yy中的可读性更好。</a></li>
+<li>在uri中不允许出现下划线字符_.</li>
+<li>在uri中尽量使用小写字符。</li>
+<li>在uri中不允许出现文件扩展名. 比如接口为 /xxx/api, 不要写成 /xxx/api.php 这样的是不合法的。</li>
+<li>在uri中使用复数形式。</li>
+</ol>
+<p>具体可以看：<a target="_blank" rel="noopener" href="https://blog.restcase.com/7-rules-for-rest-api-uri-design/">https://blog.restcase.com/7-rules-for-rest-api-uri-design/</a></p>
+<p>在RESTful架构中，每个uri代表一种资源，因此uri设计中不能使用动词，只能使用名词，并且名词中也应该尽量使用复数形式。使用者应该使用相应的http动词 GET、POST、PUT、PATCH、DELETE等操作这些资源即可。</p>
+<p>那么在我们未使用RESTful规范之前，我们是如下方式来定义接口的，形式是不固定的，并且没有统一的规范。比如如下形式:</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">http://xxx.com/api/getallUsers; // GET请求方式，获取所有的用户信息</span><br><span class="line">http://xxx.com/api/getuser/1;   // GET请求方式，获取标识为1的用户信息</span><br><span class="line">http://xxx.com/api/user/delete/1 // GET、POST 删除标识为1的用户信息</span><br><span class="line">http://xxx.com/api/updateUser/1  // POST请求方式 更新标识为1的用户信息</span><br><span class="line">http://xxx.com/api/User/add      // POST请求方式，添加新的用户</span><br></pre></td></tr></table></figure>
+
+<p>如上我们可以看到，在未使用Restful规范之前，接口形式是不固定的，没有统一的规范，下面我们来看下使用RESTful规范的接口如下，两者之间对比下就可以看到各自的优点了。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;xxx.com&#x2F;api&#x2F;users;     &#x2F;&#x2F; GET请求方式 获取所有用户信息</span><br><span class="line">http:&#x2F;&#x2F;xxx.com&#x2F;api&#x2F;users&#x2F;1;   &#x2F;&#x2F; GET请求方式 获取标识为1的用户信息</span><br><span class="line">http:&#x2F;&#x2F;xxx.com&#x2F;api&#x2F;users&#x2F;1;   &#x2F;&#x2F; DELETE请求方式 删除标识为1的用户信息</span><br><span class="line">http:&#x2F;&#x2F;xxx.com&#x2F;api&#x2F;users&#x2F;1;   &#x2F;&#x2F; PATCH请求方式，更新标识为1的用户部分信息</span><br><span class="line">http:&#x2F;&#x2F;xxx.com&#x2F;api&#x2F;users;     &#x2F;&#x2F; POST请求方式 添加新的用户</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-HTTP请求规范"><a href="#2-HTTP请求规范" class="headerlink" title="2.HTTP请求规范"></a>2.HTTP请求规范</h2><p>GET (SELECT): 查询；从服务器取出资源.<br>POST(CREATE): 新增; 在服务器上新建一个资源。<br>PUT(UPDATE): 更新; 在服务器上更新资源(客户端提供改变后的完整资源)。<br>PATCH(UPDATE): 更新；在服务器上更新部分资源(客户端提供改变的属性)。<br>DELETE(DELETE): 删除; 从服务器上删除资源。</p>
+<h2 id="3-参数命名规范"><a href="#3-参数命名规范" class="headerlink" title="3.参数命名规范"></a>3.参数命名规范</h2><p>参数推荐采用下划线命名的方式。比如如下demo:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;xxx.com&#x2F;api&#x2F;today-login &#x2F;&#x2F; 获取今天登录的用户。</span><br><span class="line">http:&#x2F;&#x2F;xxx.com&#x2F;api&#x2F;today-login&amp;sort&#x3D;login_desc &#x2F;&#x2F; 获取今天登录的用户、登录时间降序排序。</span><br></pre></td></tr></table></figure>
+
+<h2 id="4-http状态码相关的"><a href="#4-http状态码相关的" class="headerlink" title="4.http状态码相关的"></a>4.http状态码相关的</h2><h3 id="状态码范围"><a href="#状态码范围" class="headerlink" title="状态码范围"></a>状态码范围</h3><p>客户端的每一次请求, 服务器端必须给出回应，回应一般包括HTTP状态码和数据两部分。</p>
+<p>1xx: 信息，请求收到了，继续处理;表示消息中包含一个临时的信息响应。<br>2xx: 代表成功. 行为被成功地接收、理解及采纳。<br>3xx: 重定向。<br>4xx: 客户端错误，请求包含语法错误或请求无法实现。<br>5xx: 服务器端错误.</p>
+<h4 id="2xx-状态码"><a href="#2xx-状态码" class="headerlink" title="2xx 状态码"></a>2xx 状态码</h4><p>200 OK [GET]: 服务器端成功返回用户请求的数据。<br>201 CREATED [POST/PUT/PATCH]: 用户新建或修改数据成功。<br>202 Accepted 表示一个请求已经进入后台排队(一般是异步任务)。<br>204 NO CONTENT -[DELETE]: 用户删除数据成功。</p>
+<h4 id="4xx状态码"><a href="#4xx状态码" class="headerlink" title="4xx状态码"></a>4xx状态码</h4><p>400：Bad Request - [POST/PUT/PATCH]: 用户发出的请求有错误，服务器不理解客户端的请求，未做任何处理。<br>401: Unauthorized; 表示用户没有权限(令牌、用户名、密码错误)。<br>403：Forbidden: 表示用户得到授权了，但是访问被禁止了, 也可以理解为不具有访问资源的权限。<br>404：Not Found: 所请求的资源不存在，或不可用。<br>405：Method Not Allowed: 用户已经通过了身份验证, 但是所用的HTTP方法不在它的权限之内。<br>406：Not Acceptable: 用户的请求的格式不可得(比如用户请求的是JSON格式，但是只有XML格式)。<br>410：Gone - [GET]: 用户请求的资源被转移或被删除。且不会再得到的。<br>415: Unsupported Media Type: 客户端要求的返回格式不支持，比如，API只能返回JSON格式，但是客户端要求返回XML格式。<br>422：Unprocessable Entity: 客户端上传的附件无法处理，导致请求失败。<br>429：Too Many Requests: 客户端的请求次数超过限额。</p>
+<h4 id="5xx-状态码"><a href="#5xx-状态码" class="headerlink" title="5xx 状态码"></a>5xx 状态码</h4><p>5xx 状态码表示服务器端错误。</p>
+<p>500：INTERNAL SERVER ERROR; 服务器发生错误。<br>502：网关错误。<br>503: Service Unavailable 服务器端当前无法处理请求。<br>504：网关超时。</p>
+<p>##5.统一返回数据格式</p>
+<p>RESTful规范中的请求应该返回统一的数据格式。对于返回的数据，一般会包含如下字段:</p>
+<ol>
+<li>code: http响应的状态码。</li>
+<li>status: 包含文本, 比如：’success’(成功), ‘fail’(失败), ‘error’(异常) HTTP状态响应码在500-599之间为 ‘fail’; 在400-499之间为 ‘error’, 其他一般都为 ‘success’。 对于响应状态码为 1xx, 2xx, 3xx 这样的可以根据实际情况可要可不要。</li>
+</ol>
+<p>当status的值为 ‘fail’ 或 ‘error’时，需要添加 message 字段，用于显示错误信息。</p>
+<ol start="3">
+<li>data: 当请求成功的时候, 返回的数据信息。 但是当状态值为 ‘fail’ 或 ‘error’ 时，data仅仅包含错误原因或异常信息等。</li>
+</ol>
+<p>返回成功的响应JSON格式一般为如下:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;code&quot;</span>: <span class="number">200</span>,</span><br><span class="line">    <span class="attr">&quot;status&quot;</span>: <span class="string">&quot;success&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;data&quot;</span>: [&#123;</span><br><span class="line">        <span class="attr">&quot;userName&quot;</span>: <span class="string">&quot;tugenhua&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;age&quot;</span>: <span class="number">31</span></span><br><span class="line">    &#125;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>返回失败的响应json格式为如下:</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;code&quot;</span>: <span class="number">401</span>,</span><br><span class="line">    <span class="attr">&quot;status&quot;</span>: <span class="string">&quot;error&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;message&quot;</span>: &#x27;用户没有权限&#x27;,</span><br><span class="line">    <span class="attr">&quot;data&quot;</span>: <span class="literal">null</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/06/Go-%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Gin%E6%A1%86%E6%9E%B6-%E4%B8%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/06/Go-%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Gin%E6%A1%86%E6%9E%B6-%E4%B8%89/" class="post-title-link" itemprop="url">Go 语言学习笔记 Gin框架(三)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-05 19:39:39" itemprop="dateCreated datePublished" datetime="2020-08-05T19:39:39Z">2020-08-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-09 13:49:52" itemprop="dateModified" datetime="2020-08-09T13:49:52Z">2020-08-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go/" itemprop="url" rel="index"><span itemprop="name">go</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go/gin/" itemprop="url" rel="index"><span itemprop="name">gin</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>20k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>18 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="gin与-gorm的集成"><a href="#gin与-gorm的集成" class="headerlink" title="gin与 gorm的集成"></a>gin与 gorm的集成</h1><p>1.什么是Gorm<br>go语言编写的orm框架<br>特点：<br>1)全功能ORM<br>2)关联（包含一个，包含多个，属于，多对多）<br>3)Callbacks（创建/保存/更新/删除/查找前后回调）<br>4)预加载<br>5)事务<br>6)复合主键<br>7)SQL Builder（执行原生sql）<br>8)自动迁移<br>9)日志</p>
+<p>2.安装</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> get -u github.com/jinzhu/gorm</span><br></pre></td></tr></table></figure>
+
+<p>3.数据库连接<br>1)引入相应驱动</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> _ <span class="string">&quot;github.com/jinzhu/gorm/dialects/mysql&quot;</span></span><br><span class="line"><span class="comment">// import _ &quot;github.com/jinzhu/gorm/dialects/postgres&quot;</span></span><br><span class="line"><span class="comment">// import _ &quot;github.com/jinzhu/gorm/dialects/sqlite&quot;</span></span><br><span class="line"><span class="comment">// import _ &quot;github.com/jinzhu/gorm/dialects/mssql&quot;</span></span><br></pre></td></tr></table></figure>
+
+<p>2)连接示例<br>Mysql</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;github.com/jinzhu/gorm&quot;</span></span><br><span class="line">    _ <span class="string">&quot;github.com/jinzhu/gorm/dialects/mysql&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">  db, err := gorm.Open(<span class="string">&quot;mysql&quot;</span>, <span class="string">&quot;user:password@/dbname?charset=utf8&amp;parseTime=True&amp;loc=Local&quot;</span>)</span><br><span class="line">  <span class="keyword">defer</span> db.Close()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>PostgreSQL</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;github.com/jinzhu/gorm&quot;</span></span><br><span class="line">    _ <span class="string">&quot;github.com/jinzhu/gorm/dialects/postgres&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">  db, err := gorm.Open(<span class="string">&quot;postgres&quot;</span>, <span class="string">&quot;host=myhost user=gorm dbname=gorm sslmode=disable password=mypassword&quot;</span>)</span><br><span class="line">  <span class="keyword">defer</span> db.Close()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>Sqlite3</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;github.com/jinzhu/gorm&quot;</span></span><br><span class="line">    _ <span class="string">&quot;github.com/jinzhu/gorm/dialects/sqlite&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">  db, err := gorm.Open(<span class="string">&quot;sqlite3&quot;</span>, <span class="string">&quot;/tmp/gorm.db&quot;</span>)</span><br><span class="line">  <span class="keyword">defer</span> db.Close()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>4.自动迁移<br>创建表，缺少的列和索引，不会改变现有列的类型或删除列</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    <span class="string">&quot;github.com/jinzhu/gorm&quot;</span></span><br><span class="line">    _ <span class="string">&quot;github.com/jinzhu/gorm/dialects/postgres&quot;</span></span><br><span class="line">    <span class="string">&quot;time&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">const</span> (</span><br><span class="line">    host = <span class="string">&quot;127.0.0.1&quot;</span></span><br><span class="line">    port = <span class="number">5432</span></span><br><span class="line">    user = <span class="string">&quot;postgres&quot;</span></span><br><span class="line">    password = <span class="string">&quot;1&quot;</span></span><br><span class="line">    dbname = <span class="string">&quot;dm-identity&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> User <span class="keyword">struct</span> &#123;</span><br><span class="line">    gorm.Model</span><br><span class="line">    Name <span class="keyword">string</span></span><br><span class="line">    Age <span class="keyword">int</span></span><br><span class="line">    Birthday time.Time</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    psqlInfo := fmt.Sprintf(<span class="string">&quot;host=%s port=%d user=%s password=%s dbname=%s sslmode=disable&quot;</span>, host, port, user, password, dbname)</span><br><span class="line"></span><br><span class="line">    db, err := gorm.Open(<span class="string">&quot;postgres&quot;</span>, psqlInfo)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span>&#123;</span><br><span class="line">        <span class="built_in">panic</span>(err)</span><br><span class="line">    &#125;<span class="keyword">else</span>&#123;</span><br><span class="line">        fmt.Println(<span class="string">&quot;connected successfully&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">defer</span> db.Close()</span><br><span class="line"></span><br><span class="line">    db.AutoMigrate(&amp;User&#123;&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>db.AutoMigrate(&amp;User{})会创建/更新”users”表。</p>
+<p>5.表结构操作<br>1)检验表是否存在</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> result <span class="keyword">bool</span></span><br><span class="line">result = db.HasTable(&amp;User&#123;&#125;)</span><br><span class="line">fmt.Println(result)</span><br></pre></td></tr></table></figure>
+
+<p>运行结果：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>2)创建表</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.CreateTable(&amp;User&#123;&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>3)删除表</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 删除模型User对应的表</span></span><br><span class="line">db.DropTable(&amp;User&#123;&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 删除users表</span></span><br><span class="line">db.DropTable(<span class="string">&quot;users&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>4)修改列</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.Model(&amp;User&#123;&#125;).ModifyColumn(<span class="string">&quot;description&quot;</span>, <span class="string">&quot;text&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>go5)删除列</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.model(&amp;User&#123;&#125;).DropColumn(<span class="string">&quot;description&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>6)添加外键</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.Model(&amp;User&#123;&#125;).AddForeignKey(<span class="string">&quot;city_id&quot;</span>,<span class="string">&quot;cities(id)&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>7)添加索引</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">db.Model(&amp;User&#123;&#125;).AddIndex(<span class="string">&quot;idx_user_name&quot;</span>, <span class="string">&quot;name&quot;</span>)</span><br><span class="line"></span><br><span class="line">db.Model(&amp;User&#123;]).AddUniqueIndex(<span class="string">&quot;idx_user_name&quot;</span>, <span class="string">&quot;name&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>8)删除索引</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.Model(&amp;User&#123;&#125;).RemoveIndex(<span class="string">&quot;idx_user_name&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>6.模型Model定义<br>1)gorm.Model结构体</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Model <span class="keyword">struct</span> &#123;</span><br><span class="line">    ID        <span class="keyword">uint</span> <span class="string">`gorm:&quot;primary_key&quot;`</span></span><br><span class="line">    CreatedAt time.Time</span><br><span class="line">    UpdatedAt time.Time</span><br><span class="line">    DeletedAt *time.Time <span class="string">`sql:&quot;index&quot;`</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>2)定义Model结构体</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 默认表名是 Model名称的小写+复数</span></span><br><span class="line"><span class="keyword">type</span> Profile <span class="keyword">struct</span> &#123;</span><br><span class="line">    gorm.Model</span><br><span class="line">    Refer <span class="keyword">int</span></span><br><span class="line">    Name  <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> User <span class="keyword">struct</span> &#123;</span><br><span class="line">  gorm.Model</span><br><span class="line">  Name <span class="keyword">string</span>  <span class="string">`gorm:&quot;size:255&quot;`</span> <span class="comment">//string默认长度255,size重设长度</span></span><br><span class="line">  Age <span class="keyword">int</span> <span class="string">`gorm:&quot;column:my_age&quot;`</span> <span class="comment">//设置列名为my_age</span></span><br><span class="line">  Num <span class="keyword">int</span>  <span class="string">`gorm:&quot;AUTO_INCREMENT&quot;`</span> <span class="comment">//自增</span></span><br><span class="line">  IgnoreMe <span class="keyword">int</span> <span class="string">`gorm:&quot;-&quot;`</span> <span class="comment">// 忽略字段</span></span><br><span class="line">  Email <span class="keyword">string</span> <span class="string">`gorm:&quot;type:varchar(100);unique_index&quot;//type设置sql类型，unique_index为该列设置唯一索引`</span></span><br><span class="line">  Address <span class="keyword">string</span> <span class="string">`gorm:&quot;not null;unique&quot;`</span> <span class="comment">//非空</span></span><br><span class="line">  no <span class="keyword">string</span> <span class="string">`gorm:&quot;index:idx_no&quot;`</span> <span class="comment">// 创建索引并命名，如果有其他同名索引，则创建组合索引</span></span><br><span class="line">  code <span class="keyword">string</span> <span class="string">`gorm:&quot;index:idx_no&quot;</span></span><br><span class="line"><span class="string">  `</span></span><br><span class="line">  Profile Profile <span class="string">`gorm:&quot;ForeignKey:ProfileID;AssociationForeignKey:Refer&quot;`</span> <span class="comment">//设置外键</span></span><br><span class="line">  ProfileID <span class="keyword">int</span></span><br><span class="line">  remark <span class="keyword">string</span> <span class="string">`gorm:&quot;default:&#x27;test&#x27;&quot;`</span> <span class="comment">//默认值</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    psqlInfo := fmt.Sprintf(<span class="string">&quot;host=%s port=%d user=%s password=%s dbname=%s sslmode=disable&quot;</span>, host, port, user, password, dbname)</span><br><span class="line"></span><br><span class="line">    db, err := gorm.Open(<span class="string">&quot;postgres&quot;</span>, psqlInfo)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span>&#123;</span><br><span class="line">        <span class="built_in">panic</span>(err)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">defer</span> db.Close()</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 全局禁用表名复数</span></span><br><span class="line">    db.SingularTable(<span class="literal">true</span>)</span><br><span class="line">    </span><br><span class="line">    db.AutoMigrate(&amp;User&#123;&#125;, &amp;Profile&#123;&#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>3)自定义表名</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 自定义表名(方法一)</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(User)</span> <span class="title">TableName</span><span class="params">()</span> <span class="title">string</span></span>&#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;my_user&quot;</span></span><br><span class="line">&#125;</span><br><span class="line">...</span><br><span class="line"><span class="comment">// 自定义表名(方法二)</span></span><br><span class="line">db.Table(<span class="string">&quot;my_user&quot;</span>).CreateTable(&amp;User&#123;&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>8.创建</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">user := User&#123;Name: <span class="string">&quot;Jinzhu&quot;</span>, Age: <span class="number">18</span>, Birthday: time.Now()&#125;</span><br><span class="line"></span><br><span class="line">db.NewRecord(user) <span class="comment">// =&gt; 主键为空返回`true`</span></span><br><span class="line"></span><br><span class="line">db.Create(&amp;user)</span><br><span class="line"></span><br><span class="line">db.NewRecord(user) <span class="comment">// =&gt; 创建`user`后返回`false`</span></span><br></pre></td></tr></table></figure>
+
+<p>9.查询</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取第一条记录，按主键排序</span></span><br><span class="line">db.First(&amp;user)</span><br><span class="line"><span class="comment">//// SELECT * FROM users ORDER BY id LIMIT 1;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取最后一条记录，按主键排序</span></span><br><span class="line">db.Last(&amp;user)</span><br><span class="line"><span class="comment">//// SELECT * FROM users ORDER BY id DESC LIMIT 1;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取所有记录</span></span><br><span class="line">db.Find(&amp;users)</span><br><span class="line"><span class="comment">//// SELECT * FROM users;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用主键获取记录</span></span><br><span class="line">db.First(&amp;user, <span class="number">10</span>)</span><br><span class="line"><span class="comment">//// SELECT * FROM users WHERE id = 10;</span></span><br></pre></td></tr></table></figure>
+
+<p>1)Where查询条件(简单SQL)</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 获取第一个匹配记录</span></span><br><span class="line">db.Where(<span class="string">&quot;name = ?&quot;</span>, <span class="string">&quot;jinzhu&quot;</span>).First(&amp;user)</span><br><span class="line"><span class="comment">//// SELECT * FROM users WHERE name = &#x27;jinzhu&#x27; limit 1;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 获取所有匹配记录</span></span><br><span class="line">db.Where(<span class="string">&quot;name = ?&quot;</span>, <span class="string">&quot;jinzhu&quot;</span>).Find(&amp;users)</span><br><span class="line"><span class="comment">//// SELECT * FROM users WHERE name = &#x27;jinzhu&#x27;;</span></span><br><span class="line"></span><br><span class="line">db.Where(<span class="string">&quot;name &lt;&gt; ?&quot;</span>, <span class="string">&quot;jinzhu&quot;</span>).Find(&amp;users)</span><br><span class="line"></span><br><span class="line"><span class="comment">// IN</span></span><br><span class="line">db.Where(<span class="string">&quot;name in (?)&quot;</span>, []<span class="keyword">string</span>&#123;<span class="string">&quot;jinzhu&quot;</span>, <span class="string">&quot;jinzhu 2&quot;</span>&#125;).Find(&amp;users)</span><br><span class="line"></span><br><span class="line"><span class="comment">// LIKE</span></span><br><span class="line">db.Where(<span class="string">&quot;name LIKE ?&quot;</span>, <span class="string">&quot;%jin%&quot;</span>).Find(&amp;users)</span><br><span class="line"></span><br><span class="line"><span class="comment">// AND</span></span><br><span class="line">db.Where(<span class="string">&quot;name = ? AND age &gt;= ?&quot;</span>, <span class="string">&quot;jinzhu&quot;</span>, <span class="string">&quot;22&quot;</span>).Find(&amp;users)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Time</span></span><br><span class="line">db.Where(<span class="string">&quot;updated_at &gt; ?&quot;</span>, lastWeek).Find(&amp;users)</span><br><span class="line"></span><br><span class="line">db.Where(<span class="string">&quot;created_at BETWEEN ? AND ?&quot;</span>, lastWeek, today).Find(&amp;users)</span><br></pre></td></tr></table></figure>
+
+<p>2)Where查询条件（Struct &amp; Map）</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Struct</span></span><br><span class="line">db.Where(&amp;User&#123;Name: <span class="string">&quot;jinzhu&quot;</span>, Age: <span class="number">20</span>&#125;).First(&amp;user)</span><br><span class="line"><span class="comment">//// SELECT * FROM users WHERE name = &quot;jinzhu&quot; AND age = 20 LIMIT 1;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Map</span></span><br><span class="line">db.Where(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;jinzhu&quot;</span>, <span class="string">&quot;age&quot;</span>: <span class="number">20</span>&#125;).Find(&amp;users)</span><br><span class="line"><span class="comment">//// SELECT * FROM users WHERE name = &quot;jinzhu&quot; AND age = 20;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 主键的Slice</span></span><br><span class="line">db.Where([]<span class="keyword">int64</span>&#123;<span class="number">20</span>, <span class="number">21</span>, <span class="number">22</span>&#125;).Find(&amp;users)</span><br><span class="line"><span class="comment">//// SELECT * FROM users WHERE id IN (20, 21, 22);</span></span><br></pre></td></tr></table></figure>
+
+<p>3)Not条件</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">db.Not(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;jinzhu&quot;</span>).First(&amp;user)</span><br><span class="line"><span class="comment">//// SELECT * FROM users WHERE name &lt;&gt; &quot;jinzhu&quot; LIMIT 1;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Not In</span></span><br><span class="line">db.Not(<span class="string">&quot;name&quot;</span>, []<span class="keyword">string</span>&#123;<span class="string">&quot;jinzhu&quot;</span>, <span class="string">&quot;jinzhu 2&quot;</span>&#125;).Find(&amp;users)</span><br><span class="line"><span class="comment">//// SELECT * FROM users WHERE name NOT IN (&quot;jinzhu&quot;, &quot;jinzhu 2&quot;);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Not In slice of primary keys</span></span><br><span class="line">db.Not([]<span class="keyword">int64</span>&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;).First(&amp;user)</span><br><span class="line"><span class="comment">//// SELECT * FROM users WHERE id NOT IN (1,2,3);</span></span><br><span class="line"></span><br><span class="line">db.Not([]<span class="keyword">int64</span>&#123;&#125;).First(&amp;user)</span><br><span class="line"><span class="comment">//// SELECT * FROM users;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Plain SQL</span></span><br><span class="line">db.Not(<span class="string">&quot;name = ?&quot;</span>, <span class="string">&quot;jinzhu&quot;</span>).First(&amp;user)</span><br><span class="line"><span class="comment">//// SELECT * FROM users WHERE NOT(name = &quot;jinzhu&quot;);</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Struct</span></span><br><span class="line">db.Not(User&#123;Name: <span class="string">&quot;jinzhu&quot;</span>&#125;).First(&amp;user)</span><br><span class="line"><span class="comment">//// SELECT * FROM users WHERE name &lt;&gt; &quot;jinzhu&quot;;</span></span><br></pre></td></tr></table></figure>
+
+<p>4)带内联条件的查询</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 按主键获取</span></span><br><span class="line">db.First(&amp;user, <span class="number">23</span>)</span><br><span class="line"><span class="comment">//// SELECT * FROM users WHERE id = 23 LIMIT 1;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 简单SQL</span></span><br><span class="line">db.Find(&amp;user, <span class="string">&quot;name = ?&quot;</span>, <span class="string">&quot;jinzhu&quot;</span>)</span><br><span class="line"><span class="comment">//// SELECT * FROM users WHERE name = &quot;jinzhu&quot;;</span></span><br><span class="line"></span><br><span class="line">db.Find(&amp;users, <span class="string">&quot;name &lt;&gt; ? AND age &gt; ?&quot;</span>, <span class="string">&quot;jinzhu&quot;</span>, <span class="number">20</span>)</span><br><span class="line"><span class="comment">//// SELECT * FROM users WHERE name &lt;&gt; &quot;jinzhu&quot; AND age &gt; 20;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Struct</span></span><br><span class="line">db.Find(&amp;users, User&#123;Age: <span class="number">20</span>&#125;)</span><br><span class="line"><span class="comment">//// SELECT * FROM users WHERE age = 20;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Map</span></span><br><span class="line">db.Find(&amp;users, <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;<span class="string">&quot;age&quot;</span>: <span class="number">20</span>&#125;)</span><br><span class="line"><span class="comment">//// SELECT * FROM users WHERE age = 20;</span></span><br></pre></td></tr></table></figure>
+
+<p>5)Or条件查询</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">db.Where(<span class="string">&quot;role = ?&quot;</span>, <span class="string">&quot;admin&quot;</span>).Or(<span class="string">&quot;role = ?&quot;</span>, <span class="string">&quot;super_admin&quot;</span>).Find(&amp;users)</span><br><span class="line"><span class="comment">//// SELECT * FROM users WHERE role = &#x27;admin&#x27; OR role = &#x27;super_admin&#x27;;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Struct</span></span><br><span class="line">db.Where(<span class="string">&quot;name = &#x27;jinzhu&#x27;&quot;</span>).Or(User&#123;Name: <span class="string">&quot;jinzhu 2&quot;</span>&#125;).Find(&amp;users)</span><br><span class="line"><span class="comment">//// SELECT * FROM users WHERE name = &#x27;jinzhu&#x27; OR name = &#x27;jinzhu 2&#x27;;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Map</span></span><br><span class="line">db.Where(<span class="string">&quot;name = &#x27;jinzhu&#x27;&quot;</span>).Or(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;jinzhu 2&quot;</span>&#125;).Find(&amp;users)</span><br></pre></td></tr></table></figure>
+
+<p>6)查询链</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">db.Where(<span class="string">&quot;name &lt;&gt; ?&quot;</span>,<span class="string">&quot;jinzhu&quot;</span>).Where(<span class="string">&quot;age &gt;= ? and role &lt;&gt; ?&quot;</span>,<span class="number">20</span>,<span class="string">&quot;admin&quot;</span>).Find(&amp;users)</span><br><span class="line"><span class="comment">//// SELECT * FROM users WHERE name &lt;&gt; &#x27;jinzhu&#x27; AND age &gt;= 20 AND role &lt;&gt; &#x27;admin&#x27;;</span></span><br><span class="line"></span><br><span class="line">db.Where(<span class="string">&quot;role = ?&quot;</span>, <span class="string">&quot;admin&quot;</span>).Or(<span class="string">&quot;role = ?&quot;</span>, <span class="string">&quot;super_admin&quot;</span>).Not(<span class="string">&quot;name = ?&quot;</span>, <span class="string">&quot;jinzhu&quot;</span>).Find(&amp;users)</span><br></pre></td></tr></table></figure>
+
+<p>7)FirstOrInit<br>获取第一个匹配的记录，若没有，则根据条件初始化一个新的记录</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Unfound</span></span><br><span class="line">db.FirstOrInit(&amp;user, User&#123;Name: <span class="string">&quot;non_existing&quot;</span>&#125;)</span><br><span class="line"><span class="comment">//// user -&gt; User&#123;Name: &quot;non_existing&quot;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Found</span></span><br><span class="line">db.Where(User&#123;Name: <span class="string">&quot;Jinzhu&quot;</span>&#125;).FirstOrInit(&amp;user)</span><br><span class="line"><span class="comment">//// user -&gt; User&#123;Id: 111, Name: &quot;Jinzhu&quot;, Age: 20&#125;</span></span><br><span class="line">db.FirstOrInit(&amp;user, <span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;jinzhu&quot;</span>&#125;)</span><br><span class="line"><span class="comment">//// user -&gt; User&#123;Id: 111, Name: &quot;Jinzhu&quot;, Age: 20&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>8)Attrs<br>如果未找到记录，则使用参数初始化结构</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Unfound</span></span><br><span class="line">db.Where(User&#123;Name: <span class="string">&quot;non_existing&quot;</span>&#125;).Attrs(User&#123;Age: <span class="number">20</span>&#125;).FirstOrInit(&amp;user)</span><br><span class="line"><span class="comment">//// SELECT * FROM USERS WHERE name = &#x27;non_existing&#x27;;</span></span><br><span class="line"><span class="comment">//// user -&gt; User&#123;Name: &quot;non_existing&quot;, Age: 20&#125;</span></span><br><span class="line"></span><br><span class="line">db.Where(User&#123;Name: <span class="string">&quot;non_existing&quot;</span>&#125;).Attrs(<span class="string">&quot;age&quot;</span>, <span class="number">20</span>).FirstOrInit(&amp;user)</span><br><span class="line"><span class="comment">//// SELECT * FROM USERS WHERE name = &#x27;non_existing&#x27;;</span></span><br><span class="line"><span class="comment">//// user -&gt; User&#123;Name: &quot;non_existing&quot;, Age: 20&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Found</span></span><br><span class="line">db.Where(User&#123;Name: <span class="string">&quot;Jinzhu&quot;</span>&#125;).Attrs(User&#123;Age: <span class="number">30</span>&#125;).FirstOrInit(&amp;user)</span><br><span class="line"><span class="comment">//// SELECT * FROM USERS WHERE name = jinzhu&#x27;;</span></span><br><span class="line"><span class="comment">//// user -&gt; User&#123;Id: 111, Name: &quot;Jinzhu&quot;, Age: 20&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>9)Assign<br>将参数分配给结果，不管是否找到</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Unfound</span></span><br><span class="line">db.Where(User&#123;Name: <span class="string">&quot;non_existing&quot;</span>&#125;).Assign(User&#123;Age: <span class="number">20</span>&#125;).FirstOrInit(&amp;user)</span><br><span class="line"><span class="comment">//// user -&gt; User&#123;Name: &quot;non_existing&quot;, Age: 20&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Found</span></span><br><span class="line">db.Where(User&#123;Name: <span class="string">&quot;Jinzhu&quot;</span>&#125;).Assign(User&#123;Age: <span class="number">30</span>&#125;).FirstOrInit(&amp;user)</span><br><span class="line"><span class="comment">//// SELECT * FROM USERS WHERE name = jinzhu&#x27;;</span></span><br><span class="line"><span class="comment">//// user -&gt; User&#123;Id: 111, Name: &quot;Jinzhu&quot;, Age: 30&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>10)FirstOrCreate<br>获取第一个匹配的结果，或创建一个具有给定条件的新纪录</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// Unfound</span></span><br><span class="line">db.FirstOrCreate(&amp;user, User&#123;Name: <span class="string">&quot;non_existing&quot;</span>&#125;)</span><br><span class="line"><span class="comment">//// INSERT INTO &quot;users&quot; (name) VALUES (&quot;non_existing&quot;);</span></span><br><span class="line"><span class="comment">//// user -&gt; User&#123;Id: 112, Name: &quot;non_existing&quot;&#125;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Found</span></span><br><span class="line">db.Where(User&#123;Name: <span class="string">&quot;Jinzhu&quot;</span>&#125;).FirstOrCreate(&amp;user)</span><br><span class="line"><span class="comment">//// user -&gt; User&#123;Id: 111, Name: &quot;Jinzhu&quot;&#125;</span></span><br></pre></td></tr></table></figure>
+
+<p>11)Select<br>从数据库检索字段</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">db.Select(<span class="string">&quot;name, age&quot;</span>).Find(&amp;users)</span><br><span class="line"><span class="comment">//// SELECT name, age FROM users;</span></span><br><span class="line"></span><br><span class="line">db.Select([]<span class="keyword">string</span>&#123;<span class="string">&quot;name&quot;</span>, <span class="string">&quot;age&quot;</span>&#125;).Find(&amp;users)</span><br><span class="line"><span class="comment">//// SELECT name, age FROM users;</span></span><br><span class="line"></span><br><span class="line">db.Table(<span class="string">&quot;users&quot;</span>).Select(<span class="string">&quot;COALESCE(age,?)&quot;</span>, <span class="number">42</span>).Rows()</span><br><span class="line"><span class="comment">//// SELECT COALESCE(age,&#x27;42&#x27;) FROM users;</span></span><br></pre></td></tr></table></figure>
+
+<p>12)Order<br>从数据库检索记录时指定顺序</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">db.Order(<span class="string">&quot;age desc, name&quot;</span>).Find(&amp;users)</span><br><span class="line"><span class="comment">//// SELECT * FROM users ORDER BY age desc, name;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Multiple orders</span></span><br><span class="line">db.Order(<span class="string">&quot;age desc&quot;</span>).Order(<span class="string">&quot;name&quot;</span>).Find(&amp;users)</span><br><span class="line"><span class="comment">//// SELECT * FROM users ORDER BY age desc, name;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// ReOrder</span></span><br><span class="line">db.Order(<span class="string">&quot;age desc&quot;</span>).Find(&amp;users1).Order(<span class="string">&quot;age&quot;</span>, <span class="literal">true</span>).Find(&amp;users2)</span><br><span class="line"><span class="comment">//// SELECT * FROM users ORDER BY age desc; (users1)</span></span><br><span class="line"><span class="comment">//// SELECT * FROM users ORDER BY age; (users2)</span></span><br></pre></td></tr></table></figure>
+
+<p>13)Limit<br>指定要检索的记录数</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">db.Limit(<span class="number">3</span>).Find(&amp;users)</span><br><span class="line"><span class="comment">//// SELECT * FROM users LIMIT 3;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Cancel limit condition with -1</span></span><br><span class="line">db.Limit(<span class="number">10</span>).Find(&amp;users1).Limit(<span class="number">-1</span>).Find(&amp;users2)</span><br><span class="line"><span class="comment">//// SELECT * FROM users LIMIT 10; (users1)</span></span><br><span class="line"><span class="comment">//// SELECT * FROM users; (users2)</span></span><br></pre></td></tr></table></figure>
+
+<p>14)Offset<br>指定在开始返回记录之前要跳过的记录数</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">db.Offset(<span class="number">3</span>).Find(&amp;users)</span><br><span class="line"><span class="comment">//// SELECT * FROM users OFFSET 3;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// Cancel offset condition with -1</span></span><br><span class="line">db.Offset(<span class="number">10</span>).Find(&amp;users1).Offset(<span class="number">-1</span>).Find(&amp;users2)</span><br><span class="line"><span class="comment">//// SELECT * FROM users OFFSET 10; (users1)</span></span><br><span class="line"><span class="comment">//// SELECT * FROM users; (users2)</span></span><br></pre></td></tr></table></figure>
+
+<p>15)Count<br>获取模型的记录数</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">db.Where(<span class="string">&quot;name = ?&quot;</span>, <span class="string">&quot;jinzhu&quot;</span>).Or(<span class="string">&quot;name = ?&quot;</span>, <span class="string">&quot;jinzhu 2&quot;</span>).Find(&amp;users).Count(&amp;count)</span><br><span class="line"><span class="comment">//// SELECT * from USERS WHERE name = &#x27;jinzhu&#x27; OR name = &#x27;jinzhu 2&#x27;; (users)</span></span><br><span class="line"><span class="comment">//// SELECT count(*) FROM users WHERE name = &#x27;jinzhu&#x27; OR name = &#x27;jinzhu 2&#x27;; (count)</span></span><br><span class="line"></span><br><span class="line">db.Model(&amp;User&#123;&#125;).Where(<span class="string">&quot;name = ?&quot;</span>, <span class="string">&quot;jinzhu&quot;</span>).Count(&amp;count)</span><br><span class="line"><span class="comment">//// SELECT count(*) FROM users WHERE name = &#x27;jinzhu&#x27;; (count)</span></span><br><span class="line"></span><br><span class="line">db.Table(<span class="string">&quot;deleted_users&quot;</span>).Count(&amp;count)</span><br><span class="line"><span class="comment">//// SELECT count(*) FROM deleted_users;</span></span><br></pre></td></tr></table></figure>
+
+<p>16)Group &amp; Having</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line">rows, err := db.Table(<span class="string">&quot;orders&quot;</span>).Select(<span class="string">&quot;date(created_at) as date, sum(amount) as total&quot;</span>).Group(<span class="string">&quot;date(created_at)&quot;</span>).Rows()</span><br><span class="line"><span class="keyword">for</span> rows.Next() &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">rows, err := db.Table(<span class="string">&quot;orders&quot;</span>).Select(<span class="string">&quot;date(created_at) as date, sum(amount) as total&quot;</span>).Group(<span class="string">&quot;date(created_at)&quot;</span>).Having(<span class="string">&quot;sum(amount) &gt; ?&quot;</span>, <span class="number">100</span>).Rows()</span><br><span class="line"><span class="keyword">for</span> rows.Next() &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Result <span class="keyword">struct</span> &#123;</span><br><span class="line">    Date  time.Time</span><br><span class="line">    Total <span class="keyword">int64</span></span><br><span class="line">&#125;</span><br><span class="line">db.Table(<span class="string">&quot;orders&quot;</span>).Select(<span class="string">&quot;date(created_at) as date, sum(amount) as total&quot;</span>).Group(<span class="string">&quot;date(created_at)&quot;</span>).Having(<span class="string">&quot;sum(amount) &gt; ?&quot;</span>, <span class="number">100</span>).Scan(&amp;results)</span><br></pre></td></tr></table></figure>
+
+<p>17)Join<br>指定连接条件</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">rows, err := db.Table(<span class="string">&quot;users&quot;</span>).Select(<span class="string">&quot;users.name, emails.email&quot;</span>).Joins(<span class="string">&quot;left join emails on emails.user_id = users.id&quot;</span>).Rows()</span><br><span class="line"><span class="keyword">for</span> rows.Next() &#123;</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">db.Table(<span class="string">&quot;users&quot;</span>).Select(<span class="string">&quot;users.name, emails.email&quot;</span>).Joins(<span class="string">&quot;left join emails on emails.user_id = users.id&quot;</span>).Scan(&amp;results)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 多个连接与参数</span></span><br><span class="line">db.Joins(<span class="string">&quot;JOIN emails ON emails.user_id = users.id AND emails.email = ?&quot;</span>, <span class="string">&quot;jinzhu@example.org&quot;</span>).Joins(<span class="string">&quot;JOIN credit_cards ON credit_cards.user_id = users.id&quot;</span>).Where(<span class="string">&quot;credit_cards.number = ?&quot;</span>, <span class="string">&quot;411111111111&quot;</span>).Find(&amp;user)</span><br></pre></td></tr></table></figure>
+
+<p>18)Pluck<br>查询单列，返回数组</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ages []<span class="keyword">int64</span></span><br><span class="line">db.Find(&amp;users).Pluck(<span class="string">&quot;age&quot;</span>, &amp;ages)</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> names []<span class="keyword">string</span></span><br><span class="line">db.Model(&amp;User&#123;&#125;).Pluck(<span class="string">&quot;name&quot;</span>, &amp;names)</span><br><span class="line"></span><br><span class="line">db.Table(<span class="string">&quot;deleted_users&quot;</span>).Pluck(<span class="string">&quot;name&quot;</span>, &amp;names)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 要返回多个列，做这样：</span></span><br><span class="line">db.Select(<span class="string">&quot;name, age&quot;</span>).Find(&amp;users)</span><br></pre></td></tr></table></figure>
+
+<p>19)Scan<br>将结果扫描到另一个结构中</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Result <span class="keyword">struct</span> &#123;</span><br><span class="line">    Name <span class="keyword">string</span></span><br><span class="line">    Age  <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> result Result</span><br><span class="line">db.Table(<span class="string">&quot;users&quot;</span>).Select(<span class="string">&quot;name, age&quot;</span>).Where(<span class="string">&quot;name = ?&quot;</span>, <span class="number">3</span>).Scan(&amp;result)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Raw SQL</span></span><br><span class="line">db.Raw(<span class="string">&quot;SELECT name, age FROM users WHERE name = ?&quot;</span>, <span class="number">3</span>).Scan(&amp;result)</span><br></pre></td></tr></table></figure>
+
+<p>20)预加载<br>数据库编译一次，然后保存，提高执行效率</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">db.Preload(<span class="string">&quot;Orders&quot;</span>).Find(&amp;users)</span><br></pre></td></tr></table></figure>
+
+<p>10.更新<br>1)更新全部字段 Save</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">db.First(&amp;user)</span><br><span class="line"></span><br><span class="line">user.Name = <span class="string">&quot;jinzhu 2&quot;</span></span><br><span class="line">user.Age = <span class="number">100</span></span><br><span class="line">db.Save(&amp;user)</span><br><span class="line"></span><br><span class="line"><span class="comment">//// UPDATE users SET name=&#x27;jinzhu 2&#x27;, age=100, birthday=&#x27;2016-01-01&#x27;, updated_at = &#x27;2013-11-17 21:34:10&#x27; WHERE id=111;</span></span><br></pre></td></tr></table></figure>
+
+<p>2)更新更改字段 Update Updates</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 更新单个属性（如果更改）</span></span><br><span class="line">db.Model(&amp;user).Update(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;hello&quot;</span>)</span><br><span class="line"><span class="comment">//// UPDATE users SET name=&#x27;hello&#x27;, updated_at=&#x27;2013-11-17 21:34:10&#x27; WHERE id=111;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用组合条件更新单个属性</span></span><br><span class="line">db.Model(&amp;user).Where(<span class="string">&quot;active = ?&quot;</span>, <span class="literal">true</span>).Update(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;hello&quot;</span>)</span><br><span class="line"><span class="comment">//// UPDATE users SET name=&#x27;hello&#x27;, updated_at=&#x27;2013-11-17 21:34:10&#x27; WHERE id=111 AND active=true;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用`map`更新多个属性，只会更新这些更改的字段</span></span><br><span class="line">db.Model(&amp;user).Updates(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;hello&quot;</span>, <span class="string">&quot;age&quot;</span>: <span class="number">18</span>, <span class="string">&quot;actived&quot;</span>: <span class="literal">false</span>&#125;)</span><br><span class="line"><span class="comment">//// UPDATE users SET name=&#x27;hello&#x27;, age=18, actived=false, updated_at=&#x27;2013-11-17 21:34:10&#x27; WHERE id=111;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用`struct`更新多个属性，只会更新这些更改的和非空白字段</span></span><br><span class="line">db.Model(&amp;user).Updates(User&#123;Name: <span class="string">&quot;hello&quot;</span>, Age: <span class="number">18</span>&#125;)</span><br><span class="line"><span class="comment">//// UPDATE users SET name=&#x27;hello&#x27;, age=18, updated_at = &#x27;2013-11-17 21:34:10&#x27; WHERE id = 111;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 警告:当使用struct更新时，FORM将仅更新具有非空值的字段</span></span><br><span class="line"><span class="comment">// 对于下面的更新，什么都不会更新为&quot;&quot;，0，false是其类型的空白值</span></span><br><span class="line">db.Model(&amp;user).Updates(User&#123;Name: <span class="string">&quot;&quot;</span>, Age: <span class="number">0</span>, Actived: <span class="literal">false</span>&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>3)更新选择字段</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">db.Model(&amp;user).Select(<span class="string">&quot;name&quot;</span>).Updates(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;hello&quot;</span>, <span class="string">&quot;age&quot;</span>: <span class="number">18</span>, <span class="string">&quot;actived&quot;</span>: <span class="literal">false</span>&#125;)</span><br><span class="line"><span class="comment">//// UPDATE users SET name=&#x27;hello&#x27;, updated_at=&#x27;2013-11-17 21:34:10&#x27; WHERE id=111;</span></span><br><span class="line"></span><br><span class="line">db.Model(&amp;user).Omit(<span class="string">&quot;name&quot;</span>).Updates(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;hello&quot;</span>, <span class="string">&quot;age&quot;</span>: <span class="number">18</span>, <span class="string">&quot;actived&quot;</span>: <span class="literal">false</span>&#125;)</span><br><span class="line"><span class="comment">//// UPDATE users SET age=18, actived=false, updated_at=&#x27;2013-11-17 21:34:10&#x27; WHERE id=111;</span></span><br></pre></td></tr></table></figure>
+
+<p>4)使用sql表达式更新</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">DB.Model(&amp;product).Update(<span class="string">&quot;price&quot;</span>, gorm.Expr(<span class="string">&quot;price * ? + ?&quot;</span>, <span class="number">2</span>, <span class="number">100</span>))</span><br><span class="line"><span class="comment">//// UPDATE &quot;products&quot; SET &quot;price&quot; = price * &#x27;2&#x27; + &#x27;100&#x27;, &quot;updated_at&quot; = &#x27;2013-11-17 21:34:10&#x27; WHERE &quot;id&quot; = &#x27;2&#x27;;</span></span><br><span class="line"></span><br><span class="line">DB.Model(&amp;product).Updates(<span class="keyword">map</span>[<span class="keyword">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;<span class="string">&quot;price&quot;</span>: gorm.Expr(<span class="string">&quot;price * ? + ?&quot;</span>, <span class="number">2</span>, <span class="number">100</span>)&#125;)</span><br><span class="line"><span class="comment">//// UPDATE &quot;products&quot; SET &quot;price&quot; = price * &#x27;2&#x27; + &#x27;100&#x27;, &quot;updated_at&quot; = &#x27;2013-11-17 21:34:10&#x27; WHERE &quot;id&quot; = &#x27;2&#x27;;</span></span><br><span class="line"></span><br><span class="line">DB.Model(&amp;product).UpdateColumn(<span class="string">&quot;quantity&quot;</span>, gorm.Expr(<span class="string">&quot;quantity - ?&quot;</span>, <span class="number">1</span>))</span><br><span class="line"><span class="comment">//// UPDATE &quot;products&quot; SET &quot;quantity&quot; = quantity - 1 WHERE &quot;id&quot; = &#x27;2&#x27;;</span></span><br><span class="line"></span><br><span class="line">DB.Model(&amp;product).Where(<span class="string">&quot;quantity &gt; 1&quot;</span>).UpdateColumn(<span class="string">&quot;quantity&quot;</span>, gorm.Expr(<span class="string">&quot;quantity - ?&quot;</span>, <span class="number">1</span>))</span><br><span class="line"><span class="comment">//// UPDATE &quot;products&quot; SET &quot;quantity&quot; = quantity - 1 WHERE &quot;id&quot; = &#x27;2&#x27; AND quantity &gt; 1;</span></span><br></pre></td></tr></table></figure>
+
+<p>11.删除<br>1)删除</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 删除存在的记录</span></span><br><span class="line">db.Delete(&amp;email)</span><br><span class="line"><span class="comment">//// DELETE from emails where id=10;</span></span><br></pre></td></tr></table></figure>
+
+<p>2)批量删除</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">db.Where(<span class="string">&quot;email LIKE ?&quot;</span>, <span class="string">&quot;%jinzhu%&quot;</span>).Delete(Email&#123;&#125;)</span><br><span class="line"><span class="comment">//// DELETE from emails where email LIKE &quot;%jinhu%&quot;;</span></span><br><span class="line"></span><br><span class="line">db.Delete(Email&#123;&#125;, <span class="string">&quot;email LIKE ?&quot;</span>, <span class="string">&quot;%jinzhu%&quot;</span>)</span><br><span class="line"><span class="comment">//// DELETE from emails where email LIKE &quot;%jinhu%&quot;;</span></span><br></pre></td></tr></table></figure>
+
+<p>3)软删除<br>如果模型有DeletedAt字段，删除时是软删除</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">db.Delete(&amp;user)</span><br><span class="line"><span class="comment">//// UPDATE users SET deleted_at=&quot;2013-10-29 10:23&quot; WHERE id = 111;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 批量删除</span></span><br><span class="line">db.Where(<span class="string">&quot;age = ?&quot;</span>, <span class="number">20</span>).Delete(&amp;User&#123;&#125;)</span><br><span class="line"><span class="comment">//// UPDATE users SET deleted_at=&quot;2013-10-29 10:23&quot; WHERE age = 20;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 软删除的记录将在查询时被忽略</span></span><br><span class="line">db.Where(<span class="string">&quot;age = 20&quot;</span>).Find(&amp;user)</span><br><span class="line"><span class="comment">//// SELECT * FROM users WHERE age = 20 AND deleted_at IS NULL;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用Unscoped查找软删除的记录</span></span><br><span class="line">db.Unscoped().Where(<span class="string">&quot;age = 20&quot;</span>).Find(&amp;users)</span><br><span class="line"><span class="comment">//// SELECT * FROM users WHERE age = 20;</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 使用Unscoped永久删除记录</span></span><br><span class="line">db.Unscoped().Delete(&amp;order)</span><br><span class="line"><span class="comment">//// DELETE FROM orders WHERE id=10;</span></span><br></pre></td></tr></table></figure>
+
+<p>12.事务</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">CreateAnimals</span><span class="params">(db *gorm.DB)</span> <span class="title">err</span></span> &#123;</span><br><span class="line">  tx := db.Begin()</span><br><span class="line">  <span class="comment">// 注意，一旦你在一个事务中，使用tx作为数据库句柄</span></span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> err := tx.Create(&amp;Animal&#123;Name: <span class="string">&quot;Giraffe&quot;</span>&#125;).Error; err != <span class="literal">nil</span> &#123;</span><br><span class="line">     tx.Rollback()</span><br><span class="line">     <span class="keyword">return</span> err</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="keyword">if</span> err := tx.Create(&amp;Animal&#123;Name: <span class="string">&quot;Lion&quot;</span>&#125;).Error; err != <span class="literal">nil</span> &#123;</span><br><span class="line">     tx.Rollback()</span><br><span class="line">     <span class="keyword">return</span> err</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  tx.Commit()</span><br><span class="line">  <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>13.SQL构建<br>1)执行原生sql</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">db.Exec(<span class="string">&quot;DROP TABLE users;&quot;</span>)</span><br><span class="line">db.Exec(<span class="string">&quot;UPDATE orders SET shipped_at=? WHERE id IN (?)&quot;</span>, time.Now, []<span class="keyword">int64</span>&#123;<span class="number">11</span>,<span class="number">22</span>,<span class="number">33</span>&#125;)</span><br><span class="line"></span><br><span class="line"><span class="comment">// Scan</span></span><br><span class="line"><span class="keyword">type</span> Result <span class="keyword">struct</span> &#123;</span><br><span class="line">    Name <span class="keyword">string</span></span><br><span class="line">    Age  <span class="keyword">int</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> result Result</span><br><span class="line">db.Raw(<span class="string">&quot;SELECT name, age FROM users WHERE name = ?&quot;</span>, <span class="number">3</span>).Scan(&amp;result)</span><br></pre></td></tr></table></figure>
+
+<p>2)sql.Row &amp; sql.Rows</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">row := db.Table(<span class="string">&quot;users&quot;</span>).Where(<span class="string">&quot;name = ?&quot;</span>, <span class="string">&quot;jinzhu&quot;</span>).Select(<span class="string">&quot;name, age&quot;</span>).Row() <span class="comment">// (*sql.Row)</span></span><br><span class="line">row.Scan(&amp;name, &amp;age)</span><br><span class="line"></span><br><span class="line">rows, err := db.Model(&amp;User&#123;&#125;).Where(<span class="string">&quot;name = ?&quot;</span>, <span class="string">&quot;jinzhu&quot;</span>).Select(<span class="string">&quot;name, age, email&quot;</span>).Rows() <span class="comment">// (*sql.Rows, error)</span></span><br><span class="line"><span class="keyword">defer</span> rows.Close()</span><br><span class="line"><span class="keyword">for</span> rows.Next() &#123;</span><br><span class="line">    ...</span><br><span class="line">    rows.Scan(&amp;name, &amp;age, &amp;email)</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// Raw SQL</span></span><br><span class="line">rows, err := db.Raw(<span class="string">&quot;select name, age, email from users where name = ?&quot;</span>, <span class="string">&quot;jinzhu&quot;</span>).Rows() <span class="comment">// (*sql.Rows, error)</span></span><br><span class="line"><span class="keyword">defer</span> rows.Close()</span><br><span class="line"><span class="keyword">for</span> rows.Next() &#123;</span><br><span class="line">    ...</span><br><span class="line">    rows.Scan(&amp;name, &amp;age, &amp;email)</span><br><span class="line">    ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>3)迭代中使用sql.Rows的Scan</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">rows, err := db.Model(&amp;User&#123;&#125;).Where(<span class="string">&quot;name = ?&quot;</span>, <span class="string">&quot;jinzhu&quot;</span>).Select(<span class="string">&quot;name, age, email&quot;</span>).Rows() <span class="comment">// (*sql.Rows, error)</span></span><br><span class="line"><span class="keyword">defer</span> rows.Close()</span><br><span class="line"></span><br><span class="line"><span class="keyword">for</span> rows.Next() &#123;</span><br><span class="line">  <span class="keyword">var</span> user User</span><br><span class="line">  db.ScanRows(rows, &amp;user)</span><br><span class="line">  <span class="comment">// do something</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>14.日志</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 启用Logger，显示详细日志</span></span><br><span class="line">db.LogMode(<span class="literal">true</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 禁用日志记录器，不显示任何日志</span></span><br><span class="line">db.LogMode(<span class="literal">false</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 调试单个操作，显示此操作的详细日志</span></span><br><span class="line">db.Debug().Where(<span class="string">&quot;name = ?&quot;</span>, <span class="string">&quot;jinzhu&quot;</span>).First(&amp;User&#123;&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>15.架构<br>Gorm使用可链接的API, *gorm.DB是链的桥梁</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">db, err := gorm.Open(<span class="string">&quot;postgres&quot;</span>, <span class="string">&quot;user=gorm dbname=gorm sslmode=disable&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建新关系</span></span><br><span class="line">db = db.Where(<span class="string">&quot;name = ?&quot;</span>, <span class="string">&quot;jinzhu&quot;</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 过滤更多</span></span><br><span class="line"><span class="keyword">if</span> SomeCondition &#123;</span><br><span class="line">    db = db.Where(<span class="string">&quot;age = ?&quot;</span>, <span class="number">20</span>)</span><br><span class="line">&#125; <span class="keyword">else</span> &#123;</span><br><span class="line">    db = db.Where(<span class="string">&quot;age = ?&quot;</span>, <span class="number">30</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="keyword">if</span> YetAnotherCondition &#123;</span><br><span class="line">    db = db.Where(<span class="string">&quot;active = ?&quot;</span>, <span class="number">1</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/05/go-%E8%AF%AD%E6%B3%95%E7%B3%96%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/05/go-%E8%AF%AD%E6%B3%95%E7%B3%96%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86/" class="post-title-link" itemprop="url">go-语法糖原理-多重赋值</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-04 22:34:46" itemprop="dateCreated datePublished" datetime="2020-08-04T22:34:46Z">2020-08-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-13 09:55:22" itemprop="dateModified" datetime="2020-08-13T09:55:22Z">2020-08-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go/" itemprop="url" rel="index"><span itemprop="name">go</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go/%E5%8E%9F%E7%90%86%E5%AE%9E%E7%8E%B0/" itemprop="url" rel="index"><span itemprop="name">原理实现</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>0</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -424,6 +1106,122 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/05/go-%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98-%E5%AD%97%E7%AC%A6%E4%B8%B2/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/05/go-%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98-%E5%AD%97%E7%AC%A6%E4%B8%B2/" class="post-title-link" itemprop="url">go-性能调优-字符串</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-04 22:34:46" itemprop="dateCreated datePublished" datetime="2020-08-04T22:34:46Z">2020-08-04</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-13 09:54:18" itemprop="dateModified" datetime="2020-08-13T09:54:18Z">2020-08-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go/" itemprop="url" rel="index"><span itemprop="name">go</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go/%E6%80%A7%E8%83%BD%E8%B0%83%E4%BC%98/" itemprop="url" rel="index"><span itemprop="name">性能调优</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>#goloang 性能调优</p>
+<h2 id="字符串性能测试"><a href="#字符串性能测试" class="headerlink" title="字符串性能测试"></a>字符串性能测试</h2><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">package concat_string</span><br><span class="line"></span><br><span class="line">import (</span><br><span class="line">    &quot;bytes&quot;</span><br><span class="line">    &quot;fmt&quot;</span><br><span class="line">    &quot;strconv&quot;</span><br><span class="line">    &quot;strings&quot;</span><br><span class="line">    &quot;testing&quot;</span><br><span class="line">)</span><br><span class="line"></span><br><span class="line">const numbers &#x3D; 100</span><br><span class="line"></span><br><span class="line">func BenchmarkSprintf(b *testing.B) &#123;</span><br><span class="line">    b.ResetTimer()</span><br><span class="line">    for idx :&#x3D; 0; idx &lt; b.N; idx++ &#123;</span><br><span class="line">        var s string</span><br><span class="line">        for i :&#x3D; 0; i &lt; numbers; i++ &#123;</span><br><span class="line">            s &#x3D; fmt.Sprintf(&quot;%v%v&quot;, s, i)</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    b.StopTimer()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func BenchmarkStringBuilder(b *testing.B) &#123;</span><br><span class="line">    b.ResetTimer()</span><br><span class="line">    for idx :&#x3D; 0; idx &lt; b.N; idx++ &#123;</span><br><span class="line">        var builder strings.Builder</span><br><span class="line">        for i :&#x3D; 0; i &lt; numbers; i++ &#123;</span><br><span class="line">            builder.WriteString(strconv.Itoa(i))</span><br><span class="line"></span><br><span class="line">        &#125;</span><br><span class="line">        _ &#x3D; builder.String()</span><br><span class="line">    &#125;</span><br><span class="line">    b.StopTimer()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func BenchmarkBytesBuf(b *testing.B) &#123;</span><br><span class="line">    b.ResetTimer()</span><br><span class="line">    for idx :&#x3D; 0; idx &lt; b.N; idx++ &#123;</span><br><span class="line">        var buf bytes.Buffer</span><br><span class="line">        for i :&#x3D; 0; i &lt; numbers; i++ &#123;</span><br><span class="line">            buf.WriteString(strconv.Itoa(i))</span><br><span class="line">        &#125;</span><br><span class="line">        _ &#x3D; buf.String()</span><br><span class="line">    &#125;</span><br><span class="line">    b.StopTimer()</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func BenchmarkStringAdd(b *testing.B) &#123;</span><br><span class="line">    b.ResetTimer()</span><br><span class="line">    for idx :&#x3D; 0; idx &lt; b.N; idx++ &#123;</span><br><span class="line">        var s string</span><br><span class="line">        for i :&#x3D; 0; i &lt; numbers; i++ &#123;</span><br><span class="line">            s +&#x3D; strconv.Itoa(i)</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    b.StopTimer()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>执行  go test -bench=. -run=none<br><br>output：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mfxing  go test -bench&#x3D;. -run&#x3D;none </span><br><span class="line">goos: darwin</span><br><span class="line">goarch: amd64</span><br><span class="line">pkg: go.doglobal.net&#x2F;duapps&#x2F;do-feed&#x2F;service</span><br><span class="line">BenchmarkSprintf-4                100000             17347 ns&#x2F;op</span><br><span class="line">BenchmarkStringBuilder-4         2000000               899 ns&#x2F;op</span><br><span class="line">BenchmarkBytesBuf-4              1000000              1225 ns&#x2F;op</span><br><span class="line">BenchmarkStringAdd-4              300000              5683 ns&#x2F;op</span><br><span class="line">PASS</span><br><span class="line">ok      go.doglobal.net&#x2F;duapps&#x2F;do-feed&#x2F;service  7.630s</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<p><b>从结果可以看出 StringBuilder是最快的 899 ns/op， bytes.buffer次之，string += 拼的方式性较差，fmt.Sprintf()的方式性能最差是17347 ns/op。</p>
+<p>接下来我们分析下为什么fmt.Sprintf()性能较stringbuilder 的性能差了这么多，通过 -cpuprofile profile.out的参数 将内存分配的信息输出到profile.out中</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">mfxing  go test -bench&#x3D;. -benchmem -cpuprofile profile.out</span><br><span class="line">goos: darwin</span><br><span class="line">goarch: amd64</span><br><span class="line">pkg: go.doglobal.net&#x2F;duapps&#x2F;do-feed&#x2F;service</span><br><span class="line">BenchmarkSprintf-4                100000             19934 ns&#x2F;op           12180 B&#x2F;op        297 allocs&#x2F;op</span><br><span class="line">BenchmarkStringBuilder-4         2000000               914 ns&#x2F;op             504 B&#x2F;op          6 allocs&#x2F;op</span><br><span class="line">BenchmarkBytesBuf-4              1000000              1318 ns&#x2F;op             688 B&#x2F;op          4 allocs&#x2F;op</span><br><span class="line">BenchmarkStringAdd-4              200000              6383 ns&#x2F;op            9776 B&#x2F;op         99 allocs&#x2F;op</span><br><span class="line">PASS</span><br><span class="line">ok      go.doglobal.net&#x2F;duapps&#x2F;do-feed&#x2F;service  7.767s</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><b> 从结果我们可以看出 stringbuilder和butes.buffer内存分配次数相差不多分别为6次和4次，string 拼接的方式 将近是buffer和builder的25倍，而fmt.springf()的方式，每次内存分配次数达到近300次</p>
+<p>我们可以借助go tool pprof 来查看下程序代码的详细执行时间</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br></pre></td><td class="code"><pre><span class="line">go tool pprof profile.out</span><br><span class="line">mfxing  go tool pprof profile.out</span><br><span class="line">Type: cpu</span><br><span class="line">Time: Sep 16, 2019 at 1:55pm (CST)</span><br><span class="line">Duration: 7.74s, Total samples &#x3D; 7.72s (99.72%)</span><br><span class="line">Entering interactive mode (type &quot;help&quot; for commands, &quot;o&quot; for options)</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">查看下fmt.springf</span><br><span class="line">(pprof) list BenchmarkSprintf的执行情况</span><br><span class="line">Total: 7.72s</span><br><span class="line">ROUTINE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; go.doglobal.net&#x2F;duapps&#x2F;do-feed&#x2F;service.BenchmarkSprintf in &#x2F;Users&#x2F;mengfanxing_g&#x2F;godev&#x2F;src&#x2F;go.doglobal.net&#x2F;duapps&#x2F;do-feed&#x2F;service&#x2F;contact_string_test.go</span><br><span class="line">      10ms      910ms (flat, cum) 11.79% of Total</span><br><span class="line">         .          .     13:func BenchmarkSprintf(b *testing.B) &#123;</span><br><span class="line">         .          .     14:   b.ResetTimer()</span><br><span class="line">         .          .     15:   for idx :&#x3D; 0; idx &lt; b.N; idx++ &#123;</span><br><span class="line">         .          .     16:           var s string</span><br><span class="line">         .          .     17:           for i :&#x3D; 0; i &lt; numbers; i++ &#123;</span><br><span class="line">      10ms      910ms     18:                   s &#x3D; fmt.Sprintf(&quot;%v%v&quot;, s, i)</span><br><span class="line">         .          .     19:           &#125;</span><br><span class="line">         .          .     20:   &#125;</span><br><span class="line">         .          .     21:   b.StopTimer()</span><br><span class="line">         .          .     22:&#125;</span><br><span class="line">         .          .     23:</span><br><span class="line">(pprof) </span><br><span class="line"></span><br><span class="line"></span><br><span class="line">查看下字符串拼接的执行情况</span><br><span class="line"></span><br><span class="line">ROUTINE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; go.doglobal.net&#x2F;duapps&#x2F;do-feed&#x2F;service.BenchmarkStringAdd in &#x2F;Users&#x2F;mengfanxing_g&#x2F;godev&#x2F;src&#x2F;go.doglobal.net&#x2F;duapps&#x2F;do-feed&#x2F;service&#x2F;contact_string_test.go</span><br><span class="line">      20ms      410ms (flat, cum)  5.31% of Total</span><br><span class="line">         .          .     49:func BenchmarkStringAdd(b *testing.B) &#123;</span><br><span class="line">         .          .     50:   b.ResetTimer()</span><br><span class="line">         .          .     51:   for idx :&#x3D; 0; idx &lt; b.N; idx++ &#123;</span><br><span class="line">         .          .     52:           var s string</span><br><span class="line">         .          .     53:           for i :&#x3D; 0; i &lt; numbers; i++ &#123;</span><br><span class="line">      20ms      410ms     54:                   s +&#x3D; strconv.Itoa(i)</span><br><span class="line">         .          .     55:           &#125;</span><br><span class="line">         .          .     56:</span><br><span class="line">         .          .     57:   &#125;</span><br><span class="line">         .          .     58:   b.StopTimer()</span><br><span class="line">         .          .     59:&#125;</span><br><span class="line">(pprof) </span><br><span class="line"></span><br><span class="line">查看下bytes.buffer的执行情况</span><br><span class="line">(pprof) list BenchmarkBytesBuf</span><br><span class="line">ROUTINE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; go.doglobal.net&#x2F;duapps&#x2F;do-feed&#x2F;service.BenchmarkBytesBuf in &#x2F;Users&#x2F;mengfanxing_g&#x2F;godev&#x2F;src&#x2F;go.doglobal.net&#x2F;duapps&#x2F;do-feed&#x2F;service&#x2F;contact_string_test.go</span><br><span class="line">      20ms      360ms (flat, cum)  4.66% of Total</span><br><span class="line">         .          .     36:</span><br><span class="line">         .          .     37:func BenchmarkBytesBuf(b *testing.B) &#123;</span><br><span class="line">         .          .     38:   b.ResetTimer()</span><br><span class="line">         .          .     39:   for idx :&#x3D; 0; idx &lt; b.N; idx++ &#123;</span><br><span class="line">         .          .     40:           var buf bytes.Buffer</span><br><span class="line">      10ms       10ms     41:           for i :&#x3D; 0; i &lt; numbers; i++ &#123;</span><br><span class="line">      10ms      320ms     42:                   buf.WriteString(strconv.Itoa(i))</span><br><span class="line">         .          .     43:           &#125;</span><br><span class="line">         .       30ms     44:           _ &#x3D; buf.String()</span><br><span class="line">         .          .     45:   &#125;</span><br><span class="line">         .          .     46:   b.StopTimer()</span><br><span class="line">         .          .     47:&#125;</span><br><span class="line">         .          .     48:</span><br><span class="line">         .          .     49:func BenchmarkStringAdd(b *testing.B) &#123;</span><br><span class="line">(pprof) </span><br><span class="line"></span><br><span class="line">查看下bytes.buffer的执行情况</span><br><span class="line">(pprof) list BenchmarkStringBuilder</span><br><span class="line">ROUTINE &#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D;&#x3D; go.doglobal.net&#x2F;duapps&#x2F;do-feed&#x2F;service.BenchmarkStringBuilder in &#x2F;Users&#x2F;mengfanxing_g&#x2F;godev&#x2F;src&#x2F;go.doglobal.net&#x2F;duapps&#x2F;do-feed&#x2F;service&#x2F;contact_string_test.go</span><br><span class="line">      50ms      750ms (flat, cum)  9.72% of Total</span><br><span class="line">         .          .     21:   b.StopTimer()</span><br><span class="line">         .          .     22:&#125;</span><br><span class="line">         .          .     23:</span><br><span class="line">         .          .     24:func BenchmarkStringBuilder(b *testing.B) &#123;</span><br><span class="line">         .          .     25:   b.ResetTimer()</span><br><span class="line">      20ms       20ms     26:   for idx :&#x3D; 0; idx &lt; b.N; idx++ &#123;</span><br><span class="line">         .          .     27:           var builder strings.Builder</span><br><span class="line">      10ms       10ms     28:           for i :&#x3D; 0; i &lt; numbers; i++ &#123;</span><br><span class="line">      20ms      720ms     29:                   builder.WriteString(strconv.Itoa(i))</span><br><span class="line">         .          .     30:</span><br><span class="line">         .          .     31:           &#125;</span><br><span class="line">         .          .     32:           _ &#x3D; builder.String()</span><br><span class="line">         .          .     33:   &#125;</span><br><span class="line">         .          .     34:   b.StopTimer()</span><br><span class="line">(pprof) </span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>在 Golang 1.10 以前，你可以使用bytes.Buffer来优化：一定程度上避免上面每进行一次拼接操作就重新申请新的内存空间存放中间字符串的问题。但这里依然有一个小问题： byte.String() 会有一次 []byte -&gt; string 类型转换。而这个操作是会进行一次内存分配和内容拷贝的。<br><br>如果你现在已经在使用 golang 1.10, 那么你还有一个更好的选择：strings.Builder<br><br> 原理解析关键代码摘选如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">type Builder struct &#123;</span><br><span class="line">    addr *Builder &#x2F;&#x2F; of receiver, to detect copies by value</span><br><span class="line">    buf  []byte &#x2F;&#x2F; 1</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; Write appends the contents of p to b&#39;s buffer.</span><br><span class="line">&#x2F;&#x2F; Write always returns len(p), nil.</span><br><span class="line">func (b *Builder) Write(p []byte) (int, error) &#123;</span><br><span class="line">    b.copyCheck()</span><br><span class="line">    b.buf &#x3D; append(b.buf, p...) &#x2F;&#x2F; 2</span><br><span class="line">    return len(p), nil</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">&#x2F;&#x2F; String returns the accumulated string.</span><br><span class="line">func (b *Builder) String() string &#123;</span><br><span class="line">    return *(*string)(unsafe.Pointer(&amp;b.buf))  &#x2F;&#x2F; 3</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func (b *Builder) copyCheck() &#123;</span><br><span class="line">    if b.addr &#x3D;&#x3D; nil &#123;</span><br><span class="line">        &#x2F;&#x2F; 4</span><br><span class="line">        &#x2F;&#x2F; This hack works around a failing of Go&#39;s escape analysis</span><br><span class="line">        &#x2F;&#x2F; that was causing b to escape and be heap allocated.</span><br><span class="line">        &#x2F;&#x2F; See issue 23382.</span><br><span class="line">        &#x2F;&#x2F; TODO: once issue 7921 is fixed, this should be reverted to</span><br><span class="line">        &#x2F;&#x2F; just &quot;b.addr &#x3D; b&quot;.</span><br><span class="line">        b.addr &#x3D; (*Builder)(noescape(unsafe.Pointer(b)))</span><br><span class="line">    &#125; else if b.addr !&#x3D; b &#123;</span><br><span class="line">        panic(&quot;strings: illegal use of non-zero Builder copied by value&quot;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+<ul>
+<li>1、与byte.Buffer思路类似，既然 string 在构建过程中会不断的被销毁重建，那么就尽量避免这个问题，底层使用一个 buf []byte 来存放字符串的内容。</li>
+<li>2、对于写操作，就是简单的将byte写入到 buf 即可。</li>
+<li>3、为了解决bytes.Buffer.String()存在的[]byte -&gt; string类型转换和内存拷贝问题，这里使用了一个unsafe.Pointer的存指针转换操作，实现了直接将buf []byte转换为 string类型，同时避免了内存充分配的问题</li>
+</ul>
+<p>结论：<br></p>
+<ul>
+<li>golang中的string类型也是只读且不可变的。因此，这种拼接字符串的方式会导致大量的string创建、销毁和内存分配。如果你拼接的字符串比较多的话，这显然不是一个正确的姿势。</li>
+<li>fmt.springf() 内部使用 []byte 实现，不像直接运算符这种会产生很多临时的字符串，但是内部的逻辑比较复杂，有很多额外的判断，还用到了 interface</li>
+<li>go1.10之前推荐使用buffer 、go1.10以后推荐使用builder</li>
+</ul>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/05/%E5%A4%8D%E6%9D%82%E5%BA%A6%E5%88%86%E6%9E%90/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -547,99 +1345,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/05/article-title/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/05/article-title/" class="post-title-link" itemprop="url">article title</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-04 20:07:24" itemprop="dateCreated datePublished" datetime="2020-08-04T20:07:24Z">2020-08-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-09 13:49:52" itemprop="dateModified" datetime="2020-08-09T13:49:52Z">2020-08-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%B5%8B%E8%AF%95%E9%B8%AD/" itemprop="url" rel="index"><span itemprop="name">测试鸭</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>126</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>aaaaa</p>
-<p>{</p>
-<p>}</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;&#125;</span><br><span class="line">\&#123;\&#125;</span><br><span class="line">\</span><br><span class="line"></span><br><span class="line">&#96;&#123;&#125;&#96;</span><br><span class="line">&amp;#123;&amp;#125;</span><br><span class="line">&#96;&amp;#123;&amp;#125;&#96;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>&#123;&#125;</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -711,20 +1416,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">23</span>
+          <span class="site-state-item-count">27</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">13</span>
+        <span class="site-state-item-count">17</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">19</span>
+        <span class="site-state-item-count">23</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -772,13 +1477,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">61k</span>
+    <span title="站点总字数">70k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">56 分钟</span>
+    <span title="站点阅读时长">1:04</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
