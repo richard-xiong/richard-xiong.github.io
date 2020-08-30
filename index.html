@@ -123,17 +123,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">23</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">27</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">17</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">23</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">27</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">37</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -200,7 +200,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/09/hello-world/">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/27/%E6%9E%B6%E6%9E%84-%E9%80%89%E5%9E%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -214,7 +214,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/08/09/hello-world/" class="post-title-link" itemprop="url">Hello World</a>
+            <a href="/2020/08/27/%E6%9E%B6%E6%9E%84-%E9%80%89%E5%9E%8B/" class="post-title-link" itemprop="url">架构-选型</a>
         </h2>
 
         <div class="post-meta">
@@ -225,7 +225,16 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-08-09 13:48:37 / 修改时间：13:49:52" itemprop="dateCreated datePublished" datetime="2020-08-09T13:48:37Z">2020-08-09</time>
+              <time title="创建时间：2020-08-26 20:55:31 / 修改时间：13:22:05" itemprop="dateCreated datePublished" datetime="2020-08-26T20:55:31Z">2020-08-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%9E%B6%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">架构</span></a>
+                </span>
             </span>
 
           <br>
@@ -234,7 +243,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>367</span>
+              <span>104</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -253,19 +262,746 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>Welcome to <a target="_blank" rel="noopener" href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a target="_blank" rel="noopener" href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+          <h3 id="是否需要使用mvc模式"><a href="#是否需要使用mvc模式" class="headerlink" title="是否需要使用mvc模式"></a>是否需要使用mvc模式</h3><ol>
+<li><p>mvc 模式</p>
+<p>​    <img src="/images/%E6%9E%B6%E6%9E%84-%E9%80%89%E5%9E%8B/mvc.png" alt="mvc模式"></p>
+<ol>
+<li>controllers : 处理/user /pay 相关业务数据的输入和输出</li>
+<li>实体 譬如 数据库实体类</li>
+<li>Dao层 业务的实际处理层</li>
+</ol>
+</li>
+<li><p>分布式模式</p>
+</li>
+</ol>
+<img src="/images/%E6%9E%B6%E6%9E%84-%E9%80%89%E5%9E%8B/%E5%88%86%E5%B8%83%E5%BC%8F.png" alt="分布式" style="zoom: 33%;" />
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>分布式的模式 可以很好的对具体的业务做流量的负载均衡</p>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
+      
+    </div>
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
 
-<p>More info: <a target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/26/mysql-%E6%9F%A5%E7%9C%8B%E5%AD%97%E7%AC%A6%E9%9B%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/26/mysql-%E6%9F%A5%E7%9C%8B%E5%AD%97%E7%AC%A6%E9%9B%86/" class="post-title-link" itemprop="url">mysql-查看字符集</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-26 15:14:53 / 修改时间：07:19:57" itemprop="dateCreated datePublished" datetime="2020-08-26T15:14:53Z">2020-08-26</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>一、查看MySQL数据库服务器和数据库MySQL字符集。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> show variables like <span class="string">&#x27;%char%&#x27;</span>;</span></span><br><span class="line">+--------------------------+-----------------------------------------------------------+</span><br><span class="line">| Variable_name            | Value                                                     |</span><br><span class="line">+--------------------------+-----------------------------------------------------------+</span><br><span class="line">| character_set_client     | utf8                                                      |</span><br><span class="line">| character_set_connection | utf8                                                      |</span><br><span class="line">| character_set_database   | utf8                                                      |</span><br><span class="line">| character_set_filesystem | binary                                                    |</span><br><span class="line">| character_set_results    | utf8                                                      |</span><br><span class="line">| character_set_server     | utf8                                                      |</span><br><span class="line">| character_set_system     | utf8                                                      |</span><br><span class="line">| character_sets_dir       | /usr/local/mysql-5.7.23-macos10.13-x86_64/share/charsets/ |</span><br><span class="line">+--------------------------+-----------------------------------------------------------+</span><br><span class="line">8 rows in set (0.02 sec)</span><br></pre></td></tr></table></figure>
+
+<p>二、查看MySQL数据表（table）的MySQL字符集。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> show table status from db_beego like <span class="string">&quot;%tb_category%&quot;</span> \G;</span></span><br><span class="line">*************************** 1. row ***************************</span><br><span class="line">           Name: tb_category</span><br><span class="line">         Engine: InnoDB</span><br><span class="line">        Version: 10</span><br><span class="line">     Row_format: Dynamic</span><br><span class="line">           Rows: 2</span><br><span class="line"> Avg_row_length: 8192</span><br><span class="line">    Data_length: 16384</span><br><span class="line">Max_data_length: 0</span><br><span class="line">   Index_length: 0</span><br><span class="line">      Data_free: 0</span><br><span class="line"> Auto_increment: 5</span><br><span class="line">    Create_time: 2020-07-21 22:03:14</span><br><span class="line">    Update_time: NULL</span><br><span class="line">     Check_time: NULL</span><br><span class="line">      Collation: utf8mb4_general_ci</span><br><span class="line">       Checksum: NULL</span><br><span class="line"> Create_options:</span><br><span class="line">        Comment:</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<p>三、查看MySQL数据列（column）的MySQL字符集。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> show full columns from tb_category \G;</span></span><br><span class="line">*************************** 1. row ***************************</span><br><span class="line">     Field: id</span><br><span class="line">      Type: int(11)</span><br><span class="line"> Collation: NULL</span><br><span class="line">      Null: NO</span><br><span class="line">       Key: PRI</span><br><span class="line">   Default: NULL</span><br><span class="line">     Extra: auto_increment</span><br><span class="line">Privileges: select,insert,update,references</span><br><span class="line">   Comment:</span><br><span class="line">*************************** 2. row ***************************</span><br><span class="line">     Field: name</span><br><span class="line">      Type: varchar(255)</span><br><span class="line"> Collation: utf8mb4_general_ci</span><br><span class="line">      Null: NO</span><br><span class="line">       Key:</span><br><span class="line">   Default: NULL</span><br><span class="line">     Extra:</span><br><span class="line">Privileges: select,insert,update,references</span><br><span class="line">   Comment:</span><br><span class="line">*************************** 3. row ***************************</span><br><span class="line">     Field: created</span><br><span class="line">      Type: timestamp</span><br><span class="line"> Collation: NULL</span><br><span class="line">      Null: NO</span><br><span class="line">       Key:</span><br><span class="line">   Default: CURRENT_TIMESTAMP</span><br><span class="line">     Extra:</span><br><span class="line">Privileges: select,insert,update,references</span><br><span class="line">   Comment:</span><br><span class="line">*************************** 4. row ***************************</span><br><span class="line">     Field: updated</span><br><span class="line">      Type: timestamp</span><br><span class="line"> Collation: NULL</span><br><span class="line">      Null: NO</span><br><span class="line">       Key:</span><br><span class="line">   Default: CURRENT_TIMESTAMP</span><br><span class="line">     Extra: on update CURRENT_TIMESTAMP</span><br><span class="line">Privileges: select,insert,update,references</span><br><span class="line">   Comment:</span><br><span class="line">4 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/26/aws-%E6%90%AD%E5%BB%BAeks/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/26/aws-%E6%90%AD%E5%BB%BAeks/" class="post-title-link" itemprop="url">aws-搭建eks</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-26 15:13:32 / 修改时间：07:14:09" itemprop="dateCreated datePublished" datetime="2020-08-26T15:13:32Z">2020-08-26</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/aws/" itemprop="url" rel="index"><span itemprop="name">aws</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/aws/eks/" itemprop="url" rel="index"><span itemprop="name">eks</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="安装eks环境"><a href="#安装eks环境" class="headerlink" title="安装eks环境"></a>安装eks环境</h1><h2 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h2><h3 id="1-1-创建eks-cluster-使用命令行创建-然后控制台会刷新出来"><a href="#1-1-创建eks-cluster-使用命令行创建-然后控制台会刷新出来" class="headerlink" title="1.1 创建eks-cluster [使用命令行创建 然后控制台会刷新出来]"></a>1.1 创建eks-cluster [使用命令行创建 然后控制台会刷新出来]</h3> <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">aws eks create-cluster --name richard_test1 --kubernetes-version 1.16 \</span><br><span class="line">          --role-arn arn:aws:iam::xxxx:role/eksctl-eks-ap-1-cluster-ServiceRole-MWM2SUSZU1OQ \</span><br><span class="line">          --resources-vpc-config subnetIds=subnet-xxx,subnet-xxx,endpointPublicAccess=false,endpointPrivateAccess=true \</span><br><span class="line">          --logging &#x27;&#123;&quot;clusterLogging&quot;:[&#123;&quot;types&quot;:[&quot;api&quot;,&quot;audit&quot;,&quot;authenticator&quot;,&quot;controllerManager&quot;,&quot;scheduler&quot;],&quot;enabled&quot;:false&#125;]&#125;&#x27;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><input disabled="" type="checkbox"> 可以指定 –kubernetes-version   现在1.16已经要过时了 安装之后也需要升级</li>
+<li><input disabled="" type="checkbox"> 需要修改name 和子网</li>
+<li><input disabled="" type="checkbox"> 在某个跳板机上如果搭建多个cluster 最好在不同的用户下面来搭建</li>
+<li><input disabled="" type="checkbox"> 在指定的用户下需要接着在aws configure 中设置region</li>
+</ul>
+<h3 id="1-2-安装kuberctl-二进制文件"><a href="#1-2-安装kuberctl-二进制文件" class="headerlink" title="1.2 安装kuberctl 二进制文件"></a>1.2 <a target="_blank" rel="noopener" href="https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-binary-with-curl-on-linux">安装kuberctl 二进制文件</a></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/arm64/kubectl</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>  然后需要将二进制文件添加到PATH中 详情参照<a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/install-kubectl.html">https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/install-kubectl.html</a> </p>
+<h4 id="1-3-安装kubeconfig"><a href="#1-3-安装kubeconfig" class="headerlink" title="1.3 安装kubeconfig"></a>1.3 <a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/create-kubeconfig.html">安装kubeconfig</a></h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws eks --region region-code update-kubeconfig --name cluster_name</span><br></pre></td></tr></table></figure>
+
+<p>检测配置</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kubectl get svc</span><br><span class="line">NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE</span><br><span class="line">kubernetes   ClusterIP   172.20.0.1   &lt;none&gt;        443/TCP   30m</span><br></pre></td></tr></table></figure>
+
+<p> 注意 如果没有结果 很有可能就是cluster 安全组的问题  </p>
+<table>
+<thead>
+<tr>
+<th align="left"><strong>Type</strong></th>
+<th align="left"><strong>Protocol</strong></th>
+<th align="left"><strong>Port range</strong></th>
+<th align="left"><strong>Source</strong></th>
+<th align="left"><strong>Description - optional</strong></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">All traffic</td>
+<td align="left">All</td>
+<td align="left">All</td>
+<td align="left">xx.xxx.0.0/16</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">All traffic</td>
+<td align="left">All</td>
+<td align="left">All</td>
+<td align="left">Sg-xxx (eks-cluster-sg-richard_test1-212947049)</td>
+<td align="left">-</td>
+</tr>
+</tbody></table>
+<p>xx.xxx.0.0/16 根据子网来设定</p>
+<h4 id="1-4-创建-alb-ingress-controller"><a href="#1-4-创建-alb-ingress-controller" class="headerlink" title="1.4 创建 alb ingress controller"></a>1.4 创建 alb ingress controller</h4><p>主要是下面几步</p>
+<ol>
+<li><p>部署 AWS ALB Ingress 控制器需要的 RBAC Roles 和 RoleBindings：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/aws-alb-ingress-controller/v1.0.0/docs/examples/rbac-role.yaml </span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="2">
+<li><p>将 AWS ALB Ingress 控制器 YAML 下载到本地文件：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sS &quot;https://raw.githubusercontent.com/kubernetes-sigs/aws-alb-ingress-controller/v1.0.0/docs/examples/alb-ingress-controller.yaml&quot; &gt; alb-ingress-controller.yaml</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="3">
+<li><p>编辑 AWS ALB Ingress 控制器 YAML t以包含 Kubernetes（或）Amazon EKS 集群的 clusterName。<br>将 –cluster-name 标记编辑为我们的 Kubernetes（或）Amazon EKS 集群的真实名称。</p>
+</li>
+<li><p>部署 AWS ALB Ingress 控制器 YAML： </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f alb-ingress-controller.yaml</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>验证部署成功，并且控制器已经启动：<br>kubectl logs -n kube-system $(kubectl get po -n kube-system | egrep -o alb-ingress[a-zA-Z0-9-]+)</p>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/22/leetcode-%E5%AD%97%E7%AC%A6%E4%B8%B2-%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%89%8D%E7%BC%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/22/leetcode-%E5%AD%97%E7%AC%A6%E4%B8%B2-%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%89%8D%E7%BC%80/" class="post-title-link" itemprop="url">leetcode 字符串-最长公共前缀</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-21 16:48:56 / 修改时间：08:50:27" itemprop="dateCreated datePublished" datetime="2020-08-21T16:48:56Z">2020-08-21</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/leetcode/%E5%AD%97%E7%AC%A6%E4%B8%B2/" itemprop="url" rel="index"><span itemprop="name">字符串</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>241</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>最长公共前缀<br>编写一个函数来查找字符串数组中的最长公共前缀。</p>
+<p>如果不存在公共前缀，返回空字符串 “”。</p>
+<p>示例 1:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [&quot;flower&quot;,&quot;flow&quot;,&quot;flight&quot;]</span><br><span class="line">输出: &quot;fl&quot;</span><br></pre></td></tr></table></figure>
+
+
+<p>示例 2:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [&quot;dog&quot;,&quot;racecar&quot;,&quot;car&quot;]</span><br><span class="line">输出: &quot;&quot;</span><br></pre></td></tr></table></figure>
+
+<p>解释: 输入不存在公共前缀。<br>说明:</p>
+<p>所有输入只包含小写字母 a-z 。</p>
+<p>思路：</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/20/sublime-json-%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%BF%AB%E6%8D%B7%E9%94%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/20/sublime-json-%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%BF%AB%E6%8D%B7%E9%94%AE/" class="post-title-link" itemprop="url">sublime json 格式化快捷键</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-20 11:38:02 / 修改时间：03:38:44" itemprop="dateCreated datePublished" datetime="2020-08-20T11:38:02Z">2020-08-20</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>385</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>1、打开 Sublime，<code>command + shift + p</code> -&gt; Install package<br> 搜索 Pretty JSON，安装</p>
+<p>2、手工 install</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">I: cd &lt;Packages directory&gt; (例如 Mac ~&#x2F;Library&#x2F;Application\ Support&#x2F;Sublime\ Text\ 2&#x2F;Packages </span><br><span class="line">or </span><br><span class="line">~&#x2F;Library&#x2F;Application\ Support&#x2F;Sublime\ Text\ 3&#x2F;Packages)</span><br><span class="line"></span><br><span class="line">II: git clone https:&#x2F;&#x2F;github.com&#x2F;dzhibas&#x2F;SublimePrettyJson.git</span><br></pre></td></tr></table></figure>
+
+<p>格式化快捷键 :</p>
+<p>macOS: <code>command + ctrl + j</code><br> Windows: <code>ctrl + alt + j</code></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/19/elasticsearch-7-5-0%E7%A0%B4%E8%A7%A3/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/19/elasticsearch-7-5-0%E7%A0%B4%E8%A7%A3/" class="post-title-link" itemprop="url">elasticsearch-7.5.0白金版破解</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-18 17:12:00" itemprop="dateCreated datePublished" datetime="2020-08-18T17:12:00Z">2020-08-18</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-20 08:18:18" itemprop="dateModified" datetime="2020-08-20T08:18:18Z">2020-08-20</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>下载elasticsearch 7.5.0版本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.5.0-darwin-x86_64.tar.gz</span><br></pre></td></tr></table></figure>
+
+<p>解压</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf elasticsearch-7.5.0-darwin-x86_64.tar.gz</span><br></pre></td></tr></table></figure>
+
+<h3 id="破解过程："><a href="#破解过程：" class="headerlink" title="破解过程："></a>破解过程：</h3><p>注意：<code>/Users/mengfanxing_g/elk/</code>是我本机路径，你在操作时应该修改成你的路径。</p>
+<p>1，将 <code>/Users/mengfanxing_g/elk/elasticsearch-7.5.0/modules/x-pack-core/</code>目录下的<code>x-pack-core-7.5.0.jar</code>文件赋值一份，</p>
+<p>2，手动创建<code>XPackBuild.java</code>和<code>LicenseVerifier.java</code>两个文件，</p>
+<ul>
+<li><p><code>LicenseVerifier.java</code>内容为：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.elasticsearch.xpack.core;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.common.SuppressForbidden;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.common.io.PathUtils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.net.URISyntaxException;</span><br><span class="line"><span class="keyword">import</span> java.net.URL;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Files;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Path;</span><br><span class="line"><span class="keyword">import</span> java.util.jar.JarInputStream;</span><br><span class="line"><span class="keyword">import</span> java.util.jar.Manifest;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">XPackBuild</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> XPackBuild CURRENT;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        CURRENT = <span class="keyword">new</span> XPackBuild(<span class="string">&quot;Unknown&quot;</span>, <span class="string">&quot;Unknown&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Returns path to xpack codebase path</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@SuppressForbidden(reason = &quot;looks up path of xpack.jar directly&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">static</span> Path <span class="title">getElasticsearchCodebase</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        URL url = XPackBuild.class.getProtectionDomain().getCodeSource().getLocation();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> PathUtils.get(url.toURI());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (URISyntaxException bogus) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(bogus);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String shortHash;</span><br><span class="line">    <span class="keyword">private</span> String date;</span><br><span class="line"></span><br><span class="line">    XPackBuild(String shortHash, String date) &#123;</span><br><span class="line">        <span class="keyword">this</span>.shortHash = shortHash;</span><br><span class="line">        <span class="keyword">this</span>.date = date;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">shortHash</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> shortHash;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">date</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> date;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><code>LicenseVerifier.java</code>文件的内容为：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">package org.elasticsearch.license;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * Responsible for verifying signed licenses</span><br><span class="line"> *&#x2F;</span><br><span class="line">public class LicenseVerifier &#123;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * verifies the license content with the signature using the packaged</span><br><span class="line">     * public key</span><br><span class="line">     * @param license to verify</span><br><span class="line">     * @return true if valid, false otherwise</span><br><span class="line">     *&#x2F;</span><br><span class="line">    public static boolean verifyLicense(final License license, byte[] publicKeyData) &#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static boolean verifyLicense(final License license) &#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ul>
+<p>3 使用javac 编译这两个java文件，需要引入import的依赖，使用-cp参数，需要依赖原本的<code>x-pack-core-7.5.0.jar</code>，<code>lucene-core-8.3.0.jar</code>，<code>elasticsearch-7.5.0.jar</code>，<code>elasticsearch-core-7.5.0.jar</code>这四个jar包,对应的文件都在安装目录，有的在lib目录下，有的在modules目录下。编译命令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">javac -cp &quot;&#x2F;Users&#x2F;mengfanxing_g&#x2F;elk&#x2F;elasticsearch-7.5.0&#x2F;modules&#x2F;x-pack-core&#x2F;x-pack-core-7.5.0.jar:&#x2F;Users&#x2F;mengfanxing_g&#x2F;elk&#x2F;elasticsearch-7.5.0&#x2F;lib&#x2F;lucene-core-8.3.0.jar:&#x2F;Users&#x2F;mengfanxing_g&#x2F;elk&#x2F;elasticsearch-7.5.0&#x2F;lib&#x2F;elasticsearch-7.5.0.jar:&#x2F;Users&#x2F;mengfanxing_g&#x2F;elk&#x2F;elasticsearch-7.5.0&#x2F;lib&#x2F;elasticsearch-core-7.5.0.jar&quot;  &#x2F;Users&#x2F;mengfanxing_g&#x2F;richard&#x2F;blog&#x2F;XingServer&#x2F;tmp&#x2F;XPackBuild.java</span><br><span class="line"></span><br><span class="line">javac -cp &quot;&#x2F;Users&#x2F;mengfanxing_g&#x2F;elk&#x2F;elasticsearch-7.5.0&#x2F;modules&#x2F;x-pack-core&#x2F;x-pack-core-7.5.0.jar:&#x2F;Users&#x2F;mengfanxing_g&#x2F;elk&#x2F;elasticsearch-7.5.0&#x2F;lib&#x2F;lucene-core-8.3.0.jar:&#x2F;Users&#x2F;mengfanxing_g&#x2F;elk&#x2F;elasticsearch-7.5.0&#x2F;lib&#x2F;elasticsearch-7.5.0.jar:&#x2F;Users&#x2F;mengfanxing_g&#x2F;elk&#x2F;elasticsearch-7.5.0&#x2F;lib&#x2F;elasticsearch-core-7.5.0.jar&quot;  &#x2F;Users&#x2F;mengfanxing_g&#x2F;richard&#x2F;blog&#x2F;XingServer&#x2F;tmp&#x2F;LicenseVerifier.java</span><br></pre></td></tr></table></figure>
+
+<p>然后就会在桌面产生对应的class文件。</p>
+<p>查询需要替换的文件在jar中的位置 </p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jar tvf *****.jar | grep &#123;fileName&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4786 Tue Nov 26 01:06:36 CST 2019 org&#x2F;elasticsearch&#x2F;license&#x2F;LicenseVerifier.class</span><br></pre></td></tr></table></figure>
+
+<p>二、将文件解压到当前目录(以及文件所在目录)</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; jar xvf ****.jar &#123;filePath&#125;</span><br></pre></td></tr></table></figure>
+
+<p>三、替换新生成的文件夹中的文件</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; jar uvf ***.jar &#123;filePath&#125;</span><br></pre></td></tr></table></figure>
+
+<p>执行结果：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">jar uvf x-pack-core-7.5.0.jar org/elasticsearch/license/LicenseVerifier.class</span><br><span class="line">正在添加: org/elasticsearch/license/LicenseVerifier.class(输入 = 410) (输出 = 246)(压缩了 40%</span><br></pre></td></tr></table></figure>
+
+<p>XPackBuild 同理</p>
+<p>4，更新许可证</p>
+<p>官方申请地址： <a target="_blank" rel="noopener" href="https://register.elastic.co/marvel_register">https://register.elastic.co/marvel_register</a></p>
+<p>公司地址什么课以随便填写，邮箱要填好，然后收到邮件，进行文件下载。 下载下来，修改里面的内容，主要是把 “basic” 改为 “platinum” 即白金版，”expiry_date_in_millis” 这个时间戳改大点，就够用了。</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;license&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;uid&quot;</span>: <span class="string">&quot;5a2c6c4f-60bf-4471-8941-1d037364a2e3&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;platinum&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;issue_date_in_millis&quot;</span>: <span class="number">1597881600000</span>,</span><br><span class="line">    <span class="attr">&quot;expiry_date_in_millis&quot;</span>: <span class="number">2524582861000</span>,</span><br><span class="line">    <span class="attr">&quot;max_nodes&quot;</span>: <span class="number">9999</span>,</span><br><span class="line">    <span class="attr">&quot;issued_to&quot;</span>: <span class="string">&quot;richard xing (xiong)&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;issuer&quot;</span>: <span class="string">&quot;Web Form&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;signature&quot;</span>: <span class="string">&quot;AAAAAwAAAA3unQmrSr8HfvmG9XG6AAABmC9ZN0hjZDBGYnVyRXpCOW5Bb3FjZDAxOWpSbTVoMVZwUzRxVk1PSmkxaktJRVl5MUYvUWh3bHZVUTllbXNPbzBUemtnbWpBbmlWRmRZb25KNFlBR2x0TXc2K2p1Y1VtMG1UQU9TRGZVSGRwaEJGUjE3bXd3LzRqZ05iLzRteWFNekdxRGpIYlFwYkJiNUs0U1hTVlJKNVlXekMrSlVUdFIvV0FNeWdOYnlESDc3MWhlY3hSQmdKSjJ2ZTcvYlBFOHhPQlV3ZHdDQ0tHcG5uOElCaDJ4K1hob29xSG85N0kvTWV3THhlQk9NL01VMFRjNDZpZEVXeUtUMXIyMlIveFpJUkk2WUdveEZaME9XWitGUi9WNTZVQW1FMG1DenhZU0ZmeXlZakVEMjZFT2NvOWxpZGlqVmlHNC8rWVVUYzMwRGVySHpIdURzKzFiRDl4TmM1TUp2VTBOUlJZUlAyV0ZVL2kvVk10L0NsbXNFYVZwT3NSU082dFNNa2prQ0ZsclZ4NTltbU1CVE5lR09Bck93V2J1Y3c9PQAAAQBfvTGssbXzXV+UDVggDncuYFQH+8rxwxt4J8H7KuhOAlYUnysaGKz+Agoh+vZOTKm0Uyo9Fl+6dn46RN9k4lHCW8UPby3M+arpH+g2dNzXASlmku+SQUI0MO1zKJ4FjVYGqjlzKyJ54fYAtW+B6i/R8saLp4lnmW+jvC7tAUehgZFF2jxF3Z+D4bHgGS+w005J4B0M36ViG86wa4Lmq2p9vgq6ZBw7mCZpazBPQpwLJTuNDCGCcCF3wN/lh9WjCsjOBbC5Qk0Zv9EgFebZZl0tYU5/klJxqxJTMt1b16ajJEC6hKzlCPMl0A1SIi7uz1aXZK9jdrg9S3ovfL3/sAb4&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;start_date_in_millis&quot;</span>: <span class="number">1597881600000</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Changed password for user apm_system</span><br><span class="line">PASSWORD apm_system &#x3D; nkLq5Zq3npITPAiMHNHZ</span><br><span class="line"></span><br><span class="line">Changed password for user kibana</span><br><span class="line">PASSWORD kibana &#x3D; LqoQJHwsBRjtV1kmFwJe</span><br><span class="line"></span><br><span class="line">Changed password for user logstash_system</span><br><span class="line">PASSWORD logstash_system &#x3D; A66I9MdbpZFk4b9bYgde</span><br><span class="line"></span><br><span class="line">Changed password for user beats_system</span><br><span class="line">PASSWORD beats_system &#x3D; hNfm2GACi5nYQ0Ep4OfY</span><br><span class="line"></span><br><span class="line">Changed password for user remote_monitoring_user</span><br><span class="line">PASSWORD remote_monitoring_user &#x3D; pFeAwFNqgAFMf631IkkK</span><br><span class="line"></span><br><span class="line">Changed password for user elastic</span><br><span class="line">PASSWORD elastic &#x3D; 8lxq2KhthMl4jH5f1nLA</span><br></pre></td></tr></table></figure>
+
+
+
+<p>在导入license 之前需要</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">xpack.security.enabled:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
+
+<p>然后执行 导入json文件 因为还没设置elastic 用户名密码  直接回车</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -XPUT -u elastic &#x27;http://localhost:9200/_xpack/license&#x27; -H &quot;Content-Type: application/json&quot; -d @richard-xing-5a2c6c4f-60bf-4471-8941-1d037364a2e3-v5.json</span><br><span class="line">&#123;&quot;acknowledged&quot;:true,&quot;license_status&quot;:&quot;valid&quot;&#125;%</span><br></pre></td></tr></table></figure>
+
+<p>然后elasticsearch 添加对xpack的支持 然后 kibana上才能展示出security的模块，然后重新启动</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">xpack.security.enabled:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
+
+<p>然后在另一个窗口 执行，会自动生成相应用户名的密码</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">./bin/elasticsearch-setup-passwords auto</span><br><span class="line">future versions of Elasticsearch will require Java 11; your Java version from [/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/jre] does not meet this requirement</span><br><span class="line">Initiating the setup of passwords for reserved users elastic,apm_system,kibana,logstash_system,beats_system,remote_monitoring_user.</span><br><span class="line">The passwords will be randomly generated and printed to the console.</span><br><span class="line">Please confirm that you would like to continue [y/N]y</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Changed password for user apm_system</span><br><span class="line">PASSWORD apm_system = nkLq5Zq3npITPAiMHNHZ</span><br><span class="line"></span><br><span class="line">Changed password for user kibana</span><br><span class="line">PASSWORD kibana = LqoQJHwsBRjtV1kmFwJe</span><br><span class="line"></span><br><span class="line">Changed password for user logstash_system</span><br><span class="line">PASSWORD logstash_system = A66I9MdbpZFk4b9bYgde</span><br><span class="line"></span><br><span class="line">Changed password for user beats_system</span><br><span class="line">PASSWORD beats_system = hNfm2GACi5nYQ0Ep4OfY</span><br><span class="line"></span><br><span class="line">Changed password for user remote_monitoring_user</span><br><span class="line">PASSWORD remote_monitoring_user = pFeAwFNqgAFMf631IkkK</span><br><span class="line"></span><br><span class="line">Changed password for user elastic</span><br><span class="line">PASSWORD elastic = 8lxq2KhthMl4jH5f1nLA</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/18/leetcode-%E6%95%B0%E7%BB%84-%E5%AF%B9%E8%A7%92%E7%BA%BF%E9%81%8D%E5%8E%86/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/18/leetcode-%E6%95%B0%E7%BB%84-%E5%AF%B9%E8%A7%92%E7%BA%BF%E9%81%8D%E5%8E%86/" class="post-title-link" itemprop="url">leetcode 数组-对角线遍历</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-17 23:06:59 / 修改时间：15:10:09" itemprop="dateCreated datePublished" datetime="2020-08-17T23:06:59Z">2020-08-17</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>942</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>给定一个含有 M x N 个元素的矩阵（M 行，N 列），请以对角线遍历的顺序返回这个矩阵中的所有元素，对角线遍历如下图所示。</p>
+<p>示例:</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">输入:</span><br><span class="line">[</span><br><span class="line"> [ 1, 2, 3 ],</span><br><span class="line"> [ 4, 5, 6 ],</span><br><span class="line"> [ 7, 8, 9 ]</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">输出:  [1,2,4,7,5,3,6,8,9]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/12/diagonal_traverse.png" alt="解释:"></p>
+<p>说明:</p>
+<p>给定矩阵中的元素总数不会超过 100000 。</p>
+<p>Go</p>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 官方题解第一种方法，遍历对角线，然后对偶数行序列翻转</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">findDiagonalOrder</span><span class="params">(matrix [][]<span class="keyword">int</span>)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(matrix) == <span class="number">0</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    res := <span class="built_in">make</span>([]<span class="keyword">int</span>,<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 遍历的对角线数目为 行数+列数</span></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(matrix[<span class="number">0</span>]) + <span class="built_in">len</span>(matrix) - <span class="number">1</span>; i++ &#123;</span><br><span class="line">        <span class="comment">// 当前对角线元素集</span></span><br><span class="line">        cur := <span class="built_in">make</span>([]<span class="keyword">int</span>,<span class="number">0</span>) </span><br><span class="line">        <span class="comment">// 当前坐标</span></span><br><span class="line">        x,y := <span class="number">0</span>,i</span><br><span class="line">        <span class="comment">// 我们假设右边拼接了一个与行数相等的矩阵，因此，如果遇到拼接的矩阵元素，需要跳过</span></span><br><span class="line">        <span class="keyword">for</span> y &gt;= <span class="built_in">len</span>(matrix[<span class="number">0</span>]) &#123;</span><br><span class="line">            x,y = x+<span class="number">1</span>,y<span class="number">-1</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 当前元素加入集合，向左下角移动一格</span></span><br><span class="line">        <span class="keyword">for</span> x &lt; <span class="built_in">len</span>(matrix) &amp;&amp; y &gt;= <span class="number">0</span> &#123;</span><br><span class="line">            cur = <span class="built_in">append</span>(cur,matrix[x][y])</span><br><span class="line">            x,y = x+<span class="number">1</span>,y<span class="number">-1</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 如果是偶数行序列，进行翻转</span></span><br><span class="line">        <span class="keyword">if</span> i % <span class="number">2</span> == <span class="number">0</span> &#123;</span><br><span class="line">            reverse(cur)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 当前对角线元素序列加入结果数组</span></span><br><span class="line">        res = <span class="built_in">append</span>(res,cur...)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 翻转数组</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">reverse</span><span class="params">(cur []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> i,j := <span class="number">0</span>,<span class="built_in">len</span>(cur)<span class="number">-1</span>; i &lt; j; i,j = i+<span class="number">1</span>,j<span class="number">-1</span> &#123;</span><br><span class="line">        cur[i],cur[j] = cur[j],cur[i]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>执行用时：48 ms, 在所有 Go 提交中击败了20.71%的用户</p>
+<p>内存消耗：7 MB, 在所有 Go 提交中击败了6.12%的用户</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/17/leetcode-%E6%95%B0%E7%BB%84-%E9%9B%B6%E7%9F%A9%E9%98%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/17/leetcode-%E6%95%B0%E7%BB%84-%E9%9B%B6%E7%9F%A9%E9%98%B5/" class="post-title-link" itemprop="url">leetcode 数组-零矩阵</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-17 11:55:22 / 修改时间：15:06:52" itemprop="dateCreated datePublished" datetime="2020-08-17T11:55:22Z">2020-08-17</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>755</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>零矩阵<br>编写一种算法，若M × N矩阵中某个元素为0，则将其所在的行与列清零。</p>
+<p>示例 1：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">输入：</span><br><span class="line">[</span><br><span class="line">  [1,1,1],</span><br><span class="line">  [1,0,1],</span><br><span class="line">  [1,1,1]</span><br><span class="line">]</span><br><span class="line">输出：</span><br><span class="line">[</span><br><span class="line">  [1,0,1],</span><br><span class="line">  [0,0,0],</span><br><span class="line">  [1,0,1]</span><br><span class="line">]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>示例 2：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">输入：</span><br><span class="line">[</span><br><span class="line">  [0,1,2,0],</span><br><span class="line">  [3,4,5,2],</span><br><span class="line">  [1,3,1,5]</span><br><span class="line">]</span><br><span class="line">输出：</span><br><span class="line">[</span><br><span class="line">  [0,0,0,0],</span><br><span class="line">  [0,4,5,0],</span><br><span class="line">  [0,3,1,0]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+
+
+<p>作者：力扣 (LeetCode)<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/leetbook/read/array-and-string/ciekh/">https://leetcode-cn.com/leetbook/read/array-and-string/ciekh/</a><br>来源：力扣（LeetCode）<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<p>思路：</p>
+<p>找到0的位置 然后遍历set 0 就可以</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">setZeroes</span><span class="params">(matrix [][]<span class="keyword">int</span>)</span></span>  &#123;</span><br><span class="line">    lenth1 := <span class="built_in">len</span>(matrix)</span><br><span class="line">    lenth2 := <span class="built_in">len</span>(matrix[<span class="number">0</span>])</span><br><span class="line">    hMap,lMap := <span class="built_in">make</span>([]<span class="keyword">bool</span>,lenth1),<span class="built_in">make</span>([]<span class="keyword">bool</span>,lenth2)</span><br><span class="line">    <span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;lenth1;i++&#123;</span><br><span class="line">        <span class="keyword">for</span> j:=<span class="number">0</span>;j&lt;lenth2;j++&#123;</span><br><span class="line">            <span class="keyword">if</span> matrix[i][j] == <span class="number">0</span>&#123;</span><br><span class="line">                hMap[i] = <span class="literal">true</span></span><br><span class="line">                lMap[j] = <span class="literal">true</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;lenth1;i++&#123;</span><br><span class="line">        <span class="keyword">for</span> j:=<span class="number">0</span>;j&lt;lenth2;j++&#123;</span><br><span class="line">            <span class="keyword">if</span> hMap[i] || lMap[j]&#123;</span><br><span class="line">                matrix[i][j] = <span class="number">0</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -379,7 +1115,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/k8s-pod%E7%9A%84%E7%8A%B6%E6%80%81%E4%B8%BAevicted/">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/beego%20orm%E6%93%8D%E4%BD%9C(%E4%B8%80)/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -393,7 +1129,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/08/07/k8s-pod%E7%9A%84%E7%8A%B6%E6%80%81%E4%B8%BAevicted/" class="post-title-link" itemprop="url">k8s--pod的状态为evicted</a>
+            <a href="/2020/08/07/beego%20orm%E6%93%8D%E4%BD%9C(%E4%B8%80)/" class="post-title-link" itemprop="url">k8s--pod的状态为evicted</a>
         </h2>
 
         <div class="post-meta">
@@ -410,7 +1146,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-09 13:49:52" itemprop="dateModified" datetime="2020-08-09T13:49:52Z">2020-08-09</time>
+                <time title="修改时间：2020-08-14 10:05:18" itemprop="dateModified" datetime="2020-08-14T10:05:18Z">2020-08-14</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -466,756 +1202,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/leetcode%20%E6%95%B0%E7%BB%84-%E5%AF%BB%E6%89%BE%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E5%BF%83%E7%B4%A2%E5%BC%95/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/07/leetcode%20%E6%95%B0%E7%BB%84-%E5%AF%BB%E6%89%BE%E6%95%B0%E7%BB%84%E7%9A%84%E4%B8%AD%E5%BF%83%E7%B4%A2%E5%BC%95/" class="post-title-link" itemprop="url">寻找数组的中心索引</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-06 22:08:43" itemprop="dateCreated datePublished" datetime="2020-08-06T22:08:43Z">2020-08-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-09 13:49:52" itemprop="dateModified" datetime="2020-08-09T13:49:52Z">2020-08-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/leetcode/%E6%95%B0%E7%BB%84/" itemprop="url" rel="index"><span itemprop="name">数组</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>###</p>
-<h3 id="寻找数组的中心索引"><a href="#寻找数组的中心索引" class="headerlink" title="寻找数组的中心索引"></a>寻找数组的中心索引</h3><p>给定一个整数类型的数组 nums，请编写一个能够返回数组 “中心索引” 的方法。</p>
-<p>我们是这样定义数组 中心索引 的：数组中心索引的左侧所有元素相加的和等于右侧所有元素相加的和。</p>
-<p>如果数组不存在中心索引，那么我们应该返回 -1。如果数组有多个中心索引，那么我们应该返回最靠近左边的那一个。</p>
-<p>示例 1：</p>
-<p>输入：<br>nums = [1, 7, 3, 6, 5, 6]<br>输出：3<br>解释：<br>索引 3 (nums[3] = 6) 的左侧数之和 (1 + 7 + 3 = 11)，与右侧数之和 (5 + 6 = 11) 相等。<br>同时, 3 也是第一个符合要求的中心索引。<br>示例 2：</p>
-<p>输入：<br>nums = [1, 2, 3]<br>输出：-1<br>解释：<br>数组中不存在满足此条件的中心索引。</p>
-<p>说明：</p>
-<p>nums 的长度范围为 [0, 10000]。<br>任何一个 nums[i] 将会是一个范围在 [-1000, 1000]的整数。</p>
-<p>Go</p>
-<p>作者：力扣 (LeetCode)<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/leetbook/read/array-and-string/yf47s/">https://leetcode-cn.com/leetbook/read/array-and-string/yf47s/</a><br>来源：力扣（LeetCode）<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">解法一</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">pivotIndex</span><span class="params">(nums []<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    result:=<span class="number">0</span></span><br><span class="line">    <span class="keyword">for</span> result &lt; <span class="built_in">len</span>(nums) &#123;</span><br><span class="line"></span><br><span class="line">        left:=<span class="function"><span class="keyword">func</span><span class="params">()</span> <span class="title">int</span></span>&#123;</span><br><span class="line">            <span class="keyword">var</span> sum <span class="keyword">int</span></span><br><span class="line">            <span class="keyword">for</span> _,item :=<span class="keyword">range</span> nums[<span class="number">0</span>:result] &#123;</span><br><span class="line">                sum+=item</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> sum</span><br><span class="line">        &#125;</span><br><span class="line">        right:=<span class="function"><span class="keyword">func</span><span class="params">()</span> <span class="title">int</span></span>&#123;</span><br><span class="line">            <span class="keyword">var</span> sum <span class="keyword">int</span></span><br><span class="line">            <span class="keyword">for</span> _,item  :=<span class="keyword">range</span> nums[result+<span class="number">1</span>:] &#123;</span><br><span class="line">                sum+=item</span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">return</span> sum</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> right() == left() &#123;</span><br><span class="line">            <span class="keyword">return</span> result</span><br><span class="line">        &#125;</span><br><span class="line">        result ++</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>执行结果：</p>
-<p>通过</p>
-<p>显示详情</p>
-<p>执行用时：336 ms, 在所有 Go 提交中击败了6.46%的用户</p>
-<p>内存消耗：5.8 MB, 在所有 Go 提交中击败了93.18%的用户</p>
-<p>方法二：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">pivotIndex</span><span class="params">(nums []<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    result := <span class="number">0</span></span><br><span class="line">    readAll := <span class="function"><span class="keyword">func</span><span class="params">()</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">        gte0 := <span class="literal">false</span></span><br><span class="line">        lte0 := <span class="literal">false</span></span><br><span class="line">        <span class="keyword">for</span> _, item := <span class="keyword">range</span> nums &#123;</span><br><span class="line">            <span class="keyword">if</span> item &gt;= <span class="number">0</span> &#123;</span><br><span class="line">                gte0 = <span class="literal">true</span></span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                lte0 = <span class="literal">true</span></span><br><span class="line">            &#125;</span><br><span class="line">            <span class="keyword">if</span> gte0 &amp;&amp; lte0 &#123;</span><br><span class="line">                <span class="keyword">return</span> <span class="literal">true</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">false</span></span><br><span class="line">    &#125;</span><br><span class="line">    loadAll := readAll()</span><br><span class="line">    <span class="keyword">for</span> result &lt; <span class="built_in">len</span>(nums) &#123;</span><br><span class="line">        <span class="keyword">var</span> left <span class="keyword">int</span></span><br><span class="line">        <span class="keyword">var</span> right <span class="keyword">int</span></span><br><span class="line">        <span class="keyword">if</span> result &gt; <span class="number">0</span> &#123;</span><br><span class="line">            <span class="keyword">for</span> _, item := <span class="keyword">range</span> nums[:result] &#123;</span><br><span class="line"></span><br><span class="line">                <span class="keyword">if</span> item == <span class="number">0</span> &#123;</span><br><span class="line">                    <span class="keyword">continue</span></span><br><span class="line">                &#125;</span><br><span class="line">                left += item</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">for</span> _, item := <span class="keyword">range</span> nums[result+<span class="number">1</span>:] &#123;</span><br><span class="line">            <span class="keyword">if</span> item == <span class="number">0</span> &#123;</span><br><span class="line">                <span class="keyword">continue</span></span><br><span class="line">            &#125;</span><br><span class="line">            right += item</span><br><span class="line">            <span class="keyword">if</span> right &gt; left &amp;&amp; !loadAll &#123;</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> left == right &#123;</span><br><span class="line">            <span class="keyword">return</span> result</span><br><span class="line">        &#125;</span><br><span class="line">        result++</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">-1</span></span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>显示详情</p>
-<p>执行用时：424 ms, 在所有 Go 提交中击败了5.26%的用户</p>
-<p>内存消耗：5.8 MB, 在所有 Go 提交中击败了100.00%的用户</p>
-<p>解法三：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">pivotIndex</span><span class="params">(nums []<span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> sum <span class="keyword">int</span></span><br><span class="line">    <span class="keyword">for</span> _,item:=<span class="keyword">range</span> nums &#123;</span><br><span class="line">        sum+=item</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">var</span> leftSum <span class="keyword">int</span></span><br><span class="line">    <span class="keyword">for</span> index,item:=<span class="keyword">range</span> nums &#123;</span><br><span class="line">        <span class="keyword">if</span> leftSum==sum-item-leftSum &#123;</span><br><span class="line">            <span class="keyword">return</span> index</span><br><span class="line">        &#125;</span><br><span class="line">        leftSum+=item</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>  <span class="number">-1</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行用时：24 ms, 在所有 Go 提交中击败了82.78%的用户</p>
-<p>内存消耗：6 MB, 在所有 Go 提交中击败了86.36%的用户</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/leetcode%20%E6%95%B0%E7%BB%84-%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/07/leetcode%20%E6%95%B0%E7%BB%84-%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4/" class="post-title-link" itemprop="url">合并区间</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-06 22:08:43" itemprop="dateCreated datePublished" datetime="2020-08-06T22:08:43Z">2020-08-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-11 03:12:37" itemprop="dateModified" datetime="2020-08-11T03:12:37Z">2020-08-11</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/leetcode/%E6%95%B0%E7%BB%84/" itemprop="url" rel="index"><span itemprop="name">数组</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>318</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="合并区间"><a href="#合并区间" class="headerlink" title="合并区间"></a>合并区间</h3><p>给出一个区间的集合，请合并所有重叠的区间。</p>
-<p>示例 1:</p>
-<p>输入: [[1,3],[2,6],[8,10],[15,18]]<br>输出: [[1,6],[8,10],[15,18]]<br>解释: 区间 [1,3] 和 [2,6] 重叠, 将它们合并为 [1,6].<br>示例 2:</p>
-<p>输入: [[1,4],[4,5]]<br>输出: [[1,5]]<br>解释: 区间 [1,4] 和 [4,5] 可被视为重叠区间。</p>
-<p>Go</p>
-<p>作者：力扣 (LeetCode)<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/leetbook/read/array-and-string/c5tv3/">https://leetcode-cn.com/leetbook/read/array-and-string/c5tv3/</a><br>来源：力扣（LeetCode）<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
-<p>思路： 安装数组中第一数排序 然后合并  </p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/leetcode%20%E6%95%B0%E7%BB%84-%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/07/leetcode%20%E6%95%B0%E7%BB%84-%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE/" class="post-title-link" itemprop="url">搜索插入位置</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-06 22:08:43" itemprop="dateCreated datePublished" datetime="2020-08-06T22:08:43Z">2020-08-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-09 13:49:52" itemprop="dateModified" datetime="2020-08-09T13:49:52Z">2020-08-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/leetcode/%E6%95%B0%E7%BB%84/" itemprop="url" rel="index"><span itemprop="name">数组</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="搜索插入位置"><a href="#搜索插入位置" class="headerlink" title="搜索插入位置"></a>搜索插入位置</h3><p>给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。</p>
-<p>你可以假设数组中无重复元素。</p>
-<p>示例 1:</p>
-<p>输入: [1,3,5,6], 5<br>输出: 2<br>示例 2:</p>
-<p>输入: [1,3,5,6], 2<br>输出: 1<br>示例 3:</p>
-<p>输入: [1,3,5,6], 7<br>输出: 4<br>示例 4:</p>
-<p>输入: [1,3,5,6], 0<br>输出: 0</p>
-<p>作者：力扣 (LeetCode)<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/leetbook/read/array-and-string/cxqdh/">https://leetcode-cn.com/leetbook/read/array-and-string/cxqdh/</a><br>来源：力扣（LeetCode）<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">searchInsert</span><span class="params">(nums []<span class="keyword">int</span>, target <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> nums[<span class="number">0</span>] &gt; target &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> nums[<span class="built_in">len</span>(nums)<span class="number">-1</span>] &lt; target &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(nums)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> index := <span class="number">0</span>; index &lt; <span class="built_in">len</span>(nums)<span class="number">-1</span>; index++ &#123;</span><br><span class="line">        <span class="keyword">if</span> nums[index] == target &#123;</span><br><span class="line">            <span class="keyword">return</span> index</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> index+<span class="number">1</span> &gt;<span class="built_in">len</span>(nums) &#123;</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> nums[index+<span class="number">1</span>] == target &#123;</span><br><span class="line">            <span class="keyword">return</span> index +<span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> nums[index] &lt; target &amp;&amp; target &lt; nums[index+<span class="number">1</span>] &#123;</span><br><span class="line">            <span class="keyword">return</span> index + <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>这个题目主要是考二分查找 </p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">searchInsert</span><span class="params">(nums []<span class="keyword">int</span>, target <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    n:=<span class="built_in">len</span>(nums)</span><br><span class="line">    left,right:=<span class="number">0</span>,n<span class="number">-1</span></span><br><span class="line">    ans:=n</span><br><span class="line">    <span class="keyword">for</span> left&lt;=right &#123;</span><br><span class="line">        mid:=(right-left)&gt;&gt;<span class="number">1</span>+left</span><br><span class="line">        <span class="keyword">if</span> target&lt;= nums[mid] &#123;</span><br><span class="line">            right=mid<span class="number">-1</span></span><br><span class="line">            ans=mid</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            left=mid+<span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>  ans</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/zip-unzip%E7%9A%84%E4%BD%BF%E7%94%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/07/zip-unzip%E7%9A%84%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">zip&unzip的使用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-06 22:03:55" itemprop="dateCreated datePublished" datetime="2020-08-06T22:03:55Z">2020-08-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-09 13:49:52" itemprop="dateModified" datetime="2020-08-09T13:49:52Z">2020-08-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/%E8%BF%90%E7%BB%B4/" itemprop="url" rel="index"><span itemprop="name">运维</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>319</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="zip的使用"><a href="#zip的使用" class="headerlink" title="zip的使用"></a>zip的使用</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">zip -r myfile.zip ./*</span><br><span class="line">将当前目录下的所有文件和文件夹全部压缩成myfile.zip文件,－r表示递归压缩子目录下所有文件.</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="unzip-的使用"><a href="#unzip-的使用" class="headerlink" title="unzip 的使用"></a>unzip 的使用</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">unzip -o -d /home/sunny myfile.zip</span><br><span class="line">把myfile.zip文件解压到 /home/sunny/</span><br><span class="line">-o:不提示的情况下覆盖文件；</span><br><span class="line">-d:-d /home/sunny 指明将文件解压缩到/home/sunny目录下；</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="对已有zip包的更改"><a href="#对已有zip包的更改" class="headerlink" title="对已有zip包的更改"></a>对已有zip包的更改</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">zip -d myfile.zip smart.txt</span><br><span class="line">删除压缩文件中smart.txt文件</span><br><span class="line">zip -m myfile.zip ./rpm_info.txt</span><br><span class="line">向压缩文件中myfile.zip中添加rpm_info.txt文件</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/algorithm-%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/07/algorithm-%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">algorithm-希尔排序</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-06 21:56:21" itemprop="dateCreated datePublished" datetime="2020-08-06T21:56:21Z">2020-08-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-13 13:46:36" itemprop="dateModified" datetime="2020-08-13T13:46:36Z">2020-08-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/algorithm/sort/" itemprop="url" rel="index"><span itemprop="name">sort</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="希尔排序的思路"><a href="#希尔排序的思路" class="headerlink" title="希尔排序的思路"></a>希尔排序的思路</h3><p><strong>希尔排序是把记录按下标的一定增量分组，对每组使用直接插入排序算法排序；随着增量逐渐减少，每组包含的关键词越来越多，当增量减至1时，整个文件恰被分成一组，算法便终止。</strong></p>
-<p>序列是比较常用的，也是希尔建议的增量，称为希尔增量，但其实这个增量序列不是最优的。此处我们做示例使用希尔增量。</p>
-<p><img src="https://images2015.cnblogs.com/blog/1024555/201611/1024555-20161128110416068-1421707828.png" alt="img"></p>
-<p>上代码</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    <span class="string">&quot;time&quot;</span></span><br><span class="line">    <span class="string">&quot;math/rand&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> length = <span class="number">15</span></span><br><span class="line">    <span class="keyword">var</span> list []<span class="keyword">int</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 以时间戳为种子生成随机数，保证每次运行数据不重复</span></span><br><span class="line">    r := rand.New(rand.NewSource(time.Now().UnixNano()))</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; length; i++ &#123;</span><br><span class="line">        list = <span class="built_in">append</span>(list, <span class="keyword">int</span>(r.Intn(<span class="number">1000</span>)))</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Println(list)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 这里就以n/2为增量z</span></span><br><span class="line">    gap := <span class="number">2</span></span><br><span class="line">    step := length / gap</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> step &gt;= <span class="number">1</span> &#123;</span><br><span class="line">        <span class="comment">// 这里按步长开始每个分组的排序</span></span><br><span class="line">        <span class="keyword">for</span> i := step; i &lt; length; i++ &#123;</span><br><span class="line">            <span class="comment">// 将按步长分组的子队列用直接插入排序算法进行排序</span></span><br><span class="line">            insertionSortByStep(list, step)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 完成一轮后再次缩小增量</span></span><br><span class="line">        step /= gap</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 输出每轮缩小增量各组排序后的结果</span></span><br><span class="line">        fmt.Println(list)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这里把上篇直接选择排序的算法抽出来，并将步长从1改成step</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">insertionSortByStep</span><span class="params">(tree []<span class="keyword">int</span>, step <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> i := step; i &lt; <span class="built_in">len</span>(tree); i++ &#123;</span><br><span class="line">        <span class="keyword">for</span> j := i; j &gt;= step &amp;&amp; tree[j] &lt; tree[j-step]; j -= step &#123;</span><br><span class="line">            tree[j], tree[j-step] = tree[j-step], tree[j]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h3><p>最坏情况：O($ \log n^2$)<br>最好情况:    O($ \log 2n$)<br>平均情况：  O($ \log 2/3n$)  </p>
-<h3 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h3><p>因为没有借助额外的空间 空间浮渣度为<code>O(1)</code></p>
-<p>Shell排序比冒泡排序快5倍，比插入排序大致快2倍。Shell排序比起QuickSort，MergeSort，HeapSort慢很多。但是它相对比较简单，它适合于数据量在5000以下并且速度并不是特别重要的场合。它对于数据量较小的数列重复排序是非常好的。</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/algorithm-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/07/algorithm-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">algorithm-归并排序</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-06 21:56:21" itemprop="dateCreated datePublished" datetime="2020-08-06T21:56:21Z">2020-08-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-13 13:20:52" itemprop="dateModified" datetime="2020-08-13T13:20:52Z">2020-08-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/algorithm/sort/" itemprop="url" rel="index"><span itemprop="name">sort</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.7k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="归并排序的思路"><a href="#归并排序的思路" class="headerlink" title="归并排序的思路"></a>归并排序的思路</h3><p>将一排数据，进行左右不断地进行划分（递[归]），然后再对比左右两边的数据后再(合[并])，这就是”归并排序“。</p>
-<blockquote>
-<p>注意：[左右]对比，是指左的第一个元素，与右边的第一个元素进行对比，哪个小，就先放到结果的第一位，然后左或右取出了元素的那边的索引进行++，没有取出的元素的，则不用进行++。 比较完后，还要分别将左，右的剩余的元素，追加到结果列的后面</p>
-</blockquote>
-<h2 id="归并排序-MergeSort"><a href="#归并排序-MergeSort" class="headerlink" title="归并排序(MergeSort)"></a>归并排序(MergeSort)</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line">import <span class="string">&quot;time&quot;</span></span><br><span class="line">import number <span class="string">&quot;github.com/emacsist/go-common/helper/number&quot;</span></span><br><span class="line"></span><br><span class="line">func <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    data := number.GenerateInt(100000, 100000)</span><br><span class="line">    start := makeTimestamp()</span><br><span class="line">    // fmt.Printf(<span class="string">&quot;%v\n&quot;</span>, data)</span><br><span class="line">    data = mergeSort(data)</span><br><span class="line">    fmt.Printf(<span class="string">&quot;cost %v ms \n&quot;</span>, makeTimestamp()-start)</span><br><span class="line">    // fmt.Printf(<span class="string">&quot;%v\n&quot;</span>, data)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//------------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">func makeTimestamp() int64 &#123;</span><br><span class="line">    <span class="built_in">return</span> time.Now().UnixNano() / int64(time.Millisecond)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func mergeSort(data []int) []int &#123;</span><br><span class="line">    <span class="keyword">if</span> len(data) &lt;= 1 &#123;</span><br><span class="line">        <span class="built_in">return</span> data</span><br><span class="line">    &#125;</span><br><span class="line">    //递[归]</span><br><span class="line">    middle := len(data) / 2</span><br><span class="line">    //不断地进行左右对半划分</span><br><span class="line">    left := mergeSort(data[:middle])</span><br><span class="line">    right := mergeSort(data[middle:])</span><br><span class="line">    //合[并]</span><br><span class="line">    <span class="built_in">return</span> merge(left, right)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func merge(left, right []int) (result []int) &#123;</span><br><span class="line">    l, r := 0, 0</span><br><span class="line"></span><br><span class="line">    // 注意：[左右]对比，是指左的第一个元素，与右边的第一个元素进行对比，哪个小，就先放到结果的第一位，然后左或右取出了元素的那边的索引进行++</span><br><span class="line">    <span class="keyword">for</span> l &lt; len(left) &amp;&amp; r &lt; len(right) &#123;</span><br><span class="line">        //从小到大排序.</span><br><span class="line">        <span class="keyword">if</span> left[l] &gt; right[r] &#123;</span><br><span class="line">            result = append(result, right[r])</span><br><span class="line">            //因为处理了右边的第r个元素，所以r的指针要向前移动一个单位</span><br><span class="line">            r++</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            result = append(result, left[l])</span><br><span class="line">            //因为处理了左边的第l个元素，所以l的指针要向前移动一个单位</span><br><span class="line">            l++</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // 比较完后，还要分别将左，右的剩余的元素，追加到结果列的后面(不然就漏咯）。</span><br><span class="line">    result = append(result, left[l:]...)</span><br><span class="line">    result = append(result, right[r:]...)</span><br><span class="line">    <span class="built_in">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h3><p>假设解决最后的子问题用时为常数c，则对于n个待排序记录来说整个问题的规模为<code>cn</code>。</p>
-<p><img src="https://img-blog.csdn.net/20170909101802866?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzYzMDY0NzQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<p>从这个递归树可以看出，第一层时间代价为cn，第二层时间代价为<code>cn/2+cn/2=cn…..</code>每一层代价都是<code>cn</code>，总共有<code>logn+1</code>层。所以总的时间代价为<code>cn*(logn+1)</code>.时间复杂度是<code>o(nlogn)</code>.</p>
-<h3 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h3><p>需要使用辅助数组的长度和待排序的数组相同 ，因此空间复杂度还是<code>O(n)</code></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/algorithm-%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/07/algorithm-%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">algorithm-插入排序</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-06 21:56:21" itemprop="dateCreated datePublished" datetime="2020-08-06T21:56:21Z">2020-08-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-13 12:56:31" itemprop="dateModified" datetime="2020-08-13T12:56:31Z">2020-08-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/algorithm/sort/" itemprop="url" rel="index"><span itemprop="name">sort</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>892</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="插入排序的思路"><a href="#插入排序的思路" class="headerlink" title="插入排序的思路"></a>插入排序的思路</h3><p>它的基本思想是将一个记录<strong>插入</strong>到已经排好序的有序表中，从而一个新的、记录数增1的有序表。</p>
-<p>直接的例子就是玩扑克的时候，想象一下，分牌的时候，大家轮流的从一组牌中抽取最上面的一张，然后将它以某种顺序插入到我们的左手中。比如，我们想要从小到大排列我们的扑克牌。</p>
-<p>标准方法：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">insertionSort</span><span class="params">(data []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    lo, hi := <span class="number">0</span>, <span class="built_in">len</span>(data) <span class="comment">// 获取数组的长度</span></span><br><span class="line">    <span class="keyword">for</span> i := lo + <span class="number">1</span>; i &lt; hi; i++ &#123; <span class="comment">// </span></span><br><span class="line">        <span class="keyword">for</span> j := i; j &gt; lo &amp;&amp; data[j] &lt; data[j<span class="number">-1</span>]; j-- &#123;</span><br><span class="line">            data[j], data[j<span class="number">-1</span>] = data[j<span class="number">-1</span>], data[j]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>这种方法 就是如果后面有一个需要前插操作的数值，找到指定位置之后还会继续和它前面的数值进行比较，针对这一点我们可以优化一下</p>
-<p>优化一：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">insertionSort</span><span class="params">(data []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    lo, hi= <span class="number">0</span>, <span class="built_in">len</span>(data)</span><br><span class="line">    <span class="keyword">for</span> i := lo + <span class="number">1</span>; i &lt; hi; i++ &#123;</span><br><span class="line">        <span class="keyword">for</span> j := i; j &gt; lo; j-- &#123;</span><br><span class="line">            <span class="keyword">if</span>  data[j] &lt; data[j<span class="number">-1</span>]&#123;</span><br><span class="line">                data[j], data[j<span class="number">-1</span>] = data[j<span class="number">-1</span>], data[j]</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h3><p>在最坏情况下，数组完全逆序，插入第2个元素时要考察前1个元素，插入第3个元素时，要考虑前2个元素，……，插入第N个元素，要考虑前 <code>N - 1</code> 个元素。因此，最坏情况下的比较次数是 <code>1 + 2 + 3 + ... + (N - 1)</code>，等差数列求和，结果为 <code>N^2 / 2</code>，所以最坏情况下的复杂度为 <code>O(N^2)</code>。</p>
-<p>最好情况下，数组已经是有序的，每插入一个元素，只需要考查前一个元素，因此最好情况下，插入排序的时间复杂度为<code>O(N)</code>。</p>
-<p>平均时间复杂度  <code>(O(N^2)+O(n))/2=O(n^2)</code></p>
-<h3 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h3><p>因为没有借助额外的空间 空间浮渣度为<code>O(1)</code></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="page-number" href="/page/3/">3</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1283,20 +1273,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">27</span>
+          <span class="site-state-item-count">37</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">17</span>
+        <span class="site-state-item-count">23</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-count">27</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1344,13 +1334,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">70k</span>
+    <span title="站点总字数">97k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:04</span>
+    <span title="站点阅读时长">1:28</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
