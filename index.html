@@ -389,7 +389,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-08-31 21:55:58 / 修改时间：14:30:46" itemprop="dateCreated datePublished" datetime="2020-08-31T21:55:58Z">2020-08-31</time>
+              <time title="创建时间：2020-08-31 21:55:58 / 修改时间：14:41:55" itemprop="dateCreated datePublished" datetime="2020-08-31T21:55:58Z">2020-08-31</time>
             </span>
 
           <br>
@@ -398,7 +398,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>466</span>
+              <span>666</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -439,6 +439,9 @@
 <ol start="4">
 <li><p>因为serverHandler 已经实现了handler 接口 所以http.ListenAndServe 可以直接调用</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_ &#x3D; http.ListenAndServe(&quot;:8080&quot;, serverHandler)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>由于 <code>httpTransport.NewServer</code> 是<code>go-kit</code>中<code>http</code>包的方法<code> http.ListenAndServe</code> 是原生<code>http</code>包 包名重复 需要对<code>go-kit</code>的http 起alias</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">httpTransport &quot;github.com&#x2F;go-kit&#x2F;kit&#x2F;transport&#x2F;http&quot;</span><br><span class="line">    &quot;net&#x2F;http&quot;</span><br></pre></td></tr></table></figure>
 
 </li>
 </ol>
@@ -1352,7 +1355,7 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">101k</span>
+    <span title="站点总字数">102k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
