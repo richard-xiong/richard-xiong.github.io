@@ -123,17 +123,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">27</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">31</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">23</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">24</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">37</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">43</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -200,6 +200,613 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/09/01/curl-%E7%9A%84%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/01/curl-%E7%9A%84%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">curl的使用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-31 22:08:01 / 修改时间：14:10:59" itemprop="dateCreated datePublished" datetime="2020-08-31T22:08:01Z">2020-08-31</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>655</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="查看响应头"><a href="#查看响应头" class="headerlink" title="查看响应头"></a>查看响应头</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> curl -v http://localhost:8080?uid=102 </span><br><span class="line">*   Trying ::1...</span><br><span class="line">* TCP_NODELAY set</span><br><span class="line">* Connected to localhost (::1) port 8080 (#0)</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> GET /?uid=102 HTTP/1.1</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Host: localhost:8080</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> User-Agent: curl/7.64.1</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Accept: */*</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> </span></span><br><span class="line">&lt; HTTP/1.1 200 OK</span><br><span class="line">&lt; Content-Type: application/json;charset=utf-8</span><br><span class="line">&lt; Date: Mon, 31 Aug 2020 14:07:32 GMT</span><br><span class="line">&lt; Content-Length: 19</span><br><span class="line">&lt; </span><br><span class="line">&#123;&quot;result&quot;:&quot;guest&quot;&#125;</span><br><span class="line">* Connection #0 to host localhost left intact</span><br><span class="line">* Closing connection 0</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+<h2 id="查看请求头"><a href="#查看请求头" class="headerlink" title="查看请求头"></a>查看请求头</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mfxing  curl  http://localhost:8080?uid=102 -i</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Content-Type: application/json;charset=utf-8</span><br><span class="line">Date: Mon, 31 Aug 2020 14:10:37 GMT</span><br><span class="line">Content-Length: 19</span><br><span class="line"></span><br><span class="line">&#123;&quot;result&quot;:&quot;guest&quot;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/09/01/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%BA%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/01/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%BA%8C/" class="post-title-link" itemprop="url">Go-kit 学习笔记-二</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-31 21:55:58 / 修改时间：14:30:14" itemprop="dateCreated datePublished" datetime="2020-08-31T21:55:58Z">2020-08-31</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>466</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="将上节的服务进行发布-在main-go-中添加"><a href="#将上节的服务进行发布-在main-go-中添加" class="headerlink" title="将上节的服务进行发布 在main.go 中添加"></a>将上节的服务进行发布 在<code>main.go</code> 中添加</h4><ol>
+<li><p>第一层 先获取service</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user:=Services.UserService&#123;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>第二层 创建endpoint</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">endP:&#x3D;Services.GenUserEndpoint(user)    </span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="3">
+<li><p>第三步 使用<code>go-kit</code>创建<code>handler</code>  借助<code>newServer</code>函数 返回了一个<code>server struct</code> 内部实现了<code>func (s Server) ServeHTTP(w http.ResponseWriter, r *http.Request) </code>  如何对请求进行处理</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">serverHandler:=httpTransport.NewServer(endP,Services.DecodeUserRequest,Services.EncodeUserRequest)</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="4">
+<li><p>因为serverHandler 已经实现了handler 接口 所以http.ListenAndServe 可以直接调用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_ &#x3D; http.ListenAndServe(&quot;:8080&quot;, serverHandler)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/09/01/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%9B%9B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/01/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%9B%9B/" class="post-title-link" itemprop="url">Go-kit 学习笔记-四</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-31 20:52:15 / 修改时间：12:52:20" itemprop="dateCreated datePublished" datetime="2020-08-31T20:52:15Z">2020-08-31</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>0</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/30/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/30/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%89/" class="post-title-link" itemprop="url">Go-kit 学习笔记-三</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-30 10:40:24" itemprop="dateCreated datePublished" datetime="2020-08-30T10:40:24Z">2020-08-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-31 12:51:16" itemprop="dateModified" datetime="2020-08-31T12:51:16Z">2020-08-31</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>697</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="使用第三方库mux-来设置路由"><a href="#使用第三方库mux-来设置路由" class="headerlink" title="使用第三方库mux  来设置路由"></a>使用第三方库<a target="_blank" rel="noopener" href="https://github.com/gorilla/mux">mux</a>  来设置路由</h3><ol>
+<li><p>简单的使用 、这种是不指定<code>http method</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    r := mux.NewRouter()</span><br><span class="line">    r.HandleFunc(<span class="string">&quot;/&quot;</span>, HomeHandler)</span><br><span class="line">    r.HandleFunc(<span class="string">&quot;/products&quot;</span>, ProductsHandler)</span><br><span class="line">    r.HandleFunc(<span class="string">&quot;/articles&quot;</span>, ArticlesHandler)</span><br><span class="line">    http.Handle(<span class="string">&quot;/&quot;</span>, r)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="2">
+<li><p>路由规则支持正则</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">r := mux.NewRouter()</span><br><span class="line">r.HandleFunc(<span class="string">&quot;/products/&#123;key&#125;&quot;</span>, ProductHandler)</span><br><span class="line">r.HandleFunc(<span class="string">&quot;/articles/&#123;category&#125;/&quot;</span>, ArticlesCategoryHandler)</span><br><span class="line">r.HandleFunc(<span class="string">&quot;/articles/&#123;category&#125;/&#123;id:[0-9]+&#125;&quot;</span>, ArticleHandler)</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="3">
+<li><p>指定<code>http method</code>  post请求 /specific</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">r.Methods(<span class="string">&quot;POST&quot;</span>)</span><br><span class="line">r.HandleFunc(<span class="string">&quot;/specific&quot;</span>, specificHandler)</span><br><span class="line"># 也可以</span><br><span class="line">r.r.PathPrefix(<span class="string">&quot;/products&quot;</span>).Handler(catchAllHandler)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/29/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/29/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%80/" class="post-title-link" itemprop="url">Go-kit 学习笔记 一</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-29 10:57:56" itemprop="dateCreated datePublished" datetime="2020-08-29T10:57:56Z">2020-08-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-31 13:55:34" itemprop="dateModified" datetime="2020-08-31T13:55:34Z">2020-08-31</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Go-kit 的三层架构</p>
+<ol>
+<li><p>transport</p>
+<p>主要负责与http、gRPC、thrift等相关逻辑</p>
+</li>
+<li><p>endpoint</p>
+<p>定义request与response格式、并可以使用装饰器包装函数，以此来实现各种中间件之间的嵌套</p>
+</li>
+<li><p>service</p>
+<p>这里定义的就是业务类、接口等</p>
+</li>
+</ol>
+<p>我实现的时候是倒着创建</p>
+<p>​    </p>
+<ol>
+<li><p>第一步 创建接口 以及关联词</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> IUserService <span class="keyword">interface</span> &#123;</span><br><span class="line">    GetName(userId <span class="keyword">int</span>) <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> UserService <span class="keyword">struct</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this UserService)</span><span class="title">GetName</span><span class="params">(userId <span class="keyword">int</span>)</span><span class="title">string</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> userId==<span class="number">101</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;richard&quot;</span></span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;guest&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="2">
+<li><p>第二步 创建EndPoint</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">type</span> UserRequest <span class="keyword">struct</span> &#123;</span><br><span class="line">    Uid <span class="keyword">int</span> <span class="string">`json:&quot;uid&quot;`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> UserResponse <span class="keyword">struct</span> &#123;</span><br><span class="line">    Result <span class="keyword">string</span> <span class="string">`json:&quot;result&quot;`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 首先定义 请求和响应的 <span class="keyword">struct</span></span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="3">
+<li><p>第三步 创建transport</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 当我们外部有请求过来的时候，我们需要对Request进行decode，</span><br><span class="line"># 注意：外部请求很有可能是rpc、http。参数形式也许是json也许是赤裸裸的url参数</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">DecodeUserRequest</span><span class="params">(c context.Context,r *http.Request)</span><span class="params">(<span class="keyword">interface</span>&#123;&#125;,error)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在代码块里写</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这个主要是判断参数是怎么来的,代码可以写成</span></span><br><span class="line">    <span class="keyword">if</span> r.URL.Query().Get(<span class="string">&quot;uid&quot;</span>) != <span class="string">&quot;&quot;</span> &#123;</span><br><span class="line">        uid, _ := strconv.Atoi(r.URL.Query().Get(<span class="string">&quot;uid&quot;</span>))</span><br><span class="line">        <span class="keyword">return</span> UserRequest&#123;Uid: uid&#125;, <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span>,errors.New(<span class="string">&quot;参数错误&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>对于响应：响应是我们发出的 我们需要encode，比较简单的就是json</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">EncodeUserRequest</span><span class="params">(ctx context.Context,w http.ResponseWriter,response <span class="keyword">interface</span>&#123;&#125;)</span> <span class="title">error</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在func里添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 返回一个json</span><br><span class="line">w.Header().Set(&quot;Content-type&quot;,&quot;application&#x2F;json;charset&#x3D;utf-8&quot;)</span><br><span class="line">return json.NewEncoder(w).Encode(response)</span><br></pre></td></tr></table></figure></li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/28/charles-https-%E6%8A%93%E5%8C%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/28/charles-https-%E6%8A%93%E5%8C%85/" class="post-title-link" itemprop="url">charles-https 抓包</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-28 15:59:02 / 修改时间：08:24:49" itemprop="dateCreated datePublished" datetime="2020-08-28T15:59:02Z">2020-08-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%93%E5%8C%85/" itemprop="url" rel="index"><span itemprop="name">抓包</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="1-获取PC的IP地址"><a href="#1-获取PC的IP地址" class="headerlink" title="1. 获取PC的IP地址"></a>1. 获取PC的IP地址</h3><p>在Charles<code>菜单栏 -&gt; Help -&gt; Local IP Address</code>中可以查看PC的IP地址。图示如下：</p>
+<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161106090.png" alt="image-20200828161106090" style="zoom: 50%;" />
+
+
+
+<p>也可以在Mac终端使用命令<code>ifconfig en1</code>查看PC的IP地址。图示如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mfxing  ifconfig en1</span><br><span class="line">en1: flags=8963&lt;UP,BROADCAST,SMART,RUNNING,PROMISC,SIMPLEX,MULTICAST&gt; mtu 1500</span><br><span class="line">    options=460&lt;TSO4,TSO6,CHANNEL_IO&gt;</span><br><span class="line">    ether 82:0e:72:47:b8:01</span><br><span class="line">    media: autoselect &lt;full-duplex&gt;</span><br><span class="line">    status: inactive</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-配置iPhone代理"><a href="#2-配置iPhone代理" class="headerlink" title="2. 配置iPhone代理"></a>2. 配置iPhone代理</h3><p>在iPhone的<code>设置 -&gt; 无线局域网 -&gt; 局域网信息(i) -&gt; 配置代理 -&gt; 手动</code>中配置代理，服务器输入框中填写PC的IP地址，端口输入框中填写Charles的代理端口（一般是8888）。图示如下：</p>
+<img src="/images/charles-https-%E6%8A%93%E5%8C%85/7dff28a27b45adb7d3fecff3a085b315.jpg" alt="7dff28a27b45adb7d3fecff3a085b315" style="zoom:50%;" />
+
+
+
+<p>具体的端口可以从Charles<code>菜单栏 -&gt; Proxy -&gt; Proxy Settings</code>中查看。图示如下：</p>
+<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161401437.png" alt="image-20200828161401437" style="zoom:33%;" />
+
+
+
+<p>iPhone代理配置完成后，Charles会弹出连接提示框，点击<code>Allow</code>之后即可使用Charles对从该iPhone发出的请求进行抓包了。图示如下：<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161524821.png" alt="image-20200828161524821"></p>
+<h3 id="3-抓包HTTPS请求"><a href="#3-抓包HTTPS请求" class="headerlink" title="3. 抓包HTTPS请求"></a>3. 抓包HTTPS请求</h3><p>在配置iPhone代理完毕后，就可以通过Structure或者Sequence窗口预览HTTP请求的数据了。但由于HTTPS请求被加密过，预览请求时只能预览到乱码数据。要预览到HTTPS请求的数据明文，需要PC和iPhone安装证书授权。</p>
+<h4 id="1-PC安装证书"><a href="#1-PC安装证书" class="headerlink" title="1) PC安装证书"></a>1) PC安装证书</h4><p>在Charles<code>菜单栏 -&gt; Help -&gt; SSL Proxying -&gt; Install Charles Root Certificate</code>中可以为PC安装证书，证书可以在Mac的钥匙串中查看。图示如下：</p>
+<p><img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161742347.png" alt="image-20200828161742347"></p>
+<p>证书可以在Mac的钥匙串中查看，双击证书，将信任权限设定为<code>始终信任</code>。图示如下：</p>
+<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161820758.png" alt="image-20200828161820758" style="zoom:33%;" />
+
+
+
+<h4 id="2-iPhone安装证书"><a href="#2-iPhone安装证书" class="headerlink" title="2) iPhone安装证书"></a>2) iPhone安装证书</h4><p>在iPhone浏览器中访问<code>http://charlesproxy.com/getssl</code>可以下载证书并安装。此地址一般不会变化，可以在Charles<code>菜单栏 -&gt; Help -&gt; SSL Proxying -&gt; Install Charles Root Certificate on a Mobile Device or Remote Browser</code>中查看最新的官方证书下载地址。图示如下：</p>
+<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161858697.png" alt="image-20200828161858697" style="zoom:50%;" />
+
+
+
+<p>基于iOS的证书信任机制，在安装完成并信任证书后，需要到iPhone<code>设置 -&gt; 关于本机 -&gt; 证书信任设置</code>中启用根证书。图示如下：</p>
+<img src="/images/charles-https-%E6%8A%93%E5%8C%85/635269d6c5f07cea0b29a7b859fe35b9.jpg" alt="635269d6c5f07cea0b29a7b859fe35b9" style="zoom:33%;" />
+
+
+
+<p>这样，就可以使用Charles中抓包iPhone发出的HTTPS请求并预览明文数据了。</p>
+<blockquote>
+<p>抓包模拟器上的HTTPS请求需要点击<code>Install Charles Root Certificate in iOS Simulators</code>安装证书。</p>
+</blockquote>
+<h4 id="3-启动抓包SSL权限"><a href="#3-启动抓包SSL权限" class="headerlink" title="3) 启动抓包SSL权限"></a>3) 启动抓包SSL权限</h4><p>在Charles<code>菜单栏 -&gt; Proxy -&gt; SSL Proxying Settings</code>中勾选<code>Enable SSL Proxying</code>，然后在<code>Locations</code>中添加需要抓包的Host和Port即可。图示如下：</p>
+<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828162130663.png" alt="image-20200828162130663" style="zoom:33%;" />
+
+
+
+<p>也可以在抓包界面，右键点击某条/组请求，在弹出的选项列表中点击<code>Enable SSL Proxying</code>启用权限。图示如下：</p>
+<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828162231644.png" alt="image-20200828162231644" style="zoom: 33%;" />
+
+
+
+
+
+<p>基本的抓取到这里就完事了 </p>
+<p>charles 还支持 <code>请求断点</code>、<code>数据修改</code>、<code>请求重发</code>、<code>网速模拟</code></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/27/%E6%9E%B6%E6%9E%84-%E9%80%89%E5%9E%8B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -225,7 +832,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-08-26 20:55:31 / 修改时间：13:22:05" itemprop="dateCreated datePublished" datetime="2020-08-26T20:55:31Z">2020-08-26</time>
+              <time title="创建时间：2020-08-26 20:55:31 / 修改时间：13:32:12" itemprop="dateCreated datePublished" datetime="2020-08-26T20:55:31Z">2020-08-26</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -243,7 +850,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>104</span>
+              <span>131</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -270,13 +877,14 @@
 <li>实体 譬如 数据库实体类</li>
 <li>Dao层 业务的实际处理层</li>
 </ol>
+<p>简单的业务 没什么并发</p>
 </li>
 <li><p>分布式模式</p>
 </li>
 </ol>
-<img src="/images/%E6%9E%B6%E6%9E%84-%E9%80%89%E5%9E%8B/%E5%88%86%E5%B8%83%E5%BC%8F.png" alt="分布式" style="zoom: 33%;" />
+<img src="/images/%E6%9E%B6%E6%9E%84-%E9%80%89%E5%9E%8B/%E5%88%86%E5%B8%83%E5%BC%8F.png" alt="分布式" style="zoom: 50%;" />
 
-<p>分布式的模式 可以很好的对具体的业务做流量的负载均衡</p>
+<p>分布式架构 可以很好的对具体的业务做流量的负载均衡，适合流量很高的业务，集群方式去部署 </p>
 
       
     </div>
@@ -628,584 +1236,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/20/sublime-json-%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%BF%AB%E6%8D%B7%E9%94%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/20/sublime-json-%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%BF%AB%E6%8D%B7%E9%94%AE/" class="post-title-link" itemprop="url">sublime json 格式化快捷键</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-08-20 11:38:02 / 修改时间：03:38:44" itemprop="dateCreated datePublished" datetime="2020-08-20T11:38:02Z">2020-08-20</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>385</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>1、打开 Sublime，<code>command + shift + p</code> -&gt; Install package<br> 搜索 Pretty JSON，安装</p>
-<p>2、手工 install</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">I: cd &lt;Packages directory&gt; (例如 Mac ~&#x2F;Library&#x2F;Application\ Support&#x2F;Sublime\ Text\ 2&#x2F;Packages </span><br><span class="line">or </span><br><span class="line">~&#x2F;Library&#x2F;Application\ Support&#x2F;Sublime\ Text\ 3&#x2F;Packages)</span><br><span class="line"></span><br><span class="line">II: git clone https:&#x2F;&#x2F;github.com&#x2F;dzhibas&#x2F;SublimePrettyJson.git</span><br></pre></td></tr></table></figure>
-
-<p>格式化快捷键 :</p>
-<p>macOS: <code>command + ctrl + j</code><br> Windows: <code>ctrl + alt + j</code></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/19/elasticsearch-7-5-0%E7%A0%B4%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/19/elasticsearch-7-5-0%E7%A0%B4%E8%A7%A3/" class="post-title-link" itemprop="url">elasticsearch-7.5.0白金版破解</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-18 17:12:00" itemprop="dateCreated datePublished" datetime="2020-08-18T17:12:00Z">2020-08-18</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-20 08:18:18" itemprop="dateModified" datetime="2020-08-20T08:18:18Z">2020-08-20</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>7.2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>7 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>下载elasticsearch 7.5.0版本</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.5.0-darwin-x86_64.tar.gz</span><br></pre></td></tr></table></figure>
-
-<p>解压</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf elasticsearch-7.5.0-darwin-x86_64.tar.gz</span><br></pre></td></tr></table></figure>
-
-<h3 id="破解过程："><a href="#破解过程：" class="headerlink" title="破解过程："></a>破解过程：</h3><p>注意：<code>/Users/mengfanxing_g/elk/</code>是我本机路径，你在操作时应该修改成你的路径。</p>
-<p>1，将 <code>/Users/mengfanxing_g/elk/elasticsearch-7.5.0/modules/x-pack-core/</code>目录下的<code>x-pack-core-7.5.0.jar</code>文件赋值一份，</p>
-<p>2，手动创建<code>XPackBuild.java</code>和<code>LicenseVerifier.java</code>两个文件，</p>
-<ul>
-<li><p><code>LicenseVerifier.java</code>内容为：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.elasticsearch.xpack.core;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.common.SuppressForbidden;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.common.io.PathUtils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.net.URISyntaxException;</span><br><span class="line"><span class="keyword">import</span> java.net.URL;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Files;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Path;</span><br><span class="line"><span class="keyword">import</span> java.util.jar.JarInputStream;</span><br><span class="line"><span class="keyword">import</span> java.util.jar.Manifest;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">XPackBuild</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> XPackBuild CURRENT;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        CURRENT = <span class="keyword">new</span> XPackBuild(<span class="string">&quot;Unknown&quot;</span>, <span class="string">&quot;Unknown&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Returns path to xpack codebase path</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@SuppressForbidden(reason = &quot;looks up path of xpack.jar directly&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">static</span> Path <span class="title">getElasticsearchCodebase</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        URL url = XPackBuild.class.getProtectionDomain().getCodeSource().getLocation();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> PathUtils.get(url.toURI());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (URISyntaxException bogus) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(bogus);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String shortHash;</span><br><span class="line">    <span class="keyword">private</span> String date;</span><br><span class="line"></span><br><span class="line">    XPackBuild(String shortHash, String date) &#123;</span><br><span class="line">        <span class="keyword">this</span>.shortHash = shortHash;</span><br><span class="line">        <span class="keyword">this</span>.date = date;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">shortHash</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> shortHash;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">date</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> date;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p><code>LicenseVerifier.java</code>文件的内容为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">package org.elasticsearch.license;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * Responsible for verifying signed licenses</span><br><span class="line"> *&#x2F;</span><br><span class="line">public class LicenseVerifier &#123;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * verifies the license content with the signature using the packaged</span><br><span class="line">     * public key</span><br><span class="line">     * @param license to verify</span><br><span class="line">     * @return true if valid, false otherwise</span><br><span class="line">     *&#x2F;</span><br><span class="line">    public static boolean verifyLicense(final License license, byte[] publicKeyData) &#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static boolean verifyLicense(final License license) &#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>3 使用javac 编译这两个java文件，需要引入import的依赖，使用-cp参数，需要依赖原本的<code>x-pack-core-7.5.0.jar</code>，<code>lucene-core-8.3.0.jar</code>，<code>elasticsearch-7.5.0.jar</code>，<code>elasticsearch-core-7.5.0.jar</code>这四个jar包,对应的文件都在安装目录，有的在lib目录下，有的在modules目录下。编译命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">javac -cp &quot;&#x2F;Users&#x2F;mengfanxing_g&#x2F;elk&#x2F;elasticsearch-7.5.0&#x2F;modules&#x2F;x-pack-core&#x2F;x-pack-core-7.5.0.jar:&#x2F;Users&#x2F;mengfanxing_g&#x2F;elk&#x2F;elasticsearch-7.5.0&#x2F;lib&#x2F;lucene-core-8.3.0.jar:&#x2F;Users&#x2F;mengfanxing_g&#x2F;elk&#x2F;elasticsearch-7.5.0&#x2F;lib&#x2F;elasticsearch-7.5.0.jar:&#x2F;Users&#x2F;mengfanxing_g&#x2F;elk&#x2F;elasticsearch-7.5.0&#x2F;lib&#x2F;elasticsearch-core-7.5.0.jar&quot;  &#x2F;Users&#x2F;mengfanxing_g&#x2F;richard&#x2F;blog&#x2F;XingServer&#x2F;tmp&#x2F;XPackBuild.java</span><br><span class="line"></span><br><span class="line">javac -cp &quot;&#x2F;Users&#x2F;mengfanxing_g&#x2F;elk&#x2F;elasticsearch-7.5.0&#x2F;modules&#x2F;x-pack-core&#x2F;x-pack-core-7.5.0.jar:&#x2F;Users&#x2F;mengfanxing_g&#x2F;elk&#x2F;elasticsearch-7.5.0&#x2F;lib&#x2F;lucene-core-8.3.0.jar:&#x2F;Users&#x2F;mengfanxing_g&#x2F;elk&#x2F;elasticsearch-7.5.0&#x2F;lib&#x2F;elasticsearch-7.5.0.jar:&#x2F;Users&#x2F;mengfanxing_g&#x2F;elk&#x2F;elasticsearch-7.5.0&#x2F;lib&#x2F;elasticsearch-core-7.5.0.jar&quot;  &#x2F;Users&#x2F;mengfanxing_g&#x2F;richard&#x2F;blog&#x2F;XingServer&#x2F;tmp&#x2F;LicenseVerifier.java</span><br></pre></td></tr></table></figure>
-
-<p>然后就会在桌面产生对应的class文件。</p>
-<p>查询需要替换的文件在jar中的位置 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jar tvf *****.jar | grep &#123;fileName&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4786 Tue Nov 26 01:06:36 CST 2019 org&#x2F;elasticsearch&#x2F;license&#x2F;LicenseVerifier.class</span><br></pre></td></tr></table></figure>
-
-<p>二、将文件解压到当前目录(以及文件所在目录)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; jar xvf ****.jar &#123;filePath&#125;</span><br></pre></td></tr></table></figure>
-
-<p>三、替换新生成的文件夹中的文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; jar uvf ***.jar &#123;filePath&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">jar uvf x-pack-core-7.5.0.jar org/elasticsearch/license/LicenseVerifier.class</span><br><span class="line">正在添加: org/elasticsearch/license/LicenseVerifier.class(输入 = 410) (输出 = 246)(压缩了 40%</span><br></pre></td></tr></table></figure>
-
-<p>XPackBuild 同理</p>
-<p>4，更新许可证</p>
-<p>官方申请地址： <a target="_blank" rel="noopener" href="https://register.elastic.co/marvel_register">https://register.elastic.co/marvel_register</a></p>
-<p>公司地址什么课以随便填写，邮箱要填好，然后收到邮件，进行文件下载。 下载下来，修改里面的内容，主要是把 “basic” 改为 “platinum” 即白金版，”expiry_date_in_millis” 这个时间戳改大点，就够用了。</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;license&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;uid&quot;</span>: <span class="string">&quot;5a2c6c4f-60bf-4471-8941-1d037364a2e3&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;platinum&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;issue_date_in_millis&quot;</span>: <span class="number">1597881600000</span>,</span><br><span class="line">    <span class="attr">&quot;expiry_date_in_millis&quot;</span>: <span class="number">2524582861000</span>,</span><br><span class="line">    <span class="attr">&quot;max_nodes&quot;</span>: <span class="number">9999</span>,</span><br><span class="line">    <span class="attr">&quot;issued_to&quot;</span>: <span class="string">&quot;richard xing (xiong)&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;issuer&quot;</span>: <span class="string">&quot;Web Form&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;signature&quot;</span>: <span class="string">&quot;AAAAAwAAAA3unQmrSr8HfvmG9XG6AAABmC9ZN0hjZDBGYnVyRXpCOW5Bb3FjZDAxOWpSbTVoMVZwUzRxVk1PSmkxaktJRVl5MUYvUWh3bHZVUTllbXNPbzBUemtnbWpBbmlWRmRZb25KNFlBR2x0TXc2K2p1Y1VtMG1UQU9TRGZVSGRwaEJGUjE3bXd3LzRqZ05iLzRteWFNekdxRGpIYlFwYkJiNUs0U1hTVlJKNVlXekMrSlVUdFIvV0FNeWdOYnlESDc3MWhlY3hSQmdKSjJ2ZTcvYlBFOHhPQlV3ZHdDQ0tHcG5uOElCaDJ4K1hob29xSG85N0kvTWV3THhlQk9NL01VMFRjNDZpZEVXeUtUMXIyMlIveFpJUkk2WUdveEZaME9XWitGUi9WNTZVQW1FMG1DenhZU0ZmeXlZakVEMjZFT2NvOWxpZGlqVmlHNC8rWVVUYzMwRGVySHpIdURzKzFiRDl4TmM1TUp2VTBOUlJZUlAyV0ZVL2kvVk10L0NsbXNFYVZwT3NSU082dFNNa2prQ0ZsclZ4NTltbU1CVE5lR09Bck93V2J1Y3c9PQAAAQBfvTGssbXzXV+UDVggDncuYFQH+8rxwxt4J8H7KuhOAlYUnysaGKz+Agoh+vZOTKm0Uyo9Fl+6dn46RN9k4lHCW8UPby3M+arpH+g2dNzXASlmku+SQUI0MO1zKJ4FjVYGqjlzKyJ54fYAtW+B6i/R8saLp4lnmW+jvC7tAUehgZFF2jxF3Z+D4bHgGS+w005J4B0M36ViG86wa4Lmq2p9vgq6ZBw7mCZpazBPQpwLJTuNDCGCcCF3wN/lh9WjCsjOBbC5Qk0Zv9EgFebZZl0tYU5/klJxqxJTMt1b16ajJEC6hKzlCPMl0A1SIi7uz1aXZK9jdrg9S3ovfL3/sAb4&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;start_date_in_millis&quot;</span>: <span class="number">1597881600000</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">Changed password for user apm_system</span><br><span class="line">PASSWORD apm_system &#x3D; nkLq5Zq3npITPAiMHNHZ</span><br><span class="line"></span><br><span class="line">Changed password for user kibana</span><br><span class="line">PASSWORD kibana &#x3D; LqoQJHwsBRjtV1kmFwJe</span><br><span class="line"></span><br><span class="line">Changed password for user logstash_system</span><br><span class="line">PASSWORD logstash_system &#x3D; A66I9MdbpZFk4b9bYgde</span><br><span class="line"></span><br><span class="line">Changed password for user beats_system</span><br><span class="line">PASSWORD beats_system &#x3D; hNfm2GACi5nYQ0Ep4OfY</span><br><span class="line"></span><br><span class="line">Changed password for user remote_monitoring_user</span><br><span class="line">PASSWORD remote_monitoring_user &#x3D; pFeAwFNqgAFMf631IkkK</span><br><span class="line"></span><br><span class="line">Changed password for user elastic</span><br><span class="line">PASSWORD elastic &#x3D; 8lxq2KhthMl4jH5f1nLA</span><br></pre></td></tr></table></figure>
-
-
-
-<p>在导入license 之前需要</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">xpack.security.enabled:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
-
-<p>然后执行 导入json文件 因为还没设置elastic 用户名密码  直接回车</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -XPUT -u elastic &#x27;http://localhost:9200/_xpack/license&#x27; -H &quot;Content-Type: application/json&quot; -d @richard-xing-5a2c6c4f-60bf-4471-8941-1d037364a2e3-v5.json</span><br><span class="line">&#123;&quot;acknowledged&quot;:true,&quot;license_status&quot;:&quot;valid&quot;&#125;%</span><br></pre></td></tr></table></figure>
-
-<p>然后elasticsearch 添加对xpack的支持 然后 kibana上才能展示出security的模块，然后重新启动</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">xpack.security.enabled:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-<p>然后在另一个窗口 执行，会自动生成相应用户名的密码</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">./bin/elasticsearch-setup-passwords auto</span><br><span class="line">future versions of Elasticsearch will require Java 11; your Java version from [/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/jre] does not meet this requirement</span><br><span class="line">Initiating the setup of passwords for reserved users elastic,apm_system,kibana,logstash_system,beats_system,remote_monitoring_user.</span><br><span class="line">The passwords will be randomly generated and printed to the console.</span><br><span class="line">Please confirm that you would like to continue [y/N]y</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Changed password for user apm_system</span><br><span class="line">PASSWORD apm_system = nkLq5Zq3npITPAiMHNHZ</span><br><span class="line"></span><br><span class="line">Changed password for user kibana</span><br><span class="line">PASSWORD kibana = LqoQJHwsBRjtV1kmFwJe</span><br><span class="line"></span><br><span class="line">Changed password for user logstash_system</span><br><span class="line">PASSWORD logstash_system = A66I9MdbpZFk4b9bYgde</span><br><span class="line"></span><br><span class="line">Changed password for user beats_system</span><br><span class="line">PASSWORD beats_system = hNfm2GACi5nYQ0Ep4OfY</span><br><span class="line"></span><br><span class="line">Changed password for user remote_monitoring_user</span><br><span class="line">PASSWORD remote_monitoring_user = pFeAwFNqgAFMf631IkkK</span><br><span class="line"></span><br><span class="line">Changed password for user elastic</span><br><span class="line">PASSWORD elastic = 8lxq2KhthMl4jH5f1nLA</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/18/leetcode-%E6%95%B0%E7%BB%84-%E5%AF%B9%E8%A7%92%E7%BA%BF%E9%81%8D%E5%8E%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/18/leetcode-%E6%95%B0%E7%BB%84-%E5%AF%B9%E8%A7%92%E7%BA%BF%E9%81%8D%E5%8E%86/" class="post-title-link" itemprop="url">leetcode 数组-对角线遍历</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-08-17 23:06:59 / 修改时间：15:10:09" itemprop="dateCreated datePublished" datetime="2020-08-17T23:06:59Z">2020-08-17</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>942</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>给定一个含有 M x N 个元素的矩阵（M 行，N 列），请以对角线遍历的顺序返回这个矩阵中的所有元素，对角线遍历如下图所示。</p>
-<p>示例:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">输入:</span><br><span class="line">[</span><br><span class="line"> [ 1, 2, 3 ],</span><br><span class="line"> [ 4, 5, 6 ],</span><br><span class="line"> [ 7, 8, 9 ]</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">输出:  [1,2,4,7,5,3,6,8,9]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/12/diagonal_traverse.png" alt="解释:"></p>
-<p>说明:</p>
-<p>给定矩阵中的元素总数不会超过 100000 。</p>
-<p>Go</p>
-<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 官方题解第一种方法，遍历对角线，然后对偶数行序列翻转</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">findDiagonalOrder</span><span class="params">(matrix [][]<span class="keyword">int</span>)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(matrix) == <span class="number">0</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    res := <span class="built_in">make</span>([]<span class="keyword">int</span>,<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 遍历的对角线数目为 行数+列数</span></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(matrix[<span class="number">0</span>]) + <span class="built_in">len</span>(matrix) - <span class="number">1</span>; i++ &#123;</span><br><span class="line">        <span class="comment">// 当前对角线元素集</span></span><br><span class="line">        cur := <span class="built_in">make</span>([]<span class="keyword">int</span>,<span class="number">0</span>) </span><br><span class="line">        <span class="comment">// 当前坐标</span></span><br><span class="line">        x,y := <span class="number">0</span>,i</span><br><span class="line">        <span class="comment">// 我们假设右边拼接了一个与行数相等的矩阵，因此，如果遇到拼接的矩阵元素，需要跳过</span></span><br><span class="line">        <span class="keyword">for</span> y &gt;= <span class="built_in">len</span>(matrix[<span class="number">0</span>]) &#123;</span><br><span class="line">            x,y = x+<span class="number">1</span>,y<span class="number">-1</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 当前元素加入集合，向左下角移动一格</span></span><br><span class="line">        <span class="keyword">for</span> x &lt; <span class="built_in">len</span>(matrix) &amp;&amp; y &gt;= <span class="number">0</span> &#123;</span><br><span class="line">            cur = <span class="built_in">append</span>(cur,matrix[x][y])</span><br><span class="line">            x,y = x+<span class="number">1</span>,y<span class="number">-1</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 如果是偶数行序列，进行翻转</span></span><br><span class="line">        <span class="keyword">if</span> i % <span class="number">2</span> == <span class="number">0</span> &#123;</span><br><span class="line">            reverse(cur)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 当前对角线元素序列加入结果数组</span></span><br><span class="line">        res = <span class="built_in">append</span>(res,cur...)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 翻转数组</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">reverse</span><span class="params">(cur []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> i,j := <span class="number">0</span>,<span class="built_in">len</span>(cur)<span class="number">-1</span>; i &lt; j; i,j = i+<span class="number">1</span>,j<span class="number">-1</span> &#123;</span><br><span class="line">        cur[i],cur[j] = cur[j],cur[i]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>执行用时：48 ms, 在所有 Go 提交中击败了20.71%的用户</p>
-<p>内存消耗：7 MB, 在所有 Go 提交中击败了6.12%的用户</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/17/leetcode-%E6%95%B0%E7%BB%84-%E9%9B%B6%E7%9F%A9%E9%98%B5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/17/leetcode-%E6%95%B0%E7%BB%84-%E9%9B%B6%E7%9F%A9%E9%98%B5/" class="post-title-link" itemprop="url">leetcode 数组-零矩阵</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-08-17 11:55:22 / 修改时间：15:06:52" itemprop="dateCreated datePublished" datetime="2020-08-17T11:55:22Z">2020-08-17</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>755</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>零矩阵<br>编写一种算法，若M × N矩阵中某个元素为0，则将其所在的行与列清零。</p>
-<p>示例 1：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">输入：</span><br><span class="line">[</span><br><span class="line">  [1,1,1],</span><br><span class="line">  [1,0,1],</span><br><span class="line">  [1,1,1]</span><br><span class="line">]</span><br><span class="line">输出：</span><br><span class="line">[</span><br><span class="line">  [1,0,1],</span><br><span class="line">  [0,0,0],</span><br><span class="line">  [1,0,1]</span><br><span class="line">]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<p>示例 2：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">输入：</span><br><span class="line">[</span><br><span class="line">  [0,1,2,0],</span><br><span class="line">  [3,4,5,2],</span><br><span class="line">  [1,3,1,5]</span><br><span class="line">]</span><br><span class="line">输出：</span><br><span class="line">[</span><br><span class="line">  [0,0,0,0],</span><br><span class="line">  [0,4,5,0],</span><br><span class="line">  [0,3,1,0]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-
-
-<p>作者：力扣 (LeetCode)<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/leetbook/read/array-and-string/ciekh/">https://leetcode-cn.com/leetbook/read/array-and-string/ciekh/</a><br>来源：力扣（LeetCode）<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
-<p>思路：</p>
-<p>找到0的位置 然后遍历set 0 就可以</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">setZeroes</span><span class="params">(matrix [][]<span class="keyword">int</span>)</span></span>  &#123;</span><br><span class="line">    lenth1 := <span class="built_in">len</span>(matrix)</span><br><span class="line">    lenth2 := <span class="built_in">len</span>(matrix[<span class="number">0</span>])</span><br><span class="line">    hMap,lMap := <span class="built_in">make</span>([]<span class="keyword">bool</span>,lenth1),<span class="built_in">make</span>([]<span class="keyword">bool</span>,lenth2)</span><br><span class="line">    <span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;lenth1;i++&#123;</span><br><span class="line">        <span class="keyword">for</span> j:=<span class="number">0</span>;j&lt;lenth2;j++&#123;</span><br><span class="line">            <span class="keyword">if</span> matrix[i][j] == <span class="number">0</span>&#123;</span><br><span class="line">                hMap[i] = <span class="literal">true</span></span><br><span class="line">                lMap[j] = <span class="literal">true</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;lenth1;i++&#123;</span><br><span class="line">        <span class="keyword">for</span> j:=<span class="number">0</span>;j&lt;lenth2;j++&#123;</span><br><span class="line">            <span class="keyword">if</span> hMap[i] || lMap[j]&#123;</span><br><span class="line">                matrix[i][j] = <span class="number">0</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/%E8%BF%9E%E6%8E%A5mysql%E7%9A%84%E8%84%9A%E6%9C%AC/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/07/%E8%BF%9E%E6%8E%A5mysql%E7%9A%84%E8%84%9A%E6%9C%AC/" class="post-title-link" itemprop="url">连接mysql的脚本</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-06 22:29:04" itemprop="dateCreated datePublished" datetime="2020-08-06T22:29:04Z">2020-08-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-09 13:49:52" itemprop="dateModified" datetime="2020-08-09T13:49:52Z">2020-08-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/mysql/" itemprop="url" rel="index"><span itemprop="name">mysql</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>118</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="基本属性"><a href="#基本属性" class="headerlink" title="基本属性"></a>基本属性</h3><p><code>mysql的服务器地址： 127.0.0.1  mysql的端口: 3306 mysql的用户: root mysq的密码: abcdefg</code></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">mysql -h 127.0.0.1 -P 3306 -u root  -pabcdefg databaseName;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/beego%20orm%E6%93%8D%E4%BD%9C(%E4%B8%80)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/07/beego%20orm%E6%93%8D%E4%BD%9C(%E4%B8%80)/" class="post-title-link" itemprop="url">k8s--pod的状态为evicted</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-06 22:08:43" itemprop="dateCreated datePublished" datetime="2020-08-06T22:08:43Z">2020-08-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-14 10:05:18" itemprop="dateModified" datetime="2020-08-14T10:05:18Z">2020-08-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/k8s/" itemprop="url" rel="index"><span itemprop="name">k8s</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>214</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="遇到问题–k8s–pod的状态为evicted"><a href="#遇到问题–k8s–pod的状态为evicted" class="headerlink" title="遇到问题–k8s–pod的状态为evicted"></a>遇到问题–k8s–pod的状态为evicted</h3><p>eviction，即驱赶的意思，意思是当节点出现异常时，kubernetes将有相应的机制驱赶该节点上的Pod。多见于资源不足时导致的驱赶。</p>
-<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>排查资源和异常原因，防止新的驱赶产生。使用如下命令删除旧驱赶的遗留</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pods | grep Evicted | awk &#x27;&#123;print $1&#125;&#x27; | xargs kubectl delete pod</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1273,20 +1307,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">37</span>
+          <span class="site-state-item-count">43</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">23</span>
+        <span class="site-state-item-count">24</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">27</span>
+        <span class="site-state-item-count">31</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1334,13 +1368,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">97k</span>
+    <span title="站点总字数">101k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:28</span>
+    <span title="站点阅读时长">1:32</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

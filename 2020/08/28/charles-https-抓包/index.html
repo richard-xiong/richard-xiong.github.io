@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"richard-xiong.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="1. 获取PC的IP地址在Charles菜单栏 -&gt; Help -&gt; Local IP Address中可以查看PC的IP地址。图示如下：     也可以在Mac终端使用命令ifconfig en1查看PC的IP地址。图示如下： 123456mfxing  ifconfig en1en1: flags&#x3D;8963&lt;UP,BROADCAST,SMART,RUNNING,PROMISC">
+<meta property="og:type" content="article">
+<meta property="og:title" content="charles-https 抓包">
+<meta property="og:url" content="https://richard-xiong.github.io/2020/08/28/charles-https-%E6%8A%93%E5%8C%85/index.html">
+<meta property="og:site_name" content="XingServer">
+<meta property="og:description" content="1. 获取PC的IP地址在Charles菜单栏 -&gt; Help -&gt; Local IP Address中可以查看PC的IP地址。图示如下：     也可以在Mac终端使用命令ifconfig en1查看PC的IP地址。图示如下： 123456mfxing  ifconfig en1en1: flags&#x3D;8963&lt;UP,BROADCAST,SMART,RUNNING,PROMISC">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://richard-xiong.github.io/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161106090.png">
+<meta property="og:image" content="https://richard-xiong.github.io/images/charles-https-%E6%8A%93%E5%8C%85/7dff28a27b45adb7d3fecff3a085b315.jpg">
+<meta property="og:image" content="https://richard-xiong.github.io/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161401437.png">
+<meta property="og:image" content="https://richard-xiong.github.io/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161524821.png">
+<meta property="og:image" content="https://richard-xiong.github.io/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161742347.png">
+<meta property="og:image" content="https://richard-xiong.github.io/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161820758.png">
+<meta property="og:image" content="https://richard-xiong.github.io/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161858697.png">
+<meta property="og:image" content="https://richard-xiong.github.io/images/charles-https-%E6%8A%93%E5%8C%85/635269d6c5f07cea0b29a7b859fe35b9.jpg">
+<meta property="og:image" content="https://richard-xiong.github.io/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828162130663.png">
+<meta property="og:image" content="https://richard-xiong.github.io/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828162231644.png">
+<meta property="article:published_time" content="2020-08-28T15:59:02.000Z">
+<meta property="article:modified_time" content="2020-08-28T08:24:49.469Z">
+<meta property="article:author" content="Richard">
+<meta property="article:tag" content="抓包">
+<meta property="article:tag" content="charles">
+<meta property="article:tag" content="https">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://richard-xiong.github.io/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161106090.png">
+
+<link rel="canonical" href="https://richard-xiong.github.io/2020/08/28/charles-https-%E6%8A%93%E5%8C%85/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>charles-https 抓包 | XingServer</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="XingServer" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">XingServer</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">31</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">24</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">43</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/28/charles-https-%E6%8A%93%E5%8C%85/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          charles-https 抓包
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-28 15:59:02 / 修改时间：08:24:49" itemprop="dateCreated datePublished" datetime="2020-08-28T15:59:02Z">2020-08-28</time>
+            </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%8A%93%E5%8C%85/" itemprop="url" rel="index"><span itemprop="name">抓包</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="1-获取PC的IP地址"><a href="#1-获取PC的IP地址" class="headerlink" title="1. 获取PC的IP地址"></a>1. 获取PC的IP地址</h3><p>在Charles<code>菜单栏 -&gt; Help -&gt; Local IP Address</code>中可以查看PC的IP地址。图示如下：</p>
+<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161106090.png" alt="image-20200828161106090" style="zoom: 50%;" />
+
+
+
+<p>也可以在Mac终端使用命令<code>ifconfig en1</code>查看PC的IP地址。图示如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mfxing  ifconfig en1</span><br><span class="line">en1: flags=8963&lt;UP,BROADCAST,SMART,RUNNING,PROMISC,SIMPLEX,MULTICAST&gt; mtu 1500</span><br><span class="line">    options=460&lt;TSO4,TSO6,CHANNEL_IO&gt;</span><br><span class="line">    ether 82:0e:72:47:b8:01</span><br><span class="line">    media: autoselect &lt;full-duplex&gt;</span><br><span class="line">    status: inactive</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-配置iPhone代理"><a href="#2-配置iPhone代理" class="headerlink" title="2. 配置iPhone代理"></a>2. 配置iPhone代理</h3><p>在iPhone的<code>设置 -&gt; 无线局域网 -&gt; 局域网信息(i) -&gt; 配置代理 -&gt; 手动</code>中配置代理，服务器输入框中填写PC的IP地址，端口输入框中填写Charles的代理端口（一般是8888）。图示如下：</p>
+<img src="/images/charles-https-%E6%8A%93%E5%8C%85/7dff28a27b45adb7d3fecff3a085b315.jpg" alt="7dff28a27b45adb7d3fecff3a085b315" style="zoom:50%;" />
+
+
+
+<p>具体的端口可以从Charles<code>菜单栏 -&gt; Proxy -&gt; Proxy Settings</code>中查看。图示如下：</p>
+<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161401437.png" alt="image-20200828161401437" style="zoom:33%;" />
+
+
+
+<p>iPhone代理配置完成后，Charles会弹出连接提示框，点击<code>Allow</code>之后即可使用Charles对从该iPhone发出的请求进行抓包了。图示如下：<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161524821.png" alt="image-20200828161524821"></p>
+<h3 id="3-抓包HTTPS请求"><a href="#3-抓包HTTPS请求" class="headerlink" title="3. 抓包HTTPS请求"></a>3. 抓包HTTPS请求</h3><p>在配置iPhone代理完毕后，就可以通过Structure或者Sequence窗口预览HTTP请求的数据了。但由于HTTPS请求被加密过，预览请求时只能预览到乱码数据。要预览到HTTPS请求的数据明文，需要PC和iPhone安装证书授权。</p>
+<h4 id="1-PC安装证书"><a href="#1-PC安装证书" class="headerlink" title="1) PC安装证书"></a>1) PC安装证书</h4><p>在Charles<code>菜单栏 -&gt; Help -&gt; SSL Proxying -&gt; Install Charles Root Certificate</code>中可以为PC安装证书，证书可以在Mac的钥匙串中查看。图示如下：</p>
+<p><img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161742347.png" alt="image-20200828161742347"></p>
+<p>证书可以在Mac的钥匙串中查看，双击证书，将信任权限设定为<code>始终信任</code>。图示如下：</p>
+<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161820758.png" alt="image-20200828161820758" style="zoom:33%;" />
+
+
+
+<h4 id="2-iPhone安装证书"><a href="#2-iPhone安装证书" class="headerlink" title="2) iPhone安装证书"></a>2) iPhone安装证书</h4><p>在iPhone浏览器中访问<code>http://charlesproxy.com/getssl</code>可以下载证书并安装。此地址一般不会变化，可以在Charles<code>菜单栏 -&gt; Help -&gt; SSL Proxying -&gt; Install Charles Root Certificate on a Mobile Device or Remote Browser</code>中查看最新的官方证书下载地址。图示如下：</p>
+<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161858697.png" alt="image-20200828161858697" style="zoom:50%;" />
+
+
+
+<p>基于iOS的证书信任机制，在安装完成并信任证书后，需要到iPhone<code>设置 -&gt; 关于本机 -&gt; 证书信任设置</code>中启用根证书。图示如下：</p>
+<img src="/images/charles-https-%E6%8A%93%E5%8C%85/635269d6c5f07cea0b29a7b859fe35b9.jpg" alt="635269d6c5f07cea0b29a7b859fe35b9" style="zoom:33%;" />
+
+
+
+<p>这样，就可以使用Charles中抓包iPhone发出的HTTPS请求并预览明文数据了。</p>
+<blockquote>
+<p>抓包模拟器上的HTTPS请求需要点击<code>Install Charles Root Certificate in iOS Simulators</code>安装证书。</p>
+</blockquote>
+<h4 id="3-启动抓包SSL权限"><a href="#3-启动抓包SSL权限" class="headerlink" title="3) 启动抓包SSL权限"></a>3) 启动抓包SSL权限</h4><p>在Charles<code>菜单栏 -&gt; Proxy -&gt; SSL Proxying Settings</code>中勾选<code>Enable SSL Proxying</code>，然后在<code>Locations</code>中添加需要抓包的Host和Port即可。图示如下：</p>
+<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828162130663.png" alt="image-20200828162130663" style="zoom:33%;" />
+
+
+
+<p>也可以在抓包界面，右键点击某条/组请求，在弹出的选项列表中点击<code>Enable SSL Proxying</code>启用权限。图示如下：</p>
+<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828162231644.png" alt="image-20200828162231644" style="zoom: 33%;" />
+
+
+
+
+
+<p>基本的抓取到这里就完事了 </p>
+<p>charles 还支持 <code>请求断点</code>、<code>数据修改</code>、<code>请求重发</code>、<code>网速模拟</code></p>
+
+    </div>
+
+    
+    
+    
+      
+
+        <div class="reward-container">
+  <div>Donate comment here.</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.jpeg" alt="Richard 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpeg" alt="Richard 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E6%8A%93%E5%8C%85/" rel="tag"># 抓包</a>
+              <a href="/tags/charles/" rel="tag"># charles</a>
+              <a href="/tags/https/" rel="tag"># https</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/27/%E6%9E%B6%E6%9E%84-%E9%80%89%E5%9E%8B/" rel="prev" title="架构-选型">
+      <i class="fa fa-chevron-left"></i> 架构-选型
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/29/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%80/" rel="next" title="Go-kit 学习笔记 一">
+      Go-kit 学习笔记 一 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#1-%E8%8E%B7%E5%8F%96PC%E7%9A%84IP%E5%9C%B0%E5%9D%80"><span class="nav-number">1.</span> <span class="nav-text">1. 获取PC的IP地址</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#2-%E9%85%8D%E7%BD%AEiPhone%E4%BB%A3%E7%90%86"><span class="nav-number">2.</span> <span class="nav-text">2. 配置iPhone代理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#3-%E6%8A%93%E5%8C%85HTTPS%E8%AF%B7%E6%B1%82"><span class="nav-number">3.</span> <span class="nav-text">3. 抓包HTTPS请求</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#1-PC%E5%AE%89%E8%A3%85%E8%AF%81%E4%B9%A6"><span class="nav-number">3.1.</span> <span class="nav-text">1) PC安装证书</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#2-iPhone%E5%AE%89%E8%A3%85%E8%AF%81%E4%B9%A6"><span class="nav-number">3.2.</span> <span class="nav-text">2) iPhone安装证书</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#3-%E5%90%AF%E5%8A%A8%E6%8A%93%E5%8C%85SSL%E6%9D%83%E9%99%90"><span class="nav-number">3.3.</span> <span class="nav-text">3) 启动抓包SSL权限</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Richard"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Richard</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/RomanSeven7" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;RomanSeven7" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:nizhidaoiedeyisima@gmail.com" title="E-Mail → mailto:nizhidaoiedeyisima@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/p/1005056204086487" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;p&#x2F;1005056204086487" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Richard</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">101k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">1:32</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
