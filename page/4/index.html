@@ -133,7 +133,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">43</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">44</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -196,6 +196,107 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/%E7%AB%AF%E5%8F%A3%E5%8D%A0%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/07/%E7%AB%AF%E5%8F%A3%E5%8D%A0%E7%94%A8/" class="post-title-link" itemprop="url">端口占用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-06 20:44:15" itemprop="dateCreated datePublished" datetime="2020-08-06T20:44:15Z">2020-08-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-09 13:49:52" itemprop="dateModified" datetime="2020-08-09T13:49:52Z">2020-08-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/%E8%BF%90%E7%BB%B4/" itemprop="url" rel="index"><span itemprop="name">运维</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="查看端口占用"><a href="#查看端口占用" class="headerlink" title="查看端口占用"></a>查看端口占用</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> mac使用lsof 查看端口8080是否被占用 </span></span><br><span class="line">lsof -i:8080</span><br><span class="line"><span class="meta">&gt;</span></span><br><span class="line">COMMAND PID          USER   FD   TYPE            DEVICE SIZE/OFF NODE NAME</span><br><span class="line">BaiduHi 444 mengfanxing_g   54u  IPv4 0xa65d4596444d7d5      0t0  TCP localhost:63023-&gt;123.125.115.205:http-alt (ESTABLISHED)</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> linux 使用netstat 查看8080是佛被占用</span></span><br><span class="line">netstat -anp| grep 8080</span><br><span class="line"><span class="meta">&gt;</span></span><br><span class="line">(Not all processes could be identified, non-owned process info</span><br><span class="line"> will not be shown, you would have to be root to see it all.)</span><br><span class="line">tcp6       0      0 :::8080                 :::*                    LISTEN      25263/./new-meet-ro</span><br><span class="line">tcp6       0      0 x.x.x.x:33316      117.78.7.65:8080        ESTABLISHED 26598/java</span><br><span class="line">tcp6       0      0 x.x.x.x:33236      117.78.7.65:8080        ESTABLISHED 26509/java</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="根据pid查看进程"><a href="#根据pid查看进程" class="headerlink" title="根据pid查看进程"></a>根据pid查看进程</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 使用lsof 查看pid=25263的进程</span></span><br><span class="line">lsof -i: grep 25263</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> new-meet- 25263 work    6u  IPv6 1043683416      0t0  TCP *:webcache (LISTEN)</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 使用netstat 查看pid=25263的进程</span></span><br><span class="line">netstat -nap | grep 25263</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> (Not all processes could be identified, non-owned process info</span></span><br><span class="line"> will not be shown, you would have to be root to see it all.)</span><br><span class="line">tcp6       0      0 :::8080                 :::*                    LISTEN      25263/./new-meet-ro</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="查看远程端口是否打开"><a href="#查看远程端口是否打开" class="headerlink" title="查看远程端口是否打开"></a>查看远程端口是否打开</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 使用nc 来检查单个端口</span></span><br><span class="line">nc -zv 127.0.0.1 22</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">  Connection to 127.0.0.1 port 22 [tcp/ssh] succeeded!</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 使用nc 来检查一段打开的端口范围</span></span><br><span class="line">nc -zv 127.0.0.1 22-24</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Connection to 127.0.0.1 port 22 [tcp/ssh] succeeded!</span></span><br><span class="line">nc: connectx to 127.0.0.1 port 23 (tcp) failed: Connection refused</span><br><span class="line">nc: connectx to 127.0.0.1 port 24 (tcp) failed: Connection refused</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -396,150 +497,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/06/Go-%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Gin%E6%A1%86%E6%9E%B6-%E4%BA%94/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/06/Go-%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Gin%E6%A1%86%E6%9E%B6-%E4%BA%94/" class="post-title-link" itemprop="url">Go 语言学习笔记 Gin框架(五)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-05 19:39:57" itemprop="dateCreated datePublished" datetime="2020-08-05T19:39:57Z">2020-08-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-09 13:49:52" itemprop="dateModified" datetime="2020-08-09T13:49:52Z">2020-08-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/go/" itemprop="url" rel="index"><span itemprop="name">go</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/go/gin/" itemprop="url" rel="index"><span itemprop="name">gin</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>4k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="gin-router的使用"><a href="#gin-router的使用" class="headerlink" title="gin router的使用"></a>gin router的使用</h1><h2 id="gin简单的router-启动一个http服务"><a href="#gin简单的router-启动一个http服务" class="headerlink" title="gin简单的router 启动一个http服务"></a>gin简单的router 启动一个http服务</h2><h3 id="基本的router-注册"><a href="#基本的router-注册" class="headerlink" title="基本的router 注册"></a>基本的router 注册</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;net/http&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">helloHandler</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">    c.JSON(http.StatusOK, gin.H&#123;</span><br><span class="line">        <span class="string">&quot;message&quot;</span>: <span class="string">&quot;Hello q1mi!&quot;</span>,</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    r := gin.Default()</span><br><span class="line">    r.GET(<span class="string">&quot;/hello&quot;</span>, helloHandler)</span><br><span class="line">    <span class="keyword">if</span> err := r.Run(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">&quot;startup service failed, err:%v\n&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>优点：</p>
-<p>适用于路由条目比较少的简单项目或者项目demo。</p>
-<h3 id="路由拆分成单独文件或者包"><a href="#路由拆分成单独文件或者包" class="headerlink" title="路由拆分成单独文件或者包"></a>路由拆分成单独文件或者包</h3><p>当项目的规模增大后就不太适合继续在项目的<code>main.go</code>文件中去实现路由注册相关逻辑了，我们会倾向于把路由部分的代码都拆分出来，形成一个单独的文件或包：</p>
-<p>我们在<code>routers.go</code>文件中定义并注册路由信息：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;net/http&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">helloHandler</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">    c.JSON(http.StatusOK, gin.H&#123;</span><br><span class="line">        <span class="string">&quot;message&quot;</span>: <span class="string">&quot;Hello q1mi!&quot;</span>,</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">setupRouter</span><span class="params">()</span> *<span class="title">gin</span>.<span class="title">Engine</span></span> &#123;</span><br><span class="line">    r := gin.Default()</span><br><span class="line">    r.GET(<span class="string">&quot;/hello&quot;</span>, helloHandler)</span><br><span class="line">    <span class="keyword">return</span> r</span><br></pre></td></tr></table></figure>
-
-<p>此时<code>main.go</code>中调用上面定义好的<code>setupRouter</code>函数：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    r := setupRouter()</span><br><span class="line">    <span class="keyword">if</span> err := r.Run(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">&quot;startup service failed, err:%v\n&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>此时的目录结构：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">gin_demo</span><br><span class="line">├── go.mod</span><br><span class="line">├── go.sum</span><br><span class="line">├── main.go</span><br><span class="line">└── routers.go</span><br></pre></td></tr></table></figure>
-
-<p>把路由部分的代码单独拆分成包的话也是可以的，拆分后的目录结构如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">gin_demo</span><br><span class="line">├── go.mod</span><br><span class="line">├── go.sum</span><br><span class="line">├── main.go</span><br><span class="line">└── routers</span><br><span class="line">    └── routers.go</span><br></pre></td></tr></table></figure>
-
-<p><code>routers/routers.go</code>需要注意此时<code>setupRouter</code>需要改成首字母大写：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> routers</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;net/http&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">helloHandler</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">    c.JSON(http.StatusOK, gin.H&#123;</span><br><span class="line">        <span class="string">&quot;message&quot;</span>: <span class="string">&quot;Hello q1mi!&quot;</span>,</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// SetupRouter 配置路由信息</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">SetupRouter</span><span class="params">()</span> *<span class="title">gin</span>.<span class="title">Engine</span></span> &#123;</span><br><span class="line">    r := gin.Default()</span><br><span class="line">    r.GET(<span class="string">&quot;/hello&quot;</span>, helloHandler)</span><br><span class="line">    <span class="keyword">return</span> r</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>main.go</code>文件内容如下：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    <span class="string">&quot;gin_demo/routers&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    r := routers.SetupRouter()</span><br><span class="line">    <span class="keyword">if</span> err := r.Run(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">&quot;startup service failed, err:%v\n&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="路由拆分成多个文件"><a href="#路由拆分成多个文件" class="headerlink" title="路由拆分成多个文件"></a>路由拆分成多个文件</h3><p>当我们的业务规模继续膨胀，单独的一个<code>routers</code>文件或包已经满足不了我们的需求了，</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">SetupRouter</span><span class="params">()</span> *<span class="title">gin</span>.<span class="title">Engine</span></span> &#123;</span><br><span class="line">    r := gin.Default()</span><br><span class="line">    r.GET(<span class="string">&quot;/hello&quot;</span>, helloHandler)</span><br><span class="line">  r.GET(<span class="string">&quot;/xx1&quot;</span>, xxHandler1)</span><br><span class="line">  ...</span><br><span class="line">  r.GET(<span class="string">&quot;/xx30&quot;</span>, xxHandler30)</span><br><span class="line">    <span class="keyword">return</span> r</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>因为我们把所有的路由注册都写在一个<code>SetupRouter</code>函数中的话就会太复杂了。</p>
-<p>我们可以分开定义多个路由文件，例如：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">gin_demo</span><br><span class="line">├── go.mod</span><br><span class="line">├── go.sum</span><br><span class="line">├── main.go</span><br><span class="line">└── routers</span><br><span class="line">    ├── blog.go</span><br><span class="line">    └── shop.go</span><br></pre></td></tr></table></figure>
-
-<p><code>routers/shop.go</code>中添加一个<code>LoadShop</code>的函数，将shop相关的路由注册到指定的路由器：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">LoadShop</span><span class="params">(e *gin.Engine)</span></span>  &#123;</span><br><span class="line">    e.GET(<span class="string">&quot;/hello&quot;</span>, helloHandler)</span><br><span class="line">  e.GET(<span class="string">&quot;/goods&quot;</span>, goodsHandler)</span><br><span class="line">  e.GET(<span class="string">&quot;/checkout&quot;</span>, checkoutHandler)</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>routers/blog.go</code>中添加一个`LoadBlog的函数，将blog相关的路由注册到指定的路由器：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">LoadBlog</span><span class="params">(e *gin.Engine)</span></span> &#123;</span><br><span class="line">    e.GET(<span class="string">&quot;/post&quot;</span>, postHandler)</span><br><span class="line">  e.GET(<span class="string">&quot;/comment&quot;</span>, commentHandler)</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在main函数中实现最终的注册逻辑如下：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    r := gin.Default()</span><br><span class="line">    routers.LoadBlog(r)</span><br><span class="line">    routers.LoadShop(r)</span><br><span class="line">    <span class="keyword">if</span> err := r.Run(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">&quot;startup service failed, err:%v\n&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="路由拆分到不同的APP"><a href="#路由拆分到不同的APP" class="headerlink" title="路由拆分到不同的APP"></a>路由拆分到不同的APP</h3><p>有时候项目规模实在太大，那么我们就更倾向于把业务拆分的更详细一些，例如把不同的业务代码拆分成不同的APP。</p>
-<p>因此我们在项目目录下单独定义一个<code>app</code>目录，用来存放我们不同业务线的代码文件，这样就很容易进行横向扩展。大致目录结构如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">gin_demo</span><br><span class="line">├── app</span><br><span class="line">│   ├── blog</span><br><span class="line">│   │   ├── handler.go</span><br><span class="line">│   │   └── router.go</span><br><span class="line">│   └── shop</span><br><span class="line">│       ├── handler.go</span><br><span class="line">│       └── router.go</span><br><span class="line">├── go.mod</span><br><span class="line">├── go.sum</span><br><span class="line">├── main.go</span><br><span class="line">└── routers</span><br><span class="line">    └── routers.go</span><br></pre></td></tr></table></figure>
-
-<p>其中<code>app/blog/router.go</code>用来定义post相关路由信息，具体内容如下：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Routers</span><span class="params">(e *gin.Engine)</span></span> &#123;</span><br><span class="line">    e.GET(<span class="string">&quot;/post&quot;</span>, postHandler)</span><br><span class="line">    e.GET(<span class="string">&quot;/comment&quot;</span>, commentHandler)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>app/shop/router.go</code>用来定义shop相关路由信息，具体内容如下：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Routers</span><span class="params">(e *gin.Engine)</span></span> &#123;</span><br><span class="line">    e.GET(<span class="string">&quot;/goods&quot;</span>, goodsHandler)</span><br><span class="line">    e.GET(<span class="string">&quot;/checkout&quot;</span>, checkoutHandler)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>routers/routers.go</code>中根据需要定义<code>Include</code>函数用来注册子app中定义的路由，<code>Init</code>函数用来进行路由的初始化操作：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Option <span class="function"><span class="keyword">func</span><span class="params">(*gin.Engine)</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> options = []Option&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 注册app的路由配置</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Include</span><span class="params">(opts ...Option)</span></span> &#123;</span><br><span class="line">    options = <span class="built_in">append</span>(options, opts...)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 初始化</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Init</span><span class="params">()</span> *<span class="title">gin</span>.<span class="title">Engine</span></span> &#123;</span><br><span class="line">    r := gin.New()</span><br><span class="line">    <span class="keyword">for</span> _, opt := <span class="keyword">range</span> options &#123;</span><br><span class="line">        opt(r)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> r</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>main.go</code>中按如下方式先注册子app中的路由，然后再进行路由的初始化：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// 加载多个APP的路由配置</span></span><br><span class="line">    routers.Include(shop.Routers, blog.Routers)</span><br><span class="line">    <span class="comment">// 初始化路由</span></span><br><span class="line">    r := routers.Init()</span><br><span class="line">    <span class="keyword">if</span> err := r.Run(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">&quot;startup service failed, err:%v\n&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/06/Go-%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Gin%E6%A1%86%E6%9E%B6-%E5%85%AD/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -707,6 +664,150 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/06/Go-%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Gin%E6%A1%86%E6%9E%B6-%E4%BA%94/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/06/Go-%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Gin%E6%A1%86%E6%9E%B6-%E4%BA%94/" class="post-title-link" itemprop="url">Go 语言学习笔记 Gin框架(五)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-05 19:39:57" itemprop="dateCreated datePublished" datetime="2020-08-05T19:39:57Z">2020-08-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-09 13:49:52" itemprop="dateModified" datetime="2020-08-09T13:49:52Z">2020-08-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go/" itemprop="url" rel="index"><span itemprop="name">go</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go/gin/" itemprop="url" rel="index"><span itemprop="name">gin</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>4 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="gin-router的使用"><a href="#gin-router的使用" class="headerlink" title="gin router的使用"></a>gin router的使用</h1><h2 id="gin简单的router-启动一个http服务"><a href="#gin简单的router-启动一个http服务" class="headerlink" title="gin简单的router 启动一个http服务"></a>gin简单的router 启动一个http服务</h2><h3 id="基本的router-注册"><a href="#基本的router-注册" class="headerlink" title="基本的router 注册"></a>基本的router 注册</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;net/http&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">helloHandler</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">    c.JSON(http.StatusOK, gin.H&#123;</span><br><span class="line">        <span class="string">&quot;message&quot;</span>: <span class="string">&quot;Hello q1mi!&quot;</span>,</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    r := gin.Default()</span><br><span class="line">    r.GET(<span class="string">&quot;/hello&quot;</span>, helloHandler)</span><br><span class="line">    <span class="keyword">if</span> err := r.Run(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">&quot;startup service failed, err:%v\n&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>优点：</p>
+<p>适用于路由条目比较少的简单项目或者项目demo。</p>
+<h3 id="路由拆分成单独文件或者包"><a href="#路由拆分成单独文件或者包" class="headerlink" title="路由拆分成单独文件或者包"></a>路由拆分成单独文件或者包</h3><p>当项目的规模增大后就不太适合继续在项目的<code>main.go</code>文件中去实现路由注册相关逻辑了，我们会倾向于把路由部分的代码都拆分出来，形成一个单独的文件或包：</p>
+<p>我们在<code>routers.go</code>文件中定义并注册路由信息：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;net/http&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">helloHandler</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">    c.JSON(http.StatusOK, gin.H&#123;</span><br><span class="line">        <span class="string">&quot;message&quot;</span>: <span class="string">&quot;Hello q1mi!&quot;</span>,</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">setupRouter</span><span class="params">()</span> *<span class="title">gin</span>.<span class="title">Engine</span></span> &#123;</span><br><span class="line">    r := gin.Default()</span><br><span class="line">    r.GET(<span class="string">&quot;/hello&quot;</span>, helloHandler)</span><br><span class="line">    <span class="keyword">return</span> r</span><br></pre></td></tr></table></figure>
+
+<p>此时<code>main.go</code>中调用上面定义好的<code>setupRouter</code>函数：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    r := setupRouter()</span><br><span class="line">    <span class="keyword">if</span> err := r.Run(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">&quot;startup service failed, err:%v\n&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>此时的目录结构：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">gin_demo</span><br><span class="line">├── go.mod</span><br><span class="line">├── go.sum</span><br><span class="line">├── main.go</span><br><span class="line">└── routers.go</span><br></pre></td></tr></table></figure>
+
+<p>把路由部分的代码单独拆分成包的话也是可以的，拆分后的目录结构如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">gin_demo</span><br><span class="line">├── go.mod</span><br><span class="line">├── go.sum</span><br><span class="line">├── main.go</span><br><span class="line">└── routers</span><br><span class="line">    └── routers.go</span><br></pre></td></tr></table></figure>
+
+<p><code>routers/routers.go</code>需要注意此时<code>setupRouter</code>需要改成首字母大写：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> routers</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;net/http&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">helloHandler</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">    c.JSON(http.StatusOK, gin.H&#123;</span><br><span class="line">        <span class="string">&quot;message&quot;</span>: <span class="string">&quot;Hello q1mi!&quot;</span>,</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// SetupRouter 配置路由信息</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">SetupRouter</span><span class="params">()</span> *<span class="title">gin</span>.<span class="title">Engine</span></span> &#123;</span><br><span class="line">    r := gin.Default()</span><br><span class="line">    r.GET(<span class="string">&quot;/hello&quot;</span>, helloHandler)</span><br><span class="line">    <span class="keyword">return</span> r</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>main.go</code>文件内容如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    <span class="string">&quot;gin_demo/routers&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    r := routers.SetupRouter()</span><br><span class="line">    <span class="keyword">if</span> err := r.Run(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">&quot;startup service failed, err:%v\n&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="路由拆分成多个文件"><a href="#路由拆分成多个文件" class="headerlink" title="路由拆分成多个文件"></a>路由拆分成多个文件</h3><p>当我们的业务规模继续膨胀，单独的一个<code>routers</code>文件或包已经满足不了我们的需求了，</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">SetupRouter</span><span class="params">()</span> *<span class="title">gin</span>.<span class="title">Engine</span></span> &#123;</span><br><span class="line">    r := gin.Default()</span><br><span class="line">    r.GET(<span class="string">&quot;/hello&quot;</span>, helloHandler)</span><br><span class="line">  r.GET(<span class="string">&quot;/xx1&quot;</span>, xxHandler1)</span><br><span class="line">  ...</span><br><span class="line">  r.GET(<span class="string">&quot;/xx30&quot;</span>, xxHandler30)</span><br><span class="line">    <span class="keyword">return</span> r</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>因为我们把所有的路由注册都写在一个<code>SetupRouter</code>函数中的话就会太复杂了。</p>
+<p>我们可以分开定义多个路由文件，例如：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">gin_demo</span><br><span class="line">├── go.mod</span><br><span class="line">├── go.sum</span><br><span class="line">├── main.go</span><br><span class="line">└── routers</span><br><span class="line">    ├── blog.go</span><br><span class="line">    └── shop.go</span><br></pre></td></tr></table></figure>
+
+<p><code>routers/shop.go</code>中添加一个<code>LoadShop</code>的函数，将shop相关的路由注册到指定的路由器：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">LoadShop</span><span class="params">(e *gin.Engine)</span></span>  &#123;</span><br><span class="line">    e.GET(<span class="string">&quot;/hello&quot;</span>, helloHandler)</span><br><span class="line">  e.GET(<span class="string">&quot;/goods&quot;</span>, goodsHandler)</span><br><span class="line">  e.GET(<span class="string">&quot;/checkout&quot;</span>, checkoutHandler)</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>routers/blog.go</code>中添加一个`LoadBlog的函数，将blog相关的路由注册到指定的路由器：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">LoadBlog</span><span class="params">(e *gin.Engine)</span></span> &#123;</span><br><span class="line">    e.GET(<span class="string">&quot;/post&quot;</span>, postHandler)</span><br><span class="line">  e.GET(<span class="string">&quot;/comment&quot;</span>, commentHandler)</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在main函数中实现最终的注册逻辑如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    r := gin.Default()</span><br><span class="line">    routers.LoadBlog(r)</span><br><span class="line">    routers.LoadShop(r)</span><br><span class="line">    <span class="keyword">if</span> err := r.Run(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">&quot;startup service failed, err:%v\n&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="路由拆分到不同的APP"><a href="#路由拆分到不同的APP" class="headerlink" title="路由拆分到不同的APP"></a>路由拆分到不同的APP</h3><p>有时候项目规模实在太大，那么我们就更倾向于把业务拆分的更详细一些，例如把不同的业务代码拆分成不同的APP。</p>
+<p>因此我们在项目目录下单独定义一个<code>app</code>目录，用来存放我们不同业务线的代码文件，这样就很容易进行横向扩展。大致目录结构如下：</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">gin_demo</span><br><span class="line">├── app</span><br><span class="line">│   ├── blog</span><br><span class="line">│   │   ├── handler.go</span><br><span class="line">│   │   └── router.go</span><br><span class="line">│   └── shop</span><br><span class="line">│       ├── handler.go</span><br><span class="line">│       └── router.go</span><br><span class="line">├── go.mod</span><br><span class="line">├── go.sum</span><br><span class="line">├── main.go</span><br><span class="line">└── routers</span><br><span class="line">    └── routers.go</span><br></pre></td></tr></table></figure>
+
+<p>其中<code>app/blog/router.go</code>用来定义post相关路由信息，具体内容如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Routers</span><span class="params">(e *gin.Engine)</span></span> &#123;</span><br><span class="line">    e.GET(<span class="string">&quot;/post&quot;</span>, postHandler)</span><br><span class="line">    e.GET(<span class="string">&quot;/comment&quot;</span>, commentHandler)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>app/shop/router.go</code>用来定义shop相关路由信息，具体内容如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Routers</span><span class="params">(e *gin.Engine)</span></span> &#123;</span><br><span class="line">    e.GET(<span class="string">&quot;/goods&quot;</span>, goodsHandler)</span><br><span class="line">    e.GET(<span class="string">&quot;/checkout&quot;</span>, checkoutHandler)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>routers/routers.go</code>中根据需要定义<code>Include</code>函数用来注册子app中定义的路由，<code>Init</code>函数用来进行路由的初始化操作：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Option <span class="function"><span class="keyword">func</span><span class="params">(*gin.Engine)</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> options = []Option&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 注册app的路由配置</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Include</span><span class="params">(opts ...Option)</span></span> &#123;</span><br><span class="line">    options = <span class="built_in">append</span>(options, opts...)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 初始化</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Init</span><span class="params">()</span> *<span class="title">gin</span>.<span class="title">Engine</span></span> &#123;</span><br><span class="line">    r := gin.New()</span><br><span class="line">    <span class="keyword">for</span> _, opt := <span class="keyword">range</span> options &#123;</span><br><span class="line">        opt(r)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> r</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>main.go</code>中按如下方式先注册子app中的路由，然后再进行路由的初始化：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// 加载多个APP的路由配置</span></span><br><span class="line">    routers.Include(shop.Routers, blog.Routers)</span><br><span class="line">    <span class="comment">// 初始化路由</span></span><br><span class="line">    r := routers.Init()</span><br><span class="line">    <span class="keyword">if</span> err := r.Run(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">&quot;startup service failed, err:%v\n&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/06/Go-%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Gin%E6%A1%86%E6%9E%B6-%E5%9B%9B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -805,117 +906,6 @@
 
 <p>从parameter获取map,array,从application/x-www-form-urlencoded body中获取map array</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">idMap := c.QueryMap(<span class="string">&quot;idMap&quot;</span>) <span class="comment">//从paramter获取map</span></span><br><span class="line">idArr := c.QueryArray(<span class="string">&quot;idArr&quot;</span>)<span class="comment">//从paramter获取array</span></span><br><span class="line">nameArr := c.PostFormArray(<span class="string">&quot;nameArr&quot;</span>) <span class="comment">// 从form获取map</span></span><br><span class="line">nameMap := c.PostFormMap(<span class="string">&quot;nameMap&quot;</span>)<span class="comment">// 从form获取array</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/06/Go-%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Gin%E6%A1%86%E6%9E%B6-%E4%BA%8C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/06/Go-%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Gin%E6%A1%86%E6%9E%B6-%E4%BA%8C/" class="post-title-link" itemprop="url">Go 语言学习笔记 Gin框架(二)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-05 19:39:39" itemprop="dateCreated datePublished" datetime="2020-08-05T19:39:39Z">2020-08-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-09 13:49:52" itemprop="dateModified" datetime="2020-08-09T13:49:52Z">2020-08-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/go/" itemprop="url" rel="index"><span itemprop="name">go</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/go/gin/" itemprop="url" rel="index"><span itemprop="name">gin</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3.2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="使用viper读取配置文件"><a href="#使用viper读取配置文件" class="headerlink" title="使用viper读取配置文件"></a>使用viper读取配置文件</h1><p>应用系统的配置信息，一般分为两种，一是经常变化的配置则保存到数据库，另外一种则是不常变化的则以配置文件的形式保存。一般而言，应用系统至少有三组运行环境：开发环境、测试环境、生产环境</p>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h2 id="青铜时代"><a href="#青铜时代" class="headerlink" title="青铜时代"></a>青铜时代</h2><p>一开始的时候，我针对每个环境配置各自的yaml，在启动的时候根据环境变量读取相应的配置文件，处理代码如下：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">initConfig</span><span class="params">()</span> <span class="params">(err error)</span></span> &#123;</span><br><span class="line">    env := os.Getenv(<span class="string">&quot;GO_ENV&quot;</span>)</span><br><span class="line">    viper.SetConfigName(env)</span><br><span class="line">    viper.AddConfigPath(<span class="string">&quot;./configs&quot;</span>)</span><br><span class="line">    viper.SetConfigType(<span class="string">&quot;yml&quot;</span>)</span><br><span class="line">    err = viper.ReadInConfig()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    err := initConfig()</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="built_in">panic</span>(err)</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Println(viper.GetString(<span class="string">&quot;db.uri&quot;</span>))</span><br><span class="line">    fmt.Println(viper.GetString(<span class="string">&quot;db.poolSize&quot;</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>不同环境的配置文件如下：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># test</span></span><br><span class="line"><span class="attr">app:</span> <span class="string">viper-test</span></span><br><span class="line"><span class="attr">db:</span></span><br><span class="line">  <span class="attr">uri:</span> <span class="string">postgres://tree:mypwd@127.0.0.1:5432/viper-test?connect_timeout=5&amp;sslmode=disable</span></span><br><span class="line">  <span class="attr">poolSize:</span> <span class="number">100</span></span><br><span class="line"><span class="comment"># production</span></span><br><span class="line"><span class="attr">app:</span> <span class="string">viper-test</span></span><br><span class="line"><span class="attr">db:</span></span><br><span class="line">  <span class="attr">uri:</span> <span class="string">postgres://tree:mypwd@10.1.1.1:5432/viper?connect_timeout=5&amp;sslmode=disable</span></span><br><span class="line">  <span class="attr">poolSize:</span> <span class="number">100</span></span><br></pre></td></tr></table></figure>
-
-<p>由上面的代码可以看出，因为viper读取的配置只有一份，因此需要在每个配置中将所有的配置都一一填写，而不同环境的配置绝大部分都是相同的，只有小部分是不一致。一开始只有不到10个配置项的时候还好维护，后面配置信息越来越多，几十个的时候就是一个深坑了，看到眼都花了，太难管理。</p>
-<h2 id="白银时代"><a href="#白银时代" class="headerlink" title="白银时代"></a>白银时代</h2><p>各运行环境中的配置90%左右是相同，而剩下的10%才是各环境的差异配置，是否可以将相同的配置以默认值的形式保存，而各环境与默认值不相同的再覆盖呢？查看了一下文档，发现了 <code>viper.SetDefault</code> 的函数，一开始是直接在代码一行行的把默认配置写上，但是这样无法利用yaml的便利，在研究了相关的代码之后，最后调整为如下的处理形式，代码如下：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">initConfig</span><span class="params">()</span> <span class="params">(err error)</span></span> &#123;</span><br><span class="line">    configType := <span class="string">&quot;yml&quot;</span></span><br><span class="line">    defaultPath := <span class="string">&quot;./configs&quot;</span></span><br><span class="line">    v := viper.New()</span><br><span class="line">    <span class="comment">// 从default中读取默认的配置</span></span><br><span class="line">    v.SetConfigName(<span class="string">&quot;default&quot;</span>)</span><br><span class="line">    v.AddConfigPath(defaultPath)</span><br><span class="line">    v.SetConfigType(configType)</span><br><span class="line">    err = v.ReadInConfig()</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    configs := v.AllSettings()</span><br><span class="line">    <span class="comment">// 将default中的配置全部以默认配置写入</span></span><br><span class="line">    <span class="keyword">for</span> k, v := <span class="keyword">range</span> configs &#123;</span><br><span class="line">        viper.SetDefault(k, v)</span><br><span class="line">    &#125;</span><br><span class="line">    env := os.Getenv(<span class="string">&quot;GO_ENV&quot;</span>)</span><br><span class="line">    <span class="comment">// 根据配置的env读取相应的配置信息</span></span><br><span class="line">    <span class="keyword">if</span> env != <span class="string">&quot;&quot;</span> &#123;</span><br><span class="line">        viper.SetConfigName(env)</span><br><span class="line">        viper.AddConfigPath(defaultPath)</span><br><span class="line">        viper.SetConfigType(configType)</span><br><span class="line">        err = viper.ReadInConfig()</span><br><span class="line">        <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>此函数将 <code>default.yml</code> 的所有配置读取至一个新的viper实例中，再以 <code>SetDefault</code> 将所有配置写入为默认配置，而各环境配置文件只需要配置差异部分，配置如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># default</span><br><span class="line">app: viper-test</span><br><span class="line">db:</span><br><span class="line">  uri: postgres:&#x2F;&#x2F;tree:mypwd@127.0.0.1:5432&#x2F;viper-test?connect_timeout&#x3D;5&amp;sslmode&#x3D;disable</span><br><span class="line">  poolSize: 100</span><br><span class="line"># test与default完全一致，为空文件</span><br><span class="line"># production只是数据库连接串不一致，只需要配置此项</span><br><span class="line">db:</span><br><span class="line">  uri: postgres:&#x2F;&#x2F;tree:mypwd@10.1.1.1:5432&#x2F;viper?connect_timeout&#x3D;5&amp;sslmode&#x3D;disable</span><br></pre></td></tr></table></figure>
-
-<p>通过此调整，不再需要重复的维护相同的配置项，而且也能直观的看出各运行环境的配置差异，减少配置信息的出错概率。</p>
-<hr>
-<h2 id="王者时代"><a href="#王者时代" class="headerlink" title="王者时代"></a>王者时代</h2><p>因为主要是后端程序应用，程序交付一般都是通过docker镜像的形式，配置文件与编译后的应用程序一起打包至镜像中，在多个项目中也使用得挺顺畅。最近有一个项目非运行在docker环境下，因此希望能将配置文件一起打包至应用程序的方式，在了解了几个相关的项目，最终选择了使用 <a target="_blank" rel="noopener" href="https://www.jishuwen.com/jump/aHR0cHM6Ly9naXRodWIuY29tL2dvYnVmZmFsby9wYWNrcg==">packr</a> 来将配置文件打包，调整之后的代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">func initConfig() (err error) &#123;</span><br><span class="line">    box :&#x3D; packr.NewBox(&quot;.&#x2F;configs&quot;)</span><br><span class="line">    configType :&#x3D; &quot;yml&quot;</span><br><span class="line">    defaultConfig :&#x3D; box.Bytes(&quot;default.yml&quot;)</span><br><span class="line">    v :&#x3D; viper.New()</span><br><span class="line">    v.SetConfigType(configType)</span><br><span class="line">    err &#x3D; v.ReadConfig(bytes.NewReader(defaultConfig))</span><br><span class="line">    if err !&#x3D; nil &#123;</span><br><span class="line">        return</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    configs :&#x3D; v.AllSettings()</span><br><span class="line">    &#x2F;&#x2F; 将default中的配置全部以默认配置写入</span><br><span class="line">    for k, v :&#x3D; range configs &#123;</span><br><span class="line">        viper.SetDefault(k, v)</span><br><span class="line">    &#125;</span><br><span class="line">    env :&#x3D; os.Getenv(&quot;GO_ENV&quot;)</span><br><span class="line">    &#x2F;&#x2F; 根据配置的env读取相应的配置信息</span><br><span class="line">    if env !&#x3D; &quot;&quot; &#123;</span><br><span class="line">        envConfig :&#x3D; box.Bytes(env + &quot;.yml&quot;)</span><br><span class="line"></span><br><span class="line">        viper.SetConfigType(configType)</span><br><span class="line">        err &#x3D; viper.ReadConfig(bytes.NewReader(envConfig))</span><br><span class="line">        if err !&#x3D; nil &#123;</span><br><span class="line">            return</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>调整之后，配置文件也编译至程序中，后续可以单执行文件交付，只通过在启动时指定 <code>GO_ENV</code> 则可。</p>
-
       
     </div>
 
@@ -1124,6 +1114,117 @@
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gin.ForceConsoleColor()</span><br></pre></td></tr></table></figure>
 
 <h2 id="参数绑定和校验"><a href="#参数绑定和校验" class="headerlink" title="参数绑定和校验"></a>参数绑定和校验</h2><p>支持json、xml、yaml 和标准化form values</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/06/Go-%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Gin%E6%A1%86%E6%9E%B6-%E4%BA%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/06/Go-%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Gin%E6%A1%86%E6%9E%B6-%E4%BA%8C/" class="post-title-link" itemprop="url">Go 语言学习笔记 Gin框架(二)</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-05 19:39:39" itemprop="dateCreated datePublished" datetime="2020-08-05T19:39:39Z">2020-08-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-09 13:49:52" itemprop="dateModified" datetime="2020-08-09T13:49:52Z">2020-08-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go/" itemprop="url" rel="index"><span itemprop="name">go</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/go/gin/" itemprop="url" rel="index"><span itemprop="name">gin</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h1 id="使用viper读取配置文件"><a href="#使用viper读取配置文件" class="headerlink" title="使用viper读取配置文件"></a>使用viper读取配置文件</h1><p>应用系统的配置信息，一般分为两种，一是经常变化的配置则保存到数据库，另外一种则是不常变化的则以配置文件的形式保存。一般而言，应用系统至少有三组运行环境：开发环境、测试环境、生产环境</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h2 id="青铜时代"><a href="#青铜时代" class="headerlink" title="青铜时代"></a>青铜时代</h2><p>一开始的时候，我针对每个环境配置各自的yaml，在启动的时候根据环境变量读取相应的配置文件，处理代码如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">initConfig</span><span class="params">()</span> <span class="params">(err error)</span></span> &#123;</span><br><span class="line">    env := os.Getenv(<span class="string">&quot;GO_ENV&quot;</span>)</span><br><span class="line">    viper.SetConfigName(env)</span><br><span class="line">    viper.AddConfigPath(<span class="string">&quot;./configs&quot;</span>)</span><br><span class="line">    viper.SetConfigType(<span class="string">&quot;yml&quot;</span>)</span><br><span class="line">    err = viper.ReadInConfig()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    err := initConfig()</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="built_in">panic</span>(err)</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Println(viper.GetString(<span class="string">&quot;db.uri&quot;</span>))</span><br><span class="line">    fmt.Println(viper.GetString(<span class="string">&quot;db.poolSize&quot;</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不同环境的配置文件如下：</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># test</span></span><br><span class="line"><span class="attr">app:</span> <span class="string">viper-test</span></span><br><span class="line"><span class="attr">db:</span></span><br><span class="line">  <span class="attr">uri:</span> <span class="string">postgres://tree:mypwd@127.0.0.1:5432/viper-test?connect_timeout=5&amp;sslmode=disable</span></span><br><span class="line">  <span class="attr">poolSize:</span> <span class="number">100</span></span><br><span class="line"><span class="comment"># production</span></span><br><span class="line"><span class="attr">app:</span> <span class="string">viper-test</span></span><br><span class="line"><span class="attr">db:</span></span><br><span class="line">  <span class="attr">uri:</span> <span class="string">postgres://tree:mypwd@10.1.1.1:5432/viper?connect_timeout=5&amp;sslmode=disable</span></span><br><span class="line">  <span class="attr">poolSize:</span> <span class="number">100</span></span><br></pre></td></tr></table></figure>
+
+<p>由上面的代码可以看出，因为viper读取的配置只有一份，因此需要在每个配置中将所有的配置都一一填写，而不同环境的配置绝大部分都是相同的，只有小部分是不一致。一开始只有不到10个配置项的时候还好维护，后面配置信息越来越多，几十个的时候就是一个深坑了，看到眼都花了，太难管理。</p>
+<h2 id="白银时代"><a href="#白银时代" class="headerlink" title="白银时代"></a>白银时代</h2><p>各运行环境中的配置90%左右是相同，而剩下的10%才是各环境的差异配置，是否可以将相同的配置以默认值的形式保存，而各环境与默认值不相同的再覆盖呢？查看了一下文档，发现了 <code>viper.SetDefault</code> 的函数，一开始是直接在代码一行行的把默认配置写上，但是这样无法利用yaml的便利，在研究了相关的代码之后，最后调整为如下的处理形式，代码如下：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">initConfig</span><span class="params">()</span> <span class="params">(err error)</span></span> &#123;</span><br><span class="line">    configType := <span class="string">&quot;yml&quot;</span></span><br><span class="line">    defaultPath := <span class="string">&quot;./configs&quot;</span></span><br><span class="line">    v := viper.New()</span><br><span class="line">    <span class="comment">// 从default中读取默认的配置</span></span><br><span class="line">    v.SetConfigName(<span class="string">&quot;default&quot;</span>)</span><br><span class="line">    v.AddConfigPath(defaultPath)</span><br><span class="line">    v.SetConfigType(configType)</span><br><span class="line">    err = v.ReadInConfig()</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    configs := v.AllSettings()</span><br><span class="line">    <span class="comment">// 将default中的配置全部以默认配置写入</span></span><br><span class="line">    <span class="keyword">for</span> k, v := <span class="keyword">range</span> configs &#123;</span><br><span class="line">        viper.SetDefault(k, v)</span><br><span class="line">    &#125;</span><br><span class="line">    env := os.Getenv(<span class="string">&quot;GO_ENV&quot;</span>)</span><br><span class="line">    <span class="comment">// 根据配置的env读取相应的配置信息</span></span><br><span class="line">    <span class="keyword">if</span> env != <span class="string">&quot;&quot;</span> &#123;</span><br><span class="line">        viper.SetConfigName(env)</span><br><span class="line">        viper.AddConfigPath(defaultPath)</span><br><span class="line">        viper.SetConfigType(configType)</span><br><span class="line">        err = viper.ReadInConfig()</span><br><span class="line">        <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此函数将 <code>default.yml</code> 的所有配置读取至一个新的viper实例中，再以 <code>SetDefault</code> 将所有配置写入为默认配置，而各环境配置文件只需要配置差异部分，配置如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># default</span><br><span class="line">app: viper-test</span><br><span class="line">db:</span><br><span class="line">  uri: postgres:&#x2F;&#x2F;tree:mypwd@127.0.0.1:5432&#x2F;viper-test?connect_timeout&#x3D;5&amp;sslmode&#x3D;disable</span><br><span class="line">  poolSize: 100</span><br><span class="line"># test与default完全一致，为空文件</span><br><span class="line"># production只是数据库连接串不一致，只需要配置此项</span><br><span class="line">db:</span><br><span class="line">  uri: postgres:&#x2F;&#x2F;tree:mypwd@10.1.1.1:5432&#x2F;viper?connect_timeout&#x3D;5&amp;sslmode&#x3D;disable</span><br></pre></td></tr></table></figure>
+
+<p>通过此调整，不再需要重复的维护相同的配置项，而且也能直观的看出各运行环境的配置差异，减少配置信息的出错概率。</p>
+<hr>
+<h2 id="王者时代"><a href="#王者时代" class="headerlink" title="王者时代"></a>王者时代</h2><p>因为主要是后端程序应用，程序交付一般都是通过docker镜像的形式，配置文件与编译后的应用程序一起打包至镜像中，在多个项目中也使用得挺顺畅。最近有一个项目非运行在docker环境下，因此希望能将配置文件一起打包至应用程序的方式，在了解了几个相关的项目，最终选择了使用 <a target="_blank" rel="noopener" href="https://www.jishuwen.com/jump/aHR0cHM6Ly9naXRodWIuY29tL2dvYnVmZmFsby9wYWNrcg==">packr</a> 来将配置文件打包，调整之后的代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">func initConfig() (err error) &#123;</span><br><span class="line">    box :&#x3D; packr.NewBox(&quot;.&#x2F;configs&quot;)</span><br><span class="line">    configType :&#x3D; &quot;yml&quot;</span><br><span class="line">    defaultConfig :&#x3D; box.Bytes(&quot;default.yml&quot;)</span><br><span class="line">    v :&#x3D; viper.New()</span><br><span class="line">    v.SetConfigType(configType)</span><br><span class="line">    err &#x3D; v.ReadConfig(bytes.NewReader(defaultConfig))</span><br><span class="line">    if err !&#x3D; nil &#123;</span><br><span class="line">        return</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    configs :&#x3D; v.AllSettings()</span><br><span class="line">    &#x2F;&#x2F; 将default中的配置全部以默认配置写入</span><br><span class="line">    for k, v :&#x3D; range configs &#123;</span><br><span class="line">        viper.SetDefault(k, v)</span><br><span class="line">    &#125;</span><br><span class="line">    env :&#x3D; os.Getenv(&quot;GO_ENV&quot;)</span><br><span class="line">    &#x2F;&#x2F; 根据配置的env读取相应的配置信息</span><br><span class="line">    if env !&#x3D; &quot;&quot; &#123;</span><br><span class="line">        envConfig :&#x3D; box.Bytes(env + &quot;.yml&quot;)</span><br><span class="line"></span><br><span class="line">        viper.SetConfigType(configType)</span><br><span class="line">        err &#x3D; viper.ReadConfig(bytes.NewReader(envConfig))</span><br><span class="line">        if err !&#x3D; nil &#123;</span><br><span class="line">            return</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>调整之后，配置文件也编译至程序中，后续可以单执行文件交付，只通过在启动时指定 <code>GO_ENV</code> 则可。</p>
 
       
     </div>
@@ -1532,230 +1633,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/05/golang-%E5%9F%BA%E7%A1%80-%E4%B8%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/05/golang-%E5%9F%BA%E7%A1%80-%E4%B8%80/" class="post-title-link" itemprop="url">golang 基础(一)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-04 22:34:46" itemprop="dateCreated datePublished" datetime="2020-08-04T22:34:46Z">2020-08-04</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-09 13:49:52" itemprop="dateModified" datetime="2020-08-09T13:49:52Z">2020-08-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/go/" itemprop="url" rel="index"><span itemprop="name">go</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>4.4k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="golang-基础"><a href="#golang-基础" class="headerlink" title="golang 基础"></a>golang 基础</h1><h2 id="1-package"><a href="#1-package" class="headerlink" title="1.package"></a>1.package</h2><p>举个例子 如果Go安装再/usr/local/go ,并且环境变量GOPATH设置为 /home/myproject:/home/mylibraries,编译器就会按照下面的顺序查找net/http包</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">/usr/local/go/src/pkg/net/http          &lt;--------------- 这是标准库源</span><br><span class="line"></span><br><span class="line">/home/myproject/src/net/http            &lt;--------------- 这是代码所在的位置</span><br><span class="line"></span><br><span class="line">/home/mylibraries/src/net/http          &lt;--------------- 这是代码所在的位置</span><br></pre></td></tr></table></figure>
-
-
-
-<p>一旦编译器找到一个满足import 语句的包，就停止进一步查找， 有一件重要的事需要记住，编译器会首先在Go的安装目录查找，然后才会按顺序查找GOPATH变量里列出的目录。</p>
-<p>如果编译器查遍gopath也没找到要导入的包，我们可以通过go get来修正这种错误，</p>
-<p>go get具有递归特性，这个命令会扫描某个包的原码树，获取能找到的所有依赖包，并将包的原码保存在gopath指向的路径里与url匹配的目录里</p>
-<h2 id="2-array-数组"><a href="#2-array-数组" class="headerlink" title="2.array 数组"></a>2.array 数组</h2><p>数组是一个长度固定的数据类型、用于存储一段具有相同数据类型的元素的连续块 、 元素可以是内置类型 也可以是某种结构类型</p>
-<h3 id="优点："><a href="#优点：" class="headerlink" title="优点："></a>优点：</h3><ul>
-<li>容易计算索引、快速迭代所有元素</li>
-<li>cpu能把正在使用的数据缓存更加持久</li>
-<li>每个元素都会返回需要在内存中移动的距离</li>
-<li>读取速度O(1)</li>
-</ul>
-<h3 id="使用-（声明和初始化）"><a href="#使用-（声明和初始化）" class="headerlink" title="使用 （声明和初始化）"></a>使用 （声明和初始化）</h3><ul>
-<li>var array [5]int</li>
-<li>array:=[5]int{10,20,30,40,50}</li>
-<li>array:=[…]int{10,20,30}</li>
-<li>array:=[5]int{1:10,2:20}</li>
-</ul>
-<h3 id="数组的复制"><a href="#数组的复制" class="headerlink" title="数组的复制"></a>数组的复制</h3><p>只有数组变量的类型包含数组的长度和每个元素的类型、只有这两部分相同的数组，才是类型相同的数组，才能相互赋值。</p>
-<p>值拷贝 而不是地址拷贝</p>
-<h3 id="多维数组同单个数组"><a href="#多维数组同单个数组" class="headerlink" title="多维数组同单个数组"></a>多维数组同单个数组</h3><h3 id="函数间的传递"><a href="#函数间的传递" class="headerlink" title="函数间的传递"></a>函数间的传递</h3><p>// 声明一个8MB的数组 int 8byte 800w 字节 8MB var arr [1e6] int</p>
-<ul>
-<li><p>值传递 foo（array [1e6]int） 每次调用这个函数，都必须在栈上分配8MB的内存</p>
-</li>
-<li><p>指针传递 foo（array *[1e6]int） foo函数接受一个指向100万个整型数组的指针 foo(&amp;arr)</p>
-<p>这个操作会更有效的利用内存、性能也会更好，但是因为传递的是指针、所以如果改变指针指向的值，会改变共享的内存、 slice会更好的处理这个问题</p>
-</li>
-</ul>
-<h2 id="3-slice"><a href="#3-slice" class="headerlink" title="3.slice"></a>3.slice</h2><p>切片是一种数据结构、这种数据结构能够便于使用和管理各种集合</p>
-<h3 id="内部实现"><a href="#内部实现" class="headerlink" title="内部实现"></a>内部实现</h3><p>切片有三个字段的数据结构</p>
-<ul>
-<li>指向底层数组的指针</li>
-<li>切片访问的元素的个数（切片的长度）</li>
-<li>切片允许增长到的元素个数（容量）</li>
-</ul>
-<h3 id="切片的使用"><a href="#切片的使用" class="headerlink" title="切片的使用"></a>切片的使用</h3><ul>
-<li><p>使用make</p>
-<ul>
-<li>使用一个长度声明一个字符串的切片</li>
-</ul>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个字符串切片 长度和容量都是5</span></span><br><span class="line">slice := <span class="built_in">make</span>([]<span class="keyword">string</span>,<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><p>使用长度和容量声明整型切片</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个整型切片 长度为3个元素 容量为5个元素</span></span><br><span class="line">slice :=<span class="built_in">make</span>([]<span class="keyword">int</span>,<span class="number">3</span>,<span class="number">5</span>)</span><br></pre></td></tr></table></figure>
-
-<p>注：容量小于切片会报错</p>
-</li>
-</ul>
-</li>
-<li><p>使用字面量</p>
-<ul>
-<li><p>通过切片字面量来声明切片</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个字符串切片，长度和容量都是3</span></span><br><span class="line">slice:=[]<span class="keyword">string</span>&#123;<span class="string">&quot;red&quot;</span>.<span class="string">&quot;yellow&quot;</span>,<span class="string">&quot;green&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用索引声明切片</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">声明一个字符串切片、第<span class="number">100</span>个元素为空串</span><br><span class="line">slice:= []<span class="keyword">string</span>&#123;<span class="number">99</span>:<span class="string">&quot;&quot;</span>&#125;</span><br></pre></td></tr></table></figure>
-</li>
-</ul>
-</li>
-<li><p>使用三个索引创建切片</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 将第三个元素切片，并限制容量</span></span><br><span class="line"><span class="comment">// 其长度为 1 个元素，容量为 2 个元素 </span></span><br><span class="line">slice := source[<span class="number">2</span>:<span class="number">3</span>:<span class="number">4</span>]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p>切片和数组声明的不同点在于 []中有指定数字的或者… 为数组,剩余视为切片</p>
-<h3 id="nil切片-表示空集合或者空切片很有用"><a href="#nil切片-表示空集合或者空切片很有用" class="headerlink" title="nil切片 (表示空集合或者空切片很有用)"></a>nil切片 (表示空集合或者空切片很有用)</h3><ul>
-<li><p>创建nil切片</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个nil 整型切片</span></span><br><span class="line"><span class="keyword">var</span> slice []<span class="keyword">int</span></span><br><span class="line"><span class="comment">// slice的长度和容量都是0</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>声明空切片</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个空的整型切片</span></span><br><span class="line">slice :=<span class="built_in">make</span>([]<span class="keyword">int</span>,<span class="number">0</span>)</span><br><span class="line"><span class="comment">// 使用字面量创建空的整型切片</span></span><br><span class="line">slice:=[]<span class="keyword">int</span>&#123;&#125;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<h3 id="切片赋值和创建新的切片"><a href="#切片赋值和创建新的切片" class="headerlink" title="切片赋值和创建新的切片"></a>切片赋值和创建新的切片</h3><ul>
-<li><p>赋值</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">使用[]操作符修改某个元素的值</span><br><span class="line">slice := []<span class="keyword">string</span>&#123;<span class="string">&quot;red&quot;</span>,<span class="string">&quot;yellow&quot;</span>&#125;</span><br><span class="line">修改索引为<span class="number">1</span>的元素的值</span><br><span class="line">slice[<span class="number">1</span>]=<span class="string">&quot;black&quot;</span></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>使用切片创建切片 使用切片创建新的切片 会将底层数组切出一部分 ，新的切片无法可能无法访问全部的底层数组</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个整型数组、长度和容量都是5</span></span><br><span class="line">slice :=[]<span class="keyword">int</span>&#123;<span class="number">10</span>,<span class="number">20</span>,<span class="number">30</span>,<span class="number">40</span>,<span class="number">50</span>&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 创建一个新的切片通过slice,长度是2 容量是4</span></span><br><span class="line">sliceNew:=slice[<span class="number">1</span>:<span class="number">3</span>]</span><br><span class="line"><span class="comment">// 修改 newSlice 索引为 1 的元素</span></span><br><span class="line"><span class="comment">// 同时也修改了原来的 slice 的索引为 2 的元素</span></span><br><span class="line">newSlice[<span class="number">1</span>] = <span class="number">35</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-</li>
-</ul>
-<p><img src="/images/image-20200325214011116.png" alt="image-20200325213325010"></p>
-<h3 id="计算长度和容量"><a href="#计算长度和容量" class="headerlink" title="计算长度和容量"></a>计算长度和容量</h3><ul>
-<li><p>对底层数组容量是k的切片slice[i:j] 或容量是5的slice[1:3]来说 </p>
-<p>长度: j-i  或 3-1 = 2</p>
-<p>容量:k-i 或 5-1 = 4</p>
-</li>
-<li><p>对于 slice[i:j:k] 或 [2:3:4]</p>
-<p>长度: j – i 或 3 - 2 = 1<br>容量: k – i 或 4 - 2 = 2</p>
-</li>
-</ul>
-<h3 id="修改切片内容可能会导致修改原来slice中的元素"><a href="#修改切片内容可能会导致修改原来slice中的元素" class="headerlink" title="修改切片内容可能会导致修改原来slice中的元素"></a>修改切片内容可能会导致修改原来slice中的元素</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个整型切片</span></span><br><span class="line"><span class="comment">// 其长度和容量都是 5 个元素</span></span><br><span class="line">slice := []<span class="keyword">int</span>&#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>, <span class="number">50</span>&#125;</span><br><span class="line"><span class="comment">// 创建一个新切片</span></span><br><span class="line"><span class="comment">// 其长度是 2 个元素，容量是 4 个元素</span></span><br><span class="line">newSlice := slice[<span class="number">1</span>:<span class="number">3</span>]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="append"><a href="#append" class="headerlink" title="append"></a>append</h3><h4 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h4><p> append 也是一个可变参数的函数。这意味着可以在一次调用传递多个追加的值。 </p>
-<p>如果使用…运算符，可以将一个切片的所有元素追加到另一个切片里 </p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建两个切片，并分别用两个整数进行初始化 </span></span><br><span class="line">s1 := []<span class="keyword">int</span>&#123;<span class="number">1</span>, <span class="number">2</span>&#125;</span><br><span class="line">s2 := []<span class="keyword">int</span>&#123;<span class="number">3</span>, <span class="number">4</span>&#125; </span><br><span class="line"></span><br><span class="line"><span class="comment">// 将两个切片追加在一起，并显示结果</span></span><br><span class="line">fmt.Printf(<span class="string">&quot;%v\n&quot;</span>, <span class="built_in">append</span>(s1, s2...)) </span><br><span class="line">Output:</span><br><span class="line">[<span class="number">1</span> <span class="number">2</span> <span class="number">3</span> <span class="number">4</span>]</span><br></pre></td></tr></table></figure>
-
-<h4 id="底层实现"><a href="#底层实现" class="headerlink" title="底层实现"></a>底层实现</h4><p>append 会首先使用可用容量。一旦没有可用容量，会分配一个<br>新的底层数组。这导致很容易忘记切片间正在共享同一个底层数组</p>
-<p>因为slice依赖其底层的array，修改slice本质是修改array，而array又是有大小限制，当超过slice的容量，即数组越界的时候，需要通过动态规划的方式创建一个新的数组块。把原有的数据复制到新数组，这个新的array则为slice新的底层依赖。</p>
-<h4 id="扩容的规则"><a href="#扩容的规则" class="headerlink" title="扩容的规则"></a>扩容的规则</h4><p>函数 append 会智能地处理底层数组的容量增长。在切片的容量小于 1000 个元素时，总是<br>会成倍地增加容量。一旦元素个数超过 1000，容量的增长因子会设为 1.25，也就是会每次增加 25%<br>的容量。随着语言的演化，这种增长算法可能会有所改变</p>
-<h4 id="设置容量和长度一致的好处"><a href="#设置容量和长度一致的好处" class="headerlink" title="设置容量和长度一致的好处"></a>设置容量和长度一致的好处</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建字符串切片</span></span><br><span class="line"><span class="comment">// 其长度和容量都是 5 个元素</span></span><br><span class="line">source := []<span class="keyword">string</span>&#123;<span class="string">&quot;Apple&quot;</span>, <span class="string">&quot;Orange&quot;</span>, <span class="string">&quot;Plum&quot;</span>, <span class="string">&quot;Banana&quot;</span>, <span class="string">&quot;Grape&quot;</span>&#125;</span><br><span class="line"><span class="comment">// 对第三个元素做切片，并限制容量 // 其长度和容量都是 1 个元素 </span></span><br><span class="line">slice := source[<span class="number">2</span>:<span class="number">3</span>:<span class="number">3</span>]</span><br><span class="line"><span class="comment">// 向 slice 追加新字符串</span></span><br><span class="line">slice = <span class="built_in">append</span>(slice, <span class="string">&quot;Kiwi&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>如果在创建切片时设置切片的容量和长度一样，就可以强制让新切片的第一个 append 操作<br>创建新的底层数组，与原有的底层数组分离。新切片与原有的底层数组分离后，可以安全地进行<br>后续修改</p>
-<p><img src="/images/image-20200325213325010.png" alt="image-20200325213325010"></p>
-<h3 id="切片的遍历"><a href="#切片的遍历" class="headerlink" title="切片的遍历"></a>切片的遍历</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 创建一个整型切片</span></span><br><span class="line"><span class="comment">// 其长度和容量都是 4 个元素</span></span><br><span class="line">slice := []<span class="keyword">int</span>&#123;<span class="number">10</span>, <span class="number">20</span>, <span class="number">30</span>, <span class="number">40</span>&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h5 id="range"><a href="#range" class="headerlink" title="range"></a>range</h5><p>使用空白标识符(下划线)来忽略索引值</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 迭代每个元素，并显示其值</span></span><br><span class="line"><span class="keyword">for</span> _, value := <span class="keyword">range</span> slice &#123;</span><br><span class="line">fmt.Printf(<span class="string">&quot;Value: %d\n&quot;</span>, value) &#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="for"><a href="#for" class="headerlink" title="for"></a>for</h5><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 从第三个元素开始迭代每个元素</span></span><br><span class="line"><span class="keyword">for</span> index := <span class="number">2</span>; index &lt; <span class="built_in">len</span>(slice); index++ &#123;</span><br><span class="line">fmt.Printf(<span class="string">&quot;Index: %d Value: %d\n&quot;</span>, index, slice[index]) &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="函数间切片的传递"><a href="#函数间切片的传递" class="headerlink" title="函数间切片的传递"></a>函数间切片的传递</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 分配包含 100 万个整型值的切片 </span></span><br><span class="line">slice := <span class="built_in">make</span>([]<span class="keyword">int</span>, <span class="number">1e6</span>)</span><br><span class="line"><span class="comment">// 将 slice 传递到函数 foo slice = foo(slice) </span></span><br><span class="line"></span><br><span class="line"><span class="comment">// 函数 foo 接收一个整型切片，并返回这个切片</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">foo</span><span class="params">(sliceFoo []<span class="keyword">int</span>)</span> []<span class="title">int</span></span> &#123; </span><br><span class="line">  ... </span><br><span class="line">  <span class="keyword">return</span> slice</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">modify</span> <span class="params">(s *[]<span class="keyword">int</span>)</span></span>&#123;</span><br><span class="line">  (*s)[<span class="number">0</span>] = </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h5 id="值传递-副本拷贝"><a href="#值传递-副本拷贝" class="headerlink" title="值传递(副本拷贝)"></a>值传递(副本拷贝)</h5><pre><code>函数foo接收的是sliceFoo 是  slice的一个值拷贝，两个切片指向的地址都同一个底层数组，foo函数返回的是sliceFoo 有可能和slice的值不一样</code></pre>
-<h5 id="地址传递"><a href="#地址传递" class="headerlink" title="地址传递"></a>地址传递</h5><p>   函数modify接收s是指向int数组的一个指针，当对s进行修改的同时，修改的就是底层数组的数据</p>
-<h2 id="4-映射Map"><a href="#4-映射Map" class="headerlink" title="4 映射Map"></a>4 映射Map</h2><p>含义：映射是一种数据结构，用于存储一系列无序的键值对，只有能够比较的类型才能作为key的类型，所以例如切片、函数、map类型是不能作为map的key，而且map是非线程安全的，如果多goroutine中需要自己维护线程安全</p>
-<h3 id="内部实现-1"><a href="#内部实现-1" class="headerlink" title="内部实现"></a>内部实现</h3><p>无序的原因是因为映射使用了散列表，</p>
-<p>解决hash冲突的办法有1、开放地址法，2、拉链法</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> hmap <span class="keyword">struct</span> &#123;</span><br><span class="line">    count     <span class="keyword">int</span></span><br><span class="line">    flags     <span class="keyword">uint8</span></span><br><span class="line">    B         <span class="keyword">uint8</span></span><br><span class="line">    noverflow <span class="keyword">uint16</span></span><br><span class="line">    hash0     <span class="keyword">uint32</span></span><br><span class="line"></span><br><span class="line">    buckets    unsafe.Pointer</span><br><span class="line">    oldbuckets unsafe.Pointer</span><br><span class="line">    nevacuate  <span class="keyword">uintptr</span></span><br><span class="line"></span><br><span class="line">    extra *mapextra</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<ol>
-<li><code>count</code> 表示当前哈希表中的元素数量；</li>
-<li><code>B</code> 表示当前哈希表持有的 <code>buckets</code> 数量，但是因为哈希表中桶的数量都 2 的倍数，所以该字段会存储对数，也就是 <code>len(buckets) == 2^B</code>；</li>
-<li><code>hash0</code> 是哈希的种子，它能为哈希函数的结果引入随机性，这个值在创建哈希表时确定，并在调用哈希函数时作为参数传入；</li>
-<li><code>oldbuckets</code> 是哈希在扩容时用于保存之前 <code>buckets</code> 的字段，它的大小是当前 <code>buckets</code> 的一半；</li>
-</ol>
-<p><img src="/images/2019-12-30-15777168478811-hmap-and-buckets.png" alt="hmap-and-buckets"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1827,7 +1704,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">44</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>

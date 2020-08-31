@@ -133,7 +133,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">43</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">44</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -196,6 +196,228 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/leetcode%20%E6%95%B0%E7%BB%84-%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/07/leetcode%20%E6%95%B0%E7%BB%84-%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE/" class="post-title-link" itemprop="url">搜索插入位置</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-06 22:08:43" itemprop="dateCreated datePublished" datetime="2020-08-06T22:08:43Z">2020-08-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-09 13:49:52" itemprop="dateModified" datetime="2020-08-09T13:49:52Z">2020-08-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/leetcode/%E6%95%B0%E7%BB%84/" itemprop="url" rel="index"><span itemprop="name">数组</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="搜索插入位置"><a href="#搜索插入位置" class="headerlink" title="搜索插入位置"></a>搜索插入位置</h3><p>给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。</p>
+<p>你可以假设数组中无重复元素。</p>
+<p>示例 1:</p>
+<p>输入: [1,3,5,6], 5<br>输出: 2<br>示例 2:</p>
+<p>输入: [1,3,5,6], 2<br>输出: 1<br>示例 3:</p>
+<p>输入: [1,3,5,6], 7<br>输出: 4<br>示例 4:</p>
+<p>输入: [1,3,5,6], 0<br>输出: 0</p>
+<p>作者：力扣 (LeetCode)<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/leetbook/read/array-and-string/cxqdh/">https://leetcode-cn.com/leetbook/read/array-and-string/cxqdh/</a><br>来源：力扣（LeetCode）<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">searchInsert</span><span class="params">(nums []<span class="keyword">int</span>, target <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> nums[<span class="number">0</span>] &gt; target &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> nums[<span class="built_in">len</span>(nums)<span class="number">-1</span>] &lt; target &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(nums)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> index := <span class="number">0</span>; index &lt; <span class="built_in">len</span>(nums)<span class="number">-1</span>; index++ &#123;</span><br><span class="line">        <span class="keyword">if</span> nums[index] == target &#123;</span><br><span class="line">            <span class="keyword">return</span> index</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> index+<span class="number">1</span> &gt;<span class="built_in">len</span>(nums) &#123;</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> nums[index+<span class="number">1</span>] == target &#123;</span><br><span class="line">            <span class="keyword">return</span> index +<span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> nums[index] &lt; target &amp;&amp; target &lt; nums[index+<span class="number">1</span>] &#123;</span><br><span class="line">            <span class="keyword">return</span> index + <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这个题目主要是考二分查找 </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">searchInsert</span><span class="params">(nums []<span class="keyword">int</span>, target <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    n:=<span class="built_in">len</span>(nums)</span><br><span class="line">    left,right:=<span class="number">0</span>,n<span class="number">-1</span></span><br><span class="line">    ans:=n</span><br><span class="line">    <span class="keyword">for</span> left&lt;=right &#123;</span><br><span class="line">        mid:=(right-left)&gt;&gt;<span class="number">1</span>+left</span><br><span class="line">        <span class="keyword">if</span> target&lt;= nums[mid] &#123;</span><br><span class="line">            right=mid<span class="number">-1</span></span><br><span class="line">            ans=mid</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            left=mid+<span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>  ans</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/leetcode%20%E6%95%B0%E7%BB%84-%E6%97%8B%E8%BD%AC%E7%9F%A9%E9%98%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/07/leetcode%20%E6%95%B0%E7%BB%84-%E6%97%8B%E8%BD%AC%E7%9F%A9%E9%98%B5/" class="post-title-link" itemprop="url">旋转矩阵</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-06 22:08:43" itemprop="dateCreated datePublished" datetime="2020-08-06T22:08:43Z">2020-08-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-15 10:22:44" itemprop="dateModified" datetime="2020-08-15T10:22:44Z">2020-08-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/leetcode/%E6%95%B0%E7%BB%84/" itemprop="url" rel="index"><span itemprop="name">数组</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>921</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="合并区间"><a href="#合并区间" class="headerlink" title="合并区间"></a>合并区间</h3><p>给你一幅由 N × N 矩阵表示的图像，其中每个像素的大小为 4 字节。请你设计一种算法，将图像旋转 90 度。</p>
+<p>不占用额外内存空间能否做到？</p>
+<p>示例 1:</p>
+<p>给定 matrix =<br>[<br>  [1,2,3],<br>  [4,5,6],<br>  [7,8,9]<br>],</p>
+<p>原地旋转输入矩阵，使其变为:<br>[<br>  [7,4,1],<br>  [8,5,2],<br>  [9,6,3]<br>]<br>示例 2:</p>
+<p>给定 matrix =<br>[<br>  [ 5, 1, 9,11],<br>  [ 2, 4, 8,10],<br>  [13, 3, 6, 7],<br>  [15,14,12,16]<br>], </p>
+<p>原地旋转输入矩阵，使其变为:<br>[<br>  [15,13, 2, 5],<br>  [14, 3, 4, 1],<br>  [12, 6, 8, 9],<br>  [16, 7,10,11]<br>]</p>
+<p>作者：力扣 (LeetCode)<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/leetbook/read/array-and-string/clpgd/">https://leetcode-cn.com/leetbook/read/array-and-string/clpgd/</a><br>来源：力扣（LeetCode）<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<h3 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h3><ol>
+<li>用翻转代替旋转</li>
+</ol>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">rotate</span><span class="params">(matrix [][]<span class="keyword">int</span>)</span></span>  &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取N</span></span><br><span class="line">    N := <span class="built_in">len</span>(matrix)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 先水平翻转</span></span><br><span class="line">    <span class="keyword">for</span> y := <span class="number">0</span>; y &lt; (N / <span class="number">2</span>); y++ &#123;</span><br><span class="line">        matrix[y], matrix[N<span class="number">-1</span>-y] = matrix[N<span class="number">-1</span>-y], matrix[y]</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 再按主对角线进行元素翻转</span></span><br><span class="line">    <span class="keyword">for</span> y := <span class="number">0</span>; y &lt; N; y++ &#123;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">            这里需要注意，如果用 x&lt;N 这个条件，会导致对角线元素翻转两次，最终恢复原状，所以要 x&lt;y</span></span><br><span class="line"><span class="comment">            使得翻转的过程只进行一次，即</span></span><br><span class="line"><span class="comment">            y=0时，不进行翻转</span></span><br><span class="line"><span class="comment">            y=1时，只进行(1,0)和(0,1)元素翻转</span></span><br><span class="line"><span class="comment">            y=2时，(2,0)和(0,2)，(2,1)和(1,2)翻转</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">        <span class="keyword">for</span> x := <span class="number">0</span>; x &lt; y; x++ &#123;</span><br><span class="line">            matrix[y][x], matrix[x][y] = matrix[x][y], matrix[y][x]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="执行结果："><a href="#执行结果：" class="headerlink" title="执行结果："></a>执行结果：</h3><p>通过</p>
+<p>显示详情</p>
+<p>执行用时：0 ms, 在所有 Go 提交中击败了100.00%的用户</p>
+<p>内存消耗：2.2 MB, 在所有 Go 提交中击败了58.33%的用户</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -295,119 +517,6 @@
 <figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2020</span>/<span class="number">08</span>/<span class="number">14</span> <span class="number">17</span>:<span class="number">19</span>:<span class="number">37</span><span class="variable">.159</span> [orm_log<span class="variable">.go</span>:<span class="number">67</span>]  [ORM]<span class="number">2020</span>/<span class="number">08</span>/<span class="number">14</span> <span class="number">17</span>:<span class="number">19</span>:<span class="number">37</span>  -[Queries/<span class="keyword">default</span>] - [  OK /     db<span class="variable">.Exec</span> /    <span class="number">11</span><span class="variable">.2ms</span>] - [update card_record set real_reward_num = ?,real_reward_type=?,symbol_url=? where user_id=? <span class="keyword">and</span> card_id=? <span class="keyword">and</span> create_date=? order by ctime DESC limit <span class="number">1</span> ] - <span class="meta">`30`, `12`, `s6`, `717`, `68`, `20200814`</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <p> <code>Finish</code></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/leetcode%20%E6%95%B0%E7%BB%84-%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/07/leetcode%20%E6%95%B0%E7%BB%84-%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4/" class="post-title-link" itemprop="url">合并区间</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-06 22:08:43" itemprop="dateCreated datePublished" datetime="2020-08-06T22:08:43Z">2020-08-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-15 05:13:55" itemprop="dateModified" datetime="2020-08-15T05:13:55Z">2020-08-15</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/leetcode/%E6%95%B0%E7%BB%84/" itemprop="url" rel="index"><span itemprop="name">数组</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>7.5k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>7 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="合并区间"><a href="#合并区间" class="headerlink" title="合并区间"></a>合并区间</h3><p>给出一个区间的集合，请合并所有重叠的区间。</p>
-<p>示例 1:</p>
-<p>输入: [[1,3],[2,6],[8,10],[15,18]]<br>输出: [[1,6],[8,10],[15,18]]<br>解释: 区间 [1,3] 和 [2,6] 重叠, 将它们合并为 [1,6].<br>示例 2:</p>
-<p>输入: [[1,4],[4,5]]<br>输出: [[1,5]]<br>解释: 区间 [1,4] 和 [4,5] 可被视为重叠区间。</p>
-<p>Go</p>
-<p>作者：力扣 (LeetCode)<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/leetbook/read/array-and-string/c5tv3/">https://leetcode-cn.com/leetbook/read/array-and-string/c5tv3/</a><br>来源：力扣（LeetCode）<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
-<h3 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h3><ol>
-<li><p>先将区间按照 start 进行排序 遍历每个区间，</p>
-</li>
-<li><p>开始向后遍历 是否区间满足合并的条件</p>
-</li>
-<li><pre><code class="go">#初始
-left := intervals[i][0]
-right := intervals[i][1] 
-&lt;!--hexoPostRenderEscape:&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;43&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;44&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;45&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;46&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;47&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;48&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   从&amp;#96;j &amp;#x3D; i + 1&amp;#96;开始 判断后面j区间的开始&amp;#96;intervals[j][0]&amp;#96;是否&amp;#96;&amp;lt;&amp;#x3D;right&amp;#96; 是 则可以合并 切新区间的&amp;#96;left&amp;#x3D;left right &amp;#x3D; max(right, intervals[j][1])&amp;#96;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;​    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;### 代码实现&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#96;&amp;#96;&amp;#96;go&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;type MergeSlice [][]int&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;func (s MergeSlice) Len() int           &amp;#123; return len(s) &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;func (s MergeSlice) Swap(i, j int)      &amp;#123; s[i], s[j] &amp;#x3D; s[j], s[i] &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;func (s MergeSlice) Less(i, j int) bool &amp;#123; return s[i][0] &amp;lt; s[j][0] &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;func merge(intervals [][]int) [][]int &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    sort.Sort(MergeSlice(intervals)) &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    retList :&amp;#x3D; make([][]int, 0)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    size :&amp;#x3D; len(intervals)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    var i int&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    for i &amp;lt; size &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        left :&amp;#x3D; intervals[i][0]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        right :&amp;#x3D; intervals[i][1]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        j :&amp;#x3D; i + 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        for j &amp;lt; size &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            if intervals[j][0] &amp;lt;&amp;#x3D; right &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                right &amp;#x3D; Max(intervals[j][1], right)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                j++&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;#125; else &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                break&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        ret :&amp;#x3D; []int&amp;#123;left, right&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        retList &amp;#x3D; append(retList, ret)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        i &amp;#x3D; j       &amp;#x2F;&amp;#x2F; 合并之后i&amp;#x3D;j+1 没有合并i&amp;#x3D;i+1 都可以用i&amp;#x3D;j表示&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    return retList&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;func Max(a, b int) int &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    if a &amp;gt;&amp;#x3D; b &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        return a&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125; else &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        return b&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;:hexoPostRenderEscape--&gt;
-</code></pre>
-</li>
-</ol>
 
       
     </div>
@@ -628,6 +737,107 @@ right := intervals[i][1]
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/algorithm-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/07/algorithm-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">algorithm-归并排序</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-06 21:56:21" itemprop="dateCreated datePublished" datetime="2020-08-06T21:56:21Z">2020-08-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-13 13:20:52" itemprop="dateModified" datetime="2020-08-13T13:20:52Z">2020-08-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/sort/" itemprop="url" rel="index"><span itemprop="name">sort</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="归并排序的思路"><a href="#归并排序的思路" class="headerlink" title="归并排序的思路"></a>归并排序的思路</h3><p>将一排数据，进行左右不断地进行划分（递[归]），然后再对比左右两边的数据后再(合[并])，这就是”归并排序“。</p>
+<blockquote>
+<p>注意：[左右]对比，是指左的第一个元素，与右边的第一个元素进行对比，哪个小，就先放到结果的第一位，然后左或右取出了元素的那边的索引进行++，没有取出的元素的，则不用进行++。 比较完后，还要分别将左，右的剩余的元素，追加到结果列的后面</p>
+</blockquote>
+<h2 id="归并排序-MergeSort"><a href="#归并排序-MergeSort" class="headerlink" title="归并排序(MergeSort)"></a>归并排序(MergeSort)</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line">import <span class="string">&quot;time&quot;</span></span><br><span class="line">import number <span class="string">&quot;github.com/emacsist/go-common/helper/number&quot;</span></span><br><span class="line"></span><br><span class="line">func <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    data := number.GenerateInt(100000, 100000)</span><br><span class="line">    start := makeTimestamp()</span><br><span class="line">    // fmt.Printf(<span class="string">&quot;%v\n&quot;</span>, data)</span><br><span class="line">    data = mergeSort(data)</span><br><span class="line">    fmt.Printf(<span class="string">&quot;cost %v ms \n&quot;</span>, makeTimestamp()-start)</span><br><span class="line">    // fmt.Printf(<span class="string">&quot;%v\n&quot;</span>, data)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//------------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">func makeTimestamp() int64 &#123;</span><br><span class="line">    <span class="built_in">return</span> time.Now().UnixNano() / int64(time.Millisecond)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func mergeSort(data []int) []int &#123;</span><br><span class="line">    <span class="keyword">if</span> len(data) &lt;= 1 &#123;</span><br><span class="line">        <span class="built_in">return</span> data</span><br><span class="line">    &#125;</span><br><span class="line">    //递[归]</span><br><span class="line">    middle := len(data) / 2</span><br><span class="line">    //不断地进行左右对半划分</span><br><span class="line">    left := mergeSort(data[:middle])</span><br><span class="line">    right := mergeSort(data[middle:])</span><br><span class="line">    //合[并]</span><br><span class="line">    <span class="built_in">return</span> merge(left, right)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func merge(left, right []int) (result []int) &#123;</span><br><span class="line">    l, r := 0, 0</span><br><span class="line"></span><br><span class="line">    // 注意：[左右]对比，是指左的第一个元素，与右边的第一个元素进行对比，哪个小，就先放到结果的第一位，然后左或右取出了元素的那边的索引进行++</span><br><span class="line">    <span class="keyword">for</span> l &lt; len(left) &amp;&amp; r &lt; len(right) &#123;</span><br><span class="line">        //从小到大排序.</span><br><span class="line">        <span class="keyword">if</span> left[l] &gt; right[r] &#123;</span><br><span class="line">            result = append(result, right[r])</span><br><span class="line">            //因为处理了右边的第r个元素，所以r的指针要向前移动一个单位</span><br><span class="line">            r++</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            result = append(result, left[l])</span><br><span class="line">            //因为处理了左边的第l个元素，所以l的指针要向前移动一个单位</span><br><span class="line">            l++</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // 比较完后，还要分别将左，右的剩余的元素，追加到结果列的后面(不然就漏咯）。</span><br><span class="line">    result = append(result, left[l:]...)</span><br><span class="line">    result = append(result, right[r:]...)</span><br><span class="line">    <span class="built_in">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h3><p>假设解决最后的子问题用时为常数c，则对于n个待排序记录来说整个问题的规模为<code>cn</code>。</p>
+<p><img src="https://img-blog.csdn.net/20170909101802866?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzYzMDY0NzQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>从这个递归树可以看出，第一层时间代价为cn，第二层时间代价为<code>cn/2+cn/2=cn…..</code>每一层代价都是<code>cn</code>，总共有<code>logn+1</code>层。所以总的时间代价为<code>cn*(logn+1)</code>.时间复杂度是<code>o(nlogn)</code>.</p>
+<h3 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h3><p>需要使用辅助数组的长度和待排序的数组相同 ，因此空间复杂度还是<code>O(n)</code></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/algorithm-%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -736,7 +946,7 @@ right := intervals[i][1]
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/algorithm-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/redis-cluster%20%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4key/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -750,7 +960,7 @@ right := intervals[i][1]
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/08/07/algorithm-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">algorithm-归并排序</a>
+            <a href="/2020/08/07/redis-cluster%20%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4key/" class="post-title-link" itemprop="url">redis cluster 批量删除key</a>
         </h2>
 
         <div class="post-meta">
@@ -767,7 +977,7 @@ right := intervals[i][1]
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-13 13:20:52" itemprop="dateModified" datetime="2020-08-13T13:20:52Z">2020-08-13</time>
+                <time title="修改时间：2020-08-10 06:21:31" itemprop="dateModified" datetime="2020-08-10T06:21:31Z">2020-08-10</time>
               </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -775,11 +985,15 @@ right := intervals[i][1]
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
+                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
                 </span>
                   ，
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/algorithm/sort/" itemprop="url" rel="index"><span itemprop="name">sort</span></a>
+                  <a href="/categories/linux/%E8%BF%90%E7%BB%B4/" itemprop="url" rel="index"><span itemprop="name">运维</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/%E8%BF%90%E7%BB%B4/redis/" itemprop="url" rel="index"><span itemprop="name">redis</span></a>
                 </span>
             </span>
 
@@ -789,14 +1003,14 @@ right := intervals[i][1]
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>1.7k</span>
+              <span>1.2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
+              <span>1 分钟</span>
             </span>
 
         </div>
@@ -808,16 +1022,16 @@ right := intervals[i][1]
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="归并排序的思路"><a href="#归并排序的思路" class="headerlink" title="归并排序的思路"></a>归并排序的思路</h3><p>将一排数据，进行左右不断地进行划分（递[归]），然后再对比左右两边的数据后再(合[并])，这就是”归并排序“。</p>
-<blockquote>
-<p>注意：[左右]对比，是指左的第一个元素，与右边的第一个元素进行对比，哪个小，就先放到结果的第一位，然后左或右取出了元素的那边的索引进行++，没有取出的元素的，则不用进行++。 比较完后，还要分别将左，右的剩余的元素，追加到结果列的后面</p>
-</blockquote>
-<h2 id="归并排序-MergeSort"><a href="#归并排序-MergeSort" class="headerlink" title="归并排序(MergeSort)"></a>归并排序(MergeSort)</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line">import <span class="string">&quot;time&quot;</span></span><br><span class="line">import number <span class="string">&quot;github.com/emacsist/go-common/helper/number&quot;</span></span><br><span class="line"></span><br><span class="line">func <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    data := number.GenerateInt(100000, 100000)</span><br><span class="line">    start := makeTimestamp()</span><br><span class="line">    // fmt.Printf(<span class="string">&quot;%v\n&quot;</span>, data)</span><br><span class="line">    data = mergeSort(data)</span><br><span class="line">    fmt.Printf(<span class="string">&quot;cost %v ms \n&quot;</span>, makeTimestamp()-start)</span><br><span class="line">    // fmt.Printf(<span class="string">&quot;%v\n&quot;</span>, data)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//------------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">func makeTimestamp() int64 &#123;</span><br><span class="line">    <span class="built_in">return</span> time.Now().UnixNano() / int64(time.Millisecond)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func mergeSort(data []int) []int &#123;</span><br><span class="line">    <span class="keyword">if</span> len(data) &lt;= 1 &#123;</span><br><span class="line">        <span class="built_in">return</span> data</span><br><span class="line">    &#125;</span><br><span class="line">    //递[归]</span><br><span class="line">    middle := len(data) / 2</span><br><span class="line">    //不断地进行左右对半划分</span><br><span class="line">    left := mergeSort(data[:middle])</span><br><span class="line">    right := mergeSort(data[middle:])</span><br><span class="line">    //合[并]</span><br><span class="line">    <span class="built_in">return</span> merge(left, right)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func merge(left, right []int) (result []int) &#123;</span><br><span class="line">    l, r := 0, 0</span><br><span class="line"></span><br><span class="line">    // 注意：[左右]对比，是指左的第一个元素，与右边的第一个元素进行对比，哪个小，就先放到结果的第一位，然后左或右取出了元素的那边的索引进行++</span><br><span class="line">    <span class="keyword">for</span> l &lt; len(left) &amp;&amp; r &lt; len(right) &#123;</span><br><span class="line">        //从小到大排序.</span><br><span class="line">        <span class="keyword">if</span> left[l] &gt; right[r] &#123;</span><br><span class="line">            result = append(result, right[r])</span><br><span class="line">            //因为处理了右边的第r个元素，所以r的指针要向前移动一个单位</span><br><span class="line">            r++</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            result = append(result, left[l])</span><br><span class="line">            //因为处理了左边的第l个元素，所以l的指针要向前移动一个单位</span><br><span class="line">            l++</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // 比较完后，还要分别将左，右的剩余的元素，追加到结果列的后面(不然就漏咯）。</span><br><span class="line">    result = append(result, left[l:]...)</span><br><span class="line">    result = append(result, right[r:]...)</span><br><span class="line">    <span class="built_in">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <p>步骤一：</p>
+<p>使用redis nodes 命令 获取master 节点的信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; CLUSTER NODES</span><br><span class="line">47a3cfa636a42217fdde923ad0af975520557fc3 127.0.0.1:6379@16379 myself,slave 73981099d52abe7ed040e9f5c7a30abd4509e4d4 0 1597031768000 0 connected</span><br><span class="line">73981099d52abe7ed040e9f5c7a30abd4509e4d4 127.0.0.1:6379@16379 master - 0 1597031770200 1 connected 0-5460</span><br><span class="line">dfa8c3b9608b9a8e0e663f63c272a4645ccf91bb 127.0.0.1:6379@16379 master - 0 1597031771201 3 connected 10923-16383</span><br><span class="line">f8415a623f17b45a503d0257ee1e6fbd963317af 127.0.0.1:6379@16379 slave dfa8c3b9608b9a8e0e663f63c272a4645ccf91bb 0 1597031770000 3 connected</span><br><span class="line">0b6a6f7ae9283fb0328b6a2a4494411809c4b8c0 127.0.0.1:6379@16379 slave aebe29e94d12609693530f93ede90be1b5163146 0 1597031772202 2 connected</span><br><span class="line">aebe29e94d12609693530f93ede90be1b5163146 127.0.0.1:6379@16379 master - 0 1597031770000 2 connected 5461-10922</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<h3 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h3><p>假设解决最后的子问题用时为常数c，则对于n个待排序记录来说整个问题的规模为<code>cn</code>。</p>
-<p><img src="https://img-blog.csdn.net/20170909101802866?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzYzMDY0NzQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
-<p>从这个递归树可以看出，第一层时间代价为cn，第二层时间代价为<code>cn/2+cn/2=cn…..</code>每一层代价都是<code>cn</code>，总共有<code>logn+1</code>层。所以总的时间代价为<code>cn*(logn+1)</code>.时间复杂度是<code>o(nlogn)</code>.</p>
-<h3 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h3><p>需要使用辅助数组的长度和待排序的数组相同 ，因此空间复杂度还是<code>O(n)</code></p>
+
+
+<p>步骤二：</p>
+<p>编写 批量删除key的脚本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">redis_ser01=xx.xxx.x.xxx</span><br><span class="line"></span><br><span class="line">redis_ser02=127.0.0.1</span><br><span class="line"></span><br><span class="line">redis_ser03=127.0.0.2 </span><br><span class="line"></span><br><span class="line">port=6379</span><br><span class="line"></span><br><span class="line">redis-cli -c -h $redis_ser01 -p $port keys $1 | xargs -i redis-cli -h $redis_ser01 -p $port del &#123;&#125;</span><br><span class="line"></span><br><span class="line">redis-cli -c -h $redis_ser02 -p $port keys $1 | xargs -i redis-cli -h $redis_ser02 -p $port del &#123;&#125;</span><br><span class="line"></span><br><span class="line">redis-cli -c -h $redis_ser03 -p $port keys $1 | xargs -i redis-cli -h $redis_ser03 -p $port del &#123;&#125;</span><br></pre></td></tr></table></figure>
+
 
       
     </div>
@@ -925,111 +1139,6 @@ right := intervals[i][1]
 
 </li>
 </ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/redis-cluster%20%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4key/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/07/redis-cluster%20%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4key/" class="post-title-link" itemprop="url">redis cluster 批量删除key</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-06 21:56:21" itemprop="dateCreated datePublished" datetime="2020-08-06T21:56:21Z">2020-08-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-10 06:21:31" itemprop="dateModified" datetime="2020-08-10T06:21:31Z">2020-08-10</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/%E8%BF%90%E7%BB%B4/" itemprop="url" rel="index"><span itemprop="name">运维</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/%E8%BF%90%E7%BB%B4/redis/" itemprop="url" rel="index"><span itemprop="name">redis</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>步骤一：</p>
-<p>使用redis nodes 命令 获取master 节点的信息</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; CLUSTER NODES</span><br><span class="line">47a3cfa636a42217fdde923ad0af975520557fc3 127.0.0.1:6379@16379 myself,slave 73981099d52abe7ed040e9f5c7a30abd4509e4d4 0 1597031768000 0 connected</span><br><span class="line">73981099d52abe7ed040e9f5c7a30abd4509e4d4 127.0.0.1:6379@16379 master - 0 1597031770200 1 connected 0-5460</span><br><span class="line">dfa8c3b9608b9a8e0e663f63c272a4645ccf91bb 127.0.0.1:6379@16379 master - 0 1597031771201 3 connected 10923-16383</span><br><span class="line">f8415a623f17b45a503d0257ee1e6fbd963317af 127.0.0.1:6379@16379 slave dfa8c3b9608b9a8e0e663f63c272a4645ccf91bb 0 1597031770000 3 connected</span><br><span class="line">0b6a6f7ae9283fb0328b6a2a4494411809c4b8c0 127.0.0.1:6379@16379 slave aebe29e94d12609693530f93ede90be1b5163146 0 1597031772202 2 connected</span><br><span class="line">aebe29e94d12609693530f93ede90be1b5163146 127.0.0.1:6379@16379 master - 0 1597031770000 2 connected 5461-10922</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<p>步骤二：</p>
-<p>编写 批量删除key的脚本</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">redis_ser01=xx.xxx.x.xxx</span><br><span class="line"></span><br><span class="line">redis_ser02=127.0.0.1</span><br><span class="line"></span><br><span class="line">redis_ser03=127.0.0.2 </span><br><span class="line"></span><br><span class="line">port=6379</span><br><span class="line"></span><br><span class="line">redis-cli -c -h $redis_ser01 -p $port keys $1 | xargs -i redis-cli -h $redis_ser01 -p $port del &#123;&#125;</span><br><span class="line"></span><br><span class="line">redis-cli -c -h $redis_ser02 -p $port keys $1 | xargs -i redis-cli -h $redis_ser02 -p $port del &#123;&#125;</span><br><span class="line"></span><br><span class="line">redis-cli -c -h $redis_ser03 -p $port keys $1 | xargs -i redis-cli -h $redis_ser03 -p $port del &#123;&#125;</span><br></pre></td></tr></table></figure>
-
 
       
     </div>
@@ -1166,107 +1275,6 @@ right := intervals[i][1]
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/%E7%AB%AF%E5%8F%A3%E5%8D%A0%E7%94%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/07/%E7%AB%AF%E5%8F%A3%E5%8D%A0%E7%94%A8/" class="post-title-link" itemprop="url">端口占用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-06 20:44:15" itemprop="dateCreated datePublished" datetime="2020-08-06T20:44:15Z">2020-08-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-09 13:49:52" itemprop="dateModified" datetime="2020-08-09T13:49:52Z">2020-08-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/%E8%BF%90%E7%BB%B4/" itemprop="url" rel="index"><span itemprop="name">运维</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="查看端口占用"><a href="#查看端口占用" class="headerlink" title="查看端口占用"></a>查看端口占用</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> mac使用lsof 查看端口8080是否被占用 </span></span><br><span class="line">lsof -i:8080</span><br><span class="line"><span class="meta">&gt;</span></span><br><span class="line">COMMAND PID          USER   FD   TYPE            DEVICE SIZE/OFF NODE NAME</span><br><span class="line">BaiduHi 444 mengfanxing_g   54u  IPv4 0xa65d4596444d7d5      0t0  TCP localhost:63023-&gt;123.125.115.205:http-alt (ESTABLISHED)</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> linux 使用netstat 查看8080是佛被占用</span></span><br><span class="line">netstat -anp| grep 8080</span><br><span class="line"><span class="meta">&gt;</span></span><br><span class="line">(Not all processes could be identified, non-owned process info</span><br><span class="line"> will not be shown, you would have to be root to see it all.)</span><br><span class="line">tcp6       0      0 :::8080                 :::*                    LISTEN      25263/./new-meet-ro</span><br><span class="line">tcp6       0      0 x.x.x.x:33316      117.78.7.65:8080        ESTABLISHED 26598/java</span><br><span class="line">tcp6       0      0 x.x.x.x:33236      117.78.7.65:8080        ESTABLISHED 26509/java</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="根据pid查看进程"><a href="#根据pid查看进程" class="headerlink" title="根据pid查看进程"></a>根据pid查看进程</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 使用lsof 查看pid=25263的进程</span></span><br><span class="line">lsof -i: grep 25263</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> new-meet- 25263 work    6u  IPv6 1043683416      0t0  TCP *:webcache (LISTEN)</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 使用netstat 查看pid=25263的进程</span></span><br><span class="line">netstat -nap | grep 25263</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> (Not all processes could be identified, non-owned process info</span></span><br><span class="line"> will not be shown, you would have to be root to see it all.)</span><br><span class="line">tcp6       0      0 :::8080                 :::*                    LISTEN      25263/./new-meet-ro</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="查看远程端口是否打开"><a href="#查看远程端口是否打开" class="headerlink" title="查看远程端口是否打开"></a>查看远程端口是否打开</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 使用nc 来检查单个端口</span></span><br><span class="line">nc -zv 127.0.0.1 22</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">  Connection to 127.0.0.1 port 22 [tcp/ssh] succeeded!</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 使用nc 来检查一段打开的端口范围</span></span><br><span class="line">nc -zv 127.0.0.1 22-24</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Connection to 127.0.0.1 port 22 [tcp/ssh] succeeded!</span></span><br><span class="line">nc: connectx to 127.0.0.1 port 23 (tcp) failed: Connection refused</span><br><span class="line">nc: connectx to 127.0.0.1 port 24 (tcp) failed: Connection refused</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1338,7 +1346,7 @@ right := intervals[i][1]
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">43</span>
+          <span class="site-state-item-count">44</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
