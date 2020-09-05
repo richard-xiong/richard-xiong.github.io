@@ -20,18 +20,20 @@
     var CONFIG = {"hostname":"richard-xiong.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
   </script>
 
-  <meta name="description" content="使用第三方库mux  来设置路由 简单的使用 、这种是不指定http method 1234567func main() &amp;#123;    r :&#x3D; mux.NewRouter()    r.HandleFunc(&quot;&#x2F;&quot;, HomeHandler)    r.HandleFunc(&quot;&#x2F;products&quot;, ProductsHandler)    r.Han">
+  <meta name="description" content="介绍一个第三方路由使用第三方库mux  来设置路由 安装方式 go get github.com&#x2F;gotilla&#x2F;mux  创建路由 1r :&#x3D; mux.NewRouter()  简单的使用 、这种是不指定http method   1234567func main() &amp;#123;    r :&#x3D; mux.NewRouter()    r.HandleFunc(&quot;&#x2F;&quot;, H">
 <meta property="og:type" content="article">
 <meta property="og:title" content="Go-kit 学习笔记-三">
 <meta property="og:url" content="https://richard-xiong.github.io/2020/08/30/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%89/index.html">
 <meta property="og:site_name" content="XingServer">
-<meta property="og:description" content="使用第三方库mux  来设置路由 简单的使用 、这种是不指定http method 1234567func main() &amp;#123;    r :&#x3D; mux.NewRouter()    r.HandleFunc(&quot;&#x2F;&quot;, HomeHandler)    r.HandleFunc(&quot;&#x2F;products&quot;, ProductsHandler)    r.Han">
+<meta property="og:description" content="介绍一个第三方路由使用第三方库mux  来设置路由 安装方式 go get github.com&#x2F;gotilla&#x2F;mux  创建路由 1r :&#x3D; mux.NewRouter()  简单的使用 、这种是不指定http method   1234567func main() &amp;#123;    r :&#x3D; mux.NewRouter()    r.HandleFunc(&quot;&#x2F;&quot;, H">
 <meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://richard-xiong.github.io/images/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%89/image-20200901224625446.png">
 <meta property="article:published_time" content="2020-08-30T10:40:24.000Z">
-<meta property="article:modified_time" content="2020-08-31T12:51:16.905Z">
+<meta property="article:modified_time" content="2020-09-05T03:45:48.918Z">
 <meta property="article:author" content="Richard">
 <meta property="article:tag" content="golang java elasticsearch">
 <meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://richard-xiong.github.io/images/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%89/image-20200901224625446.png">
 
 <link rel="canonical" href="https://richard-xiong.github.io/2020/08/30/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%89/">
 
@@ -137,7 +139,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">44</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">52</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -235,7 +237,7 @@
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-31 12:51:16" itemprop="dateModified" datetime="2020-08-31T12:51:16Z">2020-08-31</time>
+                <time title="修改时间：2020-09-05 03:45:48" itemprop="dateModified" datetime="2020-09-05T03:45:48Z">2020-09-05</time>
               </span>
 
           <br>
@@ -244,7 +246,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>697</span>
+              <span>760</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -263,28 +265,33 @@
     <div class="post-body" itemprop="articleBody">
 
       
-        <h3 id="使用第三方库mux-来设置路由"><a href="#使用第三方库mux-来设置路由" class="headerlink" title="使用第三方库mux  来设置路由"></a>使用第三方库<a target="_blank" rel="noopener" href="https://github.com/gorilla/mux">mux</a>  来设置路由</h3><ol>
+        <p><img src="/images/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%89/image-20200901224625446.png" alt="image-20200901224625446"></p>
+<h3 id="介绍一个第三方路由"><a href="#介绍一个第三方路由" class="headerlink" title="介绍一个第三方路由"></a>介绍一个第三方路由</h3><p>使用第三方库<a target="_blank" rel="noopener" href="https://github.com/gorilla/mux">mux</a>  来设置路由</p>
+<p>安装方式</p>
+<p>go get github.com/gotilla/mux</p>
+<ol>
+<li><p>创建路由</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">r := mux.NewRouter()</span><br></pre></td></tr></table></figure>
+</li>
 <li><p>简单的使用 、这种是不指定<code>http method</code></p>
+</li>
+</ol>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    r := mux.NewRouter()</span><br><span class="line">    r.HandleFunc(<span class="string">&quot;/&quot;</span>, HomeHandler)</span><br><span class="line">    r.HandleFunc(<span class="string">&quot;/products&quot;</span>, ProductsHandler)</span><br><span class="line">    r.HandleFunc(<span class="string">&quot;/articles&quot;</span>, ArticlesHandler)</span><br><span class="line">    http.Handle(<span class="string">&quot;/&quot;</span>, r)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
-</li>
+<ol start="3">
+<li>路由规则支持正则</li>
 </ol>
-<ol start="2">
-<li><p>路由规则支持正则</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">r := mux.NewRouter()</span><br><span class="line">r.HandleFunc(<span class="string">&quot;/products/&#123;key&#125;&quot;</span>, ProductHandler)</span><br><span class="line">r.HandleFunc(<span class="string">&quot;/articles/&#123;category&#125;/&quot;</span>, ArticlesCategoryHandler)</span><br><span class="line">r.HandleFunc(<span class="string">&quot;/articles/&#123;category&#125;/&#123;id:[0-9]+&#125;&quot;</span>, ArticleHandler)</span><br></pre></td></tr></table></figure>
 
 
 
-</li>
+<ol start="4">
+<li>指定<code>http method</code>  post请求 /specific</li>
 </ol>
-<ol start="3">
-<li><p>指定<code>http method</code>  post请求 /specific</p>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">r.Methods(<span class="string">&quot;POST&quot;</span>)</span><br><span class="line">r.HandleFunc(<span class="string">&quot;/specific&quot;</span>, specificHandler)</span><br><span class="line"># 也可以</span><br><span class="line">r.r.PathPrefix(<span class="string">&quot;/products&quot;</span>).Handler(catchAllHandler)</span><br></pre></td></tr></table></figure>
 
-</li>
-</ol>
 
     </div>
 
@@ -387,7 +394,7 @@
 
       <!--noindex-->
       <div class="post-toc-wrap sidebar-panel">
-          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BD%BF%E7%94%A8%E7%AC%AC%E4%B8%89%E6%96%B9%E5%BA%93mux-%E6%9D%A5%E8%AE%BE%E7%BD%AE%E8%B7%AF%E7%94%B1"><span class="nav-number">1.</span> <span class="nav-text">使用第三方库mux  来设置路由</span></a></li></ol></div>
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%BB%8B%E7%BB%8D%E4%B8%80%E4%B8%AA%E7%AC%AC%E4%B8%89%E6%96%B9%E8%B7%AF%E7%94%B1"><span class="nav-number">1.</span> <span class="nav-text">介绍一个第三方路由</span></a></li></ol></div>
       </div>
       <!--/noindex-->
 
@@ -403,7 +410,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">52</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -464,13 +471,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">102k</span>
+    <span title="站点总字数">110k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:32</span>
+    <span title="站点阅读时长">1:40</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

@@ -133,7 +133,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">44</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">52</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -196,6 +196,783 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/09/06/curl-%E8%AF%B7%E6%B1%82%E5%B8%A6%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E5%AF%86%E7%A0%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/06/curl-%E8%AF%B7%E6%B1%82%E5%B8%A6%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E5%AF%86%E7%A0%81/" class="post-title-link" itemprop="url">curl-请求带用户名和密码</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-05 20:29:00 / 修改时间：12:55:34" itemprop="dateCreated datePublished" datetime="2020-09-05T20:29:00Z">2020-09-05</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>347</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h3><p>我想访问一个需要用户名/密码的URL。我想尝试用 curl 来访问它。现在我正在做一些事情： </p>
+<p><a target="_blank" rel="noopener" href="http://localhost:9200/">http://localhost:9200/</a>  因为es服务开启安全认证 需要填写用户名和密码</p>
+<p>我收到一个错误。我想我需要指定一个用户名和密码以及上述命令。</p>
+<h3 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h3><ol>
+<li><p>使用<code>-u</code>标志来包含用户名，并且curl将提示输入密码：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -u username http://example.com</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>您也可以在命令中包含密码，但您的密码将在bash历史记录中显示：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -u username:password http://example.com</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>您也可以通过写入发送用户名：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://username:password@api.somesite.com/test/blah?something=123</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/09/06/docker-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%8F%8A%E7%9B%B8%E5%85%B3%E5%8F%82%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/06/docker-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%8F%8A%E7%9B%B8%E5%85%B3%E5%8F%82%E6%95%B0/" class="post-title-link" itemprop="url">docker-常用命令及相关参数</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-05 20:12:51 / 修改时间：12:56:57" itemprop="dateCreated datePublished" datetime="2020-09-05T20:12:51Z">2020-09-05</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong>docker run ：</strong>创建一个新的容器并运行一个命令</p>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run [OPTIONS] IMAGE [COMMAND] [ARG...]</span><br></pre></td></tr></table></figure>
+
+<p>OPTIONS说明：</p>
+<ul>
+<li><strong>-a stdin:</strong> 指定标准输入输出内容类型，可选 STDIN/STDOUT/STDERR 三项；</li>
+<li><strong>-d:</strong> 后台运行容器，并返回容器ID；</li>
+<li><strong>-i:</strong> 以交互模式运行容器，通常与 -t 同时使用；</li>
+<li><strong>-P:</strong> 随机端口映射，容器内部端口<strong>随机</strong>映射到主机的端口</li>
+<li><strong>-p:</strong> 指定端口映射，格式为：<strong>主机(宿主)端口:容器端口</strong></li>
+<li><strong>-t:</strong> 为容器重新分配一个伪输入终端，通常与 -i 同时使用；</li>
+<li><strong>–name=”nginx-lb”:</strong> 为容器指定一个名称；</li>
+<li><strong>–dns 8.8.8.8:</strong> 指定容器使用的DNS服务器，默认和宿主一致；</li>
+<li><strong>–dns-search example.com:</strong> 指定容器DNS搜索域名，默认和宿主一致；</li>
+<li><strong>-h “mars”:</strong> 指定容器的hostname；</li>
+<li><strong>-e username=”ritchie”:</strong> 设置环境变量；</li>
+<li><strong>–env-file=[]:</strong> 从指定文件读入环境变量；</li>
+<li><strong>–cpuset=”0-2” or –cpuset=”0,1,2”:</strong> 绑定容器到指定CPU运行；</li>
+<li>**-m :**设置容器使用内存最大值；</li>
+<li><strong>–net=”bridge”:</strong> 指定容器的网络连接类型，支持 bridge/host/none/container: 四种类型；</li>
+<li><strong>–link=[]:</strong> 添加链接到另一个容器；</li>
+<li><strong>–expose=[]:</strong> 开放一个端口或一组端口；</li>
+<li><strong>–volume , -v:</strong> 绑定一个卷</li>
+</ul>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>使用docker镜像nginx:latest以后台模式启动一个容器,并将容器命名为mynginx。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name mynginx -d nginx:latest</span><br></pre></td></tr></table></figure>
+
+<p>使用镜像nginx:latest以后台模式启动一个容器,并将容器的80端口映射到主机随机端口。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -P -d nginx:latest</span><br></pre></td></tr></table></figure>
+
+<p>使用镜像 nginx:latest，以后台模式启动一个容器,将容器的 80 端口映射到主机的 80 端口,主机的目录 /data 映射到容器的 /data。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 80:80 -v /data:/data -d nginx:latest</span><br></pre></td></tr></table></figure>
+
+<p>绑定容器的 8080 端口，并将其映射到本地主机 127.0.0.1 的 80 端口上。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker run -p 127.0.0.1:80:8080/tcp ubuntu bash</span></span><br></pre></td></tr></table></figure>
+
+<p>使用镜像nginx:latest以交互模式启动一个容器,在容器内执行/bin/bash命令。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">runoob@runoob:~$ docker run -it nginx:latest /bin/bash</span><br><span class="line">root@b8573233d675:/# </span><br></pre></td></tr></table></figure>
+
+
+
+<p>参数拓展：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">Usage: docker run [OPTIONS] IMAGE [COMMAND] [ARG...]    </span><br><span class="line"><span class="number">02.</span>  </span><br><span class="line"><span class="number">03.</span>  -d, --detach=<span class="literal">false</span>         指定容器运行于前台还是后台，默认为<span class="literal">false</span>     </span><br><span class="line"><span class="number">04.</span>  -i, --interactive=<span class="literal">false</span>   打开STDIN，用于控制台交互    </span><br><span class="line"><span class="number">05.</span>  -t, --tty=<span class="literal">false</span>            分配tty设备，该可以支持终端登录，默认为<span class="literal">false</span>    </span><br><span class="line"><span class="number">06.</span>  -u, --user=<span class="string">&quot;&quot;</span>              指定容器的用户    </span><br><span class="line"><span class="number">07.</span>  -a, --attach=[]            登录容器（必须是以docker run -d启动的容器）  </span><br><span class="line"><span class="number">08.</span>  -w, --workdir=<span class="string">&quot;&quot;</span>           指定容器的工作目录   </span><br><span class="line"><span class="number">09.</span>  -c, --cpu-shares=<span class="number">0</span>        设置容器CPU权重，在CPU共享场景使用    </span><br><span class="line"><span class="number">10.</span>  -e, --env=[]               指定环境变量，容器中可以使用该环境变量    </span><br><span class="line"><span class="number">11.</span>  -m, --memory=<span class="string">&quot;&quot;</span>            指定容器的内存上限    </span><br><span class="line"><span class="number">12.</span>  -P, --publish-all=<span class="literal">false</span>    指定容器暴露的端口    </span><br><span class="line"><span class="number">13.</span>  -p, --publish=[]           指定容器暴露的端口   </span><br><span class="line"><span class="number">14.</span>  -h, --hostname=<span class="string">&quot;&quot;</span>          指定容器的主机名    </span><br><span class="line"><span class="number">15.</span>  -v, --volume=[]            给容器挂载存储卷，挂载到容器的某个目录    </span><br><span class="line"><span class="number">16.</span>  --volumes-<span class="keyword">from</span>=[]          给容器挂载其他容器上的卷，挂载到容器的某个目录  </span><br><span class="line"><span class="number">17.</span>  --cap-<span class="keyword">add</span>=[]               添加权限，权限清单详见：http:<span class="comment">//linux.die.net/man/7/capabilities    </span></span><br><span class="line"><span class="number">18.</span>  --cap-drop=[]              删除权限，权限清单详见：http:<span class="comment">//linux.die.net/man/7/capabilities    </span></span><br><span class="line"><span class="number">19.</span>  --cidfile=<span class="string">&quot;&quot;</span>               运行容器后，在指定文件中写入容器PID值，一种典型的监控系统用法    </span><br><span class="line"><span class="number">20.</span>  --cpuset=<span class="string">&quot;&quot;</span>                设置容器可以使用哪些CPU，此参数可以用来容器独占CPU    </span><br><span class="line"><span class="number">21.</span>  --device=[]                添加主机设备给容器，相当于设备直通    </span><br><span class="line"><span class="number">22.</span>  --dns=[]                   指定容器的dns服务器    </span><br><span class="line"><span class="number">23.</span>  --dns-search=[]            指定容器的dns搜索域名，写入到容器的/etc/resolv.conf文件    </span><br><span class="line"><span class="number">24.</span>  --entrypoint=<span class="string">&quot;&quot;</span>            覆盖image的入口点    </span><br><span class="line"><span class="number">25.</span>  --env-file=[]              指定环境变量文件，文件格式为每行一个环境变量    </span><br><span class="line"><span class="number">26.</span>  --expose=[]                指定容器暴露的端口，即修改镜像的暴露端口    </span><br><span class="line"><span class="number">27.</span>  --link=[]                  指定容器间的关联，使用其他容器的IP、env等信息    </span><br><span class="line"><span class="number">28.</span>  --lxc-conf=[]              指定容器的配置文件，只有在指定--exec-driver=lxc时使用    </span><br><span class="line"><span class="number">29.</span>  --name=<span class="string">&quot;&quot;</span>                  指定容器名字，后续可以通过名字进行容器管理，links特性需要使用名字    </span><br><span class="line"><span class="number">30.</span>  --net=<span class="string">&quot;bridge&quot;</span>             容器网络设置:  </span><br><span class="line"><span class="number">31.</span>                                bridge 使用docker daemon指定的网桥       </span><br><span class="line"><span class="number">32.</span>                                host    <span class="comment">//容器使用主机的网络    </span></span><br><span class="line"><span class="number">33.</span>                                container:NAME_or_ID  &gt;<span class="comment">//使用其他容器的网路，共享IP和PORT等网络资源    </span></span><br><span class="line"><span class="number">34.</span>                                none 容器使用自己的网络（类似--net=bridge），但是不进行配置   </span><br><span class="line"><span class="number">35.</span>  --privileged=<span class="literal">false</span>         指定容器是否为特权容器，特权容器拥有所有的capabilities    </span><br><span class="line"><span class="number">36.</span>  --restart=<span class="string">&quot;no&quot;</span>             指定容器停止后的重启策略:  </span><br><span class="line"><span class="number">37.</span>                                no：容器退出时不重启    </span><br><span class="line"><span class="number">38.</span>                                <span class="keyword">on</span>-failure：容器故障退出（返回值非零）时重启   </span><br><span class="line"><span class="number">39.</span>                                always：容器退出时总是重启    </span><br><span class="line"><span class="number">40.</span>  --rm=<span class="literal">false</span>                 指定容器停止后自动删除容器(不支持以docker run -d启动的容器)    </span><br><span class="line"><span class="number">41.</span>  --sig-proxy=<span class="literal">true</span>           设置由代理接受并处理信号，但是SIGCHLD、SIGSTOP和SIGKILL不能被代理    </span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/09/06/docker-%E5%90%AF%E5%8A%A8kibana/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/06/docker-%E5%90%AF%E5%8A%A8kibana/" class="post-title-link" itemprop="url">docker-启动kibana</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-05 19:39:47 / 修改时间：11:41:48" itemprop="dateCreated datePublished" datetime="2020-09-05T19:39:47Z">2020-09-05</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>223</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>执行脚本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker run -d \</span><br><span class="line"> --name kibana \</span><br><span class="line"> --link esnode1:elasticsearch \</span><br><span class="line"> -e &quot;ELASTICSEARCH_USERNAME=elastic&quot; \</span><br><span class="line"> -e &quot;ELASTICSEARCH_PASSWORD=cJQ98i4M0fPyaVkbw0WT&quot; \</span><br><span class="line"> -e &quot;TZ=Asia/Shanghai&quot; \</span><br><span class="line"> -p 5601:5601 \</span><br><span class="line"> kibana:7.5.0</span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/09/06/docker-%E5%90%AF%E5%8A%A8elasticsearch/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/06/docker-%E5%90%AF%E5%8A%A8elasticsearch/" class="post-title-link" itemprop="url">docker-启动elasticsearch</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-05 16:18:58 / 修改时间：12:26:07" itemprop="dateCreated datePublished" datetime="2020-09-05T16:18:58Z">2020-09-05</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.4k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="准备环境-Set-vm-max-map-count-to-at-least-262144"><a href="#准备环境-Set-vm-max-map-count-to-at-least-262144" class="headerlink" title="准备环境 Set vm.max_map_count to at least 262144"></a>准备环境 Set <code>vm.max_map_count</code> to at least <code>262144</code></h3><ul>
+<li><p>Linux</p>
+<p>The <code>vm.max_map_count</code> setting should be set permanently in <code>/etc/sysctl.conf</code>:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grep vm.max_map_count /etc/sysctl.conf</span><br><span class="line">vm.max_map_count=262144</span><br></pre></td></tr></table></figure>
+
+<p>To apply the setting on a live system, run:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl -w vm.max_map_count=262144</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>macOS with <a target="_blank" rel="noopener" href="https://docs.docker.com/docker-for-mac">Docker for Mac</a></p>
+</li>
+</ul>
+<p>The <code>vm.max_map_count</code> setting must be set within the xhyve virtual machine:</p>
+<ol>
+<li><p>From the command line, run:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">screen ~/Library/Containers/com.docker.docker/Data/vms/0/tty</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Press enter and use<code>sysctl</code> to configure <code>vm.max_map_count</code>:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl -w vm.max_map_count=262144</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>To exit the <code>screen</code> session, type <code>Ctrl a d</code>.</p>
+</li>
+</ol>
+<p>The <code>vm.max_map_count</code> kernel setting must be set to at least <code>262144</code> for production use.</p>
+<p>How you set <code>vm.max_map_count</code> depends on your platform:</p>
+<p>###docker启动elasticsearch</p>
+<ol>
+<li><p>pull the image</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull docker.elastic.co/elasticsearch/elasticsearch:7.9.1</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="2">
+<li>starting a single node cluster with docker</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 9200:9200 -p 9300:9300 -e &quot;discovery.type=single-node&quot; docker.elastic.co/elasticsearch/elasticsearch:7.9.1 </span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>将自己打包好的支持密码认证、破解之后的es推送到</p>
+<ol>
+<li>打包镜像</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker commit -a &quot;richard&quot; -m &quot;es 破解&quot; c4823af7ee60 coco2019/elasticsearch-7.5.0:v1 </span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>docker push coco2019/elasticsearch-7.5.0:v1</li>
+</ol>
+<p><img src="/images/docker-%E5%90%AF%E5%8A%A8elasticsearch/image-20200905195257681.png" alt="image-20200905195257681"></p>
+<p><code>docker pull coco2019/elasticsearch-7.5.0:v1</code></p>
+<ol start="3">
+<li><p>执行docker 脚本运行elasticsearch 7.5.0</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker run -d \</span><br><span class="line"> --name elasticsearch \</span><br><span class="line"> -v /data/elasticsearch:/usr/share/elasticsearch/data \</span><br><span class="line"> -e &quot;discovery.type=single-node&quot; \</span><br><span class="line"> -e &quot;xpack.security.enabled=true&quot; \</span><br><span class="line"> -e &quot;TZ=Asia/Shanghai&quot; \</span><br><span class="line"> -p 9200:9200 \</span><br><span class="line"> coco2019/elasticsearch-7.5.0:v1</span><br></pre></td></tr></table></figure>
+
+<p>参数含义:</p>
+<ul>
+<li>-d ： 后台运行</li>
+<li>–name 指定容器名称  elasticsearch</li>
+<li>-v  docker容器中的/usr/share/elasticsearch/data 绑定宿主机的/data/elasticsearch</li>
+<li>-e  设置环境变量 指定运行时的参数</li>
+<li>-p 指定端口映射 容器内部端口映射到主机的端口</li>
+</ul>
+<p>启动之后 通过curl 验证</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">curl   http://elastic:cJQ98i4M0fPyaVkbw0WT@localhost:9200/</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> &#123;</span></span><br><span class="line">  &quot;name&quot; : &quot;0d8e8ed10863&quot;,</span><br><span class="line">  &quot;cluster_name&quot; : &quot;docker-cluster&quot;,</span><br><span class="line">  &quot;cluster_uuid&quot; : &quot;SY3ncYUgQESnqiwCUDaX3g&quot;,</span><br><span class="line">  &quot;version&quot; : &#123;</span><br><span class="line">    &quot;number&quot; : &quot;7.5.0&quot;,</span><br><span class="line">    &quot;build_flavor&quot; : &quot;default&quot;,</span><br><span class="line">    &quot;build_type&quot; : &quot;docker&quot;,</span><br><span class="line">    &quot;build_hash&quot; : &quot;e9ccaed468e2fac2275a3761849cbee64b39519f&quot;,</span><br><span class="line">    &quot;build_date&quot; : &quot;2019-11-26T01:06:52.518245Z&quot;,</span><br><span class="line">    &quot;build_snapshot&quot; : false,</span><br><span class="line">    &quot;lucene_version&quot; : &quot;8.3.0&quot;,</span><br><span class="line">    &quot;minimum_wire_compatibility_version&quot; : &quot;6.8.0&quot;,</span><br><span class="line">    &quot;minimum_index_compatibility_version&quot; : &quot;6.0.0-beta1&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;tagline&quot; : &quot;You Know, for Search&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+</li>
+</ol>
+<h3 id="Starting-a-multi-node-cluster-with-Docker-Compose"><a href="#Starting-a-multi-node-cluster-with-Docker-Compose" class="headerlink" title="Starting a multi-node cluster with Docker Compose"></a>Starting a multi-node cluster with Docker Compose</h3>
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/09/05/docker-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/05/docker-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">docker-常用命令</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-05 15:39:44 / 修改时间：07:40:20" itemprop="dateCreated datePublished" datetime="2020-09-05T15:39:44Z">2020-09-05</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>373</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>1.停用全部运行中的容器:<br><code>docker stop $(docker ps -q)</code></p>
+<p>2.删除全部容器：<br><code>docker rm $(docker ps -aq)</code></p>
+<p>3.一条命令实现停用并删除容器：<br><code>docker stop (docker ps -q) &amp; docker rm(docker ps -q) &amp; docker rm(docker ps -aq)</code></p>
+<p>4、删除所有镜像<br>docker rmi <code>docker images -q</code></p>
+<p>5、按条件删除镜像<br>// 没有打标签<br>docker rmi <code>docker images -q | awk &#39;/^&lt;none&gt;/ &#123; print $3 &#125;&#39;</code></p>
+<p>//　镜像名包含关键字<br>docker rmi –force <code>docker images | grep doss-api | awk &#39;&#123;print $3&#125;&#39;</code> //其中doss-api为关键字</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/09/04/mysql-%E5%B8%B8%E7%94%A8%E8%84%9A%E6%9C%AC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/04/mysql-%E5%B8%B8%E7%94%A8%E8%84%9A%E6%9C%AC/" class="post-title-link" itemprop="url">mysql-常用脚本</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-03 20:23:35 / 修改时间：12:42:12" itemprop="dateCreated datePublished" datetime="2020-09-03T20:23:35Z">2020-09-03</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>536</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="连接mysql-脚本"><a href="#连接mysql-脚本" class="headerlink" title="连接mysql 脚本"></a>连接mysql 脚本</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -h $ip -u$username -P$port-p$password $database</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="导出表结构及表数据"><a href="#导出表结构及表数据" class="headerlink" title="导出表结构及表数据"></a>导出表结构及表数据</h3><p>  1、导出數據库為dbname的表结构（其中用戶名為root,密码為dbpasswd,生成的脚本名為db.sql）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -h 192.168.1.100 -uroot --single-transaction -pdbpasswd -d dbname &gt;db.sql;</span><br></pre></td></tr></table></figure>
+
+<p>  2、导出數據库為dbname某张表(test)结构</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -h 192.168.1.100 -uroot --single-transaction -pdbpasswd -d dbname test&gt;db.sql;</span><br></pre></td></tr></table></figure>
+
+<p>  3、导出數據库為dbname所有表结构及表數據（不加-d）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -h 192.168.1.100 -uroot --single-transaction -pdbpasswd dbname &gt;db.sql;</span><br></pre></td></tr></table></figure>
+
+<p>  4、导出數據库為dbname某张表(test)结构及表數據（不加-d）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -h 192.168.1.100 -uroot --single-transaction -pdbpasswd dbname test&gt;db.sql;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/09/04/shell-%E6%89%A7%E8%A1%8Ccurl%E8%AF%B7%E6%B1%82/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/04/shell-%E6%89%A7%E8%A1%8Ccurl%E8%AF%B7%E6%B1%82/" class="post-title-link" itemprop="url">shell执行curl请求</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-03 20:18:05 / 修改时间：12:34:36" itemprop="dateCreated datePublished" datetime="2020-09-03T20:18:05Z">2020-09-03</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>839</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>需求： 给550w用户 批量调用融云接口封禁</p>
+<ol>
+<li>按行读取文件的内容</li>
+<li>执行curl命令 </li>
+<li>输出请求的结果</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">function httpRequest()</span><br><span class="line">&#123;</span><br><span class="line">    #curl 请求</span><br><span class="line">    info=`curl -X POST \</span><br><span class="line">  https://api-sg01.ronghub.com/user/block.json \</span><br><span class="line">  -H &#x27;App-Key: qf3d5gbjq9pyh&#x27; \</span><br><span class="line">  -H &#x27;Content-Type: application/x-www-form-urlencoded&#x27; \</span><br><span class="line">  -H &#x27;Nonce: 14314&#x27; \</span><br><span class="line">  -H &#x27;Postman-Token: b2a4bf59-a20e-4654-afa1-489ab18085fe&#x27; \</span><br><span class="line">  -H &#x27;Signature: 7c14b3ebd8896ca00221447087a1ce71343bbddb&#x27; \</span><br><span class="line">  -H &#x27;Timestamp: 1599048545791&#x27; \</span><br><span class="line">  -H &#x27;cache-control: no-cache&#x27; \</span><br><span class="line">  -d &#x27;userId=$&#123;1&#125;&amp;minute=43200&amp;undefined=&#x27;`</span><br><span class="line">   echo &quot;info is :&quot; $&#123;info&#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">cat /home/work/rongyun/user_result.txt | while read line</span><br><span class="line"> do</span><br><span class="line">     userId=&quot;&quot;</span><br><span class="line">    echo &quot;File:$&#123;line&#125;&quot;</span><br><span class="line">     userId=$&#123;line&#125;</span><br><span class="line">     echo $&#123;userId&#125;</span><br><span class="line">     httpRequest &quot;$&#123;userId&#125;&quot;</span><br><span class="line"> done</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/09/04/git-%E6%89%93tag/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/04/git-%E6%89%93tag/" class="post-title-link" itemprop="url">git-打tag</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-03 20:05:43 / 修改时间：12:11:18" itemprop="dateCreated datePublished" datetime="2020-09-03T20:05:43Z">2020-09-03</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>159</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ol>
+<li><p>先执行commit 保存数据</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit  -m &quot;注释&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="2">
+<li><p>添加tag 标签&amp;注释</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag -a 版本号 -m &quot;注释&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="3">
+<li><p>推送数据到远端 origin</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="4">
+<li><p>将tag推送到远程 origin</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin master --tags</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看 所有tag</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag -l</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -360,873 +1137,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/09/01/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%BA%8C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/01/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%BA%8C/" class="post-title-link" itemprop="url">Go-kit 学习笔记-二</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-08-31 21:55:58 / 修改时间：14:41:55" itemprop="dateCreated datePublished" datetime="2020-08-31T21:55:58Z">2020-08-31</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>666</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="将上节的服务进行发布-在main-go-中添加"><a href="#将上节的服务进行发布-在main-go-中添加" class="headerlink" title="将上节的服务进行发布 在main.go 中添加"></a>将上节的服务进行发布 在<code>main.go</code> 中添加</h4><ol>
-<li><p>第一层 先获取service</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user:=Services.UserService&#123;&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>第二层 创建endpoint</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">endP:&#x3D;Services.GenUserEndpoint(user)    </span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ol>
-<ol start="3">
-<li><p>第三步 使用<code>go-kit</code>创建<code>handler</code>  借助<code>newServer</code>函数 返回了一个<code>server struct</code> 内部实现了<code>func (s Server) ServeHTTP(w http.ResponseWriter, r *http.Request) </code>  如何对请求进行处理</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">serverHandler:=httpTransport.NewServer(endP,Services.DecodeUserRequest,Services.EncodeUserRequest)</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ol>
-<ol start="4">
-<li><p>因为serverHandler 已经实现了handler 接口 所以http.ListenAndServe 可以直接调用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_ &#x3D; http.ListenAndServe(&quot;:8080&quot;, serverHandler)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>由于 <code>httpTransport.NewServer</code> 是<code>go-kit</code>中<code>http</code>包的方法<code> http.ListenAndServe</code> 是原生<code>http</code>包 包名重复 需要对<code>go-kit</code>的http 起alias</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">httpTransport &quot;github.com&#x2F;go-kit&#x2F;kit&#x2F;transport&#x2F;http&quot;</span><br><span class="line">    &quot;net&#x2F;http&quot;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/09/01/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%9B%9B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/01/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%9B%9B/" class="post-title-link" itemprop="url">Go-kit 学习笔记-四</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-08-31 20:52:15 / 修改时间：12:52:20" itemprop="dateCreated datePublished" datetime="2020-08-31T20:52:15Z">2020-08-31</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>0</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/30/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%89/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/30/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%89/" class="post-title-link" itemprop="url">Go-kit 学习笔记-三</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-30 10:40:24" itemprop="dateCreated datePublished" datetime="2020-08-30T10:40:24Z">2020-08-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-31 12:51:16" itemprop="dateModified" datetime="2020-08-31T12:51:16Z">2020-08-31</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>697</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="使用第三方库mux-来设置路由"><a href="#使用第三方库mux-来设置路由" class="headerlink" title="使用第三方库mux  来设置路由"></a>使用第三方库<a target="_blank" rel="noopener" href="https://github.com/gorilla/mux">mux</a>  来设置路由</h3><ol>
-<li><p>简单的使用 、这种是不指定<code>http method</code></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    r := mux.NewRouter()</span><br><span class="line">    r.HandleFunc(<span class="string">&quot;/&quot;</span>, HomeHandler)</span><br><span class="line">    r.HandleFunc(<span class="string">&quot;/products&quot;</span>, ProductsHandler)</span><br><span class="line">    r.HandleFunc(<span class="string">&quot;/articles&quot;</span>, ArticlesHandler)</span><br><span class="line">    http.Handle(<span class="string">&quot;/&quot;</span>, r)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ol>
-<ol start="2">
-<li><p>路由规则支持正则</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">r := mux.NewRouter()</span><br><span class="line">r.HandleFunc(<span class="string">&quot;/products/&#123;key&#125;&quot;</span>, ProductHandler)</span><br><span class="line">r.HandleFunc(<span class="string">&quot;/articles/&#123;category&#125;/&quot;</span>, ArticlesCategoryHandler)</span><br><span class="line">r.HandleFunc(<span class="string">&quot;/articles/&#123;category&#125;/&#123;id:[0-9]+&#125;&quot;</span>, ArticleHandler)</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ol>
-<ol start="3">
-<li><p>指定<code>http method</code>  post请求 /specific</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">r.Methods(<span class="string">&quot;POST&quot;</span>)</span><br><span class="line">r.HandleFunc(<span class="string">&quot;/specific&quot;</span>, specificHandler)</span><br><span class="line"># 也可以</span><br><span class="line">r.r.PathPrefix(<span class="string">&quot;/products&quot;</span>).Handler(catchAllHandler)</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/29/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/29/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%80/" class="post-title-link" itemprop="url">Go-kit 学习笔记 一</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-29 10:57:56" itemprop="dateCreated datePublished" datetime="2020-08-29T10:57:56Z">2020-08-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-31 13:55:34" itemprop="dateModified" datetime="2020-08-31T13:55:34Z">2020-08-31</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Go-kit 的三层架构</p>
-<ol>
-<li><p>transport</p>
-<p>主要负责与http、gRPC、thrift等相关逻辑</p>
-</li>
-<li><p>endpoint</p>
-<p>定义request与response格式、并可以使用装饰器包装函数，以此来实现各种中间件之间的嵌套</p>
-</li>
-<li><p>service</p>
-<p>这里定义的就是业务类、接口等</p>
-</li>
-</ol>
-<p>我实现的时候是倒着创建</p>
-<p>​    </p>
-<ol>
-<li><p>第一步 创建接口 以及关联词</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> IUserService <span class="keyword">interface</span> &#123;</span><br><span class="line">    GetName(userId <span class="keyword">int</span>) <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> UserService <span class="keyword">struct</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this UserService)</span><span class="title">GetName</span><span class="params">(userId <span class="keyword">int</span>)</span><span class="title">string</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> userId==<span class="number">101</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;richard&quot;</span></span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;guest&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ol>
-<ol start="2">
-<li><p>第二步 创建EndPoint</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">type</span> UserRequest <span class="keyword">struct</span> &#123;</span><br><span class="line">    Uid <span class="keyword">int</span> <span class="string">`json:&quot;uid&quot;`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> UserResponse <span class="keyword">struct</span> &#123;</span><br><span class="line">    Result <span class="keyword">string</span> <span class="string">`json:&quot;result&quot;`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 首先定义 请求和响应的 <span class="keyword">struct</span></span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ol>
-<ol start="3">
-<li><p>第三步 创建transport</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 当我们外部有请求过来的时候，我们需要对Request进行decode，</span><br><span class="line"># 注意：外部请求很有可能是rpc、http。参数形式也许是json也许是赤裸裸的url参数</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">DecodeUserRequest</span><span class="params">(c context.Context,r *http.Request)</span><span class="params">(<span class="keyword">interface</span>&#123;&#125;,error)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在代码块里写</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这个主要是判断参数是怎么来的,代码可以写成</span></span><br><span class="line">    <span class="keyword">if</span> r.URL.Query().Get(<span class="string">&quot;uid&quot;</span>) != <span class="string">&quot;&quot;</span> &#123;</span><br><span class="line">        uid, _ := strconv.Atoi(r.URL.Query().Get(<span class="string">&quot;uid&quot;</span>))</span><br><span class="line">        <span class="keyword">return</span> UserRequest&#123;Uid: uid&#125;, <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span>,errors.New(<span class="string">&quot;参数错误&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>对于响应：响应是我们发出的 我们需要encode，比较简单的就是json</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">EncodeUserRequest</span><span class="params">(ctx context.Context,w http.ResponseWriter,response <span class="keyword">interface</span>&#123;&#125;)</span> <span class="title">error</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在func里添加</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 返回一个json</span><br><span class="line">w.Header().Set(&quot;Content-type&quot;,&quot;application&#x2F;json;charset&#x3D;utf-8&quot;)</span><br><span class="line">return json.NewEncoder(w).Encode(response)</span><br></pre></td></tr></table></figure></li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/28/charles-https-%E6%8A%93%E5%8C%85/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/28/charles-https-%E6%8A%93%E5%8C%85/" class="post-title-link" itemprop="url">charles-https 抓包</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-08-28 15:59:02 / 修改时间：08:24:49" itemprop="dateCreated datePublished" datetime="2020-08-28T15:59:02Z">2020-08-28</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%93%E5%8C%85/" itemprop="url" rel="index"><span itemprop="name">抓包</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.4k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="1-获取PC的IP地址"><a href="#1-获取PC的IP地址" class="headerlink" title="1. 获取PC的IP地址"></a>1. 获取PC的IP地址</h3><p>在Charles<code>菜单栏 -&gt; Help -&gt; Local IP Address</code>中可以查看PC的IP地址。图示如下：</p>
-<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161106090.png" alt="image-20200828161106090" style="zoom: 50%;" />
-
-
-
-<p>也可以在Mac终端使用命令<code>ifconfig en1</code>查看PC的IP地址。图示如下：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mfxing  ifconfig en1</span><br><span class="line">en1: flags=8963&lt;UP,BROADCAST,SMART,RUNNING,PROMISC,SIMPLEX,MULTICAST&gt; mtu 1500</span><br><span class="line">    options=460&lt;TSO4,TSO6,CHANNEL_IO&gt;</span><br><span class="line">    ether 82:0e:72:47:b8:01</span><br><span class="line">    media: autoselect &lt;full-duplex&gt;</span><br><span class="line">    status: inactive</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="2-配置iPhone代理"><a href="#2-配置iPhone代理" class="headerlink" title="2. 配置iPhone代理"></a>2. 配置iPhone代理</h3><p>在iPhone的<code>设置 -&gt; 无线局域网 -&gt; 局域网信息(i) -&gt; 配置代理 -&gt; 手动</code>中配置代理，服务器输入框中填写PC的IP地址，端口输入框中填写Charles的代理端口（一般是8888）。图示如下：</p>
-<img src="/images/charles-https-%E6%8A%93%E5%8C%85/7dff28a27b45adb7d3fecff3a085b315.jpg" alt="7dff28a27b45adb7d3fecff3a085b315" style="zoom:50%;" />
-
-
-
-<p>具体的端口可以从Charles<code>菜单栏 -&gt; Proxy -&gt; Proxy Settings</code>中查看。图示如下：</p>
-<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161401437.png" alt="image-20200828161401437" style="zoom:33%;" />
-
-
-
-<p>iPhone代理配置完成后，Charles会弹出连接提示框，点击<code>Allow</code>之后即可使用Charles对从该iPhone发出的请求进行抓包了。图示如下：<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161524821.png" alt="image-20200828161524821"></p>
-<h3 id="3-抓包HTTPS请求"><a href="#3-抓包HTTPS请求" class="headerlink" title="3. 抓包HTTPS请求"></a>3. 抓包HTTPS请求</h3><p>在配置iPhone代理完毕后，就可以通过Structure或者Sequence窗口预览HTTP请求的数据了。但由于HTTPS请求被加密过，预览请求时只能预览到乱码数据。要预览到HTTPS请求的数据明文，需要PC和iPhone安装证书授权。</p>
-<h4 id="1-PC安装证书"><a href="#1-PC安装证书" class="headerlink" title="1) PC安装证书"></a>1) PC安装证书</h4><p>在Charles<code>菜单栏 -&gt; Help -&gt; SSL Proxying -&gt; Install Charles Root Certificate</code>中可以为PC安装证书，证书可以在Mac的钥匙串中查看。图示如下：</p>
-<p><img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161742347.png" alt="image-20200828161742347"></p>
-<p>证书可以在Mac的钥匙串中查看，双击证书，将信任权限设定为<code>始终信任</code>。图示如下：</p>
-<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161820758.png" alt="image-20200828161820758" style="zoom:33%;" />
-
-
-
-<h4 id="2-iPhone安装证书"><a href="#2-iPhone安装证书" class="headerlink" title="2) iPhone安装证书"></a>2) iPhone安装证书</h4><p>在iPhone浏览器中访问<code>http://charlesproxy.com/getssl</code>可以下载证书并安装。此地址一般不会变化，可以在Charles<code>菜单栏 -&gt; Help -&gt; SSL Proxying -&gt; Install Charles Root Certificate on a Mobile Device or Remote Browser</code>中查看最新的官方证书下载地址。图示如下：</p>
-<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161858697.png" alt="image-20200828161858697" style="zoom:50%;" />
-
-
-
-<p>基于iOS的证书信任机制，在安装完成并信任证书后，需要到iPhone<code>设置 -&gt; 关于本机 -&gt; 证书信任设置</code>中启用根证书。图示如下：</p>
-<img src="/images/charles-https-%E6%8A%93%E5%8C%85/635269d6c5f07cea0b29a7b859fe35b9.jpg" alt="635269d6c5f07cea0b29a7b859fe35b9" style="zoom:33%;" />
-
-
-
-<p>这样，就可以使用Charles中抓包iPhone发出的HTTPS请求并预览明文数据了。</p>
-<blockquote>
-<p>抓包模拟器上的HTTPS请求需要点击<code>Install Charles Root Certificate in iOS Simulators</code>安装证书。</p>
-</blockquote>
-<h4 id="3-启动抓包SSL权限"><a href="#3-启动抓包SSL权限" class="headerlink" title="3) 启动抓包SSL权限"></a>3) 启动抓包SSL权限</h4><p>在Charles<code>菜单栏 -&gt; Proxy -&gt; SSL Proxying Settings</code>中勾选<code>Enable SSL Proxying</code>，然后在<code>Locations</code>中添加需要抓包的Host和Port即可。图示如下：</p>
-<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828162130663.png" alt="image-20200828162130663" style="zoom:33%;" />
-
-
-
-<p>也可以在抓包界面，右键点击某条/组请求，在弹出的选项列表中点击<code>Enable SSL Proxying</code>启用权限。图示如下：</p>
-<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828162231644.png" alt="image-20200828162231644" style="zoom: 33%;" />
-
-
-
-
-
-<p>基本的抓取到这里就完事了 </p>
-<p>charles 还支持 <code>请求断点</code>、<code>数据修改</code>、<code>请求重发</code>、<code>网速模拟</code></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/27/%E6%9E%B6%E6%9E%84-%E9%80%89%E5%9E%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/27/%E6%9E%B6%E6%9E%84-%E9%80%89%E5%9E%8B/" class="post-title-link" itemprop="url">架构-选型</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-08-26 20:55:31 / 修改时间：13:32:12" itemprop="dateCreated datePublished" datetime="2020-08-26T20:55:31Z">2020-08-26</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9E%B6%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">架构</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>131</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="是否需要使用mvc模式"><a href="#是否需要使用mvc模式" class="headerlink" title="是否需要使用mvc模式"></a>是否需要使用mvc模式</h3><ol>
-<li><p>mvc 模式</p>
-<p>​    <img src="/images/%E6%9E%B6%E6%9E%84-%E9%80%89%E5%9E%8B/mvc.png" alt="mvc模式"></p>
-<ol>
-<li>controllers : 处理/user /pay 相关业务数据的输入和输出</li>
-<li>实体 譬如 数据库实体类</li>
-<li>Dao层 业务的实际处理层</li>
-</ol>
-<p>简单的业务 没什么并发</p>
-</li>
-<li><p>分布式模式</p>
-</li>
-</ol>
-<img src="/images/%E6%9E%B6%E6%9E%84-%E9%80%89%E5%9E%8B/%E5%88%86%E5%B8%83%E5%BC%8F.png" alt="分布式" style="zoom: 50%;" />
-
-<p>分布式架构 可以很好的对具体的业务做流量的负载均衡，适合流量很高的业务，集群方式去部署 </p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/26/mysql-%E6%9F%A5%E7%9C%8B%E5%AD%97%E7%AC%A6%E9%9B%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/26/mysql-%E6%9F%A5%E7%9C%8B%E5%AD%97%E7%AC%A6%E9%9B%86/" class="post-title-link" itemprop="url">mysql-查看字符集</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-08-26 15:14:53 / 修改时间：07:19:57" itemprop="dateCreated datePublished" datetime="2020-08-26T15:14:53Z">2020-08-26</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>一、查看MySQL数据库服务器和数据库MySQL字符集。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> show variables like <span class="string">&#x27;%char%&#x27;</span>;</span></span><br><span class="line">+--------------------------+-----------------------------------------------------------+</span><br><span class="line">| Variable_name            | Value                                                     |</span><br><span class="line">+--------------------------+-----------------------------------------------------------+</span><br><span class="line">| character_set_client     | utf8                                                      |</span><br><span class="line">| character_set_connection | utf8                                                      |</span><br><span class="line">| character_set_database   | utf8                                                      |</span><br><span class="line">| character_set_filesystem | binary                                                    |</span><br><span class="line">| character_set_results    | utf8                                                      |</span><br><span class="line">| character_set_server     | utf8                                                      |</span><br><span class="line">| character_set_system     | utf8                                                      |</span><br><span class="line">| character_sets_dir       | /usr/local/mysql-5.7.23-macos10.13-x86_64/share/charsets/ |</span><br><span class="line">+--------------------------+-----------------------------------------------------------+</span><br><span class="line">8 rows in set (0.02 sec)</span><br></pre></td></tr></table></figure>
-
-<p>二、查看MySQL数据表（table）的MySQL字符集。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> show table status from db_beego like <span class="string">&quot;%tb_category%&quot;</span> \G;</span></span><br><span class="line">*************************** 1. row ***************************</span><br><span class="line">           Name: tb_category</span><br><span class="line">         Engine: InnoDB</span><br><span class="line">        Version: 10</span><br><span class="line">     Row_format: Dynamic</span><br><span class="line">           Rows: 2</span><br><span class="line"> Avg_row_length: 8192</span><br><span class="line">    Data_length: 16384</span><br><span class="line">Max_data_length: 0</span><br><span class="line">   Index_length: 0</span><br><span class="line">      Data_free: 0</span><br><span class="line"> Auto_increment: 5</span><br><span class="line">    Create_time: 2020-07-21 22:03:14</span><br><span class="line">    Update_time: NULL</span><br><span class="line">     Check_time: NULL</span><br><span class="line">      Collation: utf8mb4_general_ci</span><br><span class="line">       Checksum: NULL</span><br><span class="line"> Create_options:</span><br><span class="line">        Comment:</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
-
-<p>三、查看MySQL数据列（column）的MySQL字符集。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> show full columns from tb_category \G;</span></span><br><span class="line">*************************** 1. row ***************************</span><br><span class="line">     Field: id</span><br><span class="line">      Type: int(11)</span><br><span class="line"> Collation: NULL</span><br><span class="line">      Null: NO</span><br><span class="line">       Key: PRI</span><br><span class="line">   Default: NULL</span><br><span class="line">     Extra: auto_increment</span><br><span class="line">Privileges: select,insert,update,references</span><br><span class="line">   Comment:</span><br><span class="line">*************************** 2. row ***************************</span><br><span class="line">     Field: name</span><br><span class="line">      Type: varchar(255)</span><br><span class="line"> Collation: utf8mb4_general_ci</span><br><span class="line">      Null: NO</span><br><span class="line">       Key:</span><br><span class="line">   Default: NULL</span><br><span class="line">     Extra:</span><br><span class="line">Privileges: select,insert,update,references</span><br><span class="line">   Comment:</span><br><span class="line">*************************** 3. row ***************************</span><br><span class="line">     Field: created</span><br><span class="line">      Type: timestamp</span><br><span class="line"> Collation: NULL</span><br><span class="line">      Null: NO</span><br><span class="line">       Key:</span><br><span class="line">   Default: CURRENT_TIMESTAMP</span><br><span class="line">     Extra:</span><br><span class="line">Privileges: select,insert,update,references</span><br><span class="line">   Comment:</span><br><span class="line">*************************** 4. row ***************************</span><br><span class="line">     Field: updated</span><br><span class="line">      Type: timestamp</span><br><span class="line"> Collation: NULL</span><br><span class="line">      Null: NO</span><br><span class="line">       Key:</span><br><span class="line">   Default: CURRENT_TIMESTAMP</span><br><span class="line">     Extra: on update CURRENT_TIMESTAMP</span><br><span class="line">Privileges: select,insert,update,references</span><br><span class="line">   Comment:</span><br><span class="line">4 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/26/aws-%E6%90%AD%E5%BB%BAeks/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/26/aws-%E6%90%AD%E5%BB%BAeks/" class="post-title-link" itemprop="url">aws-搭建eks</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-08-26 15:13:32 / 修改时间：07:14:09" itemprop="dateCreated datePublished" datetime="2020-08-26T15:13:32Z">2020-08-26</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/aws/" itemprop="url" rel="index"><span itemprop="name">aws</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/aws/eks/" itemprop="url" rel="index"><span itemprop="name">eks</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="安装eks环境"><a href="#安装eks环境" class="headerlink" title="安装eks环境"></a>安装eks环境</h1><h2 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h2><h3 id="1-1-创建eks-cluster-使用命令行创建-然后控制台会刷新出来"><a href="#1-1-创建eks-cluster-使用命令行创建-然后控制台会刷新出来" class="headerlink" title="1.1 创建eks-cluster [使用命令行创建 然后控制台会刷新出来]"></a>1.1 创建eks-cluster [使用命令行创建 然后控制台会刷新出来]</h3> <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">aws eks create-cluster --name richard_test1 --kubernetes-version 1.16 \</span><br><span class="line">          --role-arn arn:aws:iam::xxxx:role/eksctl-eks-ap-1-cluster-ServiceRole-MWM2SUSZU1OQ \</span><br><span class="line">          --resources-vpc-config subnetIds=subnet-xxx,subnet-xxx,endpointPublicAccess=false,endpointPrivateAccess=true \</span><br><span class="line">          --logging &#x27;&#123;&quot;clusterLogging&quot;:[&#123;&quot;types&quot;:[&quot;api&quot;,&quot;audit&quot;,&quot;authenticator&quot;,&quot;controllerManager&quot;,&quot;scheduler&quot;],&quot;enabled&quot;:false&#125;]&#125;&#x27;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><input disabled="" type="checkbox"> 可以指定 –kubernetes-version   现在1.16已经要过时了 安装之后也需要升级</li>
-<li><input disabled="" type="checkbox"> 需要修改name 和子网</li>
-<li><input disabled="" type="checkbox"> 在某个跳板机上如果搭建多个cluster 最好在不同的用户下面来搭建</li>
-<li><input disabled="" type="checkbox"> 在指定的用户下需要接着在aws configure 中设置region</li>
-</ul>
-<h3 id="1-2-安装kuberctl-二进制文件"><a href="#1-2-安装kuberctl-二进制文件" class="headerlink" title="1.2 安装kuberctl 二进制文件"></a>1.2 <a target="_blank" rel="noopener" href="https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-binary-with-curl-on-linux">安装kuberctl 二进制文件</a></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/arm64/kubectl</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>  然后需要将二进制文件添加到PATH中 详情参照<a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/install-kubectl.html">https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/install-kubectl.html</a> </p>
-<h4 id="1-3-安装kubeconfig"><a href="#1-3-安装kubeconfig" class="headerlink" title="1.3 安装kubeconfig"></a>1.3 <a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/create-kubeconfig.html">安装kubeconfig</a></h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws eks --region region-code update-kubeconfig --name cluster_name</span><br></pre></td></tr></table></figure>
-
-<p>检测配置</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kubectl get svc</span><br><span class="line">NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE</span><br><span class="line">kubernetes   ClusterIP   172.20.0.1   &lt;none&gt;        443/TCP   30m</span><br></pre></td></tr></table></figure>
-
-<p> 注意 如果没有结果 很有可能就是cluster 安全组的问题  </p>
-<table>
-<thead>
-<tr>
-<th align="left"><strong>Type</strong></th>
-<th align="left"><strong>Protocol</strong></th>
-<th align="left"><strong>Port range</strong></th>
-<th align="left"><strong>Source</strong></th>
-<th align="left"><strong>Description - optional</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">All traffic</td>
-<td align="left">All</td>
-<td align="left">All</td>
-<td align="left">xx.xxx.0.0/16</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">All traffic</td>
-<td align="left">All</td>
-<td align="left">All</td>
-<td align="left">Sg-xxx (eks-cluster-sg-richard_test1-212947049)</td>
-<td align="left">-</td>
-</tr>
-</tbody></table>
-<p>xx.xxx.0.0/16 根据子网来设定</p>
-<h4 id="1-4-创建-alb-ingress-controller"><a href="#1-4-创建-alb-ingress-controller" class="headerlink" title="1.4 创建 alb ingress controller"></a>1.4 创建 alb ingress controller</h4><p>主要是下面几步</p>
-<ol>
-<li><p>部署 AWS ALB Ingress 控制器需要的 RBAC Roles 和 RoleBindings：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/aws-alb-ingress-controller/v1.0.0/docs/examples/rbac-role.yaml </span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ol>
-<ol start="2">
-<li><p>将 AWS ALB Ingress 控制器 YAML 下载到本地文件：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sS &quot;https://raw.githubusercontent.com/kubernetes-sigs/aws-alb-ingress-controller/v1.0.0/docs/examples/alb-ingress-controller.yaml&quot; &gt; alb-ingress-controller.yaml</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ol>
-<ol start="3">
-<li><p>编辑 AWS ALB Ingress 控制器 YAML t以包含 Kubernetes（或）Amazon EKS 集群的 clusterName。<br>将 –cluster-name 标记编辑为我们的 Kubernetes（或）Amazon EKS 集群的真实名称。</p>
-</li>
-<li><p>部署 AWS ALB Ingress 控制器 YAML： </p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f alb-ingress-controller.yaml</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>验证部署成功，并且控制器已经启动：<br>kubectl logs -n kube-system $(kubectl get po -n kube-system | egrep -o alb-ingress[a-zA-Z0-9-]+)</p>
-</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><span class="space">&hellip;</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/2/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1294,7 +1208,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">44</span>
+          <span class="site-state-item-count">52</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1355,13 +1269,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">102k</span>
+    <span title="站点总字数">110k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:32</span>
+    <span title="站点阅读时长">1:40</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
