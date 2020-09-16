@@ -133,7 +133,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">55</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">58</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -196,6 +196,252 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/09/05/docker-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/05/docker-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">docker-常用命令</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-05 15:39:44 / 修改时间：07:40:20" itemprop="dateCreated datePublished" datetime="2020-09-05T15:39:44Z">2020-09-05</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>373</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>1.停用全部运行中的容器:<br><code>docker stop $(docker ps -q)</code></p>
+<p>2.删除全部容器：<br><code>docker rm $(docker ps -aq)</code></p>
+<p>3.一条命令实现停用并删除容器：<br><code>docker stop (docker ps -q) &amp; docker rm(docker ps -q) &amp; docker rm(docker ps -aq)</code></p>
+<p>4、删除所有镜像<br>docker rmi <code>docker images -q</code></p>
+<p>5、按条件删除镜像<br>// 没有打标签<br>docker rmi <code>docker images -q | awk &#39;/^&lt;none&gt;/ &#123; print $3 &#125;&#39;</code></p>
+<p>//　镜像名包含关键字<br>docker rmi –force <code>docker images | grep doss-api | awk &#39;&#123;print $3&#125;&#39;</code> //其中doss-api为关键字</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/09/04/mysql-%E5%B8%B8%E7%94%A8%E8%84%9A%E6%9C%AC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/04/mysql-%E5%B8%B8%E7%94%A8%E8%84%9A%E6%9C%AC/" class="post-title-link" itemprop="url">mysql-常用脚本</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-03 20:23:35 / 修改时间：12:42:12" itemprop="dateCreated datePublished" datetime="2020-09-03T20:23:35Z">2020-09-03</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>536</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="连接mysql-脚本"><a href="#连接mysql-脚本" class="headerlink" title="连接mysql 脚本"></a>连接mysql 脚本</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -h $ip -u$username -P$port-p$password $database</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="导出表结构及表数据"><a href="#导出表结构及表数据" class="headerlink" title="导出表结构及表数据"></a>导出表结构及表数据</h3><p>  1、导出數據库為dbname的表结构（其中用戶名為root,密码為dbpasswd,生成的脚本名為db.sql）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -h 192.168.1.100 -uroot --single-transaction -pdbpasswd -d dbname &gt;db.sql;</span><br></pre></td></tr></table></figure>
+
+<p>  2、导出數據库為dbname某张表(test)结构</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -h 192.168.1.100 -uroot --single-transaction -pdbpasswd -d dbname test&gt;db.sql;</span><br></pre></td></tr></table></figure>
+
+<p>  3、导出數據库為dbname所有表结构及表數據（不加-d）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -h 192.168.1.100 -uroot --single-transaction -pdbpasswd dbname &gt;db.sql;</span><br></pre></td></tr></table></figure>
+
+<p>  4、导出數據库為dbname某张表(test)结构及表數據（不加-d）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -h 192.168.1.100 -uroot --single-transaction -pdbpasswd dbname test&gt;db.sql;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/09/04/shell-%E6%89%A7%E8%A1%8Ccurl%E8%AF%B7%E6%B1%82/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/04/shell-%E6%89%A7%E8%A1%8Ccurl%E8%AF%B7%E6%B1%82/" class="post-title-link" itemprop="url">shell执行curl请求</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-03 20:18:05 / 修改时间：12:34:36" itemprop="dateCreated datePublished" datetime="2020-09-03T20:18:05Z">2020-09-03</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>839</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>需求： 给550w用户 批量调用融云接口封禁</p>
+<ol>
+<li>按行读取文件的内容</li>
+<li>执行curl命令 </li>
+<li>输出请求的结果</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">function httpRequest()</span><br><span class="line">&#123;</span><br><span class="line">    #curl 请求</span><br><span class="line">    info=`curl -X POST \</span><br><span class="line">  https://api-sg01.ronghub.com/user/block.json \</span><br><span class="line">  -H &#x27;App-Key: qf3d5gbjq9pyh&#x27; \</span><br><span class="line">  -H &#x27;Content-Type: application/x-www-form-urlencoded&#x27; \</span><br><span class="line">  -H &#x27;Nonce: 14314&#x27; \</span><br><span class="line">  -H &#x27;Postman-Token: b2a4bf59-a20e-4654-afa1-489ab18085fe&#x27; \</span><br><span class="line">  -H &#x27;Signature: 7c14b3ebd8896ca00221447087a1ce71343bbddb&#x27; \</span><br><span class="line">  -H &#x27;Timestamp: 1599048545791&#x27; \</span><br><span class="line">  -H &#x27;cache-control: no-cache&#x27; \</span><br><span class="line">  -d &#x27;userId=$&#123;1&#125;&amp;minute=43200&amp;undefined=&#x27;`</span><br><span class="line">   echo &quot;info is :&quot; $&#123;info&#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">cat /home/work/rongyun/user_result.txt | while read line</span><br><span class="line"> do</span><br><span class="line">     userId=&quot;&quot;</span><br><span class="line">    echo &quot;File:$&#123;line&#125;&quot;</span><br><span class="line">     userId=$&#123;line&#125;</span><br><span class="line">     echo $&#123;userId&#125;</span><br><span class="line">     httpRequest &quot;$&#123;userId&#125;&quot;</span><br><span class="line"> done</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -926,322 +1172,6 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/28/charles-https-%E6%8A%93%E5%8C%85/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/28/charles-https-%E6%8A%93%E5%8C%85/" class="post-title-link" itemprop="url">charles-https 抓包</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-08-28 15:59:02 / 修改时间：08:24:49" itemprop="dateCreated datePublished" datetime="2020-08-28T15:59:02Z">2020-08-28</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%93%E5%8C%85/" itemprop="url" rel="index"><span itemprop="name">抓包</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.4k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="1-获取PC的IP地址"><a href="#1-获取PC的IP地址" class="headerlink" title="1. 获取PC的IP地址"></a>1. 获取PC的IP地址</h3><p>在Charles<code>菜单栏 -&gt; Help -&gt; Local IP Address</code>中可以查看PC的IP地址。图示如下：</p>
-<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161106090.png" alt="image-20200828161106090" style="zoom: 50%;" />
-
-
-
-<p>也可以在Mac终端使用命令<code>ifconfig en1</code>查看PC的IP地址。图示如下：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mfxing  ifconfig en1</span><br><span class="line">en1: flags=8963&lt;UP,BROADCAST,SMART,RUNNING,PROMISC,SIMPLEX,MULTICAST&gt; mtu 1500</span><br><span class="line">    options=460&lt;TSO4,TSO6,CHANNEL_IO&gt;</span><br><span class="line">    ether 82:0e:72:47:b8:01</span><br><span class="line">    media: autoselect &lt;full-duplex&gt;</span><br><span class="line">    status: inactive</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="2-配置iPhone代理"><a href="#2-配置iPhone代理" class="headerlink" title="2. 配置iPhone代理"></a>2. 配置iPhone代理</h3><p>在iPhone的<code>设置 -&gt; 无线局域网 -&gt; 局域网信息(i) -&gt; 配置代理 -&gt; 手动</code>中配置代理，服务器输入框中填写PC的IP地址，端口输入框中填写Charles的代理端口（一般是8888）。图示如下：</p>
-<img src="/images/charles-https-%E6%8A%93%E5%8C%85/7dff28a27b45adb7d3fecff3a085b315.jpg" alt="7dff28a27b45adb7d3fecff3a085b315" style="zoom:50%;" />
-
-
-
-<p>具体的端口可以从Charles<code>菜单栏 -&gt; Proxy -&gt; Proxy Settings</code>中查看。图示如下：</p>
-<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161401437.png" alt="image-20200828161401437" style="zoom:33%;" />
-
-
-
-<p>iPhone代理配置完成后，Charles会弹出连接提示框，点击<code>Allow</code>之后即可使用Charles对从该iPhone发出的请求进行抓包了。图示如下：<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161524821.png" alt="image-20200828161524821"></p>
-<h3 id="3-抓包HTTPS请求"><a href="#3-抓包HTTPS请求" class="headerlink" title="3. 抓包HTTPS请求"></a>3. 抓包HTTPS请求</h3><p>在配置iPhone代理完毕后，就可以通过Structure或者Sequence窗口预览HTTP请求的数据了。但由于HTTPS请求被加密过，预览请求时只能预览到乱码数据。要预览到HTTPS请求的数据明文，需要PC和iPhone安装证书授权。</p>
-<h4 id="1-PC安装证书"><a href="#1-PC安装证书" class="headerlink" title="1) PC安装证书"></a>1) PC安装证书</h4><p>在Charles<code>菜单栏 -&gt; Help -&gt; SSL Proxying -&gt; Install Charles Root Certificate</code>中可以为PC安装证书，证书可以在Mac的钥匙串中查看。图示如下：</p>
-<p><img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161742347.png" alt="image-20200828161742347"></p>
-<p>证书可以在Mac的钥匙串中查看，双击证书，将信任权限设定为<code>始终信任</code>。图示如下：</p>
-<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161820758.png" alt="image-20200828161820758" style="zoom:33%;" />
-
-
-
-<h4 id="2-iPhone安装证书"><a href="#2-iPhone安装证书" class="headerlink" title="2) iPhone安装证书"></a>2) iPhone安装证书</h4><p>在iPhone浏览器中访问<code>http://charlesproxy.com/getssl</code>可以下载证书并安装。此地址一般不会变化，可以在Charles<code>菜单栏 -&gt; Help -&gt; SSL Proxying -&gt; Install Charles Root Certificate on a Mobile Device or Remote Browser</code>中查看最新的官方证书下载地址。图示如下：</p>
-<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161858697.png" alt="image-20200828161858697" style="zoom:50%;" />
-
-
-
-<p>基于iOS的证书信任机制，在安装完成并信任证书后，需要到iPhone<code>设置 -&gt; 关于本机 -&gt; 证书信任设置</code>中启用根证书。图示如下：</p>
-<img src="/images/charles-https-%E6%8A%93%E5%8C%85/635269d6c5f07cea0b29a7b859fe35b9.jpg" alt="635269d6c5f07cea0b29a7b859fe35b9" style="zoom:33%;" />
-
-
-
-<p>这样，就可以使用Charles中抓包iPhone发出的HTTPS请求并预览明文数据了。</p>
-<blockquote>
-<p>抓包模拟器上的HTTPS请求需要点击<code>Install Charles Root Certificate in iOS Simulators</code>安装证书。</p>
-</blockquote>
-<h4 id="3-启动抓包SSL权限"><a href="#3-启动抓包SSL权限" class="headerlink" title="3) 启动抓包SSL权限"></a>3) 启动抓包SSL权限</h4><p>在Charles<code>菜单栏 -&gt; Proxy -&gt; SSL Proxying Settings</code>中勾选<code>Enable SSL Proxying</code>，然后在<code>Locations</code>中添加需要抓包的Host和Port即可。图示如下：</p>
-<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828162130663.png" alt="image-20200828162130663" style="zoom:33%;" />
-
-
-
-<p>也可以在抓包界面，右键点击某条/组请求，在弹出的选项列表中点击<code>Enable SSL Proxying</code>启用权限。图示如下：</p>
-<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828162231644.png" alt="image-20200828162231644" style="zoom: 33%;" />
-
-
-
-
-
-<p>基本的抓取到这里就完事了 </p>
-<p>charles 还支持 <code>请求断点</code>、<code>数据修改</code>、<code>请求重发</code>、<code>网速模拟</code></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/27/%E6%9E%B6%E6%9E%84-%E9%80%89%E5%9E%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/27/%E6%9E%B6%E6%9E%84-%E9%80%89%E5%9E%8B/" class="post-title-link" itemprop="url">架构-选型</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-08-26 20:55:31 / 修改时间：13:32:12" itemprop="dateCreated datePublished" datetime="2020-08-26T20:55:31Z">2020-08-26</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9E%B6%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">架构</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>131</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="是否需要使用mvc模式"><a href="#是否需要使用mvc模式" class="headerlink" title="是否需要使用mvc模式"></a>是否需要使用mvc模式</h3><ol>
-<li><p>mvc 模式</p>
-<p>​    <img src="/images/%E6%9E%B6%E6%9E%84-%E9%80%89%E5%9E%8B/mvc.png" alt="mvc模式"></p>
-<ol>
-<li>controllers : 处理/user /pay 相关业务数据的输入和输出</li>
-<li>实体 譬如 数据库实体类</li>
-<li>Dao层 业务的实际处理层</li>
-</ol>
-<p>简单的业务 没什么并发</p>
-</li>
-<li><p>分布式模式</p>
-</li>
-</ol>
-<img src="/images/%E6%9E%B6%E6%9E%84-%E9%80%89%E5%9E%8B/%E5%88%86%E5%B8%83%E5%BC%8F.png" alt="分布式" style="zoom: 50%;" />
-
-<p>分布式架构 可以很好的对具体的业务做流量的负载均衡，适合流量很高的业务，集群方式去部署 </p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/26/mysql-%E6%9F%A5%E7%9C%8B%E5%AD%97%E7%AC%A6%E9%9B%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/26/mysql-%E6%9F%A5%E7%9C%8B%E5%AD%97%E7%AC%A6%E9%9B%86/" class="post-title-link" itemprop="url">mysql-查看字符集</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-08-26 15:14:53 / 修改时间：07:19:57" itemprop="dateCreated datePublished" datetime="2020-08-26T15:14:53Z">2020-08-26</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>一、查看MySQL数据库服务器和数据库MySQL字符集。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> show variables like <span class="string">&#x27;%char%&#x27;</span>;</span></span><br><span class="line">+--------------------------+-----------------------------------------------------------+</span><br><span class="line">| Variable_name            | Value                                                     |</span><br><span class="line">+--------------------------+-----------------------------------------------------------+</span><br><span class="line">| character_set_client     | utf8                                                      |</span><br><span class="line">| character_set_connection | utf8                                                      |</span><br><span class="line">| character_set_database   | utf8                                                      |</span><br><span class="line">| character_set_filesystem | binary                                                    |</span><br><span class="line">| character_set_results    | utf8                                                      |</span><br><span class="line">| character_set_server     | utf8                                                      |</span><br><span class="line">| character_set_system     | utf8                                                      |</span><br><span class="line">| character_sets_dir       | /usr/local/mysql-5.7.23-macos10.13-x86_64/share/charsets/ |</span><br><span class="line">+--------------------------+-----------------------------------------------------------+</span><br><span class="line">8 rows in set (0.02 sec)</span><br></pre></td></tr></table></figure>
-
-<p>二、查看MySQL数据表（table）的MySQL字符集。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> show table status from db_beego like <span class="string">&quot;%tb_category%&quot;</span> \G;</span></span><br><span class="line">*************************** 1. row ***************************</span><br><span class="line">           Name: tb_category</span><br><span class="line">         Engine: InnoDB</span><br><span class="line">        Version: 10</span><br><span class="line">     Row_format: Dynamic</span><br><span class="line">           Rows: 2</span><br><span class="line"> Avg_row_length: 8192</span><br><span class="line">    Data_length: 16384</span><br><span class="line">Max_data_length: 0</span><br><span class="line">   Index_length: 0</span><br><span class="line">      Data_free: 0</span><br><span class="line"> Auto_increment: 5</span><br><span class="line">    Create_time: 2020-07-21 22:03:14</span><br><span class="line">    Update_time: NULL</span><br><span class="line">     Check_time: NULL</span><br><span class="line">      Collation: utf8mb4_general_ci</span><br><span class="line">       Checksum: NULL</span><br><span class="line"> Create_options:</span><br><span class="line">        Comment:</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
-
-<p>三、查看MySQL数据列（column）的MySQL字符集。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> show full columns from tb_category \G;</span></span><br><span class="line">*************************** 1. row ***************************</span><br><span class="line">     Field: id</span><br><span class="line">      Type: int(11)</span><br><span class="line"> Collation: NULL</span><br><span class="line">      Null: NO</span><br><span class="line">       Key: PRI</span><br><span class="line">   Default: NULL</span><br><span class="line">     Extra: auto_increment</span><br><span class="line">Privileges: select,insert,update,references</span><br><span class="line">   Comment:</span><br><span class="line">*************************** 2. row ***************************</span><br><span class="line">     Field: name</span><br><span class="line">      Type: varchar(255)</span><br><span class="line"> Collation: utf8mb4_general_ci</span><br><span class="line">      Null: NO</span><br><span class="line">       Key:</span><br><span class="line">   Default: NULL</span><br><span class="line">     Extra:</span><br><span class="line">Privileges: select,insert,update,references</span><br><span class="line">   Comment:</span><br><span class="line">*************************** 3. row ***************************</span><br><span class="line">     Field: created</span><br><span class="line">      Type: timestamp</span><br><span class="line"> Collation: NULL</span><br><span class="line">      Null: NO</span><br><span class="line">       Key:</span><br><span class="line">   Default: CURRENT_TIMESTAMP</span><br><span class="line">     Extra:</span><br><span class="line">Privileges: select,insert,update,references</span><br><span class="line">   Comment:</span><br><span class="line">*************************** 4. row ***************************</span><br><span class="line">     Field: updated</span><br><span class="line">      Type: timestamp</span><br><span class="line"> Collation: NULL</span><br><span class="line">      Null: NO</span><br><span class="line">       Key:</span><br><span class="line">   Default: CURRENT_TIMESTAMP</span><br><span class="line">     Extra: on update CURRENT_TIMESTAMP</span><br><span class="line">Privileges: select,insert,update,references</span><br><span class="line">   Comment:</span><br><span class="line">4 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
@@ -1313,7 +1243,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-count">58</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1374,13 +1304,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">119k</span>
+    <span title="站点总字数">125k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:49</span>
+    <span title="站点阅读时长">1:54</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

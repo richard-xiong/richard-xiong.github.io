@@ -133,7 +133,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">55</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">58</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -196,6 +196,326 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/algorithm-%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/07/algorithm-%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">algorithm-插入排序</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-06 21:56:21" itemprop="dateCreated datePublished" datetime="2020-08-06T21:56:21Z">2020-08-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-13 12:56:31" itemprop="dateModified" datetime="2020-08-13T12:56:31Z">2020-08-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/sort/" itemprop="url" rel="index"><span itemprop="name">sort</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>892</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="插入排序的思路"><a href="#插入排序的思路" class="headerlink" title="插入排序的思路"></a>插入排序的思路</h3><p>它的基本思想是将一个记录<strong>插入</strong>到已经排好序的有序表中，从而一个新的、记录数增1的有序表。</p>
+<p>直接的例子就是玩扑克的时候，想象一下，分牌的时候，大家轮流的从一组牌中抽取最上面的一张，然后将它以某种顺序插入到我们的左手中。比如，我们想要从小到大排列我们的扑克牌。</p>
+<p>标准方法：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">insertionSort</span><span class="params">(data []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    lo, hi := <span class="number">0</span>, <span class="built_in">len</span>(data) <span class="comment">// 获取数组的长度</span></span><br><span class="line">    <span class="keyword">for</span> i := lo + <span class="number">1</span>; i &lt; hi; i++ &#123; <span class="comment">// </span></span><br><span class="line">        <span class="keyword">for</span> j := i; j &gt; lo &amp;&amp; data[j] &lt; data[j<span class="number">-1</span>]; j-- &#123;</span><br><span class="line">            data[j], data[j<span class="number">-1</span>] = data[j<span class="number">-1</span>], data[j]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<p>这种方法 就是如果后面有一个需要前插操作的数值，找到指定位置之后还会继续和它前面的数值进行比较，针对这一点我们可以优化一下</p>
+<p>优化一：</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">insertionSort</span><span class="params">(data []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    lo, hi= <span class="number">0</span>, <span class="built_in">len</span>(data)</span><br><span class="line">    <span class="keyword">for</span> i := lo + <span class="number">1</span>; i &lt; hi; i++ &#123;</span><br><span class="line">        <span class="keyword">for</span> j := i; j &gt; lo; j-- &#123;</span><br><span class="line">            <span class="keyword">if</span>  data[j] &lt; data[j<span class="number">-1</span>]&#123;</span><br><span class="line">                data[j], data[j<span class="number">-1</span>] = data[j<span class="number">-1</span>], data[j]</span><br><span class="line">            &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">                <span class="keyword">break</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h3><p>在最坏情况下，数组完全逆序，插入第2个元素时要考察前1个元素，插入第3个元素时，要考虑前2个元素，……，插入第N个元素，要考虑前 <code>N - 1</code> 个元素。因此，最坏情况下的比较次数是 <code>1 + 2 + 3 + ... + (N - 1)</code>，等差数列求和，结果为 <code>N^2 / 2</code>，所以最坏情况下的复杂度为 <code>O(N^2)</code>。</p>
+<p>最好情况下，数组已经是有序的，每插入一个元素，只需要考查前一个元素，因此最好情况下，插入排序的时间复杂度为<code>O(N)</code>。</p>
+<p>平均时间复杂度  <code>(O(N^2)+O(n))/2=O(n^2)</code></p>
+<h3 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h3><p>因为没有借助额外的空间 空间浮渣度为<code>O(1)</code></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/%E6%96%87%E4%BB%B6%E5%A4%B9%E5%A4%8D%E5%88%B6cp/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/07/%E6%96%87%E4%BB%B6%E5%A4%B9%E5%A4%8D%E5%88%B6cp/" class="post-title-link" itemprop="url">文件夹复制cp</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-06 21:56:21" itemprop="dateCreated datePublished" datetime="2020-08-06T21:56:21Z">2020-08-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-09 13:49:52" itemprop="dateModified" datetime="2020-08-09T13:49:52Z">2020-08-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/%E8%BF%90%E7%BB%B4/" itemprop="url" rel="index"><span itemprop="name">运维</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>516</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="文件夹复制"><a href="#文件夹复制" class="headerlink" title="文件夹复制"></a>文件夹复制</h3><ol>
+<li><p>正常的复制命令</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">cp -rf /www/cms.whd.com/conf/  mycms/</span><br><span class="line">-r 是递归的意思，会把问价下的子文件目录都会复制</span><br><span class="line">-f 参数是强制复制，比如你在a文件中有个文件名叫b，然后你把c文件夹里面的另一个文件名叫做b的复制到a里面，这个时候回冲突，然后会提示你要不要继续复制，加上-f就不会提示你了。</span><br><span class="line"></span><br><span class="line">但是当我们执行上面的那个命令时还是会提示你要不要覆盖</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="2">
+<li><p>直接使用命令实习 (推荐)</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"> \cp -rf &#x2F;www&#x2F;cms.whd.com&#x2F;conf&#x2F;  &#x2F;www&#x2F;cms.manager&#x2F;core&#x2F;conf&#x2F;</span><br><span class="line">如果写在脚本中可以使用下面的方式 $(pwd) 或者 $&#96;pwd&#96; 来获取当前的目录路径</span><br><span class="line"> \cp -rf &#x2F;www&#x2F;cms.whd.com&#x2F;conf&#x2F; $(pwd)&#x2F;target&#x2F;cms.manager&#x2F;bdp&#x2F;core&#x2F;conf&#x2F;</span><br><span class="line">我们看到 只是在命令前加了一个反斜杠（\），这样就不会再次确认了，而且只在命令中起作用比较好。</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/redis-cluster%20%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4key/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/07/redis-cluster%20%E6%89%B9%E9%87%8F%E5%88%A0%E9%99%A4key/" class="post-title-link" itemprop="url">redis cluster 批量删除key</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-06 21:56:21" itemprop="dateCreated datePublished" datetime="2020-08-06T21:56:21Z">2020-08-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-10 06:21:31" itemprop="dateModified" datetime="2020-08-10T06:21:31Z">2020-08-10</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/%E8%BF%90%E7%BB%B4/" itemprop="url" rel="index"><span itemprop="name">运维</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/%E8%BF%90%E7%BB%B4/redis/" itemprop="url" rel="index"><span itemprop="name">redis</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>步骤一：</p>
+<p>使用redis nodes 命令 获取master 节点的信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">127.0.0.1:6379&gt; CLUSTER NODES</span><br><span class="line">47a3cfa636a42217fdde923ad0af975520557fc3 127.0.0.1:6379@16379 myself,slave 73981099d52abe7ed040e9f5c7a30abd4509e4d4 0 1597031768000 0 connected</span><br><span class="line">73981099d52abe7ed040e9f5c7a30abd4509e4d4 127.0.0.1:6379@16379 master - 0 1597031770200 1 connected 0-5460</span><br><span class="line">dfa8c3b9608b9a8e0e663f63c272a4645ccf91bb 127.0.0.1:6379@16379 master - 0 1597031771201 3 connected 10923-16383</span><br><span class="line">f8415a623f17b45a503d0257ee1e6fbd963317af 127.0.0.1:6379@16379 slave dfa8c3b9608b9a8e0e663f63c272a4645ccf91bb 0 1597031770000 3 connected</span><br><span class="line">0b6a6f7ae9283fb0328b6a2a4494411809c4b8c0 127.0.0.1:6379@16379 slave aebe29e94d12609693530f93ede90be1b5163146 0 1597031772202 2 connected</span><br><span class="line">aebe29e94d12609693530f93ede90be1b5163146 127.0.0.1:6379@16379 master - 0 1597031770000 2 connected 5461-10922</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>步骤二：</p>
+<p>编写 批量删除key的脚本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">redis_ser01=xx.xxx.x.xxx</span><br><span class="line"></span><br><span class="line">redis_ser02=127.0.0.1</span><br><span class="line"></span><br><span class="line">redis_ser03=127.0.0.2 </span><br><span class="line"></span><br><span class="line">port=6379</span><br><span class="line"></span><br><span class="line">redis-cli -c -h $redis_ser01 -p $port keys $1 | xargs -i redis-cli -h $redis_ser01 -p $port del &#123;&#125;</span><br><span class="line"></span><br><span class="line">redis-cli -c -h $redis_ser02 -p $port keys $1 | xargs -i redis-cli -h $redis_ser02 -p $port del &#123;&#125;</span><br><span class="line"></span><br><span class="line">redis-cli -c -h $redis_ser03 -p $port keys $1 | xargs -i redis-cli -h $redis_ser03 -p $port del &#123;&#125;</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -762,122 +1082,6 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/06/Go-%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Gin%E6%A1%86%E6%9E%B6-%E5%9B%9B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/06/Go-%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Gin%E6%A1%86%E6%9E%B6-%E5%9B%9B/" class="post-title-link" itemprop="url">Go 语言学习笔记 Gin框架(四)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-05 19:39:57" itemprop="dateCreated datePublished" datetime="2020-08-05T19:39:57Z">2020-08-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-09 13:49:52" itemprop="dateModified" datetime="2020-08-09T13:49:52Z">2020-08-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/go/" itemprop="url" rel="index"><span itemprop="name">go</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/go/gin/" itemprop="url" rel="index"><span itemprop="name">gin</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.9k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="gin获取请求的参数信息"><a href="#gin获取请求的参数信息" class="headerlink" title="gin获取请求的参数信息"></a>gin获取请求的参数信息</h1><p>【注】c 就是func中的参数(c  *gin.Contex)</p>
-<h2 id="1-从uri-path中获取"><a href="#1-从uri-path中获取" class="headerlink" title="[1].从uri-path中获取"></a>[1].从uri-path中获取</h2><p>请求:</p>
-<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">curl -X GET \</span><br><span class="line">  http://localhost:8080/v1/order/1 \</span><br><span class="line">  -H &#x27;Postman-Token: e4d0bf85-df6b-4ab0-bcca-1feb5a76f531&#x27; \</span><br><span class="line">  -H &#x27;cache-control: no-cache&#x27;  </span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>获取uri-path参数</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id:=c.Param(<span class="string">&quot;id&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-从parameters中获取"><a href="#2-从parameters中获取" class="headerlink" title="[2].从parameters中获取"></a>[2].从parameters中获取</h2><p>请求：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET \</span><br><span class="line">  http://localhost:8080/v1/order?firstname=Jack&amp;lastname=ma \</span><br><span class="line">  -H &#x27;Postman-Token: e4d0bf85-df6b-4ab0-bcca-1feb5a76f531&#x27; \</span><br><span class="line">  -H &#x27;cache-control: no-cache&#x27;  </span><br></pre></td></tr></table></figure>
-
-<p>获取parameters参数</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">firstName := c.DefaultQuery(<span class="string">&quot;firstName&quot;</span>, <span class="string">&quot;Guest&quot;</span>)  <span class="comment">//如果读取不到firstName会给赋值一个默认的值 Guest</span></span><br><span class="line">lastName := c.Query(<span class="string">&quot;lastName&quot;</span>)<span class="comment">// 读取 lastName的值，如果读取不到返回空字符串</span></span><br><span class="line"><span class="comment">// c.Query(&quot;lastname&quot;) 等价于 c.Request.URL.Query().Get(&quot;lastname&quot;)</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="3-从Multipart-Urlencoded-Form中获取"><a href="#3-从Multipart-Urlencoded-Form中获取" class="headerlink" title="[3].从Multipart/Urlencoded Form中获取"></a>[3].从Multipart/Urlencoded Form中获取</h2><p>请求:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST \</span><br><span class="line">  &#x27;http://localhost:8080/v1/order/1/10010?pkg=test.1&#x27; \</span><br><span class="line">  -H &#x27;Postman-Token: 49319e4b-fd9a-416e-a69b-5ffb54b12413&#x27; \</span><br><span class="line">  -H &#x27;cache-control: no-cache&#x27; \</span><br><span class="line">  -H &#x27;content-type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW&#x27; \</span><br><span class="line">  -F message=msg</span><br></pre></td></tr></table></figure>
-
-<p>获取Multipart/Urlencoded Form参数</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">message := c.PostForm(<span class="string">&quot;message&quot;</span>) <span class="comment">// 读取 message的值，如果读取不到返回空字符串</span></span><br><span class="line">nick := c.DefaultPostForm(<span class="string">&quot;nick&quot;</span>, <span class="string">&quot;anonymous&quot;</span>) <span class="comment">// 读取nick的值，如果读取不到会给nick赋默认值anonymous</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="4-从parameter-form-读取map或者array"><a href="#4-从parameter-form-读取map或者array" class="headerlink" title="[4].从parameter/form 读取map或者array"></a>[4].从parameter/form 读取map或者array</h2><p>请求:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">curl -X PUT \</span><br><span class="line">  &#x27;http://localhost:8080/v1/order/1?idMap[a]=aaa&amp;idMap[b]=bbb&amp;idArr=c1,c2&#x27; \</span><br><span class="line">  -H &#x27;Content-Type: application/x-www-form-urlencoded&#x27; \</span><br><span class="line">  -H &#x27;Postman-Token: a2f3a545-3b19-4a5d-a542-8b83c19ee2f9&#x27; \</span><br><span class="line">  -H &#x27;cache-control: no-cache&#x27; \</span><br><span class="line">  -d &#x27;nameArr=name1&amp;nameArr=name2&amp;nameMap%5Ba%5D=namea&amp;nameMap%5Bb%5D=nameb&amp;undefined=&#x27;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>从parameter获取map,array,从application/x-www-form-urlencoded body中获取map array</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">idMap := c.QueryMap(<span class="string">&quot;idMap&quot;</span>) <span class="comment">//从paramter获取map</span></span><br><span class="line">idArr := c.QueryArray(<span class="string">&quot;idArr&quot;</span>)<span class="comment">//从paramter获取array</span></span><br><span class="line">nameArr := c.PostFormArray(<span class="string">&quot;nameArr&quot;</span>) <span class="comment">// 从form获取map</span></span><br><span class="line">nameMap := c.PostFormMap(<span class="string">&quot;nameMap&quot;</span>)<span class="comment">// 从form获取array</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
     <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/06/Go-%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Gin%E6%A1%86%E6%9E%B6-%E5%85%AD/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
@@ -1045,7 +1249,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/06/Go-%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Gin%E6%A1%86%E6%9E%B6-%E4%BA%8C/">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/06/Go-%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Gin%E6%A1%86%E6%9E%B6-%E5%9B%9B/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -1059,7 +1263,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/08/06/Go-%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Gin%E6%A1%86%E6%9E%B6-%E4%BA%8C/" class="post-title-link" itemprop="url">Go 语言学习笔记 Gin框架(二)</a>
+            <a href="/2020/08/06/Go-%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Gin%E6%A1%86%E6%9E%B6-%E5%9B%9B/" class="post-title-link" itemprop="url">Go 语言学习笔记 Gin框架(四)</a>
         </h2>
 
         <div class="post-meta">
@@ -1069,7 +1273,7 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-08-05 19:39:39" itemprop="dateCreated datePublished" datetime="2020-08-05T19:39:39Z">2020-08-05</time>
+              <time title="创建时间：2020-08-05 19:39:57" itemprop="dateCreated datePublished" datetime="2020-08-05T19:39:57Z">2020-08-05</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
@@ -1098,14 +1302,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>3.2k</span>
+              <span>1.9k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
+              <span>2 分钟</span>
             </span>
 
         </div>
@@ -1117,379 +1321,32 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="使用viper读取配置文件"><a href="#使用viper读取配置文件" class="headerlink" title="使用viper读取配置文件"></a>使用viper读取配置文件</h1><p>应用系统的配置信息，一般分为两种，一是经常变化的配置则保存到数据库，另外一种则是不常变化的则以配置文件的形式保存。一般而言，应用系统至少有三组运行环境：开发环境、测试环境、生产环境</p>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h2 id="青铜时代"><a href="#青铜时代" class="headerlink" title="青铜时代"></a>青铜时代</h2><p>一开始的时候，我针对每个环境配置各自的yaml，在启动的时候根据环境变量读取相应的配置文件，处理代码如下：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">initConfig</span><span class="params">()</span> <span class="params">(err error)</span></span> &#123;</span><br><span class="line">    env := os.Getenv(<span class="string">&quot;GO_ENV&quot;</span>)</span><br><span class="line">    viper.SetConfigName(env)</span><br><span class="line">    viper.AddConfigPath(<span class="string">&quot;./configs&quot;</span>)</span><br><span class="line">    viper.SetConfigType(<span class="string">&quot;yml&quot;</span>)</span><br><span class="line">    err = viper.ReadInConfig()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    err := initConfig()</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="built_in">panic</span>(err)</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Println(viper.GetString(<span class="string">&quot;db.uri&quot;</span>))</span><br><span class="line">    fmt.Println(viper.GetString(<span class="string">&quot;db.poolSize&quot;</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <h1 id="gin获取请求的参数信息"><a href="#gin获取请求的参数信息" class="headerlink" title="gin获取请求的参数信息"></a>gin获取请求的参数信息</h1><p>【注】c 就是func中的参数(c  *gin.Contex)</p>
+<h2 id="1-从uri-path中获取"><a href="#1-从uri-path中获取" class="headerlink" title="[1].从uri-path中获取"></a>[1].从uri-path中获取</h2><p>请求:</p>
+<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">curl -X GET \</span><br><span class="line">  http://localhost:8080/v1/order/1 \</span><br><span class="line">  -H &#x27;Postman-Token: e4d0bf85-df6b-4ab0-bcca-1feb5a76f531&#x27; \</span><br><span class="line">  -H &#x27;cache-control: no-cache&#x27;  </span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>不同环境的配置文件如下：</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># test</span></span><br><span class="line"><span class="attr">app:</span> <span class="string">viper-test</span></span><br><span class="line"><span class="attr">db:</span></span><br><span class="line">  <span class="attr">uri:</span> <span class="string">postgres://tree:mypwd@127.0.0.1:5432/viper-test?connect_timeout=5&amp;sslmode=disable</span></span><br><span class="line">  <span class="attr">poolSize:</span> <span class="number">100</span></span><br><span class="line"><span class="comment"># production</span></span><br><span class="line"><span class="attr">app:</span> <span class="string">viper-test</span></span><br><span class="line"><span class="attr">db:</span></span><br><span class="line">  <span class="attr">uri:</span> <span class="string">postgres://tree:mypwd@10.1.1.1:5432/viper?connect_timeout=5&amp;sslmode=disable</span></span><br><span class="line">  <span class="attr">poolSize:</span> <span class="number">100</span></span><br></pre></td></tr></table></figure>
+<p>获取uri-path参数</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id:=c.Param(<span class="string">&quot;id&quot;</span>)</span><br></pre></td></tr></table></figure>
 
-<p>由上面的代码可以看出，因为viper读取的配置只有一份，因此需要在每个配置中将所有的配置都一一填写，而不同环境的配置绝大部分都是相同的，只有小部分是不一致。一开始只有不到10个配置项的时候还好维护，后面配置信息越来越多，几十个的时候就是一个深坑了，看到眼都花了，太难管理。</p>
-<h2 id="白银时代"><a href="#白银时代" class="headerlink" title="白银时代"></a>白银时代</h2><p>各运行环境中的配置90%左右是相同，而剩下的10%才是各环境的差异配置，是否可以将相同的配置以默认值的形式保存，而各环境与默认值不相同的再覆盖呢？查看了一下文档，发现了 <code>viper.SetDefault</code> 的函数，一开始是直接在代码一行行的把默认配置写上，但是这样无法利用yaml的便利，在研究了相关的代码之后，最后调整为如下的处理形式，代码如下：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">initConfig</span><span class="params">()</span> <span class="params">(err error)</span></span> &#123;</span><br><span class="line">    configType := <span class="string">&quot;yml&quot;</span></span><br><span class="line">    defaultPath := <span class="string">&quot;./configs&quot;</span></span><br><span class="line">    v := viper.New()</span><br><span class="line">    <span class="comment">// 从default中读取默认的配置</span></span><br><span class="line">    v.SetConfigName(<span class="string">&quot;default&quot;</span>)</span><br><span class="line">    v.AddConfigPath(defaultPath)</span><br><span class="line">    v.SetConfigType(configType)</span><br><span class="line">    err = v.ReadInConfig()</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    configs := v.AllSettings()</span><br><span class="line">    <span class="comment">// 将default中的配置全部以默认配置写入</span></span><br><span class="line">    <span class="keyword">for</span> k, v := <span class="keyword">range</span> configs &#123;</span><br><span class="line">        viper.SetDefault(k, v)</span><br><span class="line">    &#125;</span><br><span class="line">    env := os.Getenv(<span class="string">&quot;GO_ENV&quot;</span>)</span><br><span class="line">    <span class="comment">// 根据配置的env读取相应的配置信息</span></span><br><span class="line">    <span class="keyword">if</span> env != <span class="string">&quot;&quot;</span> &#123;</span><br><span class="line">        viper.SetConfigName(env)</span><br><span class="line">        viper.AddConfigPath(defaultPath)</span><br><span class="line">        viper.SetConfigType(configType)</span><br><span class="line">        err = viper.ReadInConfig()</span><br><span class="line">        <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="2-从parameters中获取"><a href="#2-从parameters中获取" class="headerlink" title="[2].从parameters中获取"></a>[2].从parameters中获取</h2><p>请求：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET \</span><br><span class="line">  http://localhost:8080/v1/order?firstname=Jack&amp;lastname=ma \</span><br><span class="line">  -H &#x27;Postman-Token: e4d0bf85-df6b-4ab0-bcca-1feb5a76f531&#x27; \</span><br><span class="line">  -H &#x27;cache-control: no-cache&#x27;  </span><br></pre></td></tr></table></figure>
 
-<p>此函数将 <code>default.yml</code> 的所有配置读取至一个新的viper实例中，再以 <code>SetDefault</code> 将所有配置写入为默认配置，而各环境配置文件只需要配置差异部分，配置如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"># default</span><br><span class="line">app: viper-test</span><br><span class="line">db:</span><br><span class="line">  uri: postgres:&#x2F;&#x2F;tree:mypwd@127.0.0.1:5432&#x2F;viper-test?connect_timeout&#x3D;5&amp;sslmode&#x3D;disable</span><br><span class="line">  poolSize: 100</span><br><span class="line"># test与default完全一致，为空文件</span><br><span class="line"># production只是数据库连接串不一致，只需要配置此项</span><br><span class="line">db:</span><br><span class="line">  uri: postgres:&#x2F;&#x2F;tree:mypwd@10.1.1.1:5432&#x2F;viper?connect_timeout&#x3D;5&amp;sslmode&#x3D;disable</span><br></pre></td></tr></table></figure>
+<p>获取parameters参数</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">firstName := c.DefaultQuery(<span class="string">&quot;firstName&quot;</span>, <span class="string">&quot;Guest&quot;</span>)  <span class="comment">//如果读取不到firstName会给赋值一个默认的值 Guest</span></span><br><span class="line">lastName := c.Query(<span class="string">&quot;lastName&quot;</span>)<span class="comment">// 读取 lastName的值，如果读取不到返回空字符串</span></span><br><span class="line"><span class="comment">// c.Query(&quot;lastname&quot;) 等价于 c.Request.URL.Query().Get(&quot;lastname&quot;)</span></span><br></pre></td></tr></table></figure>
 
-<p>通过此调整，不再需要重复的维护相同的配置项，而且也能直观的看出各运行环境的配置差异，减少配置信息的出错概率。</p>
-<hr>
-<h2 id="王者时代"><a href="#王者时代" class="headerlink" title="王者时代"></a>王者时代</h2><p>因为主要是后端程序应用，程序交付一般都是通过docker镜像的形式，配置文件与编译后的应用程序一起打包至镜像中，在多个项目中也使用得挺顺畅。最近有一个项目非运行在docker环境下，因此希望能将配置文件一起打包至应用程序的方式，在了解了几个相关的项目，最终选择了使用 <a target="_blank" rel="noopener" href="https://www.jishuwen.com/jump/aHR0cHM6Ly9naXRodWIuY29tL2dvYnVmZmFsby9wYWNrcg==">packr</a> 来将配置文件打包，调整之后的代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">func initConfig() (err error) &#123;</span><br><span class="line">    box :&#x3D; packr.NewBox(&quot;.&#x2F;configs&quot;)</span><br><span class="line">    configType :&#x3D; &quot;yml&quot;</span><br><span class="line">    defaultConfig :&#x3D; box.Bytes(&quot;default.yml&quot;)</span><br><span class="line">    v :&#x3D; viper.New()</span><br><span class="line">    v.SetConfigType(configType)</span><br><span class="line">    err &#x3D; v.ReadConfig(bytes.NewReader(defaultConfig))</span><br><span class="line">    if err !&#x3D; nil &#123;</span><br><span class="line">        return</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    configs :&#x3D; v.AllSettings()</span><br><span class="line">    &#x2F;&#x2F; 将default中的配置全部以默认配置写入</span><br><span class="line">    for k, v :&#x3D; range configs &#123;</span><br><span class="line">        viper.SetDefault(k, v)</span><br><span class="line">    &#125;</span><br><span class="line">    env :&#x3D; os.Getenv(&quot;GO_ENV&quot;)</span><br><span class="line">    &#x2F;&#x2F; 根据配置的env读取相应的配置信息</span><br><span class="line">    if env !&#x3D; &quot;&quot; &#123;</span><br><span class="line">        envConfig :&#x3D; box.Bytes(env + &quot;.yml&quot;)</span><br><span class="line"></span><br><span class="line">        viper.SetConfigType(configType)</span><br><span class="line">        err &#x3D; viper.ReadConfig(bytes.NewReader(envConfig))</span><br><span class="line">        if err !&#x3D; nil &#123;</span><br><span class="line">            return</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="3-从Multipart-Urlencoded-Form中获取"><a href="#3-从Multipart-Urlencoded-Form中获取" class="headerlink" title="[3].从Multipart/Urlencoded Form中获取"></a>[3].从Multipart/Urlencoded Form中获取</h2><p>请求:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST \</span><br><span class="line">  &#x27;http://localhost:8080/v1/order/1/10010?pkg=test.1&#x27; \</span><br><span class="line">  -H &#x27;Postman-Token: 49319e4b-fd9a-416e-a69b-5ffb54b12413&#x27; \</span><br><span class="line">  -H &#x27;cache-control: no-cache&#x27; \</span><br><span class="line">  -H &#x27;content-type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW&#x27; \</span><br><span class="line">  -F message=msg</span><br></pre></td></tr></table></figure>
 
-<p>调整之后，配置文件也编译至程序中，后续可以单执行文件交付，只通过在启动时指定 <code>GO_ENV</code> 则可。</p>
+<p>获取Multipart/Urlencoded Form参数</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">message := c.PostForm(<span class="string">&quot;message&quot;</span>) <span class="comment">// 读取 message的值，如果读取不到返回空字符串</span></span><br><span class="line">nick := c.DefaultPostForm(<span class="string">&quot;nick&quot;</span>, <span class="string">&quot;anonymous&quot;</span>) <span class="comment">// 读取nick的值，如果读取不到会给nick赋默认值anonymous</span></span><br></pre></td></tr></table></figure>
 
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/06/Go-%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Gin%E6%A1%86%E6%9E%B6-%E4%B8%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/06/Go-%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Gin%E6%A1%86%E6%9E%B6-%E4%B8%80/" class="post-title-link" itemprop="url">Go 语言学习笔记 Gin框架(一)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-05 19:39:39" itemprop="dateCreated datePublished" datetime="2020-08-05T19:39:39Z">2020-08-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-26 12:29:42" itemprop="dateModified" datetime="2020-08-26T12:29:42Z">2020-08-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/go/" itemprop="url" rel="index"><span itemprop="name">go</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/go/gin/" itemprop="url" rel="index"><span itemprop="name">gin</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>7.7k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>7 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="Go-语言学习笔记-Gin框架-一"><a href="#Go-语言学习笔记-Gin框架-一" class="headerlink" title="Go 语言学习笔记 Gin框架(一)"></a>Go 语言学习笔记 Gin框架(一)</h1><h2 id="httprouter的性能"><a href="#httprouter的性能" class="headerlink" title="httprouter的性能"></a>httprouter的性能</h2><table>
-<thead>
-<tr>
-<th>Benchmark name</th>
-<th>(1)</th>
-<th>(2)</th>
-<th>(3)</th>
-<th>(4)</th>
-</tr>
-</thead>
-<tbody><tr>
-<td><strong>BenchmarkGin_GithubAll</strong></td>
-<td><strong>30000</strong></td>
-<td><strong>48375</strong></td>
-<td><strong>0</strong></td>
-<td><strong>0</strong></td>
-</tr>
-<tr>
-<td>BenchmarkAce_GithubAll</td>
-<td>10000</td>
-<td>134059</td>
-<td>13792</td>
-<td>167</td>
-</tr>
-<tr>
-<td>BenchmarkBear_GithubAll</td>
-<td>5000</td>
-<td>534445</td>
-<td>86448</td>
-<td>943</td>
-</tr>
-<tr>
-<td>BenchmarkBeego_GithubAll</td>
-<td>3000</td>
-<td>592444</td>
-<td>74705</td>
-<td>812</td>
-</tr>
-</tbody></table>
-<ul>
-<li>(1): Total Repetitions achieved in constant time, higher means more confident result</li>
-<li>(2): Single Repetition Duration (ns/op), lower is better</li>
-<li>(3): Heap Memory (B/op), lower is better</li>
-<li>(4): Average Allocations per Repetition (allocs/op), lower is better</li>
-</ul>
-<h2 id="内置使用了jsoniter"><a href="#内置使用了jsoniter" class="headerlink" title="内置使用了jsoniter"></a>内置使用了jsoniter</h2><p>Gin uses <code>encoding/json</code> as default json package but you can change to <a target="_blank" rel="noopener" href="https://github.com/json-iterator/go">jsoniter</a> by build from other tags.</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> go build -tags=jsoniter .</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="router-api支持restful"><a href="#router-api支持restful" class="headerlink" title="router api支持restful"></a>router api支持restful</h2><h3 id="支持GET-POST-PUT-PATCH-DELETE-and-OPTIONS"><a href="#支持GET-POST-PUT-PATCH-DELETE-and-OPTIONS" class="headerlink" title="支持GET, POST, PUT, PATCH, DELETE and OPTIONS"></a>支持GET, POST, PUT, PATCH, DELETE and OPTIONS</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// Creates a gin router with default middleware:</span></span><br><span class="line">    <span class="comment">// logger and recovery (crash-free) middleware</span></span><br><span class="line">    router := gin.Default()</span><br><span class="line"></span><br><span class="line">    router.GET(<span class="string">&quot;/someGet&quot;</span>, getting)</span><br><span class="line">    router.POST(<span class="string">&quot;/somePost&quot;</span>, posting)</span><br><span class="line">    router.PUT(<span class="string">&quot;/somePut&quot;</span>, putting)</span><br><span class="line">    router.DELETE(<span class="string">&quot;/someDelete&quot;</span>, deleting)</span><br><span class="line">    router.PATCH(<span class="string">&quot;/somePatch&quot;</span>, patching)</span><br><span class="line">    router.HEAD(<span class="string">&quot;/someHead&quot;</span>, head)</span><br><span class="line">    router.OPTIONS(<span class="string">&quot;/someOptions&quot;</span>, options)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// By default it serves on :8080 unless a</span></span><br><span class="line">    <span class="comment">// PORT environment variable was defined.</span></span><br><span class="line">    router.Run()</span><br><span class="line">    <span class="comment">// router.Run(&quot;:3000&quot;) for a hard coded port</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="支持路径中带有参数"><a href="#支持路径中带有参数" class="headerlink" title="支持路径中带有参数"></a>支持路径中带有参数</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    router := gin.Default()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// This handler will match /user/john but will not match /user/ or /user</span></span><br><span class="line">    router.GET(<span class="string">&quot;/user/:name&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">        name := c.Param(<span class="string">&quot;name&quot;</span>)</span><br><span class="line">        c.String(http.StatusOK, <span class="string">&quot;Hello %s&quot;</span>, name)</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// However, this one will match /user/john/ and also /user/john/send</span></span><br><span class="line">    <span class="comment">// If no other routers match /user/john, it will redirect to /user/john/</span></span><br><span class="line">    router.GET(<span class="string">&quot;/user/:name/*action&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">        name := c.Param(<span class="string">&quot;name&quot;</span>)</span><br><span class="line">        action := c.Param(<span class="string">&quot;action&quot;</span>)</span><br><span class="line">        message := name + <span class="string">&quot; is &quot;</span> + action</span><br><span class="line">        c.String(http.StatusOK, message)</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// For each matched request Context will hold the route definition</span></span><br><span class="line">    router.POST(<span class="string">&quot;/user/:name/*action&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">        c.FullPath() == <span class="string">&quot;/user/:name/*action&quot;</span> <span class="comment">// true</span></span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    router.Run(<span class="string">&quot;:8080&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="支持url地址中kv获取"><a href="#支持url地址中kv获取" class="headerlink" title="支持url地址中kv获取"></a>支持url地址中kv获取</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    router := gin.Default()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Query string parameters are parsed using the existing underlying request object.</span></span><br><span class="line">    <span class="comment">// The request responds to a url matching:  /welcome?firstname=Jane&amp;lastname=Doe</span></span><br><span class="line">    router.GET(<span class="string">&quot;/welcome&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">        firstname := c.DefaultQuery(<span class="string">&quot;firstname&quot;</span>, <span class="string">&quot;Guest&quot;</span>) <span class="comment">// 如果获取不到可以使用默认值</span></span><br><span class="line">        lastname := c.Query(<span class="string">&quot;lastname&quot;</span>) <span class="comment">// 如果获取不到是空字符串 shortcut for c.Request.URL.Query().Get(&quot;lastname&quot;)</span></span><br><span class="line"></span><br><span class="line">        c.String(http.StatusOK, <span class="string">&quot;Hello %s %s&quot;</span>, firstname, lastname)</span><br><span class="line">    &#125;)</span><br><span class="line">    router.Run(<span class="string">&quot;:8080&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="支持获取form表单中的kv"><a href="#支持获取form表单中的kv" class="headerlink" title="支持获取form表单中的kv"></a>支持获取form表单中的kv</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    router := gin.Default()</span><br><span class="line"></span><br><span class="line">    router.POST(<span class="string">&quot;/form_post&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">        message := c.PostForm(<span class="string">&quot;message&quot;</span>)</span><br><span class="line">        nick := c.DefaultPostForm(<span class="string">&quot;nick&quot;</span>, <span class="string">&quot;anonymous&quot;</span>) <span class="comment">// nick获取不到就赋值为anonymous</span></span><br><span class="line"></span><br><span class="line">        c.JSON(<span class="number">200</span>, gin.H&#123;</span><br><span class="line">            <span class="string">&quot;status&quot;</span>:  <span class="string">&quot;posted&quot;</span>,</span><br><span class="line">            <span class="string">&quot;message&quot;</span>: message,</span><br><span class="line">            <span class="string">&quot;nick&quot;</span>:    nick,</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;)</span><br><span class="line">    router.Run(<span class="string">&quot;:8080&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="支持url和post-form-联合的取值"><a href="#支持url和post-form-联合的取值" class="headerlink" title="支持url和post form 联合的取值"></a>支持url和post form 联合的取值</h3><p>请求:</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">POST</span> <span class="string">/post?id=1234&amp;page=1</span> HTTP/1.1</span><br><span class="line"><span class="attribute">Content-Type</span>: application/x-www-form-urlencoded</span><br><span class="line"></span><br><span class="line">name=manu&amp;message=this_is_great</span><br></pre></td></tr></table></figure>
-
-<p>接收：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    router := gin.Default()</span><br><span class="line"></span><br><span class="line">    router.POST(<span class="string">&quot;/post&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">        id := c.Query(<span class="string">&quot;id&quot;</span>)</span><br><span class="line">        page := c.DefaultQuery(<span class="string">&quot;page&quot;</span>, <span class="string">&quot;0&quot;</span>)</span><br><span class="line">        name := c.PostForm(<span class="string">&quot;name&quot;</span>)</span><br><span class="line">        message := c.PostForm(<span class="string">&quot;message&quot;</span>)</span><br><span class="line"></span><br><span class="line">        fmt.Printf(<span class="string">&quot;id: %s; page: %s; name: %s; message: %s&quot;</span>, id, page, name, message)</span><br><span class="line">    &#125;)</span><br><span class="line">    router.Run(<span class="string">&quot;:8080&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>结果:</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id: 1234; page: 1; name: manu; message: this_is_great</span><br></pre></td></tr></table></figure>
-
-<p>###支持post form传递map</p>
-<p>请求：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">POST &#x2F;post?ids[a]&#x3D;1234&amp;ids[b]&#x3D;hello HTTP&#x2F;1.1</span><br><span class="line">Content-Type: application&#x2F;x-www-form-urlencoded</span><br><span class="line"></span><br><span class="line">names[first]&#x3D;thinkerou&amp;names[second]&#x3D;tianou</span><br></pre></td></tr></table></figure>
-
-<p>接收：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    router := gin.Default()</span><br><span class="line"></span><br><span class="line">    router.POST(<span class="string">&quot;/post&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line"></span><br><span class="line">        ids := c.QueryMap(<span class="string">&quot;ids&quot;</span>)</span><br><span class="line">        names := c.PostFormMap(<span class="string">&quot;names&quot;</span>)</span><br><span class="line"></span><br><span class="line">        fmt.Printf(<span class="string">&quot;ids: %v; names: %v&quot;</span>, ids, names)</span><br><span class="line">    &#125;)</span><br><span class="line">    router.Run(<span class="string">&quot;:8080&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>结果：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ids: map[b:hello a:1234], names: map[second:tianou first:thinkerou]</span><br></pre></td></tr></table></figure>
-
-<h3 id=""><a href="#" class="headerlink" title=""></a></h3><h2 id="上传文件"><a href="#上传文件" class="headerlink" title="上传文件"></a>上传文件</h2><h3 id="单个文件"><a href="#单个文件" class="headerlink" title="单个文件"></a>单个文件</h3><p>请求：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST http://localhost:8080/upload \</span><br><span class="line">  -F &quot;file=@/Users/appleboy/test.zip&quot; \</span><br><span class="line">  -H &quot;Content-Type: multipart/form-data&quot;</span><br></pre></td></tr></table></figure>
-
-<p>接收：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    router := gin.Default()</span><br><span class="line">    <span class="comment">// Set a lower memory limit for multipart forms (default is 32 MiB)</span></span><br><span class="line">    <span class="comment">// router.MaxMultipartMemory = 8 &lt;&lt; 20  // 8 MiB</span></span><br><span class="line">    router.POST(<span class="string">&quot;/upload&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">        <span class="comment">// single file</span></span><br><span class="line">        file, _ := c.FormFile(<span class="string">&quot;file&quot;</span>)</span><br><span class="line">        log.Println(file.Filename)</span><br><span class="line"></span><br><span class="line">        <span class="comment">// Upload the file to specific dst.</span></span><br><span class="line">        <span class="comment">// c.SaveUploadedFile(file, dst)</span></span><br><span class="line"></span><br><span class="line">        c.String(http.StatusOK, fmt.Sprintf(<span class="string">&quot;&#x27;%s&#x27; uploaded!&quot;</span>, file.Filename))</span><br><span class="line">    &#125;)</span><br><span class="line">    router.Run(<span class="string">&quot;:8080&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="4-从parameter-form-读取map或者array"><a href="#4-从parameter-form-读取map或者array" class="headerlink" title="[4].从parameter/form 读取map或者array"></a>[4].从parameter/form 读取map或者array</h2><p>请求:</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">curl -X PUT \</span><br><span class="line">  &#x27;http://localhost:8080/v1/order/1?idMap[a]=aaa&amp;idMap[b]=bbb&amp;idArr=c1,c2&#x27; \</span><br><span class="line">  -H &#x27;Content-Type: application/x-www-form-urlencoded&#x27; \</span><br><span class="line">  -H &#x27;Postman-Token: a2f3a545-3b19-4a5d-a542-8b83c19ee2f9&#x27; \</span><br><span class="line">  -H &#x27;cache-control: no-cache&#x27; \</span><br><span class="line">  -d &#x27;nameArr=name1&amp;nameArr=name2&amp;nameMap%5Ba%5D=namea&amp;nameMap%5Bb%5D=nameb&amp;undefined=&#x27;</span><br></pre></td></tr></table></figure>
 
 
 
-<h3 id="多个文件"><a href="#多个文件" class="headerlink" title="多个文件"></a>多个文件</h3><p>请求：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST http://localhost:8080/upload \</span><br><span class="line">  -F &quot;upload[]=@/Users/appleboy/test1.zip&quot; \</span><br><span class="line">  -F &quot;upload[]=@/Users/appleboy/test2.zip&quot; \</span><br><span class="line">  -H &quot;Content-Type: multipart/form-data&quot;</span><br></pre></td></tr></table></figure>
-
-<p>接收：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    router := gin.Default()</span><br><span class="line">    <span class="comment">// Set a lower memory limit for multipart forms (default is 32 MiB)</span></span><br><span class="line">    <span class="comment">// router.MaxMultipartMemory = 8 &lt;&lt; 20  // 8 MiB</span></span><br><span class="line">    router.POST(<span class="string">&quot;/upload&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">        <span class="comment">// Multipart form</span></span><br><span class="line">        form, _ := c.MultipartForm()</span><br><span class="line">        files := form.File[<span class="string">&quot;upload[]&quot;</span>]</span><br><span class="line"></span><br><span class="line">        <span class="keyword">for</span> _, file := <span class="keyword">range</span> files &#123;</span><br><span class="line">            log.Println(file.Filename)</span><br><span class="line"></span><br><span class="line">            <span class="comment">// Upload the file to specific dst.</span></span><br><span class="line">            <span class="comment">// c.SaveUploadedFile(file, dst)</span></span><br><span class="line">        &#125;</span><br><span class="line">        c.String(http.StatusOK, fmt.Sprintf(<span class="string">&quot;%d files uploaded!&quot;</span>, <span class="built_in">len</span>(files)))</span><br><span class="line">    &#125;)</span><br><span class="line">    router.Run(<span class="string">&quot;:8080&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="路由分组"><a href="#路由分组" class="headerlink" title="路由分组"></a>路由分组</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    router := gin.Default()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Simple group: v1</span></span><br><span class="line">    v1 := router.Group(<span class="string">&quot;/v1&quot;</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        v1.POST(<span class="string">&quot;/login&quot;</span>, loginEndpoint)</span><br><span class="line">        v1.POST(<span class="string">&quot;/submit&quot;</span>, submitEndpoint)</span><br><span class="line">        v1.POST(<span class="string">&quot;/read&quot;</span>, readEndpoint)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// Simple group: v2</span></span><br><span class="line">    v2 := router.Group(<span class="string">&quot;/v2&quot;</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        v2.POST(<span class="string">&quot;/login&quot;</span>, loginEndpoint)</span><br><span class="line">        v2.POST(<span class="string">&quot;/submit&quot;</span>, submitEndpoint)</span><br><span class="line">        v2.POST(<span class="string">&quot;/read&quot;</span>, readEndpoint)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    router.Run(<span class="string">&quot;:8080&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h2 id="中间件"><a href="#中间件" class="headerlink" title="中间件"></a>中间件</h2><h4 id="初始化"><a href="#初始化" class="headerlink" title="初始化"></a>初始化</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">r := gin.New() <span class="comment">//初始化一个空白的gin</span></span><br></pre></td></tr></table></figure>
-
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">r := gin.Default() <span class="comment">// 初始化一个带有Logger and Recovery 中间件的gin</span></span><br></pre></td></tr></table></figure>
-
-<h4 id="加载中间件"><a href="#加载中间件" class="headerlink" title="加载中间件"></a>加载中间件</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//默认情况下，gin.DefaultWriter=os.Stdout</span></span><br><span class="line">r.Use(gin.Logger())</span><br><span class="line"><span class="comment">//Recovery 中间件可以从任何panic中恢复，如果出现panic，则会写入500。</span></span><br><span class="line">r.Use(gin.Recovery())</span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<h4 id="指定路由使用中间件"><a href="#指定路由使用中间件" class="headerlink" title="指定路由使用中间件"></a>指定路由使用中间件</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 对于每个路由中间件，您可以添加任意数量的</span></span><br><span class="line">r.GET(<span class="string">&quot;/benchmark&quot;</span>, MyBenchLogger(), benchEndpoint)</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="指定group添加authorized-认证"><a href="#指定group添加authorized-认证" class="headerlink" title="指定group添加authorized 认证"></a>指定group添加authorized 认证</h4><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">authorized := r.Group(<span class="string">&quot;/&quot;</span>)</span><br><span class="line"><span class="comment">// 每个组中间件！在本例中，我们使用自定义创建的//AuthRequired（）中间件就在“authorized”组中。</span></span><br><span class="line">authorized.Use(AuthRequired())</span><br><span class="line">&#123;</span><br><span class="line">  authorized.POST(<span class="string">&quot;/login&quot;</span>, loginEndpoint)</span><br><span class="line">  authorized.POST(<span class="string">&quot;/submit&quot;</span>, submitEndpoint)</span><br><span class="line">  authorized.POST(<span class="string">&quot;/read&quot;</span>, readEndpoint)</span><br><span class="line"></span><br><span class="line">  <span class="comment">// 还可以嵌套使用</span></span><br><span class="line">  testing := authorized.Group(<span class="string">&quot;testing&quot;</span>)</span><br><span class="line">  testing.GET(<span class="string">&quot;/analytics&quot;</span>, analyticsEndpoint)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<h4 id="自定义日志"><a href="#自定义日志" class="headerlink" title="自定义日志"></a>自定义日志</h4><p>#####设置日志输出格式 </p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    router := gin.New()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// LoggerWithFormatter middleware will write the logs to gin.DefaultWriter</span></span><br><span class="line">    <span class="comment">// By default gin.DefaultWriter = os.Stdout</span></span><br><span class="line">    router.Use(gin.LoggerWithFormatter(<span class="function"><span class="keyword">func</span><span class="params">(param gin.LogFormatterParams)</span> <span class="title">string</span></span> &#123;</span><br><span class="line"></span><br><span class="line">        <span class="comment">// your custom format</span></span><br><span class="line">        <span class="keyword">return</span> fmt.Sprintf(<span class="string">&quot;%s - [%s] \&quot;%s %s %s %d %s \&quot;%s\&quot; %s\&quot;\n&quot;</span>,</span><br><span class="line">                param.ClientIP,</span><br><span class="line">                param.TimeStamp.Format(time.RFC1123),</span><br><span class="line">                param.Method,</span><br><span class="line">                param.Path,</span><br><span class="line">                param.Request.Proto,</span><br><span class="line">                param.StatusCode,</span><br><span class="line">                param.Latency,</span><br><span class="line">                param.Request.UserAgent(),</span><br><span class="line">                param.ErrorMessage,</span><br><span class="line">        )</span><br><span class="line">    &#125;))</span><br><span class="line">    router.Use(gin.Recovery())</span><br><span class="line"></span><br><span class="line">    router.GET(<span class="string">&quot;/ping&quot;</span>, <span class="function"><span class="keyword">func</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">        c.String(<span class="number">200</span>, <span class="string">&quot;pong&quot;</span>)</span><br><span class="line">    &#125;)</span><br><span class="line"></span><br><span class="line">    router.Run(<span class="string">&quot;:8080&quot;</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>输出：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">::1 - [Fri, 07 Dec 2018 17:04:38 JST] &quot;GET &#x2F;ping HTTP&#x2F;1.1 200 122.767µs &quot;Mozilla&#x2F;5.0 (Macintosh; Intel Mac OS X 10_11_6) AppleWebKit&#x2F;537.36 (KHTML, like Gecko) Chrome&#x2F;71.0.3578.80 Safari&#x2F;537.36&quot; &quot;</span><br></pre></td></tr></table></figure>
-
-<h5 id="控制日志颜色"><a href="#控制日志颜色" class="headerlink" title="控制日志颜色"></a>控制日志颜色</h5><p>关闭日志颜色</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gin.DisableConsoleColor()</span><br></pre></td></tr></table></figure>
-
-<p>开启日志颜色</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">gin.ForceConsoleColor()</span><br></pre></td></tr></table></figure>
-
-<h2 id="参数绑定和校验"><a href="#参数绑定和校验" class="headerlink" title="参数绑定和校验"></a>参数绑定和校验</h2><p>支持json、xml、yaml 和标准化form values</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/06/restful-%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/06/restful-%E8%AE%BE%E8%AE%A1%E8%A7%84%E8%8C%83/" class="post-title-link" itemprop="url">URL及参数设计规范</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-05 19:39:39" itemprop="dateCreated datePublished" datetime="2020-08-05T19:39:39Z">2020-08-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-26 12:27:59" itemprop="dateModified" datetime="2020-08-26T12:27:59Z">2020-08-26</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/" itemprop="url" rel="index"><span itemprop="name">架构设计</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9E%B6%E6%9E%84%E8%AE%BE%E8%AE%A1/restful/" itemprop="url" rel="index"><span itemprop="name">restful</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3.5k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="URL及参数设计规范"><a href="#URL及参数设计规范" class="headerlink" title="URL及参数设计规范"></a><strong>URL及参数设计规范</strong></h1><h2 id="1-uri设计规范"><a href="#1-uri设计规范" class="headerlink" title="1.uri设计规范"></a>1.uri设计规范</h2><ol>
-<li>uri末尾不需要出现斜杠/</li>
-<li>在uri中使用斜杠/是表达层级关系的。</li>
-<li>在uri中可以使用连接符-, 来提升可读性。<br>比如 <a target="_blank" rel="noopener" href="http://xxx.com/xx-yy">http://xxx.com/xx-yy</a> 比 <a target="_blank" rel="noopener" href="http://xxx.com/xx_yy%E4%B8%AD%E7%9A%84%E5%8F%AF%E8%AF%BB%E6%80%A7%E6%9B%B4%E5%A5%BD%E3%80%82">http://xxx.com/xx_yy中的可读性更好。</a></li>
-<li>在uri中不允许出现下划线字符_.</li>
-<li>在uri中尽量使用小写字符。</li>
-<li>在uri中不允许出现文件扩展名. 比如接口为 /xxx/api, 不要写成 /xxx/api.php 这样的是不合法的。</li>
-<li>在uri中使用复数形式。</li>
-</ol>
-<p>具体可以看：<a target="_blank" rel="noopener" href="https://blog.restcase.com/7-rules-for-rest-api-uri-design/">https://blog.restcase.com/7-rules-for-rest-api-uri-design/</a></p>
-<p>在RESTful架构中，每个uri代表一种资源，因此uri设计中不能使用动词，只能使用名词，并且名词中也应该尽量使用复数形式。使用者应该使用相应的http动词 GET、POST、PUT、PATCH、DELETE等操作这些资源即可。</p>
-<p>那么在我们未使用RESTful规范之前，我们是如下方式来定义接口的，形式是不固定的，并且没有统一的规范。比如如下形式:</p>
-<figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">http://xxx.com/api/getallUsers; // GET请求方式，获取所有的用户信息</span><br><span class="line">http://xxx.com/api/getuser/1;   // GET请求方式，获取标识为1的用户信息</span><br><span class="line">http://xxx.com/api/user/delete/1 // GET、POST 删除标识为1的用户信息</span><br><span class="line">http://xxx.com/api/updateUser/1  // POST请求方式 更新标识为1的用户信息</span><br><span class="line">http://xxx.com/api/User/add      // POST请求方式，添加新的用户</span><br></pre></td></tr></table></figure>
-
-<p>如上我们可以看到，在未使用Restful规范之前，接口形式是不固定的，没有统一的规范，下面我们来看下使用RESTful规范的接口如下，两者之间对比下就可以看到各自的优点了。</p>
-<ol>
-<li><p>api 有版本信息</p>
-<p>譬如： <code>/v1/xxoo</code> <code>/v2/xxoo</code></p>
-</li>
-<li><p>尽可能使用复数,且含义明确。名词最佳</p>
-<p><code>/v1/topics</code>  <code>/v1/users</code>  </p>
-<p><code>/v1/getusers</code> // 不推荐</p>
-</li>
-<li><p>使用get参数规划数据展示规则</p>
-</li>
-</ol>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;xxx.com&#x2F;api&#x2F;users;     &#x2F;&#x2F; GET请求方式 获取所有用户信息</span><br><span class="line">http:&#x2F;&#x2F;xxx.com&#x2F;api&#x2F;users&#x2F;1;   &#x2F;&#x2F; GET请求方式 获取标识为1的用户信息</span><br><span class="line">http:&#x2F;&#x2F;xxx.com&#x2F;api&#x2F;users&#x2F;1;   &#x2F;&#x2F; DELETE请求方式 删除标识为1的用户信息</span><br><span class="line">http:&#x2F;&#x2F;xxx.com&#x2F;api&#x2F;users&#x2F;1;   &#x2F;&#x2F; PATCH请求方式，更新标识为1的用户部分信息</span><br><span class="line">http:&#x2F;&#x2F;xxx.com&#x2F;api&#x2F;users;     &#x2F;&#x2F; POST请求方式 添加新的用户</span><br><span class="line">http:&#x2F;&#x2F;xxx.com&#x2F;api&#x2F;users?sex&#x3D;1  &#x2F;&#x2F; GET 请求获取sex&#x3D;1的用户是哪些</span><br><span class="line">http:&#x2F;&#x2F;xxx.com&#x2F;api&#x2F;users?country&#x3D;CN &#x2F;&#x2F; GET 请求获取country&#x3D;CN的用户是哪些</span><br><span class="line">http:&#x2F;&#x2F;xxx.com&#x2F;api&#x2F;users?limit&#x3D;10 &#x2F;&#x2F; GET 请求获取10个用户</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-HTTP请求规范"><a href="#2-HTTP请求规范" class="headerlink" title="2.HTTP请求规范"></a>2.HTTP请求规范</h2><p>GET (SELECT): 查询；从服务器取出资源.<br>POST(CREATE): 新增; 在服务器上新建一个资源。<br>PUT(UPDATE): 更新; 在服务器上更新资源(客户端提供改变后的完整资源)。<br>PATCH(UPDATE): 更新；在服务器上更新部分资源(客户端提供改变的属性)。<br>DELETE(DELETE): 删除; 从服务器上删除资源。</p>
-<h2 id="3-参数命名规范"><a href="#3-参数命名规范" class="headerlink" title="3.参数命名规范"></a>3.参数命名规范</h2><p>参数推荐采用下划线命名的方式。比如如下demo:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">http:&#x2F;&#x2F;xxx.com&#x2F;api&#x2F;today-login &#x2F;&#x2F; 获取今天登录的用户。</span><br><span class="line">http:&#x2F;&#x2F;xxx.com&#x2F;api&#x2F;today-login&amp;sort&#x3D;login_desc &#x2F;&#x2F; 获取今天登录的用户、登录时间降序排序。</span><br></pre></td></tr></table></figure>
-
-<h2 id="4-http状态码相关的"><a href="#4-http状态码相关的" class="headerlink" title="4.http状态码相关的"></a>4.http状态码相关的</h2><h3 id="状态码范围"><a href="#状态码范围" class="headerlink" title="状态码范围"></a>状态码范围</h3><p>客户端的每一次请求, 服务器端必须给出回应，回应一般包括HTTP状态码和数据两部分。</p>
-<p>1xx: 信息，请求收到了，继续处理;表示消息中包含一个临时的信息响应。<br>2xx: 代表成功. 行为被成功地接收、理解及采纳。<br>3xx: 重定向。<br>4xx: 客户端错误，请求包含语法错误或请求无法实现。<br>5xx: 服务器端错误.</p>
-<h4 id="2xx-状态码"><a href="#2xx-状态码" class="headerlink" title="2xx 状态码"></a>2xx 状态码</h4><p>200 OK [GET]: 服务器端成功返回用户请求的数据。<br>201 CREATED [POST/PUT/PATCH]: 用户新建或修改数据成功。<br>202 Accepted 表示一个请求已经进入后台排队(一般是异步任务)。<br>204 NO CONTENT -[DELETE]: 用户删除数据成功。</p>
-<h4 id="4xx状态码"><a href="#4xx状态码" class="headerlink" title="4xx状态码"></a>4xx状态码</h4><p>400：Bad Request - [POST/PUT/PATCH]: 用户发出的请求有错误，服务器不理解客户端的请求，未做任何处理。<br>401: Unauthorized; 表示用户没有权限(令牌、用户名、密码错误)。<br>403：Forbidden: 表示用户得到授权了，但是访问被禁止了, 也可以理解为不具有访问资源的权限。<br>404：Not Found: 所请求的资源不存在，或不可用。<br>405：Method Not Allowed: 用户已经通过了身份验证, 但是所用的HTTP方法不在它的权限之内。<br>406：Not Acceptable: 用户的请求的格式不可得(比如用户请求的是JSON格式，但是只有XML格式)。<br>410：Gone - [GET]: 用户请求的资源被转移或被删除。且不会再得到的。<br>415: Unsupported Media Type: 客户端要求的返回格式不支持，比如，API只能返回JSON格式，但是客户端要求返回XML格式。<br>422：Unprocessable Entity: 客户端上传的附件无法处理，导致请求失败。<br>429：Too Many Requests: 客户端的请求次数超过限额。</p>
-<h4 id="5xx-状态码"><a href="#5xx-状态码" class="headerlink" title="5xx 状态码"></a>5xx 状态码</h4><p>5xx 状态码表示服务器端错误。</p>
-<p>500：INTERNAL SERVER ERROR; 服务器发生错误。<br>502：网关错误。<br>503: Service Unavailable 服务器端当前无法处理请求。<br>504：网关超时。</p>
-<p>##5.统一返回数据格式</p>
-<p>RESTful规范中的请求应该返回统一的数据格式。对于返回的数据，一般会包含如下字段:</p>
-<ol>
-<li>code: http响应的状态码。</li>
-<li>status: 包含文本, 比如：’success’(成功), ‘fail’(失败), ‘error’(异常) HTTP状态响应码在500-599之间为 ‘fail’; 在400-499之间为 ‘error’, 其他一般都为 ‘success’。 对于响应状态码为 1xx, 2xx, 3xx 这样的可以根据实际情况可要可不要。</li>
-</ol>
-<p>当status的值为 ‘fail’ 或 ‘error’时，需要添加 message 字段，用于显示错误信息。</p>
-<ol start="3">
-<li>data: 当请求成功的时候, 返回的数据信息。 但是当状态值为 ‘fail’ 或 ‘error’ 时，data仅仅包含错误原因或异常信息等。</li>
-</ol>
-<p>返回成功的响应JSON格式一般为如下:</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;code&quot;</span>: <span class="number">200</span>,</span><br><span class="line">    <span class="attr">&quot;status&quot;</span>: <span class="string">&quot;success&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;data&quot;</span>: [&#123;</span><br><span class="line">        <span class="attr">&quot;userName&quot;</span>: <span class="string">&quot;tugenhua&quot;</span>,</span><br><span class="line">        <span class="attr">&quot;age&quot;</span>: <span class="number">31</span></span><br><span class="line">    &#125;]</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>返回失败的响应json格式为如下:</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">    <span class="attr">&quot;code&quot;</span>: <span class="number">401</span>,</span><br><span class="line">    <span class="attr">&quot;status&quot;</span>: <span class="string">&quot;error&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;message&quot;</span>: &#x27;用户没有权限&#x27;,</span><br><span class="line">    <span class="attr">&quot;data&quot;</span>: <span class="literal">null</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>从parameter获取map,array,从application/x-www-form-urlencoded body中获取map array</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">idMap := c.QueryMap(<span class="string">&quot;idMap&quot;</span>) <span class="comment">//从paramter获取map</span></span><br><span class="line">idArr := c.QueryArray(<span class="string">&quot;idArr&quot;</span>)<span class="comment">//从paramter获取array</span></span><br><span class="line">nameArr := c.PostFormArray(<span class="string">&quot;nameArr&quot;</span>) <span class="comment">// 从form获取map</span></span><br><span class="line">nameMap := c.PostFormMap(<span class="string">&quot;nameMap&quot;</span>)<span class="comment">// 从form获取array</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
       
     </div>
 
@@ -1575,7 +1432,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">55</span>
+          <span class="site-state-item-count">58</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1636,13 +1493,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">119k</span>
+    <span title="站点总字数">125k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:49</span>
+    <span title="站点阅读时长">1:54</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
