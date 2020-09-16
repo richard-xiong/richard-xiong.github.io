@@ -2,6 +2,48 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   
   <url>
+    <loc>https://richard-xiong.github.io/2020/09/17/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%8D%81%E4%BA%94-API%E9%99%90%E6%B5%813%E9%9B%86%E6%88%90%E9%99%90%E6%B5%81%E5%8A%9F%E8%83%BD%E5%88%B0%E6%88%91%E4%BB%AC%E7%9A%84%E6%9C%8D%E5%8A%A1%E4%B8%AD/</loc>
+    
+    <lastmod>2020-09-16</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://richard-xiong.github.io/2020/09/17/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%8D%81%E5%9B%9B-API%E9%99%90%E6%B5%812go%E5%86%85%E7%BD%AE%E7%9A%84rate%E5%8C%85%E5%AD%A6%E4%B9%A0%E4%B8%8B/</loc>
+    
+    <lastmod>2020-09-16</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://richard-xiong.github.io/2020/09/17/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%8D%81%E4%B8%89-API%E9%99%90%E6%B5%811go%E5%86%85%E7%BD%AE%E7%9A%84rate%E5%8C%85%E5%AD%A6%E4%B9%A0%E4%B8%8A/</loc>
+    
+    <lastmod>2020-09-16</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://richard-xiong.github.io/2020/09/17/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%8D%81%E4%BA%8C-%E4%BD%BF%E7%94%A8%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%9A%84%E6%96%B9%E5%BC%8F%E8%B0%83%E7%94%A8%E6%9C%8D%E5%8A%A1%E9%9A%8F%E6%9C%BA%E6%96%B9%E5%BC%8F/</loc>
+    
+    <lastmod>2020-09-16</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://richard-xiong.github.io/2020/09/17/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%8D%81%E4%B8%80-%E4%BD%BF%E7%94%A8%E8%B4%9F%E8%BD%BD%E5%9D%87%E8%A1%A1%E7%9A%84%E6%96%B9%E5%BC%8F%E8%B0%83%E7%94%A8%E6%9C%8D%E5%8A%A1%E8%BD%AE%E8%AF%A2%E6%96%B9%E5%BC%8F/</loc>
+    
+    <lastmod>2020-09-16</lastmod>
+    
+  </url>
+  
+  <url>
+    <loc>https://richard-xiong.github.io/2020/09/16/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%8D%81-%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0%E2%91%A2/</loc>
+    
+    <lastmod>2020-09-16</lastmod>
+    
+  </url>
+  
+  <url>
     <loc>https://richard-xiong.github.io/2020/09/16/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B9%9D-%E6%9C%8D%E5%8A%A1%E5%8F%91%E7%8E%B0%E2%91%A1/</loc>
     
     <lastmod>2020-09-15</lastmod>
@@ -366,14 +408,14 @@
   </url>
   
   <url>
-    <loc>https://richard-xiong.github.io/2020/08/06/Go-%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Gin%E6%A1%86%E6%9E%B6-%E4%BA%94/</loc>
+    <loc>https://richard-xiong.github.io/2020/08/06/Go-%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Gin%E6%A1%86%E6%9E%B6-%E4%BA%8C/</loc>
     
     <lastmod>2020-08-09</lastmod>
     
   </url>
   
   <url>
-    <loc>https://richard-xiong.github.io/2020/08/06/Go-%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Gin%E6%A1%86%E6%9E%B6-%E4%BA%8C/</loc>
+    <loc>https://richard-xiong.github.io/2020/08/06/Go-%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Gin%E6%A1%86%E6%9E%B6-%E4%BA%94/</loc>
     
     <lastmod>2020-08-09</lastmod>
     
@@ -466,7 +508,7 @@
 
   
   <url>
-    <loc>https://richard-xiong.github.io/tags/gin/</loc>
+    <loc>https://richard-xiong.github.io/tags/viper/</loc>
     <lastmod>2020-09-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -480,14 +522,14 @@
   </url>
   
   <url>
-    <loc>https://richard-xiong.github.io/tags/swageer/</loc>
+    <loc>https://richard-xiong.github.io/tags/gin/</loc>
     <lastmod>2020-09-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://richard-xiong.github.io/tags/viper/</loc>
+    <loc>https://richard-xiong.github.io/tags/swageer/</loc>
     <lastmod>2020-09-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -515,7 +557,7 @@
   </url>
   
   <url>
-    <loc>https://richard-xiong.github.io/tags/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/</loc>
+    <loc>https://richard-xiong.github.io/tags/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/</loc>
     <lastmod>2020-09-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -529,35 +571,14 @@
   </url>
   
   <url>
+    <loc>https://richard-xiong.github.io/tags/%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/</loc>
+    <lastmod>2020-09-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
     <loc>https://richard-xiong.github.io/tags/%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/</loc>
-    <lastmod>2020-09-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://richard-xiong.github.io/tags/%E6%8F%92%E5%85%A5%E6%8E%92%E5%BA%8F/</loc>
-    <lastmod>2020-09-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://richard-xiong.github.io/tags/%E6%8A%93%E5%8C%85/</loc>
-    <lastmod>2020-09-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://richard-xiong.github.io/tags/charles/</loc>
-    <lastmod>2020-09-16</lastmod>
-    <changefreq>daily</changefreq>
-    <priority>0.6</priority>
-  </url>
-  
-  <url>
-    <loc>https://richard-xiong.github.io/tags/https/</loc>
     <lastmod>2020-09-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -579,6 +600,27 @@
   
   <url>
     <loc>https://richard-xiong.github.io/tags/curl/</loc>
+    <lastmod>2020-09-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://richard-xiong.github.io/tags/%E6%8A%93%E5%8C%85/</loc>
+    <lastmod>2020-09-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://richard-xiong.github.io/tags/charles/</loc>
+    <lastmod>2020-09-16</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.6</priority>
+  </url>
+  
+  <url>
+    <loc>https://richard-xiong.github.io/tags/https/</loc>
     <lastmod>2020-09-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -655,7 +697,7 @@
   </url>
   
   <url>
-    <loc>https://richard-xiong.github.io/tags/redis/</loc>
+    <loc>https://richard-xiong.github.io/tags/shell/</loc>
     <lastmod>2020-09-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -669,7 +711,7 @@
   </url>
   
   <url>
-    <loc>https://richard-xiong.github.io/tags/shell/</loc>
+    <loc>https://richard-xiong.github.io/tags/redis/</loc>
     <lastmod>2020-09-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
@@ -713,14 +755,14 @@
   </url>
   
   <url>
-    <loc>https://richard-xiong.github.io/categories/%E6%8A%93%E5%8C%85/</loc>
+    <loc>https://richard-xiong.github.io/categories/k8s/</loc>
     <lastmod>2020-09-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>
   </url>
   
   <url>
-    <loc>https://richard-xiong.github.io/categories/k8s/</loc>
+    <loc>https://richard-xiong.github.io/categories/%E6%8A%93%E5%8C%85/</loc>
     <lastmod>2020-09-16</lastmod>
     <changefreq>daily</changefreq>
     <priority>0.6</priority>

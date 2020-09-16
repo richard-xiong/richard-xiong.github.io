@@ -133,7 +133,7 @@
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">58</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">64</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -196,6 +196,446 @@
 
           <div class="content index posts-expand">
             
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/leetcode%20%E6%95%B0%E7%BB%84-%E6%97%8B%E8%BD%AC%E7%9F%A9%E9%98%B5/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/07/leetcode%20%E6%95%B0%E7%BB%84-%E6%97%8B%E8%BD%AC%E7%9F%A9%E9%98%B5/" class="post-title-link" itemprop="url">旋转矩阵</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-06 22:08:43" itemprop="dateCreated datePublished" datetime="2020-08-06T22:08:43Z">2020-08-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-15 10:22:44" itemprop="dateModified" datetime="2020-08-15T10:22:44Z">2020-08-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/leetcode/%E6%95%B0%E7%BB%84/" itemprop="url" rel="index"><span itemprop="name">数组</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>921</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="合并区间"><a href="#合并区间" class="headerlink" title="合并区间"></a>合并区间</h3><p>给你一幅由 N × N 矩阵表示的图像，其中每个像素的大小为 4 字节。请你设计一种算法，将图像旋转 90 度。</p>
+<p>不占用额外内存空间能否做到？</p>
+<p>示例 1:</p>
+<p>给定 matrix =<br>[<br>  [1,2,3],<br>  [4,5,6],<br>  [7,8,9]<br>],</p>
+<p>原地旋转输入矩阵，使其变为:<br>[<br>  [7,4,1],<br>  [8,5,2],<br>  [9,6,3]<br>]<br>示例 2:</p>
+<p>给定 matrix =<br>[<br>  [ 5, 1, 9,11],<br>  [ 2, 4, 8,10],<br>  [13, 3, 6, 7],<br>  [15,14,12,16]<br>], </p>
+<p>原地旋转输入矩阵，使其变为:<br>[<br>  [15,13, 2, 5],<br>  [14, 3, 4, 1],<br>  [12, 6, 8, 9],<br>  [16, 7,10,11]<br>]</p>
+<p>作者：力扣 (LeetCode)<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/leetbook/read/array-and-string/clpgd/">https://leetcode-cn.com/leetbook/read/array-and-string/clpgd/</a><br>来源：力扣（LeetCode）<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<h3 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h3><ol>
+<li>用翻转代替旋转</li>
+</ol>
+<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">rotate</span><span class="params">(matrix [][]<span class="keyword">int</span>)</span></span>  &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 获取N</span></span><br><span class="line">    N := <span class="built_in">len</span>(matrix)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 先水平翻转</span></span><br><span class="line">    <span class="keyword">for</span> y := <span class="number">0</span>; y &lt; (N / <span class="number">2</span>); y++ &#123;</span><br><span class="line">        matrix[y], matrix[N<span class="number">-1</span>-y] = matrix[N<span class="number">-1</span>-y], matrix[y]</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 再按主对角线进行元素翻转</span></span><br><span class="line">    <span class="keyword">for</span> y := <span class="number">0</span>; y &lt; N; y++ &#123;</span><br><span class="line">        <span class="comment">/*</span></span><br><span class="line"><span class="comment">            这里需要注意，如果用 x&lt;N 这个条件，会导致对角线元素翻转两次，最终恢复原状，所以要 x&lt;y</span></span><br><span class="line"><span class="comment">            使得翻转的过程只进行一次，即</span></span><br><span class="line"><span class="comment">            y=0时，不进行翻转</span></span><br><span class="line"><span class="comment">            y=1时，只进行(1,0)和(0,1)元素翻转</span></span><br><span class="line"><span class="comment">            y=2时，(2,0)和(0,2)，(2,1)和(1,2)翻转</span></span><br><span class="line"><span class="comment">        */</span></span><br><span class="line">        <span class="keyword">for</span> x := <span class="number">0</span>; x &lt; y; x++ &#123;</span><br><span class="line">            matrix[y][x], matrix[x][y] = matrix[x][y], matrix[y][x]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="执行结果："><a href="#执行结果：" class="headerlink" title="执行结果："></a>执行结果：</h3><p>通过</p>
+<p>显示详情</p>
+<p>执行用时：0 ms, 在所有 Go 提交中击败了100.00%的用户</p>
+<p>内存消耗：2.2 MB, 在所有 Go 提交中击败了58.33%的用户</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/leetcode%20%E6%95%B0%E7%BB%84-%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/07/leetcode%20%E6%95%B0%E7%BB%84-%E5%90%88%E5%B9%B6%E5%8C%BA%E9%97%B4/" class="post-title-link" itemprop="url">合并区间</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-06 22:08:43" itemprop="dateCreated datePublished" datetime="2020-08-06T22:08:43Z">2020-08-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-15 05:13:55" itemprop="dateModified" datetime="2020-08-15T05:13:55Z">2020-08-15</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/leetcode/%E6%95%B0%E7%BB%84/" itemprop="url" rel="index"><span itemprop="name">数组</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>7.5k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>7 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="合并区间"><a href="#合并区间" class="headerlink" title="合并区间"></a>合并区间</h3><p>给出一个区间的集合，请合并所有重叠的区间。</p>
+<p>示例 1:</p>
+<p>输入: [[1,3],[2,6],[8,10],[15,18]]<br>输出: [[1,6],[8,10],[15,18]]<br>解释: 区间 [1,3] 和 [2,6] 重叠, 将它们合并为 [1,6].<br>示例 2:</p>
+<p>输入: [[1,4],[4,5]]<br>输出: [[1,5]]<br>解释: 区间 [1,4] 和 [4,5] 可被视为重叠区间。</p>
+<p>Go</p>
+<p>作者：力扣 (LeetCode)<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/leetbook/read/array-and-string/c5tv3/">https://leetcode-cn.com/leetbook/read/array-and-string/c5tv3/</a><br>来源：力扣（LeetCode）<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
+<h3 id="思路："><a href="#思路：" class="headerlink" title="思路："></a>思路：</h3><ol>
+<li><p>先将区间按照 start 进行排序 遍历每个区间，</p>
+</li>
+<li><p>开始向后遍历 是否区间满足合并的条件</p>
+</li>
+<li><pre><code class="go">#初始
+left := intervals[i][0]
+right := intervals[i][1] 
+&lt;!--hexoPostRenderEscape:&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;43&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;44&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;45&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;46&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;47&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;48&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;   从&amp;#96;j &amp;#x3D; i + 1&amp;#96;开始 判断后面j区间的开始&amp;#96;intervals[j][0]&amp;#96;是否&amp;#96;&amp;lt;&amp;#x3D;right&amp;#96; 是 则可以合并 切新区间的&amp;#96;left&amp;#x3D;left right &amp;#x3D; max(right, intervals[j][1])&amp;#96;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;​    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;### 代码实现&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#96;&amp;#96;&amp;#96;go&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;type MergeSlice [][]int&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;func (s MergeSlice) Len() int           &amp;#123; return len(s) &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;func (s MergeSlice) Swap(i, j int)      &amp;#123; s[i], s[j] &amp;#x3D; s[j], s[i] &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;func (s MergeSlice) Less(i, j int) bool &amp;#123; return s[i][0] &amp;lt; s[j][0] &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;func merge(intervals [][]int) [][]int &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    sort.Sort(MergeSlice(intervals)) &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    retList :&amp;#x3D; make([][]int, 0)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    size :&amp;#x3D; len(intervals)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    var i int&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    for i &amp;lt; size &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        left :&amp;#x3D; intervals[i][0]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        right :&amp;#x3D; intervals[i][1]&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        j :&amp;#x3D; i + 1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        for j &amp;lt; size &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            if intervals[j][0] &amp;lt;&amp;#x3D; right &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                right &amp;#x3D; Max(intervals[j][1], right)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                j++&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;#125; else &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;                break&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;            &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        ret :&amp;#x3D; []int&amp;#123;left, right&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        retList &amp;#x3D; append(retList, ret)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        i &amp;#x3D; j       &amp;#x2F;&amp;#x2F; 合并之后i&amp;#x3D;j+1 没有合并i&amp;#x3D;i+1 都可以用i&amp;#x3D;j表示&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    return retList&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;func Max(a, b int) int &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    if a &amp;gt;&amp;#x3D; b &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        return a&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125; else &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        return b&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;:hexoPostRenderEscape--&gt;
+</code></pre>
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/mysql%20%E6%8C%87%E5%AE%9A%E6%9D%A1%E7%9B%AE%E6%95%B0%E9%87%8F%E6%9B%B4%E6%96%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/07/mysql%20%E6%8C%87%E5%AE%9A%E6%9D%A1%E7%9B%AE%E6%95%B0%E9%87%8F%E6%9B%B4%E6%96%B0/" class="post-title-link" itemprop="url">mysql--update for select 1</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-06 22:08:43" itemprop="dateCreated datePublished" datetime="2020-08-06T22:08:43Z">2020-08-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-14 12:21:01" itemprop="dateModified" datetime="2020-08-14T12:21:01Z">2020-08-14</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mysql/" itemprop="url" rel="index"><span itemprop="name">mysql</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/mysql/beego/" itemprop="url" rel="index"><span itemprop="name">beego</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="需求-select-1-for-update"><a href="#需求-select-1-for-update" class="headerlink" title="需求 select 1 for update"></a>需求 select 1 for update</h3><p> 根据过滤条件 然后根据时间降序查询最近得一条记录 然后更新</p>
+<h3 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h3><p>mysql的update语句只支持更新前多少行，不支持从某行到另一行，比如<br><code>UPDATE tb_name SET column_name=&#39;test&#39; ORDER BY id ASC LIMIT 30;</code><br>更新前30行的某个字段内容，没什么问题。</p>
+<h3 id="beego的代码实现"><a href="#beego的代码实现" class="headerlink" title="beego的代码实现"></a>beego的代码实现</h3><p>初始版本</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">cardOrm.QueryTable(model.CardRecord&#123;&#125;).Filter(<span class="string">&quot;user_id&quot;</span>, cardRecord.UserId).</span><br><span class="line">                    Filter(<span class="string">&quot;card_id&quot;</span>, cardRecord.CardId).</span><br><span class="line">                    Filter(<span class="string">&quot;create_date&quot;</span>, period).OrderBy(<span class="string">&quot;-ctime&quot;</span>).One(&amp;cardRecordRes)</span><br><span class="line">                <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">                    logs.Error(<span class="string">&quot;GetCardInfo error!&quot;</span>, err.Error())</span><br><span class="line">                    <span class="built_in">panic</span>(&amp;b_error.BizError&#123;Code: constant.ServerError, Message: <span class="string">&quot;server has something wrong&quot;</span>&#125;)</span><br><span class="line">                &#125;</span><br><span class="line">                cardRecordRes.RealRewardNum = consolation</span><br><span class="line">                cardRecordRes.RealRewardType = cardRecord.RewardType</span><br><span class="line">                cardRecordRes.SymbolUrl = infoList[index].SymbolUrl</span><br><span class="line"></span><br><span class="line">                _, err = cardOrm.Update(&amp;cardRecordRes)</span><br></pre></td></tr></table></figure>
+
+<p>这样的代码会执行两条sql，如果外面再套个for循环个50次 那么久会相当于和mysql 做了100次交互</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">16</span>:<span class="number">24</span>:<span class="number">44</span><span class="variable">.363</span> [orm_log<span class="variable">.go</span>:<span class="number">67</span>]  [ORM]<span class="number">2020</span>/<span class="number">08</span>/<span class="number">14</span> <span class="number">16</span>:<span class="number">24</span>:<span class="number">44</span>  -[Queries/<span class="keyword">default</span>] - [  OK /    db<span class="variable">.Query</span> /    <span class="number">34</span><span class="variable">.1ms</span>] - [SELECT T0.<span class="meta">`id`, T0.`user_id`, T0.`create_date`, T0.`card_id`, T0.`state`, T0.`ctime`, T0.`reward_type`, T0.`reward_num`, T0.`real_reward_num`, T0.`real_reward_type`, T0.`lock_type`, T0.`background_url`, T0.`symbol_url` FROM `card_record` T0 WHERE T0.`user_id` = ? AND T0.`card_id` = ? AND T0.`create_date` = ? ORDER BY T0.`ctime` DESC LIMIT 1] - `711`, `67`, `20200814`</span></span><br><span class="line"></span><br><span class="line"><span class="number">2020</span>/<span class="number">08</span>/<span class="number">14</span> <span class="number">16</span>:<span class="number">24</span>:<span class="number">44</span><span class="variable">.453</span> [orm_log<span class="variable">.go</span>:<span class="number">67</span>]  [ORM]<span class="number">2020</span>/<span class="number">08</span>/<span class="number">14</span> <span class="number">16</span>:<span class="number">24</span>:<span class="number">44</span>  -[Queries/<span class="keyword">default</span>] - [  OK /     db<span class="variable">.Exec</span> /    <span class="number">90</span><span class="variable">.2ms</span>] - [UPDATE <span class="meta">`card_record` SET `user_id` = ?, `create_date` = ?, `card_id` = ?, `state` = ?, `ctime` = ?, `reward_type` = ?, `reward_num` = ?, `real_reward_num` = ?, `real_reward_type` = ?, `lock_type` = ?, `background_url` = ?, `symbol_url` = ? WHERE `id` = ?] - `711`, `20200814`, `67`, `2`, `1597393475`, `12`, `100`, `100`, `12`, `1`, `/card/b-27.png`, `s4`, `41150`</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>预想的版本</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">cardOrm.QueryTable(model.CardRecord&#123;&#125;).Filter(<span class="string">&quot;user_id&quot;</span>, cardRecord.UserId).</span><br><span class="line">                    Filter(<span class="string">&quot;card_id&quot;</span>, cardRecord.CardId).</span><br><span class="line">Filter(<span class="string">&quot;create_date&quot;</span>, period).OrderBy(<span class="string">&quot;-ctime&quot;</span>).limit(<span class="number">1</span>,<span class="number">0</span>).update(orm.params&#123;</span><br><span class="line">  <span class="string">&quot;RealRewardNum&quot;</span>:consolation,</span><br><span class="line">  <span class="string">&quot;RealRewardType&quot;</span>:cardRecord.RewardType,</span><br><span class="line">  <span class="string">&quot;SymbolUrl&quot;</span>:infoList[index].SymbolUrl</span><br><span class="line">&#125;)</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p>但是输出的语句是</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2020</span>/<span class="number">08</span>/<span class="number">14</span> <span class="number">17</span>:<span class="number">19</span>:<span class="number">37</span><span class="variable">.159</span> [orm_log<span class="variable">.go</span>:<span class="number">67</span>]  [ORM]<span class="number">2020</span>/<span class="number">08</span>/<span class="number">14</span> <span class="number">17</span>:<span class="number">19</span>:<span class="number">37</span>  -[Queries/<span class="keyword">default</span>] - [  OK /     db<span class="variable">.Exec</span> /    <span class="number">11</span><span class="variable">.2ms</span>] - [update card_record set real_reward_num = ?,real_reward_type=?,symbol_url=? where user_id=? <span class="keyword">and</span> card_id=? <span class="keyword">and</span> create_date=? ] - <span class="meta">`30`, `12`, `s6`, `717`, `68`, `20200814`</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>虽然 减少一次select 的操作 ，但是可以看出暂时beego 不支持 query order by limit update 联合使用 我们只能手写sql </p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">_, err := cardOrm.Raw(<span class="string">&quot;update card_record set real_reward_num = ?,real_reward_type=?,symbol_url=?&quot;</span>+</span><br><span class="line">    <span class="string">&quot; where user_id=? and card_id=?&quot;</span>+</span><br><span class="line">    <span class="string">&quot; and create_date=? order by ctime DESC limit 1 &quot;</span>, consolation, cardRecord.RewardType,</span><br><span class="line">    infoList[index].SymbolUrl, cardRecord.UserId, cardRecord.CardId, period).Exec()</span><br></pre></td></tr></table></figure>
+
+<p>输出sql</p>
+<figure class="highlight verilog"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="number">2020</span>/<span class="number">08</span>/<span class="number">14</span> <span class="number">17</span>:<span class="number">19</span>:<span class="number">37</span><span class="variable">.159</span> [orm_log<span class="variable">.go</span>:<span class="number">67</span>]  [ORM]<span class="number">2020</span>/<span class="number">08</span>/<span class="number">14</span> <span class="number">17</span>:<span class="number">19</span>:<span class="number">37</span>  -[Queries/<span class="keyword">default</span>] - [  OK /     db<span class="variable">.Exec</span> /    <span class="number">11</span><span class="variable">.2ms</span>] - [update card_record set real_reward_num = ?,real_reward_type=?,symbol_url=? where user_id=? <span class="keyword">and</span> card_id=? <span class="keyword">and</span> create_date=? order by ctime DESC limit <span class="number">1</span> ] - <span class="meta">`30`, `12`, `s6`, `717`, `68`, `20200814`</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+<p> <code>Finish</code></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/zip-unzip%E7%9A%84%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/07/zip-unzip%E7%9A%84%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">zip&unzip的使用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-06 22:03:55" itemprop="dateCreated datePublished" datetime="2020-08-06T22:03:55Z">2020-08-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-09 13:49:52" itemprop="dateModified" datetime="2020-08-09T13:49:52Z">2020-08-09</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/linux/%E8%BF%90%E7%BB%B4/" itemprop="url" rel="index"><span itemprop="name">运维</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>319</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="zip的使用"><a href="#zip的使用" class="headerlink" title="zip的使用"></a>zip的使用</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">zip -r myfile.zip ./*</span><br><span class="line">将当前目录下的所有文件和文件夹全部压缩成myfile.zip文件,－r表示递归压缩子目录下所有文件.</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="unzip-的使用"><a href="#unzip-的使用" class="headerlink" title="unzip 的使用"></a>unzip 的使用</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">unzip -o -d /home/sunny myfile.zip</span><br><span class="line">把myfile.zip文件解压到 /home/sunny/</span><br><span class="line">-o:不提示的情况下覆盖文件；</span><br><span class="line">-d:-d /home/sunny 指明将文件解压缩到/home/sunny目录下；</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="对已有zip包的更改"><a href="#对已有zip包的更改" class="headerlink" title="对已有zip包的更改"></a>对已有zip包的更改</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">zip -d myfile.zip smart.txt</span><br><span class="line">删除压缩文件中smart.txt文件</span><br><span class="line">zip -m myfile.zip ./rpm_info.txt</span><br><span class="line">向压缩文件中myfile.zip中添加rpm_info.txt文件</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
       
   
   
@@ -289,6 +729,207 @@
 <p>最好情况下，数组已经是有序的，每插入一个元素，只需要考查前一个元素，因此最好情况下，插入排序的时间复杂度为<code>O(N)</code>。</p>
 <p>平均时间复杂度  <code>(O(N^2)+O(n))/2=O(n^2)</code></p>
 <h3 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h3><p>因为没有借助额外的空间 空间浮渣度为<code>O(1)</code></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/algorithm-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/07/algorithm-%E5%BD%92%E5%B9%B6%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">algorithm-归并排序</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-06 21:56:21" itemprop="dateCreated datePublished" datetime="2020-08-06T21:56:21Z">2020-08-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-13 13:20:52" itemprop="dateModified" datetime="2020-08-13T13:20:52Z">2020-08-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/sort/" itemprop="url" rel="index"><span itemprop="name">sort</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="归并排序的思路"><a href="#归并排序的思路" class="headerlink" title="归并排序的思路"></a>归并排序的思路</h3><p>将一排数据，进行左右不断地进行划分（递[归]），然后再对比左右两边的数据后再(合[并])，这就是”归并排序“。</p>
+<blockquote>
+<p>注意：[左右]对比，是指左的第一个元素，与右边的第一个元素进行对比，哪个小，就先放到结果的第一位，然后左或右取出了元素的那边的索引进行++，没有取出的元素的，则不用进行++。 比较完后，还要分别将左，右的剩余的元素，追加到结果列的后面</p>
+</blockquote>
+<h2 id="归并排序-MergeSort"><a href="#归并排序-MergeSort" class="headerlink" title="归并排序(MergeSort)"></a>归并排序(MergeSort)</h2><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br></pre></td><td class="code"><pre><span class="line">package main</span><br><span class="line"></span><br><span class="line">import <span class="string">&quot;fmt&quot;</span></span><br><span class="line"></span><br><span class="line">import <span class="string">&quot;time&quot;</span></span><br><span class="line">import number <span class="string">&quot;github.com/emacsist/go-common/helper/number&quot;</span></span><br><span class="line"></span><br><span class="line">func <span class="function"><span class="title">main</span></span>() &#123;</span><br><span class="line">    data := number.GenerateInt(100000, 100000)</span><br><span class="line">    start := makeTimestamp()</span><br><span class="line">    // fmt.Printf(<span class="string">&quot;%v\n&quot;</span>, data)</span><br><span class="line">    data = mergeSort(data)</span><br><span class="line">    fmt.Printf(<span class="string">&quot;cost %v ms \n&quot;</span>, makeTimestamp()-start)</span><br><span class="line">    // fmt.Printf(<span class="string">&quot;%v\n&quot;</span>, data)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//------------------------------------------------------------------------------</span><br><span class="line"></span><br><span class="line">func makeTimestamp() int64 &#123;</span><br><span class="line">    <span class="built_in">return</span> time.Now().UnixNano() / int64(time.Millisecond)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func mergeSort(data []int) []int &#123;</span><br><span class="line">    <span class="keyword">if</span> len(data) &lt;= 1 &#123;</span><br><span class="line">        <span class="built_in">return</span> data</span><br><span class="line">    &#125;</span><br><span class="line">    //递[归]</span><br><span class="line">    middle := len(data) / 2</span><br><span class="line">    //不断地进行左右对半划分</span><br><span class="line">    left := mergeSort(data[:middle])</span><br><span class="line">    right := mergeSort(data[middle:])</span><br><span class="line">    //合[并]</span><br><span class="line">    <span class="built_in">return</span> merge(left, right)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">func merge(left, right []int) (result []int) &#123;</span><br><span class="line">    l, r := 0, 0</span><br><span class="line"></span><br><span class="line">    // 注意：[左右]对比，是指左的第一个元素，与右边的第一个元素进行对比，哪个小，就先放到结果的第一位，然后左或右取出了元素的那边的索引进行++</span><br><span class="line">    <span class="keyword">for</span> l &lt; len(left) &amp;&amp; r &lt; len(right) &#123;</span><br><span class="line">        //从小到大排序.</span><br><span class="line">        <span class="keyword">if</span> left[l] &gt; right[r] &#123;</span><br><span class="line">            result = append(result, right[r])</span><br><span class="line">            //因为处理了右边的第r个元素，所以r的指针要向前移动一个单位</span><br><span class="line">            r++</span><br><span class="line">        &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">            result = append(result, left[l])</span><br><span class="line">            //因为处理了左边的第l个元素，所以l的指针要向前移动一个单位</span><br><span class="line">            l++</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    // 比较完后，还要分别将左，右的剩余的元素，追加到结果列的后面(不然就漏咯）。</span><br><span class="line">    result = append(result, left[l:]...)</span><br><span class="line">    result = append(result, right[r:]...)</span><br><span class="line">    <span class="built_in">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h3><p>假设解决最后的子问题用时为常数c，则对于n个待排序记录来说整个问题的规模为<code>cn</code>。</p>
+<p><img src="https://img-blog.csdn.net/20170909101802866?watermark/2/text/aHR0cDovL2Jsb2cuY3Nkbi5uZXQvc2luYXRfMzYzMDY0NzQ=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70/gravity/SouthEast" alt="这里写图片描述"></p>
+<p>从这个递归树可以看出，第一层时间代价为cn，第二层时间代价为<code>cn/2+cn/2=cn…..</code>每一层代价都是<code>cn</code>，总共有<code>logn+1</code>层。所以总的时间代价为<code>cn*(logn+1)</code>.时间复杂度是<code>o(nlogn)</code>.</p>
+<h3 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h3><p>需要使用辅助数组的长度和待排序的数组相同 ，因此空间复杂度还是<code>O(n)</code></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/algorithm-%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/07/algorithm-%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/" class="post-title-link" itemprop="url">algorithm-希尔排序</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-06 21:56:21" itemprop="dateCreated datePublished" datetime="2020-08-06T21:56:21Z">2020-08-06</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-13 13:46:36" itemprop="dateModified" datetime="2020-08-13T13:46:36Z">2020-08-13</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/" itemprop="url" rel="index"><span itemprop="name">algorithm</span></a>
+                </span>
+                  ，
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/algorithm/sort/" itemprop="url" rel="index"><span itemprop="name">sort</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="希尔排序的思路"><a href="#希尔排序的思路" class="headerlink" title="希尔排序的思路"></a>希尔排序的思路</h3><p><strong>希尔排序是把记录按下标的一定增量分组，对每组使用直接插入排序算法排序；随着增量逐渐减少，每组包含的关键词越来越多，当增量减至1时，整个文件恰被分成一组，算法便终止。</strong></p>
+<p>序列是比较常用的，也是希尔建议的增量，称为希尔增量，但其实这个增量序列不是最优的。此处我们做示例使用希尔增量。</p>
+<p><img src="https://images2015.cnblogs.com/blog/1024555/201611/1024555-20161128110416068-1421707828.png" alt="img"></p>
+<p>上代码</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    <span class="string">&quot;time&quot;</span></span><br><span class="line">    <span class="string">&quot;math/rand&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="keyword">var</span> length = <span class="number">15</span></span><br><span class="line">    <span class="keyword">var</span> list []<span class="keyword">int</span></span><br><span class="line"></span><br><span class="line">    <span class="comment">// 以时间戳为种子生成随机数，保证每次运行数据不重复</span></span><br><span class="line">    r := rand.New(rand.NewSource(time.Now().UnixNano()))</span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; length; i++ &#123;</span><br><span class="line">        list = <span class="built_in">append</span>(list, <span class="keyword">int</span>(r.Intn(<span class="number">1000</span>)))</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Println(list)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 这里就以n/2为增量z</span></span><br><span class="line">    gap := <span class="number">2</span></span><br><span class="line">    step := length / gap</span><br><span class="line"></span><br><span class="line">    <span class="keyword">for</span> step &gt;= <span class="number">1</span> &#123;</span><br><span class="line">        <span class="comment">// 这里按步长开始每个分组的排序</span></span><br><span class="line">        <span class="keyword">for</span> i := step; i &lt; length; i++ &#123;</span><br><span class="line">            <span class="comment">// 将按步长分组的子队列用直接插入排序算法进行排序</span></span><br><span class="line">            insertionSortByStep(list, step)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 完成一轮后再次缩小增量</span></span><br><span class="line">        step /= gap</span><br><span class="line"></span><br><span class="line">        <span class="comment">// 输出每轮缩小增量各组排序后的结果</span></span><br><span class="line">        fmt.Println(list)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 这里把上篇直接选择排序的算法抽出来，并将步长从1改成step</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">insertionSortByStep</span><span class="params">(tree []<span class="keyword">int</span>, step <span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> i := step; i &lt; <span class="built_in">len</span>(tree); i++ &#123;</span><br><span class="line">        <span class="keyword">for</span> j := i; j &gt;= step &amp;&amp; tree[j] &lt; tree[j-step]; j -= step &#123;</span><br><span class="line">            tree[j], tree[j-step] = tree[j-step], tree[j]</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="时间复杂度分析"><a href="#时间复杂度分析" class="headerlink" title="时间复杂度分析"></a>时间复杂度分析</h3><p>最坏情况：O($ \log n^2$)<br>最好情况:    O($ \log 2n$)<br>平均情况：  O($ \log 2/3n$)  </p>
+<h3 id="空间复杂度"><a href="#空间复杂度" class="headerlink" title="空间复杂度"></a>空间复杂度</h3><p>因为没有借助额外的空间 空间浮渣度为<code>O(1)</code></p>
+<p>Shell排序比冒泡排序快5倍，比插入排序大致快2倍。Shell排序比起QuickSort，MergeSort，HeapSort慢很多。但是它相对比较简单，它适合于数据量在5000以下并且速度并不是特别重要的场合。它对于数据量较小的数列重复排序是非常好的。</p>
 
       
     </div>
@@ -637,734 +1278,10 @@
   
   
 
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/%E7%AB%AF%E5%8F%A3%E5%8D%A0%E7%94%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/07/%E7%AB%AF%E5%8F%A3%E5%8D%A0%E7%94%A8/" class="post-title-link" itemprop="url">端口占用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-06 20:44:15" itemprop="dateCreated datePublished" datetime="2020-08-06T20:44:15Z">2020-08-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-09 13:49:52" itemprop="dateModified" datetime="2020-08-09T13:49:52Z">2020-08-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/%E8%BF%90%E7%BB%B4/" itemprop="url" rel="index"><span itemprop="name">运维</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="查看端口占用"><a href="#查看端口占用" class="headerlink" title="查看端口占用"></a>查看端口占用</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> mac使用lsof 查看端口8080是否被占用 </span></span><br><span class="line">lsof -i:8080</span><br><span class="line"><span class="meta">&gt;</span></span><br><span class="line">COMMAND PID          USER   FD   TYPE            DEVICE SIZE/OFF NODE NAME</span><br><span class="line">BaiduHi 444 mengfanxing_g   54u  IPv4 0xa65d4596444d7d5      0t0  TCP localhost:63023-&gt;123.125.115.205:http-alt (ESTABLISHED)</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> linux 使用netstat 查看8080是佛被占用</span></span><br><span class="line">netstat -anp| grep 8080</span><br><span class="line"><span class="meta">&gt;</span></span><br><span class="line">(Not all processes could be identified, non-owned process info</span><br><span class="line"> will not be shown, you would have to be root to see it all.)</span><br><span class="line">tcp6       0      0 :::8080                 :::*                    LISTEN      25263/./new-meet-ro</span><br><span class="line">tcp6       0      0 x.x.x.x:33316      117.78.7.65:8080        ESTABLISHED 26598/java</span><br><span class="line">tcp6       0      0 x.x.x.x:33236      117.78.7.65:8080        ESTABLISHED 26509/java</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="根据pid查看进程"><a href="#根据pid查看进程" class="headerlink" title="根据pid查看进程"></a>根据pid查看进程</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 使用lsof 查看pid=25263的进程</span></span><br><span class="line">lsof -i: grep 25263</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> new-meet- 25263 work    6u  IPv6 1043683416      0t0  TCP *:webcache (LISTEN)</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 使用netstat 查看pid=25263的进程</span></span><br><span class="line">netstat -nap | grep 25263</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> (Not all processes could be identified, non-owned process info</span></span><br><span class="line"> will not be shown, you would have to be root to see it all.)</span><br><span class="line">tcp6       0      0 :::8080                 :::*                    LISTEN      25263/./new-meet-ro</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="查看远程端口是否打开"><a href="#查看远程端口是否打开" class="headerlink" title="查看远程端口是否打开"></a>查看远程端口是否打开</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 使用nc 来检查单个端口</span></span><br><span class="line">nc -zv 127.0.0.1 22</span><br><span class="line"><span class="meta">&gt;</span><span class="bash">  Connection to 127.0.0.1 port 22 [tcp/ssh] succeeded!</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> 使用nc 来检查一段打开的端口范围</span></span><br><span class="line">nc -zv 127.0.0.1 22-24</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Connection to 127.0.0.1 port 22 [tcp/ssh] succeeded!</span></span><br><span class="line">nc: connectx to 127.0.0.1 port 23 (tcp) failed: Connection refused</span><br><span class="line">nc: connectx to 127.0.0.1 port 24 (tcp) failed: Connection refused</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/06/%E4%BF%AE%E6%94%B9linux%E6%97%B6%E5%8C%BA/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/06/%E4%BF%AE%E6%94%B9linux%E6%97%B6%E5%8C%BA/" class="post-title-link" itemprop="url">修改linux时区</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-06 14:23:47" itemprop="dateCreated datePublished" datetime="2020-08-06T14:23:47Z">2020-08-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-09 13:49:52" itemprop="dateModified" datetime="2020-08-09T13:49:52Z">2020-08-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/%E8%BF%90%E7%BB%B4/" itemprop="url" rel="index"><span itemprop="name">运维</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>75</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="查看当前时区"><a href="#查看当前时区" class="headerlink" title="查看当前时区"></a>查看当前时区</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">date -R</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="修改时区为东八区"><a href="#修改时区为东八区" class="headerlink" title="修改时区为东八区"></a>修改时区为东八区</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sudo cp /usr/share/zoneinfo/Asia/Shanghai /etc/localtime</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/06/vim%E7%9A%84%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/06/vim%E7%9A%84%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">vim的常用命令</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-06 14:19:31" itemprop="dateCreated datePublished" datetime="2020-08-06T14:19:31Z">2020-08-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-09 13:49:52" itemprop="dateModified" datetime="2020-08-09T13:49:52Z">2020-08-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/vim/" itemprop="url" rel="index"><span itemprop="name">vim</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>203</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="vim-多行注释"><a href="#vim-多行注释" class="headerlink" title="vim 多行注释"></a>vim 多行注释</h3><ol>
-<li>首先按 esc 进入命令<strong>行</strong>模式下，按下 Ctrl + v ，进入列（也叫区块）模式;</li>
-<li>在<strong>行</strong>首使用上下键选择需要<strong>注释</strong>的<strong>多行</strong>;</li>
-<li>按下键盘（大写） “I” 键，进入插入模式；</li>
-<li>然后输入<strong>注释</strong>符（ “//”、“#”     等）;</li>
-<li>最后按下 “Esc” 键。 注：在按下 esc 键后，会稍等一会才会出现<strong>注释</strong>，不要着急~~时间很短的</li>
-</ol>
-<h3 id="vim-多行取消注释"><a href="#vim-多行取消注释" class="headerlink" title="vim 多行取消注释"></a>vim 多行取消注释</h3><ol>
-<li>Ctrl + v 进入块选择模式</li>
-<li>选中你要删除的行首的注释符号，注意// 要选中两个</li>
-<li>选好之后按d即可删除注释</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/06/Go-%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Gin%E6%A1%86%E6%9E%B6-%E4%BA%94/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/06/Go-%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Gin%E6%A1%86%E6%9E%B6-%E4%BA%94/" class="post-title-link" itemprop="url">Go 语言学习笔记 Gin框架(五)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-05 19:39:57" itemprop="dateCreated datePublished" datetime="2020-08-05T19:39:57Z">2020-08-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-09 13:49:52" itemprop="dateModified" datetime="2020-08-09T13:49:52Z">2020-08-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/go/" itemprop="url" rel="index"><span itemprop="name">go</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/go/gin/" itemprop="url" rel="index"><span itemprop="name">gin</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>4k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>4 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="gin-router的使用"><a href="#gin-router的使用" class="headerlink" title="gin router的使用"></a>gin router的使用</h1><h2 id="gin简单的router-启动一个http服务"><a href="#gin简单的router-启动一个http服务" class="headerlink" title="gin简单的router 启动一个http服务"></a>gin简单的router 启动一个http服务</h2><h3 id="基本的router-注册"><a href="#基本的router-注册" class="headerlink" title="基本的router 注册"></a>基本的router 注册</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;net/http&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">helloHandler</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">    c.JSON(http.StatusOK, gin.H&#123;</span><br><span class="line">        <span class="string">&quot;message&quot;</span>: <span class="string">&quot;Hello q1mi!&quot;</span>,</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    r := gin.Default()</span><br><span class="line">    r.GET(<span class="string">&quot;/hello&quot;</span>, helloHandler)</span><br><span class="line">    <span class="keyword">if</span> err := r.Run(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">&quot;startup service failed, err:%v\n&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>优点：</p>
-<p>适用于路由条目比较少的简单项目或者项目demo。</p>
-<h3 id="路由拆分成单独文件或者包"><a href="#路由拆分成单独文件或者包" class="headerlink" title="路由拆分成单独文件或者包"></a>路由拆分成单独文件或者包</h3><p>当项目的规模增大后就不太适合继续在项目的<code>main.go</code>文件中去实现路由注册相关逻辑了，我们会倾向于把路由部分的代码都拆分出来，形成一个单独的文件或包：</p>
-<p>我们在<code>routers.go</code>文件中定义并注册路由信息：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;net/http&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">helloHandler</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">    c.JSON(http.StatusOK, gin.H&#123;</span><br><span class="line">        <span class="string">&quot;message&quot;</span>: <span class="string">&quot;Hello q1mi!&quot;</span>,</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">setupRouter</span><span class="params">()</span> *<span class="title">gin</span>.<span class="title">Engine</span></span> &#123;</span><br><span class="line">    r := gin.Default()</span><br><span class="line">    r.GET(<span class="string">&quot;/hello&quot;</span>, helloHandler)</span><br><span class="line">    <span class="keyword">return</span> r</span><br></pre></td></tr></table></figure>
-
-<p>此时<code>main.go</code>中调用上面定义好的<code>setupRouter</code>函数：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    r := setupRouter()</span><br><span class="line">    <span class="keyword">if</span> err := r.Run(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">&quot;startup service failed, err:%v\n&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>此时的目录结构：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">gin_demo</span><br><span class="line">├── go.mod</span><br><span class="line">├── go.sum</span><br><span class="line">├── main.go</span><br><span class="line">└── routers.go</span><br></pre></td></tr></table></figure>
-
-<p>把路由部分的代码单独拆分成包的话也是可以的，拆分后的目录结构如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">gin_demo</span><br><span class="line">├── go.mod</span><br><span class="line">├── go.sum</span><br><span class="line">├── main.go</span><br><span class="line">└── routers</span><br><span class="line">    └── routers.go</span><br></pre></td></tr></table></figure>
-
-<p><code>routers/routers.go</code>需要注意此时<code>setupRouter</code>需要改成首字母大写：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> routers</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;net/http&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">helloHandler</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">    c.JSON(http.StatusOK, gin.H&#123;</span><br><span class="line">        <span class="string">&quot;message&quot;</span>: <span class="string">&quot;Hello q1mi!&quot;</span>,</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// SetupRouter 配置路由信息</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">SetupRouter</span><span class="params">()</span> *<span class="title">gin</span>.<span class="title">Engine</span></span> &#123;</span><br><span class="line">    r := gin.Default()</span><br><span class="line">    r.GET(<span class="string">&quot;/hello&quot;</span>, helloHandler)</span><br><span class="line">    <span class="keyword">return</span> r</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>main.go</code>文件内容如下：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;fmt&quot;</span></span><br><span class="line">    <span class="string">&quot;gin_demo/routers&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    r := routers.SetupRouter()</span><br><span class="line">    <span class="keyword">if</span> err := r.Run(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">&quot;startup service failed, err:%v\n&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="路由拆分成多个文件"><a href="#路由拆分成多个文件" class="headerlink" title="路由拆分成多个文件"></a>路由拆分成多个文件</h3><p>当我们的业务规模继续膨胀，单独的一个<code>routers</code>文件或包已经满足不了我们的需求了，</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">SetupRouter</span><span class="params">()</span> *<span class="title">gin</span>.<span class="title">Engine</span></span> &#123;</span><br><span class="line">    r := gin.Default()</span><br><span class="line">    r.GET(<span class="string">&quot;/hello&quot;</span>, helloHandler)</span><br><span class="line">  r.GET(<span class="string">&quot;/xx1&quot;</span>, xxHandler1)</span><br><span class="line">  ...</span><br><span class="line">  r.GET(<span class="string">&quot;/xx30&quot;</span>, xxHandler30)</span><br><span class="line">    <span class="keyword">return</span> r</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>因为我们把所有的路由注册都写在一个<code>SetupRouter</code>函数中的话就会太复杂了。</p>
-<p>我们可以分开定义多个路由文件，例如：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">gin_demo</span><br><span class="line">├── go.mod</span><br><span class="line">├── go.sum</span><br><span class="line">├── main.go</span><br><span class="line">└── routers</span><br><span class="line">    ├── blog.go</span><br><span class="line">    └── shop.go</span><br></pre></td></tr></table></figure>
-
-<p><code>routers/shop.go</code>中添加一个<code>LoadShop</code>的函数，将shop相关的路由注册到指定的路由器：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">LoadShop</span><span class="params">(e *gin.Engine)</span></span>  &#123;</span><br><span class="line">    e.GET(<span class="string">&quot;/hello&quot;</span>, helloHandler)</span><br><span class="line">  e.GET(<span class="string">&quot;/goods&quot;</span>, goodsHandler)</span><br><span class="line">  e.GET(<span class="string">&quot;/checkout&quot;</span>, checkoutHandler)</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>routers/blog.go</code>中添加一个`LoadBlog的函数，将blog相关的路由注册到指定的路由器：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">LoadBlog</span><span class="params">(e *gin.Engine)</span></span> &#123;</span><br><span class="line">    e.GET(<span class="string">&quot;/post&quot;</span>, postHandler)</span><br><span class="line">  e.GET(<span class="string">&quot;/comment&quot;</span>, commentHandler)</span><br><span class="line">  ...</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在main函数中实现最终的注册逻辑如下：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    r := gin.Default()</span><br><span class="line">    routers.LoadBlog(r)</span><br><span class="line">    routers.LoadShop(r)</span><br><span class="line">    <span class="keyword">if</span> err := r.Run(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">&quot;startup service failed, err:%v\n&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="路由拆分到不同的APP"><a href="#路由拆分到不同的APP" class="headerlink" title="路由拆分到不同的APP"></a>路由拆分到不同的APP</h3><p>有时候项目规模实在太大，那么我们就更倾向于把业务拆分的更详细一些，例如把不同的业务代码拆分成不同的APP。</p>
-<p>因此我们在项目目录下单独定义一个<code>app</code>目录，用来存放我们不同业务线的代码文件，这样就很容易进行横向扩展。大致目录结构如下：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">gin_demo</span><br><span class="line">├── app</span><br><span class="line">│   ├── blog</span><br><span class="line">│   │   ├── handler.go</span><br><span class="line">│   │   └── router.go</span><br><span class="line">│   └── shop</span><br><span class="line">│       ├── handler.go</span><br><span class="line">│       └── router.go</span><br><span class="line">├── go.mod</span><br><span class="line">├── go.sum</span><br><span class="line">├── main.go</span><br><span class="line">└── routers</span><br><span class="line">    └── routers.go</span><br></pre></td></tr></table></figure>
-
-<p>其中<code>app/blog/router.go</code>用来定义post相关路由信息，具体内容如下：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Routers</span><span class="params">(e *gin.Engine)</span></span> &#123;</span><br><span class="line">    e.GET(<span class="string">&quot;/post&quot;</span>, postHandler)</span><br><span class="line">    e.GET(<span class="string">&quot;/comment&quot;</span>, commentHandler)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>app/shop/router.go</code>用来定义shop相关路由信息，具体内容如下：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Routers</span><span class="params">(e *gin.Engine)</span></span> &#123;</span><br><span class="line">    e.GET(<span class="string">&quot;/goods&quot;</span>, goodsHandler)</span><br><span class="line">    e.GET(<span class="string">&quot;/checkout&quot;</span>, checkoutHandler)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>routers/routers.go</code>中根据需要定义<code>Include</code>函数用来注册子app中定义的路由，<code>Init</code>函数用来进行路由的初始化操作：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> Option <span class="function"><span class="keyword">func</span><span class="params">(*gin.Engine)</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">var</span> options = []Option&#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 注册app的路由配置</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Include</span><span class="params">(opts ...Option)</span></span> &#123;</span><br><span class="line">    options = <span class="built_in">append</span>(options, opts...)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 初始化</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">Init</span><span class="params">()</span> *<span class="title">gin</span>.<span class="title">Engine</span></span> &#123;</span><br><span class="line">    r := gin.New()</span><br><span class="line">    <span class="keyword">for</span> _, opt := <span class="keyword">range</span> options &#123;</span><br><span class="line">        opt(r)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> r</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p><code>main.go</code>中按如下方式先注册子app中的路由，然后再进行路由的初始化：</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// 加载多个APP的路由配置</span></span><br><span class="line">    routers.Include(shop.Routers, blog.Routers)</span><br><span class="line">    <span class="comment">// 初始化路由</span></span><br><span class="line">    r := routers.Init()</span><br><span class="line">    <span class="keyword">if</span> err := r.Run(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">&quot;startup service failed, err:%v\n&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/06/Go-%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Gin%E6%A1%86%E6%9E%B6-%E5%85%AD/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/06/Go-%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Gin%E6%A1%86%E6%9E%B6-%E5%85%AD/" class="post-title-link" itemprop="url">Go 语言学习笔记 Gin框架(六)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-05 19:39:57" itemprop="dateCreated datePublished" datetime="2020-08-05T19:39:57Z">2020-08-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-09 13:49:52" itemprop="dateModified" datetime="2020-08-09T13:49:52Z">2020-08-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/go/" itemprop="url" rel="index"><span itemprop="name">go</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/go/gin/" itemprop="url" rel="index"><span itemprop="name">gin</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>3.6k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>3 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>#gin与 swagger的集成</p>
-<h2 id="swagger的介绍"><a href="#swagger的介绍" class="headerlink" title="swagger的介绍"></a>swagger的介绍</h2><h3 id="什么是swagger"><a href="#什么是swagger" class="headerlink" title="什么是swagger"></a>什么是swagger</h3><p>Swagger 是一个规范和一套完整的框架，用于生成、描述、调用以及可视化 RESTful 风格的 Web 服务。</p>
-<p>Swagger的总体目标是使客户端和文件系统服务器以同样的速度来更新，方法，参数和模型紧密集成到服务器端的代码中，允许API始终保持同步。</p>
-<p>Swagger 让部署管理和使用API从未如此简单。</p>
-<p>Swagger包括库、编辑器、代码生成器等很多部分，这里我们主要讲一下Swagger Editor。这是一个完全开源的项目，并且它也是一个基于Angular的成功案例，我们可以下载源码并自己部署它，也可以修改它或集成到我们自己的软件中。</p>
-<p>在Swagger Editor中，我们可以基于YAML语法定义我们的RESTful API，然后它会自动生成一篇排版优美的API文档，并且提供实时预览。相信大多数朋友都遇到过这样一个场景：明明调用的是之前约定好的API，拿到的结果却不是想要的。</p>
-<p>可能因为是有人修改了API的接口，却忘了更新文档；或者是文档更新的不及时；又或者是文档写的有歧义，大家的理解各不相同。总之，让API文档总是与API定义同步更新，是一件非常有价值的事。</p>
-<h3 id="自动文档的好处？"><a href="#自动文档的好处？" class="headerlink" title="自动文档的好处？"></a>自动文档的好处？</h3><ol>
-<li><p>不用手动写文档了，通过注解就可以自动化文档</p>
-</li>
-<li><p>文档和代码同步更新，代码更新之后不需要再更新文档</p>
-</li>
-<li><p>浏览器友好</p>
-</li>
-<li><p>使用Swagger框架可以调试API，在浏览器端可以看到更多的<code>request</code>和<code>response</code>信息</p>
-</li>
-</ol>
-<h3 id="自动化文档开发的初衷"><a href="#自动化文档开发的初衷" class="headerlink" title="自动化文档开发的初衷"></a>自动化文档开发的初衷</h3><p>我们需要开发一个API应用，然后需要和手机组的开发人员一起合作，当然我们首先想到的是文档先行，我们也根据之前的经验写了我们需要的API原型文档，我们还是根据github的文档格式写了一些漂亮的文档，但是我们开始担心这个文档如果两边不同步怎么办？因为毕竟是原型文档，变动是必不可少的。手机组有一个同事之前在雅虎工作过，他推荐我看一个swagger的应用，看了swagger的标准和文档化的要求，感觉太棒了，这个简直就是神器啊，通过swagger可以方便的查看API的文档，同时使用API的用户可以直接通过swagger进行请求和获取结果。所以我就开始学习swagger的标准，同时开始进行Go源码的研究，通过Go里面的AST进行源码分析，针对comments解析，然后生成swagger标准的json格式，这样最后就可以和swagger完美结合了。</p>
-<p>这样做的好处有三个：</p>
-<p>注释标准化<br>有了注释之后，以后API代码维护相当方便<br>根据注释自动化生成文档，方便调用的用户查看和测试</p>
-<h2 id="安装swagger"><a href="#安装swagger" class="headerlink" title="安装swagger"></a>安装swagger</h2><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> get -u github.com/swaggo/swag/cmd/swag</span><br></pre></td></tr></table></figure>
-
-<p>等待安装完成，在我们的终端中执行 <code>swag init</code>，目录为根目录，于 <code>main.go</code> 同目录。</p>
-<p>执行完成后，会在根目录下新建一个 <code>docs</code> 文件夹。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">docs</span><br><span class="line">|</span><br><span class="line">|-docs.go</span><br><span class="line">|-swagger.json</span><br><span class="line">|-swagger.yaml</span><br></pre></td></tr></table></figure>
-
-<p>接下来就可以完善项目了。</p>
-<p>将下面两行放入 <code>initRouter</code> 中的 <code>import</code> 中。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">swaggerFiles &quot;github.com&#x2F;swaggo&#x2F;files&quot;</span><br><span class="line">ginSwagger &quot;github.com&#x2F;swaggo&#x2F;gin-swagger&quot;</span><br><span class="line">复制代码</span><br></pre></td></tr></table></figure>
-
-<p>选择 <code>Sync packages of GinStudy</code>,此时 <code>IDE</code> 就会自动帮我下载，并添加到 <code>go.mod</code> 中。</p>
-<h2 id="集成swagger"><a href="#集成swagger" class="headerlink" title="集成swagger"></a>集成swagger</h2><p>对 <code>swagger</code> 安装完成后，我们就可以对项目进行集成了。</p>
-<p>在 <code>initRouter</code> 中添加路由，这个路由是对 <code>swagger</code> 的访问地址来进行添加的</p>
-<p>在<code>routers/routers.go</code>的<code>Init</code>方法中添加</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">url := ginSwagger.URL(<span class="string">&quot;http://localhost:8080/swagger/doc.json&quot;</span>)</span><br><span class="line">r.GET(<span class="string">&quot;/swagger/*any&quot;</span>, ginSwagger.WrapHandler(swaggerFiles.Handler, url))</span><br></pre></td></tr></table></figure>
-
-<p>其中 <code>url</code> 定义了 <code>swagger</code> 的 <code>doc.json</code> 路径，我们可以直接访问该 <code>json</code> 来进行查看。</p>
-<p>接下来就是完善文档的时间。</p>
-<p>在 <code>main.go</code> 中 <code>main</code> 方法上添加注释。同时引入我们生成 <code>docs.go</code></p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// @title Gin swagger</span></span><br><span class="line"><span class="comment">// @version 1.0</span></span><br><span class="line"><span class="comment">// @description Gin swagger 示例项目</span></span><br><span class="line"><span class="comment">// @contact.name</span></span><br><span class="line"><span class="comment">// @contact.url https://youngxhui.top</span></span><br><span class="line"><span class="comment">// @contact.email youngxhui@g mail.com</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// @license.name Apache 2.0</span></span><br><span class="line"><span class="comment">// @license.url http://www.apache.org/licenses/LICENSE-2.0.html</span></span><br><span class="line"></span><br><span class="line"><span class="comment">// @host localhost:8080</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    <span class="comment">// 省略其他代码</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>上述的注释基本都是很好理解的，不做过多解释。</p>
-<p>主要的项目介绍注释就是这些，接下来进行我们的接口方法注释。</p>
-<p>在我们的 <code>handler</code> 中添加注释</p>
-<p>打开 <code>app/user/handler.go</code> ,在 <code>CreateUser</code> 方法上添加。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// @Summary 创建用户</span></span><br><span class="line"><span class="comment">// @Tags 用户模块</span></span><br><span class="line"><span class="comment">// @version 1.0</span></span><br><span class="line"><span class="comment">// @Accept application/x-www-form-urlencoded</span></span><br><span class="line"><span class="comment">// @Param name query string true &quot;name&quot;</span></span><br><span class="line"><span class="comment">// @Param age query int true &quot;age&quot;</span></span><br><span class="line"><span class="comment">// @Success 200 object model.UserModel 成功后返回值</span></span><br><span class="line"><span class="comment">// @Router  /v1/users [post]</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">CreateUser</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">    name := c.Query(<span class="string">&quot;name&quot;</span>)</span><br><span class="line">    age := c.Query(<span class="string">&quot;age&quot;</span>)</span><br><span class="line">    ageInt, _ := strconv.Atoi(age)</span><br><span class="line">    basicHandle := app.BasicController&#123;Ctx: c&#125;</span><br><span class="line">    basicHandle.Ok(userService.Create(name, ageInt, time.Now()))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li>@Summary 是对该接口的一个描述</li>
-<li>@Tags 是对接口的标注，同一个 tag 为一组，这样方便我们整理接口</li>
-<li>@Version 表明该接口的版本</li>
-<li>@Accept 表示该该请求的请求类型</li>
-<li>@Param 表示参数 分别有以下参数 参数名词 参数类型 数据类型 是否必须 注释 属性(可选参数),参数之间用空格隔开。</li>
-<li>@Success 表示请求成功后返回，它有以下参数 请求返回状态码，参数类型，数据类型，注释</li>
-<li>@Failure 请求失败后返回，参数同上 (todo)</li>
-<li>@Router 该函数定义了请求路由并且包含路由的请求方式。</li>
-</ul>
-<p>具体参数类型，数据类型等可以查看<a target="_blank" rel="noopener" href="https://swaggo.github.io/swaggo.io/declarative_comments_format/api_operation.html">官方文档</a></p>
-<p>其中文档中没有说明的地方这里说明一下，关于 <code>Param</code> 的参数类型有以下几种</p>
-<ul>
-<li>query 形如 <code>\user?username=Jack&amp;age=18</code></li>
-<li>body 需要将数据放到 body 中进行请求</li>
-<li>path 形如 <code>\user\1</code></li>
-<li>formdata 接收的是form表单提交的参数</li>
-</ul>
-<p>不同的参数类型对应的不同请求，请对应使用。</p>
-<p>这样我们就完成了添加接口的文档注释。</p>
-<p>我们对形如 <code>/v1/users/:id</code> 的接口，最后的 id 通过 <code>&#123;&#125;</code> 包裹。</p>
-<p>细心的小伙伴可能会发现我们最后的返回结果为 <code>model.Result</code> ，这是为了我们统一返回结果而新建的一个结构体，方便前端进行解析。具体函数如下</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> model</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> Result <span class="keyword">struct</span> &#123;</span><br><span class="line">    Code    <span class="keyword">int</span>         <span class="string">`json:&quot;code&quot; example:&quot;000&quot;`</span></span><br><span class="line">    Message <span class="keyword">string</span>      <span class="string">`json:&quot;message&quot; example:&quot;请求信息&quot;`</span></span><br><span class="line">    Data    <span class="keyword">interface</span>&#123;&#125; <span class="string">`json:&quot;data&quot; `</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>我们在对 <code>Result</code> 中的 <code>tag</code> 会有 <code>example</code> ,这个仍旧是 <code>swagger</code> 的标签，用来给该结构体一个示例。</p>
-<p>同理，我们可以对之前的 <code>article</code> 进行注释。</p>
-<p>当我们完成了所有的代码注释时，在控制台中重新执行 <code>swag init</code>，它会根据我们的注释生成 <code>docs.go</code> 及其对应的 json 和 yaml 文件。</p>
-<p>启动我们的项目，访问 <code>http://localhost:8080/swagger/index.html</code> 就可以查看我们的文档,效果如下</p>
-<p><img src="/images/swagger_demo.png" alt="效果图"></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/06/Go-%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Gin%E6%A1%86%E6%9E%B6-%E5%9B%9B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/06/Go-%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Gin%E6%A1%86%E6%9E%B6-%E5%9B%9B/" class="post-title-link" itemprop="url">Go 语言学习笔记 Gin框架(四)</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-05 19:39:57" itemprop="dateCreated datePublished" datetime="2020-08-05T19:39:57Z">2020-08-05</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-09 13:49:52" itemprop="dateModified" datetime="2020-08-09T13:49:52Z">2020-08-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/go/" itemprop="url" rel="index"><span itemprop="name">go</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/go/gin/" itemprop="url" rel="index"><span itemprop="name">gin</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.9k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>2 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h1 id="gin获取请求的参数信息"><a href="#gin获取请求的参数信息" class="headerlink" title="gin获取请求的参数信息"></a>gin获取请求的参数信息</h1><p>【注】c 就是func中的参数(c  *gin.Contex)</p>
-<h2 id="1-从uri-path中获取"><a href="#1-从uri-path中获取" class="headerlink" title="[1].从uri-path中获取"></a>[1].从uri-path中获取</h2><p>请求:</p>
-<figure class="highlight shell"><figcaption><span>script</span></figcaption><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">curl -X GET \</span><br><span class="line">  http://localhost:8080/v1/order/1 \</span><br><span class="line">  -H &#x27;Postman-Token: e4d0bf85-df6b-4ab0-bcca-1feb5a76f531&#x27; \</span><br><span class="line">  -H &#x27;cache-control: no-cache&#x27;  </span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>获取uri-path参数</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">id:=c.Param(<span class="string">&quot;id&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<h2 id="2-从parameters中获取"><a href="#2-从parameters中获取" class="headerlink" title="[2].从parameters中获取"></a>[2].从parameters中获取</h2><p>请求：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">curl -X GET \</span><br><span class="line">  http://localhost:8080/v1/order?firstname=Jack&amp;lastname=ma \</span><br><span class="line">  -H &#x27;Postman-Token: e4d0bf85-df6b-4ab0-bcca-1feb5a76f531&#x27; \</span><br><span class="line">  -H &#x27;cache-control: no-cache&#x27;  </span><br></pre></td></tr></table></figure>
-
-<p>获取parameters参数</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">firstName := c.DefaultQuery(<span class="string">&quot;firstName&quot;</span>, <span class="string">&quot;Guest&quot;</span>)  <span class="comment">//如果读取不到firstName会给赋值一个默认的值 Guest</span></span><br><span class="line">lastName := c.Query(<span class="string">&quot;lastName&quot;</span>)<span class="comment">// 读取 lastName的值，如果读取不到返回空字符串</span></span><br><span class="line"><span class="comment">// c.Query(&quot;lastname&quot;) 等价于 c.Request.URL.Query().Get(&quot;lastname&quot;)</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="3-从Multipart-Urlencoded-Form中获取"><a href="#3-从Multipart-Urlencoded-Form中获取" class="headerlink" title="[3].从Multipart/Urlencoded Form中获取"></a>[3].从Multipart/Urlencoded Form中获取</h2><p>请求:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">curl -X POST \</span><br><span class="line">  &#x27;http://localhost:8080/v1/order/1/10010?pkg=test.1&#x27; \</span><br><span class="line">  -H &#x27;Postman-Token: 49319e4b-fd9a-416e-a69b-5ffb54b12413&#x27; \</span><br><span class="line">  -H &#x27;cache-control: no-cache&#x27; \</span><br><span class="line">  -H &#x27;content-type: multipart/form-data; boundary=----WebKitFormBoundary7MA4YWxkTrZu0gW&#x27; \</span><br><span class="line">  -F message=msg</span><br></pre></td></tr></table></figure>
-
-<p>获取Multipart/Urlencoded Form参数</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">message := c.PostForm(<span class="string">&quot;message&quot;</span>) <span class="comment">// 读取 message的值，如果读取不到返回空字符串</span></span><br><span class="line">nick := c.DefaultPostForm(<span class="string">&quot;nick&quot;</span>, <span class="string">&quot;anonymous&quot;</span>) <span class="comment">// 读取nick的值，如果读取不到会给nick赋默认值anonymous</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="4-从parameter-form-读取map或者array"><a href="#4-从parameter-form-读取map或者array" class="headerlink" title="[4].从parameter/form 读取map或者array"></a>[4].从parameter/form 读取map或者array</h2><p>请求:</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">curl -X PUT \</span><br><span class="line">  &#x27;http://localhost:8080/v1/order/1?idMap[a]=aaa&amp;idMap[b]=bbb&amp;idArr=c1,c2&#x27; \</span><br><span class="line">  -H &#x27;Content-Type: application/x-www-form-urlencoded&#x27; \</span><br><span class="line">  -H &#x27;Postman-Token: a2f3a545-3b19-4a5d-a542-8b83c19ee2f9&#x27; \</span><br><span class="line">  -H &#x27;cache-control: no-cache&#x27; \</span><br><span class="line">  -d &#x27;nameArr=name1&amp;nameArr=name2&amp;nameMap%5Ba%5D=namea&amp;nameMap%5Bb%5D=nameb&amp;undefined=&#x27;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>从parameter获取map,array,从application/x-www-form-urlencoded body中获取map array</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">idMap := c.QueryMap(<span class="string">&quot;idMap&quot;</span>) <span class="comment">//从paramter获取map</span></span><br><span class="line">idArr := c.QueryArray(<span class="string">&quot;idArr&quot;</span>)<span class="comment">//从paramter获取array</span></span><br><span class="line">nameArr := c.PostFormArray(<span class="string">&quot;nameArr&quot;</span>) <span class="comment">// 从form获取map</span></span><br><span class="line">nameMap := c.PostFormMap(<span class="string">&quot;nameMap&quot;</span>)<span class="comment">// 从form获取array</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><a class="page-number" href="/page/7/">7</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1432,7 +1349,7 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">58</span>
+          <span class="site-state-item-count">64</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
@@ -1493,13 +1410,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">125k</span>
+    <span title="站点总字数">132k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">1:54</span>
+    <span title="站点阅读时长">2:01</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
