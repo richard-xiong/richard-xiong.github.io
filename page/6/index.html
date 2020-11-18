@@ -123,17 +123,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">31</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">33</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">24</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">25</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">85</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">97</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -200,7 +200,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/26/aws-%E6%90%AD%E5%BB%BAeks/">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/09/04/shell-%E6%89%A7%E8%A1%8Ccurl%E8%AF%B7%E6%B1%82/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -214,7 +214,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/08/26/aws-%E6%90%AD%E5%BB%BAeks/" class="post-title-link" itemprop="url">aws-搭建eks</a>
+            <a href="/2020/09/04/shell-%E6%89%A7%E8%A1%8Ccurl%E8%AF%B7%E6%B1%82/" class="post-title-link" itemprop="url">shell执行curl请求</a>
         </h2>
 
         <div class="post-meta">
@@ -225,7 +225,192 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-08-26 15:13:32 / 修改时间：07:14:09" itemprop="dateCreated datePublished" datetime="2020-08-26T15:13:32Z">2020-08-26</time>
+              <time title="创建时间：2020-09-03 20:18:05 / 修改时间：12:34:36" itemprop="dateCreated datePublished" datetime="2020-09-03T20:18:05Z">2020-09-03</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>839</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>需求： 给550w用户 批量调用融云接口封禁</p>
+<ol>
+<li>按行读取文件的内容</li>
+<li>执行curl命令 </li>
+<li>输出请求的结果</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line">function httpRequest()</span><br><span class="line">&#123;</span><br><span class="line">    #curl 请求</span><br><span class="line">    info=`curl -X POST \</span><br><span class="line">  https://api-sg01.ronghub.com/user/block.json \</span><br><span class="line">  -H &#x27;App-Key: qf3d5gbjq9pyh&#x27; \</span><br><span class="line">  -H &#x27;Content-Type: application/x-www-form-urlencoded&#x27; \</span><br><span class="line">  -H &#x27;Nonce: 14314&#x27; \</span><br><span class="line">  -H &#x27;Postman-Token: b2a4bf59-a20e-4654-afa1-489ab18085fe&#x27; \</span><br><span class="line">  -H &#x27;Signature: 7c14b3ebd8896ca00221447087a1ce71343bbddb&#x27; \</span><br><span class="line">  -H &#x27;Timestamp: 1599048545791&#x27; \</span><br><span class="line">  -H &#x27;cache-control: no-cache&#x27; \</span><br><span class="line">  -d &#x27;userId=$&#123;1&#125;&amp;minute=43200&amp;undefined=&#x27;`</span><br><span class="line">   echo &quot;info is :&quot; $&#123;info&#125;</span><br><span class="line"></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">cat /home/work/rongyun/user_result.txt | while read line</span><br><span class="line"> do</span><br><span class="line">     userId=&quot;&quot;</span><br><span class="line">    echo &quot;File:$&#123;line&#125;&quot;</span><br><span class="line">     userId=$&#123;line&#125;</span><br><span class="line">     echo $&#123;userId&#125;</span><br><span class="line">     httpRequest &quot;$&#123;userId&#125;&quot;</span><br><span class="line"> done</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/09/04/git-%E6%89%93tag/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/04/git-%E6%89%93tag/" class="post-title-link" itemprop="url">git-打tag</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-03 20:05:43 / 修改时间：12:11:18" itemprop="dateCreated datePublished" datetime="2020-09-03T20:05:43Z">2020-09-03</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>159</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <ol>
+<li><p>先执行commit 保存数据</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit  -m &quot;注释&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="2">
+<li><p>添加tag 标签&amp;注释</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag -a 版本号 -m &quot;注释&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="3">
+<li><p>推送数据到远端 origin</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="4">
+<li><p>将tag推送到远程 origin</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin master --tags</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>查看 所有tag</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag -l</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/09/01/k8s-%E6%9C%8D%E5%8A%A1%E6%B7%BB%E5%8A%A0tag/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/01/k8s-%E6%9C%8D%E5%8A%A1%E6%B7%BB%E5%8A%A0tag/" class="post-title-link" itemprop="url">k8s-服务添加tag</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-31 22:33:39 / 修改时间：14:38:19" itemprop="dateCreated datePublished" datetime="2020-08-31T22:33:39Z">2020-08-31</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -233,11 +418,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/aws/" itemprop="url" rel="index"><span itemprop="name">aws</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/aws/eks/" itemprop="url" rel="index"><span itemprop="name">eks</span></a>
+                  <a href="/categories/k8s/" itemprop="url" rel="index"><span itemprop="name">k8s</span></a>
                 </span>
             </span>
 
@@ -247,7 +428,274 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2k</span>
+              <span>182</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>需求：由于随时对k8s的使用，有些node节点配置很高，会存在服务混布的情况，这样就需要对每个服务打tag，月末对机器的使用情况各个业务线来进行分摊成本</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">alb.ingress.kubernetes.io/tags:</span> <span class="string">PDB1=xxxxYourTag</span></span><br></pre></td></tr></table></figure>
+
+<p>打完标签之后 不会立即生效 大约10分钟之后就能再<code>aws</code>的控制台上看到<code>ingress</code> 已经出现了yaml文件中配置的<code>tag</code></p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/09/01/curl-%E7%9A%84%E4%BD%BF%E7%94%A8/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/01/curl-%E7%9A%84%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">curl的使用</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-08-31 22:08:01 / 修改时间：14:10:59" itemprop="dateCreated datePublished" datetime="2020-08-31T22:08:01Z">2020-08-31</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>655</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h2 id="查看响应头"><a href="#查看响应头" class="headerlink" title="查看响应头"></a>查看响应头</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> curl -v http://localhost:8080?uid=102 </span><br><span class="line">*   Trying ::1...</span><br><span class="line">* TCP_NODELAY set</span><br><span class="line">* Connected to localhost (::1) port 8080 (#0)</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> GET /?uid=102 HTTP/1.1</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Host: localhost:8080</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> User-Agent: curl/7.64.1</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Accept: */*</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> </span></span><br><span class="line">&lt; HTTP/1.1 200 OK</span><br><span class="line">&lt; Content-Type: application/json;charset=utf-8</span><br><span class="line">&lt; Date: Mon, 31 Aug 2020 14:07:32 GMT</span><br><span class="line">&lt; Content-Length: 19</span><br><span class="line">&lt; </span><br><span class="line">&#123;&quot;result&quot;:&quot;guest&quot;&#125;</span><br><span class="line">* Connection #0 to host localhost left intact</span><br><span class="line">* Closing connection 0</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+
+<h2 id="查看请求头"><a href="#查看请求头" class="headerlink" title="查看请求头"></a>查看请求头</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mfxing  curl  http://localhost:8080?uid=102 -i</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Content-Type: application/json;charset=utf-8</span><br><span class="line">Date: Mon, 31 Aug 2020 14:10:37 GMT</span><br><span class="line">Content-Length: 19</span><br><span class="line"></span><br><span class="line">&#123;&quot;result&quot;:&quot;guest&quot;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/09/01/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%BA%8C/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/01/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%BA%8C/" class="post-title-link" itemprop="url">Go-kit 学习笔记-二</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-31 21:55:58" itemprop="dateCreated datePublished" datetime="2020-08-31T21:55:58Z">2020-08-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-05 03:41:09" itemprop="dateModified" datetime="2020-09-05T03:41:09Z">2020-09-05</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>666</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h4 id="将上节的服务进行发布-在main-go-中添加"><a href="#将上节的服务进行发布-在main-go-中添加" class="headerlink" title="将上节的服务进行发布 在main.go 中添加"></a>将上节的服务进行发布 在<code>main.go</code> 中添加</h4><ol>
+<li><p>第一层 先获取service</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user:=Services.UserService&#123;&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>第二层 创建endpoint</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">endP:&#x3D;Services.GenUserEndpoint(user)    </span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="3">
+<li><p>第三步 使用<code>go-kit</code>创建<code>handler</code>  借助<code>newServer</code>函数 返回了一个<code>server struct</code> 内部实现了<code>func (s Server) ServeHTTP(w http.ResponseWriter, r *http.Request) </code>  如何对请求进行处理</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">serverHandler:=httpTransport.NewServer(endP,Services.DecodeUserRequest,Services.EncodeUserRequest)</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="4">
+<li><p>因为serverHandler 已经实现了handler 接口 所以http.ListenAndServe 可以直接调用</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_ &#x3D; http.ListenAndServe(&quot;:8080&quot;, serverHandler)</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>由于 <code>httpTransport.NewServer</code> 是<code>go-kit</code>中<code>http</code>包的方法<code> http.ListenAndServe</code> 是原生<code>http</code>包 包名重复 需要对<code>go-kit</code>的http 起alias</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">httpTransport &quot;github.com&#x2F;go-kit&#x2F;kit&#x2F;transport&#x2F;http&quot;</span><br><span class="line">    &quot;net&#x2F;http&quot;</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/09/01/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%9B%9B/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/01/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%9B%9B/" class="post-title-link" itemprop="url">Go-kit 学习笔记-四</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-31 20:52:15" itemprop="dateCreated datePublished" datetime="2020-08-31T20:52:15Z">2020-08-31</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-14 14:41:11" itemprop="dateModified" datetime="2020-09-14T14:41:11Z">2020-09-14</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.1k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -266,74 +714,282 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h1 id="安装eks环境"><a href="#安装eks环境" class="headerlink" title="安装eks环境"></a>安装eks环境</h1><h2 id="安装步骤"><a href="#安装步骤" class="headerlink" title="安装步骤"></a>安装步骤</h2><h3 id="1-1-创建eks-cluster-使用命令行创建-然后控制台会刷新出来"><a href="#1-1-创建eks-cluster-使用命令行创建-然后控制台会刷新出来" class="headerlink" title="1.1 创建eks-cluster [使用命令行创建 然后控制台会刷新出来]"></a>1.1 创建eks-cluster [使用命令行创建 然后控制台会刷新出来]</h3> <figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">aws eks create-cluster --name richard_test1 --kubernetes-version 1.16 \</span><br><span class="line">          --role-arn arn:aws:iam::xxxx:role/eksctl-eks-ap-1-cluster-ServiceRole-MWM2SUSZU1OQ \</span><br><span class="line">          --resources-vpc-config subnetIds=subnet-xxx,subnet-xxx,endpointPublicAccess=false,endpointPrivateAccess=true \</span><br><span class="line">          --logging &#x27;&#123;&quot;clusterLogging&quot;:[&#123;&quot;types&quot;:[&quot;api&quot;,&quot;audit&quot;,&quot;authenticator&quot;,&quot;controllerManager&quot;,&quot;scheduler&quot;],&quot;enabled&quot;:false&#125;]&#125;&#x27;</span><br></pre></td></tr></table></figure>
-
-<ul>
-<li><input disabled="" type="checkbox"> 可以指定 –kubernetes-version   现在1.16已经要过时了 安装之后也需要升级</li>
-<li><input disabled="" type="checkbox"> 需要修改name 和子网</li>
-<li><input disabled="" type="checkbox"> 在某个跳板机上如果搭建多个cluster 最好在不同的用户下面来搭建</li>
-<li><input disabled="" type="checkbox"> 在指定的用户下需要接着在aws configure 中设置region</li>
-</ul>
-<h3 id="1-2-安装kuberctl-二进制文件"><a href="#1-2-安装kuberctl-二进制文件" class="headerlink" title="1.2 安装kuberctl 二进制文件"></a>1.2 <a target="_blank" rel="noopener" href="https://kubernetes.io/docs/tasks/tools/install-kubectl/#install-kubectl-binary-with-curl-on-linux">安装kuberctl 二进制文件</a></h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -LO https://storage.googleapis.com/kubernetes-release/release/`curl -s https://storage.googleapis.com/kubernetes-release/release/stable.txt`/bin/linux/arm64/kubectl</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>  然后需要将二进制文件添加到PATH中 详情参照<a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/install-kubectl.html">https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/install-kubectl.html</a> </p>
-<h4 id="1-3-安装kubeconfig"><a href="#1-3-安装kubeconfig" class="headerlink" title="1.3 安装kubeconfig"></a>1.3 <a target="_blank" rel="noopener" href="https://docs.aws.amazon.com/zh_cn/eks/latest/userguide/create-kubeconfig.html">安装kubeconfig</a></h4><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">aws eks --region region-code update-kubeconfig --name cluster_name</span><br></pre></td></tr></table></figure>
-
-<p>检测配置</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">kubectl get svc</span><br><span class="line">NAME         TYPE        CLUSTER-IP   EXTERNAL-IP   PORT(S)   AGE</span><br><span class="line">kubernetes   ClusterIP   172.20.0.1   &lt;none&gt;        443/TCP   30m</span><br></pre></td></tr></table></figure>
-
-<p> 注意 如果没有结果 很有可能就是cluster 安全组的问题  </p>
-<table>
-<thead>
-<tr>
-<th align="left"><strong>Type</strong></th>
-<th align="left"><strong>Protocol</strong></th>
-<th align="left"><strong>Port range</strong></th>
-<th align="left"><strong>Source</strong></th>
-<th align="left"><strong>Description - optional</strong></th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left">All traffic</td>
-<td align="left">All</td>
-<td align="left">All</td>
-<td align="left">xx.xxx.0.0/16</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left">All traffic</td>
-<td align="left">All</td>
-<td align="left">All</td>
-<td align="left">Sg-xxx (eks-cluster-sg-richard_test1-212947049)</td>
-<td align="left">-</td>
-</tr>
-</tbody></table>
-<p>xx.xxx.0.0/16 根据子网来设定</p>
-<h4 id="1-4-创建-alb-ingress-controller"><a href="#1-4-创建-alb-ingress-controller" class="headerlink" title="1.4 创建 alb ingress controller"></a>1.4 创建 alb ingress controller</h4><p>主要是下面几步</p>
+          <h3 id="通过httpmethod-执行不同的服务方法"><a href="#通过httpmethod-执行不同的服务方法" class="headerlink" title="通过httpmethod 执行不同的服务方法"></a>通过httpmethod 执行不同的服务方法</h3><ol>
+<li><p>将获取到的method 保存到request 中</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">DecodeUserRequest</span><span class="params">(c context.Context, r *http.Request)</span> <span class="params">(<span class="keyword">interface</span>&#123;&#125;, error)</span></span> &#123;</span><br><span class="line">    <span class="comment">// 这个主要是判断参数是怎么来的,代码可以写成</span></span><br><span class="line"></span><br><span class="line">    vars:=mux.Vars(r)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>  uid,ok:=vars[<span class="string">&quot;uid&quot;</span>];ok&#123;</span><br><span class="line">        uid, _ := strconv.Atoi(uid)</span><br><span class="line">        <span class="keyword">return</span> UserRequest&#123;Uid: uid,Method: r.Method&#125;, <span class="literal">nil</span>  <span class="comment">// 通过r.method 获取</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span>,errors.New(<span class="string">&quot;参数错误&quot;</span>)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在service中实现相应的方法</p>
 <ol>
-<li><p>部署 AWS ALB Ingress 控制器需要的 RBAC Roles 和 RoleBindings：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f https://raw.githubusercontent.com/kubernetes-sigs/aws-alb-ingress-controller/v1.0.0/docs/examples/rbac-role.yaml </span><br></pre></td></tr></table></figure>
+<li><p>​    添加删除的接口</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> IUserService <span class="keyword">interface</span> &#123;</span><br><span class="line">    GetName(userId <span class="keyword">int</span>) <span class="keyword">string</span></span><br><span class="line">    DeleteName(userId <span class="keyword">int</span>) error <span class="comment">// 新增删除接口 返回错误信息</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>实现删除的接口 (这里101标识是管理员用户)</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this UserService)</span> <span class="title">DeleteName</span><span class="params">(userId <span class="keyword">int</span>)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> userId == <span class="number">101</span> &#123; </span><br><span class="line">        <span class="keyword">return</span> errors.New(<span class="string">&quot;无权限&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>根据method 执行不同的方法 调用service中声明好的方法</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 因为这个IUserService 可能有多个版本的实现 所以这里使 用接口</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">GenUserEndpoint</span><span class="params">(userService IUserService)</span> <span class="title">endpoint</span>.<span class="title">Endpoint</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(ctx context.Context, request <span class="keyword">interface</span>&#123;&#125;)</span> <span class="params">(response <span class="keyword">interface</span>&#123;&#125;, err error)</span></span> &#123;</span><br><span class="line">        r := request.(UserRequest)</span><br><span class="line">        <span class="keyword">var</span> result <span class="keyword">string</span></span><br><span class="line">        <span class="keyword">if</span> r.Method == <span class="string">&quot;GET&quot;</span> &#123;  <span class="comment">// 判断不同的method</span></span><br><span class="line">            result = userService.GetName(r.Uid)</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> r.Method == <span class="string">&quot;DELETE&quot;</span> &#123;</span><br><span class="line">            err := userService.DeleteName(r.Uid)</span><br><span class="line">            <span class="keyword">if</span> err != <span class="literal">nil</span> &#123; <span class="comment">// 代表没有权限</span></span><br><span class="line">                result = err.Error()</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                result = fmt.Sprintf(<span class="string">&quot;用户%d删除成功&quot;</span>, r.Uid)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> UserResponse&#123;Result: result&#125;, <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在路由中支持 <code>GET</code> <code>DELETE</code> 方法</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">r:=myMux.NewRouter()</span><br><span class="line">&#123;</span><br><span class="line">    r.Methods(<span class="string">&quot;GET&quot;</span>,<span class="string">&quot;DELETE&quot;</span>).Path(<span class="string">&quot;/user/&#123;uid:[0-9]+&#125;&quot;</span>).Handler(serverHandler)</span><br><span class="line">&#125;</span><br><span class="line">    <span class="comment">// 因为serverHandler 已经实现了handler 接口 所以http.ListenAndServe 可以直接调用</span></span><br><span class="line">_ = http.ListenAndServe(<span class="string">&quot;:8080&quot;</span>, r)</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="验证结果"><a href="#验证结果" class="headerlink" title="验证结果"></a>验证结果</h3><ol>
+<li><p>GET 获取管理员用户</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">curl --request GET \</span><br><span class="line">  --url http://localhost:8080/user/101</span><br><span class="line"> </span><br><span class="line"><span class="meta">&gt;</span></span><br><span class="line">&#123;</span><br><span class="line">  &quot;result&quot;: &quot;richard&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>GET 获取普通用户</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">curl --request GET \</span><br><span class="line">  --url http://localhost:8080/user/102</span><br><span class="line"> </span><br><span class="line"><span class="meta">&gt;</span></span><br><span class="line">&#123;</span><br><span class="line">  &quot;result&quot;: &quot;guest&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除普通用户</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">curl --request DELETE \</span><br><span class="line">  --url http://localhost:8080/user/102</span><br><span class="line"> </span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> </span></span><br><span class="line">&#123;</span><br><span class="line">  &quot;result&quot;: &quot;用户102删除成功&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除管理员用户</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">curl --request DELETE \</span><br><span class="line">  --url http://localhost:8080/user/101</span><br><span class="line">  </span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> </span></span><br><span class="line">&#123;</span><br><span class="line">  &quot;result&quot;: &quot;无权限&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="5">
+<li><p>其他http method 请求</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">curl --request POST \</span><br><span class="line">  --url http://localhost:8080/user/101</span><br><span class="line">  </span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> </span></span><br><span class="line">405 Method Not Allowed</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/30/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%89/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/30/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%89/" class="post-title-link" itemprop="url">Go-kit 学习笔记-三</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-30 10:40:24" itemprop="dateCreated datePublished" datetime="2020-08-30T10:40:24Z">2020-08-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-14 14:36:01" itemprop="dateModified" datetime="2020-09-14T14:36:01Z">2020-09-14</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>760</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><img src="/images/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%89/image-20200901224625446.png" alt="image-20200901224625446"></p>
+<h3 id="介绍一个第三方路由"><a href="#介绍一个第三方路由" class="headerlink" title="介绍一个第三方路由"></a>介绍一个第三方路由</h3><p>使用第三方库<a target="_blank" rel="noopener" href="https://github.com/gorilla/mux">mux</a>  来设置路由</p>
+<p>安装方式</p>
+<p>go get github.com/gotilla/mux</p>
+<ol>
+<li><p>创建路由</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">r := mux.NewRouter()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>简单的使用 、这种是不指定<code>http method</code></p>
+</li>
+</ol>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    r := mux.NewRouter()</span><br><span class="line">    r.HandleFunc(<span class="string">&quot;/&quot;</span>, HomeHandler)</span><br><span class="line">    r.HandleFunc(<span class="string">&quot;/products&quot;</span>, ProductsHandler)</span><br><span class="line">    r.HandleFunc(<span class="string">&quot;/articles&quot;</span>, ArticlesHandler)</span><br><span class="line">    http.Handle(<span class="string">&quot;/&quot;</span>, r)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+<ol start="3">
+<li>路由规则支持正则</li>
+</ol>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">r := mux.NewRouter()</span><br><span class="line">r.HandleFunc(<span class="string">&quot;/products/&#123;key&#125;&quot;</span>, ProductHandler)</span><br><span class="line">r.HandleFunc(<span class="string">&quot;/articles/&#123;category&#125;/&quot;</span>, ArticlesCategoryHandler)</span><br><span class="line">r.HandleFunc(<span class="string">&quot;/articles/&#123;category&#125;/&#123;id:[0-9]+&#125;&quot;</span>, ArticleHandler)</span><br></pre></td></tr></table></figure>
+
+
+
+<ol start="4">
+<li>指定<code>http method</code>  post请求 /specific</li>
+</ol>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">r.Methods(<span class="string">&quot;POST&quot;</span>)</span><br><span class="line">r.HandleFunc(<span class="string">&quot;/specific&quot;</span>, specificHandler)</span><br><span class="line"># 也可以</span><br><span class="line">r.r.PathPrefix(<span class="string">&quot;/products&quot;</span>).Handler(catchAllHandler)</span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/29/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%80/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/08/29/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%80/" class="post-title-link" itemprop="url">Go-kit 学习笔记 一</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-29 10:57:56" itemprop="dateCreated datePublished" datetime="2020-08-29T10:57:56Z">2020-08-29</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-08-31 13:55:34" itemprop="dateModified" datetime="2020-08-31T13:55:34Z">2020-08-31</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>1.3k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>Go-kit 的三层架构</p>
+<ol>
+<li><p>transport</p>
+<p>主要负责与http、gRPC、thrift等相关逻辑</p>
+</li>
+<li><p>endpoint</p>
+<p>定义request与response格式、并可以使用装饰器包装函数，以此来实现各种中间件之间的嵌套</p>
+</li>
+<li><p>service</p>
+<p>这里定义的就是业务类、接口等</p>
+</li>
+</ol>
+<p>我实现的时候是倒着创建</p>
+<p>​    </p>
+<ol>
+<li><p>第一步 创建接口 以及关联词</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> IUserService <span class="keyword">interface</span> &#123;</span><br><span class="line">    GetName(userId <span class="keyword">int</span>) <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> UserService <span class="keyword">struct</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this UserService)</span><span class="title">GetName</span><span class="params">(userId <span class="keyword">int</span>)</span><span class="title">string</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> userId==<span class="number">101</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;richard&quot;</span></span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;guest&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
 </li>
 </ol>
 <ol start="2">
-<li><p>将 AWS ALB Ingress 控制器 YAML 下载到本地文件：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -sS &quot;https://raw.githubusercontent.com/kubernetes-sigs/aws-alb-ingress-controller/v1.0.0/docs/examples/alb-ingress-controller.yaml&quot; &gt; alb-ingress-controller.yaml</span><br></pre></td></tr></table></figure>
+<li><p>第二步 创建EndPoint</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">type</span> UserRequest <span class="keyword">struct</span> &#123;</span><br><span class="line">    Uid <span class="keyword">int</span> <span class="string">`json:&quot;uid&quot;`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> UserResponse <span class="keyword">struct</span> &#123;</span><br><span class="line">    Result <span class="keyword">string</span> <span class="string">`json:&quot;result&quot;`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 首先定义 请求和响应的 <span class="keyword">struct</span></span><br></pre></td></tr></table></figure>
 
 
 
 </li>
 </ol>
 <ol start="3">
-<li><p>编辑 AWS ALB Ingress 控制器 YAML t以包含 Kubernetes（或）Amazon EKS 集群的 clusterName。<br>将 –cluster-name 标记编辑为我们的 Kubernetes（或）Amazon EKS 集群的真实名称。</p>
-</li>
-<li><p>部署 AWS ALB Ingress 控制器 YAML： </p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl apply -f alb-ingress-controller.yaml</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>验证部署成功，并且控制器已经启动：<br>kubectl logs -n kube-system $(kubectl get po -n kube-system | egrep -o alb-ingress[a-zA-Z0-9-]+)</p>
-</li>
+<li><p>第三步 创建transport</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 当我们外部有请求过来的时候，我们需要对Request进行decode，</span><br><span class="line"># 注意：外部请求很有可能是rpc、http。参数形式也许是json也许是赤裸裸的url参数</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">DecodeUserRequest</span><span class="params">(c context.Context,r *http.Request)</span><span class="params">(<span class="keyword">interface</span>&#123;&#125;,error)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在代码块里写</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这个主要是判断参数是怎么来的,代码可以写成</span></span><br><span class="line">    <span class="keyword">if</span> r.URL.Query().Get(<span class="string">&quot;uid&quot;</span>) != <span class="string">&quot;&quot;</span> &#123;</span><br><span class="line">        uid, _ := strconv.Atoi(r.URL.Query().Get(<span class="string">&quot;uid&quot;</span>))</span><br><span class="line">        <span class="keyword">return</span> UserRequest&#123;Uid: uid&#125;, <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span>,errors.New(<span class="string">&quot;参数错误&quot;</span>)</span><br></pre></td></tr></table></figure>
+
+<p>对于响应：响应是我们发出的 我们需要encode，比较简单的就是json</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">EncodeUserRequest</span><span class="params">(ctx context.Context,w http.ResponseWriter,response <span class="keyword">interface</span>&#123;&#125;)</span> <span class="title">error</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>在func里添加</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 返回一个json</span><br><span class="line">w.Header().Set(&quot;Content-type&quot;,&quot;application&#x2F;json;charset&#x3D;utf-8&quot;)</span><br><span class="line">return json.NewEncoder(w).Encode(response)</span><br></pre></td></tr></table></figure></li>
 </ol>
 
       
@@ -354,7 +1010,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/22/leetcode-%E5%AD%97%E7%AC%A6%E4%B8%B2-%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%89%8D%E7%BC%80/">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/28/charles-https-%E6%8A%93%E5%8C%85/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -368,7 +1024,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/08/22/leetcode-%E5%AD%97%E7%AC%A6%E4%B8%B2-%E6%9C%80%E9%95%BF%E5%85%AC%E5%85%B1%E5%89%8D%E7%BC%80/" class="post-title-link" itemprop="url">leetcode 字符串-最长公共前缀</a>
+            <a href="/2020/08/28/charles-https-%E6%8A%93%E5%8C%85/" class="post-title-link" itemprop="url">charles-https 抓包</a>
         </h2>
 
         <div class="post-meta">
@@ -379,7 +1035,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-08-21 16:48:56 / 修改时间：08:50:27" itemprop="dateCreated datePublished" datetime="2020-08-21T16:48:56Z">2020-08-21</time>
+              <time title="创建时间：2020-08-28 15:59:02 / 修改时间：08:24:49" itemprop="dateCreated datePublished" datetime="2020-08-28T15:59:02Z">2020-08-28</time>
             </span>
             <span class="post-meta-item">
               <span class="post-meta-item-icon">
@@ -387,15 +1043,7 @@
               </span>
               <span class="post-meta-item-text">分类于</span>
                 <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/leetcode/%E5%AD%97%E7%AC%A6%E4%B8%B2/" itemprop="url" rel="index"><span itemprop="name">字符串</span></a>
+                  <a href="/categories/%E6%8A%93%E5%8C%85/" itemprop="url" rel="index"><span itemprop="name">抓包</span></a>
                 </span>
             </span>
 
@@ -405,7 +1053,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>241</span>
+              <span>1.4k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -424,18 +1072,63 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>最长公共前缀<br>编写一个函数来查找字符串数组中的最长公共前缀。</p>
-<p>如果不存在公共前缀，返回空字符串 “”。</p>
-<p>示例 1:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [&quot;flower&quot;,&quot;flow&quot;,&quot;flight&quot;]</span><br><span class="line">输出: &quot;fl&quot;</span><br></pre></td></tr></table></figure>
+          <h3 id="1-获取PC的IP地址"><a href="#1-获取PC的IP地址" class="headerlink" title="1. 获取PC的IP地址"></a>1. 获取PC的IP地址</h3><p>在Charles<code>菜单栏 -&gt; Help -&gt; Local IP Address</code>中可以查看PC的IP地址。图示如下：</p>
+<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161106090.png" alt="image-20200828161106090" style="zoom: 50%;" />
 
 
-<p>示例 2:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">输入: [&quot;dog&quot;,&quot;racecar&quot;,&quot;car&quot;]</span><br><span class="line">输出: &quot;&quot;</span><br></pre></td></tr></table></figure>
 
-<p>解释: 输入不存在公共前缀。<br>说明:</p>
-<p>所有输入只包含小写字母 a-z 。</p>
-<p>思路：</p>
+<p>也可以在Mac终端使用命令<code>ifconfig en1</code>查看PC的IP地址。图示如下：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mfxing  ifconfig en1</span><br><span class="line">en1: flags=8963&lt;UP,BROADCAST,SMART,RUNNING,PROMISC,SIMPLEX,MULTICAST&gt; mtu 1500</span><br><span class="line">    options=460&lt;TSO4,TSO6,CHANNEL_IO&gt;</span><br><span class="line">    ether 82:0e:72:47:b8:01</span><br><span class="line">    media: autoselect &lt;full-duplex&gt;</span><br><span class="line">    status: inactive</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="2-配置iPhone代理"><a href="#2-配置iPhone代理" class="headerlink" title="2. 配置iPhone代理"></a>2. 配置iPhone代理</h3><p>在iPhone的<code>设置 -&gt; 无线局域网 -&gt; 局域网信息(i) -&gt; 配置代理 -&gt; 手动</code>中配置代理，服务器输入框中填写PC的IP地址，端口输入框中填写Charles的代理端口（一般是8888）。图示如下：</p>
+<img src="/images/charles-https-%E6%8A%93%E5%8C%85/7dff28a27b45adb7d3fecff3a085b315.jpg" alt="7dff28a27b45adb7d3fecff3a085b315" style="zoom:50%;" />
+
+
+
+<p>具体的端口可以从Charles<code>菜单栏 -&gt; Proxy -&gt; Proxy Settings</code>中查看。图示如下：</p>
+<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161401437.png" alt="image-20200828161401437" style="zoom:33%;" />
+
+
+
+<p>iPhone代理配置完成后，Charles会弹出连接提示框，点击<code>Allow</code>之后即可使用Charles对从该iPhone发出的请求进行抓包了。图示如下：<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161524821.png" alt="image-20200828161524821"></p>
+<h3 id="3-抓包HTTPS请求"><a href="#3-抓包HTTPS请求" class="headerlink" title="3. 抓包HTTPS请求"></a>3. 抓包HTTPS请求</h3><p>在配置iPhone代理完毕后，就可以通过Structure或者Sequence窗口预览HTTP请求的数据了。但由于HTTPS请求被加密过，预览请求时只能预览到乱码数据。要预览到HTTPS请求的数据明文，需要PC和iPhone安装证书授权。</p>
+<h4 id="1-PC安装证书"><a href="#1-PC安装证书" class="headerlink" title="1) PC安装证书"></a>1) PC安装证书</h4><p>在Charles<code>菜单栏 -&gt; Help -&gt; SSL Proxying -&gt; Install Charles Root Certificate</code>中可以为PC安装证书，证书可以在Mac的钥匙串中查看。图示如下：</p>
+<p><img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161742347.png" alt="image-20200828161742347"></p>
+<p>证书可以在Mac的钥匙串中查看，双击证书，将信任权限设定为<code>始终信任</code>。图示如下：</p>
+<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161820758.png" alt="image-20200828161820758" style="zoom:33%;" />
+
+
+
+<h4 id="2-iPhone安装证书"><a href="#2-iPhone安装证书" class="headerlink" title="2) iPhone安装证书"></a>2) iPhone安装证书</h4><p>在iPhone浏览器中访问<code>http://charlesproxy.com/getssl</code>可以下载证书并安装。此地址一般不会变化，可以在Charles<code>菜单栏 -&gt; Help -&gt; SSL Proxying -&gt; Install Charles Root Certificate on a Mobile Device or Remote Browser</code>中查看最新的官方证书下载地址。图示如下：</p>
+<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161858697.png" alt="image-20200828161858697" style="zoom:50%;" />
+
+
+
+<p>基于iOS的证书信任机制，在安装完成并信任证书后，需要到iPhone<code>设置 -&gt; 关于本机 -&gt; 证书信任设置</code>中启用根证书。图示如下：</p>
+<img src="/images/charles-https-%E6%8A%93%E5%8C%85/635269d6c5f07cea0b29a7b859fe35b9.jpg" alt="635269d6c5f07cea0b29a7b859fe35b9" style="zoom:33%;" />
+
+
+
+<p>这样，就可以使用Charles中抓包iPhone发出的HTTPS请求并预览明文数据了。</p>
+<blockquote>
+<p>抓包模拟器上的HTTPS请求需要点击<code>Install Charles Root Certificate in iOS Simulators</code>安装证书。</p>
+</blockquote>
+<h4 id="3-启动抓包SSL权限"><a href="#3-启动抓包SSL权限" class="headerlink" title="3) 启动抓包SSL权限"></a>3) 启动抓包SSL权限</h4><p>在Charles<code>菜单栏 -&gt; Proxy -&gt; SSL Proxying Settings</code>中勾选<code>Enable SSL Proxying</code>，然后在<code>Locations</code>中添加需要抓包的Host和Port即可。图示如下：</p>
+<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828162130663.png" alt="image-20200828162130663" style="zoom:33%;" />
+
+
+
+<p>也可以在抓包界面，右键点击某条/组请求，在弹出的选项列表中点击<code>Enable SSL Proxying</code>启用权限。图示如下：</p>
+<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828162231644.png" alt="image-20200828162231644" style="zoom: 33%;" />
+
+
+
+
+
+<p>基本的抓取到这里就完事了 </p>
+<p>charles 还支持 <code>请求断点</code>、<code>数据修改</code>、<code>请求重发</code>、<code>网速模拟</code></p>
 
       
     </div>
@@ -455,7 +1148,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/20/sublime-json-%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%BF%AB%E6%8D%B7%E9%94%AE/">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/28/%E7%9F%A5%E8%AF%86%E5%BF%85%E5%A4%87/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -469,85 +1162,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/08/20/sublime-json-%E6%A0%BC%E5%BC%8F%E5%8C%96%E5%BF%AB%E6%8D%B7%E9%94%AE/" class="post-title-link" itemprop="url">sublime json 格式化快捷键</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-08-20 11:38:02 / 修改时间：03:38:44" itemprop="dateCreated datePublished" datetime="2020-08-20T11:38:02Z">2020-08-20</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>385</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>1、打开 Sublime，<code>command + shift + p</code> -&gt; Install package<br> 搜索 Pretty JSON，安装</p>
-<p>2、手工 install</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">I: cd &lt;Packages directory&gt; (例如 Mac ~&#x2F;Library&#x2F;Application\ Support&#x2F;Sublime\ Text\ 2&#x2F;Packages </span><br><span class="line">or </span><br><span class="line">~&#x2F;Library&#x2F;Application\ Support&#x2F;Sublime\ Text\ 3&#x2F;Packages)</span><br><span class="line"></span><br><span class="line">II: git clone https:&#x2F;&#x2F;github.com&#x2F;dzhibas&#x2F;SublimePrettyJson.git</span><br></pre></td></tr></table></figure>
-
-<p>格式化快捷键 :</p>
-<p>macOS: <code>command + ctrl + j</code><br> Windows: <code>ctrl + alt + j</code></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/19/elasticsearch-7-5-0%E7%A0%B4%E8%A7%A3/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/19/elasticsearch-7-5-0%E7%A0%B4%E8%A7%A3/" class="post-title-link" itemprop="url">elasticsearch-7.5.0白金版破解</a>
+            <a href="/2020/08/28/%E7%9F%A5%E8%AF%86%E5%BF%85%E5%A4%87/" class="post-title-link" itemprop="url">知识必备</a>
         </h2>
 
         <div class="post-meta">
@@ -557,15 +1172,24 @@
               </span>
               <span class="post-meta-item-text">发表于</span>
 
-              <time title="创建时间：2020-08-18 17:12:00" itemprop="dateCreated datePublished" datetime="2020-08-18T17:12:00Z">2020-08-18</time>
+              <time title="创建时间：2020-08-28 15:59:02" itemprop="dateCreated datePublished" datetime="2020-08-28T15:59:02Z">2020-08-28</time>
             </span>
               <span class="post-meta-item">
                 <span class="post-meta-item-icon">
                   <i class="far fa-calendar-check"></i>
                 </span>
                 <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-19 03:29:53" itemprop="dateModified" datetime="2020-09-19T03:29:53Z">2020-09-19</time>
+                <time title="修改时间：2020-11-18 12:39:51" itemprop="dateModified" datetime="2020-11-18T12:39:51Z">2020-11-18</time>
               </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%9F%A5%E8%AF%86%E5%BF%85%E5%A4%87/" itemprop="url" rel="index"><span itemprop="name">知识必备</span></a>
+                </span>
+            </span>
 
           <br>
             <span class="post-meta-item" title="本文字数">
@@ -573,14 +1197,14 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>6.7k</span>
+              <span>15k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
                 <i class="far fa-clock"></i>
               </span>
                 <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>6 分钟</span>
+              <span>14 分钟</span>
             </span>
 
         </div>
@@ -592,627 +1216,567 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>下载elasticsearch 7.5.0版本</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-7.5.0-darwin-x86_64.tar.gz</span><br></pre></td></tr></table></figure>
-
-<p>解压</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -zxvf elasticsearch-7.5.0-darwin-x86_64.tar.gz</span><br></pre></td></tr></table></figure>
-
-<h3 id="破解过程："><a href="#破解过程：" class="headerlink" title="破解过程："></a>破解过程：</h3><p>注意：<code>/Users/mengfanxing_g/elk/</code>是我本机路径，你在操作时应该修改成你的路径。</p>
-<p>1，将 <code>/Users/mengfanxing_g/elk/elasticsearch-7.5.0/modules/x-pack-core/</code>目录下的<code>x-pack-core-7.5.0.jar</code>文件赋值一份，</p>
-<p>2，手动创建<code>XPackBuild.java</code>和<code>LicenseVerifier.java</code>两个文件，</p>
-<ul>
-<li><p><code>LicenseVerifier.java</code>内容为：</p>
-<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">package</span> org.elasticsearch.xpack.core;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.common.SuppressForbidden;</span><br><span class="line"><span class="keyword">import</span> org.elasticsearch.common.io.PathUtils;</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> java.io.IOException;</span><br><span class="line"><span class="keyword">import</span> java.net.URISyntaxException;</span><br><span class="line"><span class="keyword">import</span> java.net.URL;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Files;</span><br><span class="line"><span class="keyword">import</span> java.nio.file.Path;</span><br><span class="line"><span class="keyword">import</span> java.util.jar.JarInputStream;</span><br><span class="line"><span class="keyword">import</span> java.util.jar.Manifest;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">XPackBuild</span> </span>&#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> XPackBuild CURRENT;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        CURRENT = <span class="keyword">new</span> XPackBuild(<span class="string">&quot;Unknown&quot;</span>, <span class="string">&quot;Unknown&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">/**</span></span><br><span class="line"><span class="comment">     * Returns path to xpack codebase path</span></span><br><span class="line"><span class="comment">     */</span></span><br><span class="line">    <span class="meta">@SuppressForbidden(reason = &quot;looks up path of xpack.jar directly&quot;)</span></span><br><span class="line">    <span class="function"><span class="keyword">static</span> Path <span class="title">getElasticsearchCodebase</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        URL url = XPackBuild.class.getProtectionDomain().getCodeSource().getLocation();</span><br><span class="line">        <span class="keyword">try</span> &#123;</span><br><span class="line">            <span class="keyword">return</span> PathUtils.get(url.toURI());</span><br><span class="line">        &#125; <span class="keyword">catch</span> (URISyntaxException bogus) &#123;</span><br><span class="line">            <span class="keyword">throw</span> <span class="keyword">new</span> RuntimeException(bogus);</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">private</span> String shortHash;</span><br><span class="line">    <span class="keyword">private</span> String date;</span><br><span class="line"></span><br><span class="line">    XPackBuild(String shortHash, String date) &#123;</span><br><span class="line">        <span class="keyword">this</span>.shortHash = shortHash;</span><br><span class="line">        <span class="keyword">this</span>.date = date;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">shortHash</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> shortHash;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">date</span><span class="params">()</span> </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> date;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+          <h3 id=""><a href="#" class="headerlink" title=""></a></h3><p>为什么打算出来面试呢</p>
+<p>​    现在自己的技术成长有碰到瓶颈、加上一直对您公司钦慕有加</p>
+<h3 id="redis-hash是怎么解决hash冲突的"><a href="#redis-hash是怎么解决hash冲突的" class="headerlink" title="redis hash是怎么解决hash冲突的"></a>redis hash是怎么解决hash冲突的</h3><p>  链地址法</p>
+<p>Redis 的哈希表使用链地址法（separate chaining）来解决键冲突： 每个哈希表节点都有一个 <code>next</code> 指针， 多个哈希表节点可以用 <code>next</code> 指针构成一个单向链表， 被分配到同一个索引上的多个节点可以用这个单向链表连接起来， 这就解决了键冲突的问题。</p>
+<h3 id="redis的持久化"><a href="#redis的持久化" class="headerlink" title="redis的持久化"></a>redis的持久化</h3><ol>
+<li><p>使用rdb，是周期性的对redis进行持久化操作，一般默认时间是5min，</p>
 </li>
-<li><p><code>LicenseVerifier.java</code>文件的内容为：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line">package org.elasticsearch.license;</span><br><span class="line"></span><br><span class="line">&#x2F;**</span><br><span class="line"> * Responsible for verifying signed licenses</span><br><span class="line"> *&#x2F;</span><br><span class="line">public class LicenseVerifier &#123;</span><br><span class="line"></span><br><span class="line">    &#x2F;**</span><br><span class="line">     * verifies the license content with the signature using the packaged</span><br><span class="line">     * public key</span><br><span class="line">     * @param license to verify</span><br><span class="line">     * @return true if valid, false otherwise</span><br><span class="line">     *&#x2F;</span><br><span class="line">    public static boolean verifyLicense(final License license, byte[] publicKeyData) &#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    public static boolean verifyLicense(final License license) &#123;</span><br><span class="line">        return true;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<li><p>使用了aof，是根据redis的每条写命令进行持久化操作，一般是append only的形式，同时也可以通过rewrite的方式来对aof的日志进行重构redis  的数据集</p>
+<p>通过rdb 和aof都可以将redis中的内存数据持久化到磁盘上来，然后将这些数据备份到aws 的s3或者其他的云服务上去，一旦redis挂了，或者服务器的内存和磁盘上的数据都丢失了，可以从云服务上拷贝之前的数据，放到指定目录中，然后启动redis，redis就会自动根据持久化数据文件中的数据，去恢复内存中的数据，继续对外提供服务。</p>
+<p>如果同时使用aof和rdb两种持久化机制，那么在redis重启的时候，会使用aof来重构数据，因为aof的数据会更加完整</p>
+</li>
+</ol>
+<p>   rdb的优缺点：</p>
+<p>   rdb会生成多个数据文件，每个数据文件都代表了某一时刻中redis中的数据，这个多个数据的方式非常时候做冷备份。</p>
+<p>   rdb对redis对外提供的读写服务非常小，因为redis 提供了bgsave的command，主线程可以fork一个子线程去执行磁盘io的持久化操作，进行rdb的持久化</p>
+<p>   相对于aof来说，直接基于rdb数据文件来重启和恢复redis进程会更加快速。</p>
+<p>   如果想要在redis出现故障的时候，尽可能少的丢失数据，rdb没有aof好，一般来说rdb的文件一般是每隔5分钟生成一次，或者更长的时间生成一次，这样在进行redis恢复的时候就要考虑可能要丢失最新5分钟的数据</p>
+<p>   rdb每次在fork子进程来进行rdb快照数据文件生成的时候，如果文件特别大，可能会导致对客户端提供的服务暂停数毫秒，甚至数秒</p>
+<p>   aof的优缺点</p>
+<p>   ​    aof可以很好的保证数据不丢失，一般aof会每隔一秒通过后台线程执行一次fsync操作，最多丢失1秒钟的数据</p>
+<p>   aof日志以append only模式写入，所以没有任何磁盘寻址的开销。写入性能非常高而且文件性能不容易被损坏，即使损坏也很容易修复。</p>
+<p>   aof日志文件即使过大的时候 出现后台的重写操作，也不会影响客户端的读写。因为在rewrite log的时候，会对其进行指导压缩，创建出一份需要恢复的数据的最小日志出来，在创建新日志文件的时候，老的日志文件照常写入，当新的merge后的日志文件ready的时候 再交换新老日志文件即可</p>
+<p>   aof日志文件记录的命令非常可读，也非常适合灾难性的误删除的紧急恢复，比如某人不小心使用flushall的命令清空所有数据，只有这个时候rewrite还没有发生，那么就可以拷贝aof文件，将最后一条的fluashll 命令删除，然后在将该aof文件放回去，通过恢复机制，自动恢复所有数据</p>
+<p>   对于同一份日志文件来说，aof的文件要比rdb的文件更大</p>
+<p>   aof开启后，支持redis的写的qps会比支持rdb写的qps低，因为aof一般会配置成每秒fsync一次日志，其实性能还是很高的，如果支持实时写入的化 那么qps会大降</p>
+<h3 id="redis的string-底层实现"><a href="#redis的string-底层实现" class="headerlink" title="redis的string 底层实现"></a>redis的string 底层实现</h3><p>​    embstr  小于39个字节</p>
+<p>​    long 长整型  在做自增自减</p>
+<p>​    raw 大于39的字节的字符串</p>
+<p>Redis会根据当前值的类型和长度决定使用哪种内部编码实现。</p>
+<h3 id="redis-hash的结构"><a href="#redis-hash的结构" class="headerlink" title="redis hash的结构"></a>redis hash的结构</h3><p>哈希类型的内部编码有两种：</p>
+<ul>
+<li><p>ziplist（压缩列表）：</p>
+<p>条件：</p>
+<ol>
+<li>当哈希类型元素个数小于hash-max-ziplist-entries配置（默认512个）</li>
+<li>所有值都小于hash-max-ziplist-value配置（默认64字节）</li>
+</ol>
+</li>
+<li><p>hashtable（哈希表）：当哈希类型无法满足ziplist的条件时使用hashtable</p>
 </li>
 </ul>
-<p>3 使用javac 编译这两个java文件，需要引入import的依赖，使用-cp参数，需要依赖原本的<code>x-pack-core-7.5.0.jar</code>，<code>lucene-core-8.3.0.jar</code>，<code>elasticsearch-7.5.0.jar</code>，<code>elasticsearch-core-7.5.0.jar</code>这四个jar包,对应的文件都在安装目录，有的在lib目录下，有的在modules目录下。编译命令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">javac -cp &quot;&#x2F;Users&#x2F;mengfanxing_g&#x2F;elk&#x2F;elasticsearch-7.5.0&#x2F;modules&#x2F;x-pack-core&#x2F;x-pack-core-7.5.0.jar:&#x2F;Users&#x2F;mengfanxing_g&#x2F;elk&#x2F;elasticsearch-7.5.0&#x2F;lib&#x2F;lucene-core-8.3.0.jar:&#x2F;Users&#x2F;mengfanxing_g&#x2F;elk&#x2F;elasticsearch-7.5.0&#x2F;lib&#x2F;elasticsearch-7.5.0.jar:&#x2F;Users&#x2F;mengfanxing_g&#x2F;elk&#x2F;elasticsearch-7.5.0&#x2F;lib&#x2F;elasticsearch-core-7.5.0.jar&quot;  &#x2F;Users&#x2F;mengfanxing_g&#x2F;richard&#x2F;blog&#x2F;XingServer&#x2F;tmp&#x2F;XPackBuild.java</span><br><span class="line"></span><br><span class="line">javac -cp &quot;&#x2F;Users&#x2F;mengfanxing_g&#x2F;elk&#x2F;elasticsearch-7.5.0&#x2F;modules&#x2F;x-pack-core&#x2F;x-pack-core-7.5.0.jar:&#x2F;Users&#x2F;mengfanxing_g&#x2F;elk&#x2F;elasticsearch-7.5.0&#x2F;lib&#x2F;lucene-core-8.3.0.jar:&#x2F;Users&#x2F;mengfanxing_g&#x2F;elk&#x2F;elasticsearch-7.5.0&#x2F;lib&#x2F;elasticsearch-7.5.0.jar:&#x2F;Users&#x2F;mengfanxing_g&#x2F;elk&#x2F;elasticsearch-7.5.0&#x2F;lib&#x2F;elasticsearch-core-7.5.0.jar&quot;  &#x2F;Users&#x2F;mengfanxing_g&#x2F;richard&#x2F;blog&#x2F;XingServer&#x2F;tmp&#x2F;LicenseVerifier.java</span><br></pre></td></tr></table></figure>
-
-<p>然后就会在桌面产生对应的class文件。</p>
-<p>查询需要替换的文件在jar中的位置 </p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">jar tvf *****.jar | grep &#123;fileName&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">4786 Tue Nov 26 01:06:36 CST 2019 org&#x2F;elasticsearch&#x2F;license&#x2F;LicenseVerifier.class</span><br></pre></td></tr></table></figure>
-
-<p>二、将文件解压到当前目录(以及文件所在目录)</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; jar xvf ****.jar &#123;filePath&#125;</span><br></pre></td></tr></table></figure>
-
-<p>三、替换新生成的文件夹中的文件</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&gt; jar uvf ***.jar &#123;filePath&#125;</span><br></pre></td></tr></table></figure>
-
-<p>执行结果：</p>
-<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">jar uvf x-pack-core-7.5.0.jar org/elasticsearch/license/LicenseVerifier.class</span><br><span class="line">正在添加: org/elasticsearch/license/LicenseVerifier.class(输入 = 410) (输出 = 246)(压缩了 40%</span><br></pre></td></tr></table></figure>
-
-<p>XPackBuild 同理</p>
-<p>4，更新许可证</p>
-<p>官方申请地址： <a target="_blank" rel="noopener" href="https://register.elastic.co/marvel_register">https://register.elastic.co/marvel_register</a></p>
-<p>公司地址什么课以随便填写，邮箱要填好，然后收到邮件，进行文件下载。 下载下来，修改里面的内容，主要是把 “basic” 改为 “platinum” 即白金版，”expiry_date_in_millis” 这个时间戳改大点，就够用了。</p>
-<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;license&quot;</span>: &#123;</span><br><span class="line">    <span class="attr">&quot;uid&quot;</span>: <span class="string">&quot;5a2c6c4f-60bf-4471-8941-1d037364a2e3&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;type&quot;</span>: <span class="string">&quot;platinum&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;issue_date_in_millis&quot;</span>: <span class="number">1597881600000</span>,</span><br><span class="line">    <span class="attr">&quot;expiry_date_in_millis&quot;</span>: <span class="number">2524582861000</span>,</span><br><span class="line">    <span class="attr">&quot;max_nodes&quot;</span>: <span class="number">9999</span>,</span><br><span class="line">    <span class="attr">&quot;issued_to&quot;</span>: <span class="string">&quot;richard xing (xiong)&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;issuer&quot;</span>: <span class="string">&quot;Web Form&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;signature&quot;</span>: <span class="string">&quot;AAAAAwAAAA3unQmrSr8HfvmG9XG6AAABmC9ZN0hjZDBGYnVyRXpCOW5Bb3FjZDAxOWpSbTVoMVZwUzRxVk1PSmkxaktJRVl5MUYvUWh3bHZVUTllbXNPbzBUemtnbWpBbmlWRmRZb25KNFlBR2x0TXc2K2p1Y1VtMG1UQU9TRGZVSGRwaEJGUjE3bXd3LzRqZ05iLzRteWFNekdxRGpIYlFwYkJiNUs0U1hTVlJKNVlXekMrSlVUdFIvV0FNeWdOYnlESDc3MWhlY3hSQmdKSjJ2ZTcvYlBFOHhPQlV3ZHdDQ0tHcG5uOElCaDJ4K1hob29xSG85N0kvTWV3THhlQk9NL01VMFRjNDZpZEVXeUtUMXIyMlIveFpJUkk2WUdveEZaME9XWitGUi9WNTZVQW1FMG1DenhZU0ZmeXlZakVEMjZFT2NvOWxpZGlqVmlHNC8rWVVUYzMwRGVySHpIdURzKzFiRDl4TmM1TUp2VTBOUlJZUlAyV0ZVL2kvVk10L0NsbXNFYVZwT3NSU082dFNNa2prQ0ZsclZ4NTltbU1CVE5lR09Bck93V2J1Y3c9PQAAAQBfvTGssbXzXV+UDVggDncuYFQH+8rxwxt4J8H7KuhOAlYUnysaGKz+Agoh+vZOTKm0Uyo9Fl+6dn46RN9k4lHCW8UPby3M+arpH+g2dNzXASlmku+SQUI0MO1zKJ4FjVYGqjlzKyJ54fYAtW+B6i/R8saLp4lnmW+jvC7tAUehgZFF2jxF3Z+D4bHgGS+w005J4B0M36ViG86wa4Lmq2p9vgq6ZBw7mCZpazBPQpwLJTuNDCGCcCF3wN/lh9WjCsjOBbC5Qk0Zv9EgFebZZl0tYU5/klJxqxJTMt1b16ajJEC6hKzlCPMl0A1SIi7uz1aXZK9jdrg9S3ovfL3/sAb4&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;start_date_in_millis&quot;</span>: <span class="number">1597881600000</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>在导入license 之前需要</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">xpack.security.enabled:</span> <span class="literal">false</span></span><br></pre></td></tr></table></figure>
-
-<p>然后执行 导入json文件 因为还没设置elastic 用户名密码  直接回车</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -XPUT -u elastic &#x27;http://localhost:9200/_xpack/license&#x27; -H &quot;Content-Type: application/json&quot; -d @richard-xing-5a2c6c4f-60bf-4471-8941-1d037364a2e3-v5.json</span><br><span class="line">&#123;&quot;acknowledged&quot;:true,&quot;license_status&quot;:&quot;valid&quot;&#125;%</span><br></pre></td></tr></table></figure>
-
-<p>然后elasticsearch 添加对xpack的支持 然后 kibana上才能展示出security的模块，然后重新启动</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">xpack.security.enabled:</span> <span class="literal">true</span></span><br></pre></td></tr></table></figure>
-
-<p>然后在另一个窗口 执行，会自动生成相应用户名的密码</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line">./bin/elasticsearch-setup-passwords auto</span><br><span class="line">future versions of Elasticsearch will require Java 11; your Java version from [/Library/Java/JavaVirtualMachines/jdk1.8.0_172.jdk/Contents/Home/jre] does not meet this requirement</span><br><span class="line">Initiating the setup of passwords for reserved users elastic,apm_system,kibana,logstash_system,beats_system,remote_monitoring_user.</span><br><span class="line">The passwords will be randomly generated and printed to the console.</span><br><span class="line">Please confirm that you would like to continue [y/N]y</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">Changed password for user apm_system</span><br><span class="line">PASSWORD apm_system = 9zmSk88HiUQpy9f7PubZ</span><br><span class="line"></span><br><span class="line">Changed password for user kibana</span><br><span class="line">PASSWORD kibana = xppkoLkpaaanyVgV5kte</span><br><span class="line"></span><br><span class="line">Changed password for user logstash_system</span><br><span class="line">PASSWORD logstash_system = 7z9kX3eVrwMoOWGRm5Lj</span><br><span class="line"></span><br><span class="line">Changed password for user beats_system</span><br><span class="line">PASSWORD beats_system = 2GfWlbqa7s9azHZCuqeO</span><br><span class="line"></span><br><span class="line">Changed password for user remote_monitoring_user</span><br><span class="line">PASSWORD remote_monitoring_user = IPiR8ELc0Bwells0OXV4</span><br><span class="line"></span><br><span class="line">Changed password for user elastic</span><br><span class="line">PASSWORD elastic = cJQ98i4M0fPyaVkbw0WT</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/18/leetcode-%E6%95%B0%E7%BB%84-%E5%AF%B9%E8%A7%92%E7%BA%BF%E9%81%8D%E5%8E%86/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/18/leetcode-%E6%95%B0%E7%BB%84-%E5%AF%B9%E8%A7%92%E7%BA%BF%E9%81%8D%E5%8E%86/" class="post-title-link" itemprop="url">leetcode 数组-对角线遍历</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-08-17 23:06:59 / 修改时间：15:10:09" itemprop="dateCreated datePublished" datetime="2020-08-17T23:06:59Z">2020-08-17</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>942</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>给定一个含有 M x N 个元素的矩阵（M 行，N 列），请以对角线遍历的顺序返回这个矩阵中的所有元素，对角线遍历如下图所示。</p>
-<p>示例:</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"></span><br><span class="line">输入:</span><br><span class="line">[</span><br><span class="line"> [ 1, 2, 3 ],</span><br><span class="line"> [ 4, 5, 6 ],</span><br><span class="line"> [ 7, 8, 9 ]</span><br><span class="line">]</span><br><span class="line"></span><br><span class="line">输出:  [1,2,4,7,5,3,6,8,9]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p><img src="https://assets.leetcode-cn.com/aliyun-lc-upload/uploads/2018/10/12/diagonal_traverse.png" alt="解释:"></p>
-<p>说明:</p>
-<p>给定矩阵中的元素总数不会超过 100000 。</p>
-<p>Go</p>
-<h3 id="代码实现"><a href="#代码实现" class="headerlink" title="代码实现"></a>代码实现</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 官方题解第一种方法，遍历对角线，然后对偶数行序列翻转</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">findDiagonalOrder</span><span class="params">(matrix [][]<span class="keyword">int</span>)</span> []<span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> <span class="built_in">len</span>(matrix) == <span class="number">0</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    res := <span class="built_in">make</span>([]<span class="keyword">int</span>,<span class="number">0</span>)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 遍历的对角线数目为 行数+列数</span></span><br><span class="line">    <span class="keyword">for</span> i := <span class="number">0</span>; i &lt; <span class="built_in">len</span>(matrix[<span class="number">0</span>]) + <span class="built_in">len</span>(matrix) - <span class="number">1</span>; i++ &#123;</span><br><span class="line">        <span class="comment">// 当前对角线元素集</span></span><br><span class="line">        cur := <span class="built_in">make</span>([]<span class="keyword">int</span>,<span class="number">0</span>) </span><br><span class="line">        <span class="comment">// 当前坐标</span></span><br><span class="line">        x,y := <span class="number">0</span>,i</span><br><span class="line">        <span class="comment">// 我们假设右边拼接了一个与行数相等的矩阵，因此，如果遇到拼接的矩阵元素，需要跳过</span></span><br><span class="line">        <span class="keyword">for</span> y &gt;= <span class="built_in">len</span>(matrix[<span class="number">0</span>]) &#123;</span><br><span class="line">            x,y = x+<span class="number">1</span>,y<span class="number">-1</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 当前元素加入集合，向左下角移动一格</span></span><br><span class="line">        <span class="keyword">for</span> x &lt; <span class="built_in">len</span>(matrix) &amp;&amp; y &gt;= <span class="number">0</span> &#123;</span><br><span class="line">            cur = <span class="built_in">append</span>(cur,matrix[x][y])</span><br><span class="line">            x,y = x+<span class="number">1</span>,y<span class="number">-1</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 如果是偶数行序列，进行翻转</span></span><br><span class="line">        <span class="keyword">if</span> i % <span class="number">2</span> == <span class="number">0</span> &#123;</span><br><span class="line">            reverse(cur)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="comment">// 当前对角线元素序列加入结果数组</span></span><br><span class="line">        res = <span class="built_in">append</span>(res,cur...)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">return</span> res</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="comment">// 翻转数组</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">reverse</span><span class="params">(cur []<span class="keyword">int</span>)</span></span> &#123;</span><br><span class="line">    <span class="keyword">for</span> i,j := <span class="number">0</span>,<span class="built_in">len</span>(cur)<span class="number">-1</span>; i &lt; j; i,j = i+<span class="number">1</span>,j<span class="number">-1</span> &#123;</span><br><span class="line">        cur[i],cur[j] = cur[j],cur[i]</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-<p>执行用时：48 ms, 在所有 Go 提交中击败了20.71%的用户</p>
-<p>内存消耗：7 MB, 在所有 Go 提交中击败了6.12%的用户</p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/17/leetcode-%E6%95%B0%E7%BB%84-%E9%9B%B6%E7%9F%A9%E9%98%B5/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/17/leetcode-%E6%95%B0%E7%BB%84-%E9%9B%B6%E7%9F%A9%E9%98%B5/" class="post-title-link" itemprop="url">leetcode 数组-零矩阵</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-17 11:55:22" itemprop="dateCreated datePublished" datetime="2020-08-17T11:55:22Z">2020-08-17</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-31 08:02:06" itemprop="dateModified" datetime="2020-08-31T08:02:06Z">2020-08-31</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>755</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="题目"><a href="#题目" class="headerlink" title="题目"></a>题目</h3><p>零矩阵<br>编写一种算法，若M × N矩阵中某个元素为0，则将其所在的行与列清零。</p>
-<p>示例 1：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">输入：</span><br><span class="line">[</span><br><span class="line">  [1,1,1],</span><br><span class="line">  [1,0,1],</span><br><span class="line">  [1,1,1]</span><br><span class="line">]</span><br><span class="line">输出：</span><br><span class="line">[</span><br><span class="line">  [1,0,1],</span><br><span class="line">  [0,0,0],</span><br><span class="line">  [1,0,1]</span><br><span class="line">]</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-<p>示例 2：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">输入：</span><br><span class="line">[</span><br><span class="line">  [0,1,2,0],</span><br><span class="line">  [3,4,5,2],</span><br><span class="line">  [1,3,1,5]</span><br><span class="line">]</span><br><span class="line">输出：</span><br><span class="line">[</span><br><span class="line">  [0,0,0,0],</span><br><span class="line">  [0,4,5,0],</span><br><span class="line">  [0,3,1,0]</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
-
-
-
-<p>作者：力扣 (LeetCode)<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/leetbook/read/array-and-string/ciekh/">https://leetcode-cn.com/leetbook/read/array-and-string/ciekh/</a><br>来源：力扣（LeetCode）<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
-<p>思路：</p>
-<p>找到0的位置 然后遍历set 0 就可以</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">setZeroes</span><span class="params">(matrix [][]<span class="keyword">int</span>)</span></span>  &#123;</span><br><span class="line">    lenth1 := <span class="built_in">len</span>(matrix)</span><br><span class="line">    lenth2 := <span class="built_in">len</span>(matrix[<span class="number">0</span>])</span><br><span class="line">    hMap,lMap := <span class="built_in">make</span>([]<span class="keyword">bool</span>,lenth1),<span class="built_in">make</span>([]<span class="keyword">bool</span>,lenth2)</span><br><span class="line">    <span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;lenth1;i++&#123;</span><br><span class="line">        <span class="keyword">for</span> j:=<span class="number">0</span>;j&lt;lenth2;j++&#123;</span><br><span class="line">            <span class="keyword">if</span> matrix[i][j] == <span class="number">0</span>&#123;</span><br><span class="line">                hMap[i] = <span class="literal">true</span></span><br><span class="line">                lMap[j] = <span class="literal">true</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;lenth1;i++&#123;</span><br><span class="line">        <span class="keyword">for</span> j:=<span class="number">0</span>;j&lt;lenth2;j++&#123;</span><br><span class="line">            <span class="keyword">if</span> hMap[i] || lMap[j]&#123;</span><br><span class="line">                matrix[i][j] = <span class="number">0</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/%E8%BF%9E%E6%8E%A5mysql%E7%9A%84%E8%84%9A%E6%9C%AC/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/07/%E8%BF%9E%E6%8E%A5mysql%E7%9A%84%E8%84%9A%E6%9C%AC/" class="post-title-link" itemprop="url">连接mysql的脚本</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-06 22:29:04" itemprop="dateCreated datePublished" datetime="2020-08-06T22:29:04Z">2020-08-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-09 13:49:52" itemprop="dateModified" datetime="2020-08-09T13:49:52Z">2020-08-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/" itemprop="url" rel="index"><span itemprop="name">linux</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/linux/mysql/" itemprop="url" rel="index"><span itemprop="name">mysql</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>118</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="基本属性"><a href="#基本属性" class="headerlink" title="基本属性"></a>基本属性</h3><p><code>mysql的服务器地址： 127.0.0.1  mysql的端口: 3306 mysql的用户: root mysq的密码: abcdefg</code></p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">mysql -h 127.0.0.1 -P 3306 -u root  -pabcdefg databaseName;</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/beego%20orm%E6%93%8D%E4%BD%9C(%E4%B8%80)/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/07/beego%20orm%E6%93%8D%E4%BD%9C(%E4%B8%80)/" class="post-title-link" itemprop="url">k8s--pod的状态为evicted</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-06 22:08:43" itemprop="dateCreated datePublished" datetime="2020-08-06T22:08:43Z">2020-08-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-14 10:05:18" itemprop="dateModified" datetime="2020-08-14T10:05:18Z">2020-08-14</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/k8s/" itemprop="url" rel="index"><span itemprop="name">k8s</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>214</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="遇到问题–k8s–pod的状态为evicted"><a href="#遇到问题–k8s–pod的状态为evicted" class="headerlink" title="遇到问题–k8s–pod的状态为evicted"></a>遇到问题–k8s–pod的状态为evicted</h3><p>eviction，即驱赶的意思，意思是当节点出现异常时，kubernetes将有相应的机制驱赶该节点上的Pod。多见于资源不足时导致的驱赶。</p>
-<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>排查资源和异常原因，防止新的驱赶产生。使用如下命令删除旧驱赶的遗留</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pods | grep Evicted | awk &#x27;&#123;print $1&#125;&#x27; | xargs kubectl delete pod</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/k8s-pod%E7%9A%84%E7%8A%B6%E6%80%81%E4%B8%BAevicted/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/07/k8s-pod%E7%9A%84%E7%8A%B6%E6%80%81%E4%B8%BAevicted/" class="post-title-link" itemprop="url">k8s-pod的状态为evicted</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-06 22:08:43" itemprop="dateCreated datePublished" datetime="2020-08-06T22:08:43Z">2020-08-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-10-13 09:44:23" itemprop="dateModified" datetime="2020-10-13T09:44:23Z">2020-10-13</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/k8s/" itemprop="url" rel="index"><span itemprop="name">k8s</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>214</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="遇到问题–k8s–pod的状态为evicted"><a href="#遇到问题–k8s–pod的状态为evicted" class="headerlink" title="遇到问题–k8s–pod的状态为evicted"></a>遇到问题–k8s–pod的状态为evicted</h3><p>eviction，即驱赶的意思，意思是当节点出现异常时，kubernetes将有相应的机制驱赶该节点上的Pod。多见于资源不足时导致的驱赶。</p>
-<h1 id="解决方案"><a href="#解决方案" class="headerlink" title="解决方案"></a>解决方案</h1><p>排查资源和异常原因，防止新的驱赶产生。使用如下命令删除旧驱赶的遗留</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl get pods | grep Evicted | awk &#x27;&#123;print $1&#125;&#x27; | xargs kubectl delete pod</span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/07/leetcode%20%E6%95%B0%E7%BB%84-%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/07/leetcode%20%E6%95%B0%E7%BB%84-%E6%90%9C%E7%B4%A2%E6%8F%92%E5%85%A5%E4%BD%8D%E7%BD%AE/" class="post-title-link" itemprop="url">搜索插入位置</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-06 22:08:43" itemprop="dateCreated datePublished" datetime="2020-08-06T22:08:43Z">2020-08-06</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-09 13:49:52" itemprop="dateModified" datetime="2020-08-09T13:49:52Z">2020-08-09</time>
-              </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/" itemprop="url" rel="index"><span itemprop="name">数据结构与算法</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/leetcode/" itemprop="url" rel="index"><span itemprop="name">leetcode</span></a>
-                </span>
-                  ，
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84%E4%B8%8E%E7%AE%97%E6%B3%95/leetcode/%E6%95%B0%E7%BB%84/" itemprop="url" rel="index"><span itemprop="name">数组</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="搜索插入位置"><a href="#搜索插入位置" class="headerlink" title="搜索插入位置"></a>搜索插入位置</h3><p>给定一个排序数组和一个目标值，在数组中找到目标值，并返回其索引。如果目标值不存在于数组中，返回它将会被按顺序插入的位置。</p>
-<p>你可以假设数组中无重复元素。</p>
-<p>示例 1:</p>
-<p>输入: [1,3,5,6], 5<br>输出: 2<br>示例 2:</p>
-<p>输入: [1,3,5,6], 2<br>输出: 1<br>示例 3:</p>
-<p>输入: [1,3,5,6], 7<br>输出: 4<br>示例 4:</p>
-<p>输入: [1,3,5,6], 0<br>输出: 0</p>
-<p>作者：力扣 (LeetCode)<br>链接：<a target="_blank" rel="noopener" href="https://leetcode-cn.com/leetbook/read/array-and-string/cxqdh/">https://leetcode-cn.com/leetbook/read/array-and-string/cxqdh/</a><br>来源：力扣（LeetCode）<br>著作权归作者所有。商业转载请联系作者获得授权，非商业转载请注明出处。</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">searchInsert</span><span class="params">(nums []<span class="keyword">int</span>, target <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> nums[<span class="number">0</span>] &gt; target &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">if</span> nums[<span class="built_in">len</span>(nums)<span class="number">-1</span>] &lt; target &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="built_in">len</span>(nums)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> index := <span class="number">0</span>; index &lt; <span class="built_in">len</span>(nums)<span class="number">-1</span>; index++ &#123;</span><br><span class="line">        <span class="keyword">if</span> nums[index] == target &#123;</span><br><span class="line">            <span class="keyword">return</span> index</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> index+<span class="number">1</span> &gt;<span class="built_in">len</span>(nums) &#123;</span><br><span class="line">            <span class="keyword">break</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> nums[index+<span class="number">1</span>] == target &#123;</span><br><span class="line">            <span class="keyword">return</span> index +<span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">if</span> nums[index] &lt; target &amp;&amp; target &lt; nums[index+<span class="number">1</span>] &#123;</span><br><span class="line">            <span class="keyword">return</span> index + <span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<p>这个题目主要是考二分查找 </p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">searchInsert</span><span class="params">(nums []<span class="keyword">int</span>, target <span class="keyword">int</span>)</span> <span class="title">int</span></span> &#123;</span><br><span class="line">    n:=<span class="built_in">len</span>(nums)</span><br><span class="line">    left,right:=<span class="number">0</span>,n<span class="number">-1</span></span><br><span class="line">    ans:=n</span><br><span class="line">    <span class="keyword">for</span> left&lt;=right &#123;</span><br><span class="line">        mid:=(right-left)&gt;&gt;<span class="number">1</span>+left</span><br><span class="line">        <span class="keyword">if</span> target&lt;= nums[mid] &#123;</span><br><span class="line">            right=mid<span class="number">-1</span></span><br><span class="line">            ans=mid</span><br><span class="line">        &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">            left=mid+<span class="number">1</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span>  ans</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+<p>Redis使用ziplist作为哈希的内部实现，ziplist使用更加紧凑的结构实现多个元素的连续存储，所以在节省内存方面比hashtable更加优秀。</p>
+<p>使用hashtable作为哈希的内部实现，ziplist的读写效率会下降，而hashtable的读写时间复杂度为O（1）。</p>
+<h3 id="redis-为什么是单线程及高并发快的原因"><a href="#redis-为什么是单线程及高并发快的原因" class="headerlink" title="redis 为什么是单线程及高并发快的原因"></a>redis 为什么是单线程及高并发快的原因</h3><ol>
+<li>​    redis是基于内存的。读写都非常快</li>
+<li>redis是单线程的，减少了上下文切换的时间</li>
+<li>redis使用了io多路复用计数，可以并发的处理连接、非阻塞io内部实现了epoll，采用了epoll+自己实现的简单事件框架。epoll中的读写、关闭、连接都转化成了事件、然后采用了epoll的多路复用的特效 绝不在io上浪费一点事件 </li>
+</ol>
+<p>io多路复用主要有三种计数    select/poll/epoll  </p>
+<p>​    select的时间复杂度是）O（n），它仅仅知道了io事件发生了，但是不知道是哪个流，只能挨个轮训，同时处理的流越多，无差别轮训的时间越长，是无差别轮训</p>
+<p>​    poll 的时间复杂度也是O（n），它和select没啥区别，也是将用户传入的数组拷贝到内核空间、然后查询fb对应的设备状态。它比select的优点是因为他没有最大连接数的限制，原因是因为他是基于链表存储的，使用的是忙轮训，而select是基于数组存储的，默认是2048</p>
+<p>epoll 可以理解为event poll，不同于忙轮训和无差别轮训。epoll会把哪个流发生了怎样的io事件通知我们（内部调用了callback函数）、所以我们说epoll实际上是事件驱动的，每个事件关联着fd，此时我们对这些流的操作都是有意义的 ，内存拷贝 利用 mmap（）文件映射内存加速与内核空间的消息传递；（降低了复制开销）</p>
+<p>redis使用的epool</p>
+<h3 id="btree和b-tree的区别"><a href="#btree和b-tree的区别" class="headerlink" title="btree和b+tree的区别"></a>btree和b+tree的区别</h3><p>B树的特点：<br>（1）所有键值分布在整个树中<br>（2）任何关键字出现且只出现在一个节点中<br>（3）搜索有可能在非叶子节点结束<br>（4）在关键字全集内做一次查找，性能逼近二分查找算法</p>
+<p>B+树与B树的不同在于：<br>（1）所有关键字存储在叶子节点，非叶子节点不存储真正的data<br>（2）为所有叶子节点增加了一个链指针</p>
+<p>为什么mysql的索引使用B+树而不是B树呢？？<br> （1）B+树更适合外部存储(一般指磁盘存储),由于内节点(非叶子节点)不存储data，所以一个节点可以存储更多的内节点，每个节点能索引的范围更大更精确。也就是说使用B+树单次磁盘IO的信息量相比较B树更大，IO效率更高。<br> （2）mysql是关系型数据库，经常会按照区间来访问某个索引列，B+树的叶子节点间按顺序建立了链指针，加强了区间访问性，所以B+树对索引列上的区间范围查询很友好。而B树每个节点的key和data在一起，无法进行查询非</p>
+<h3 id="数据库的分库分表"><a href="#数据库的分库分表" class="headerlink" title="数据库的分库分表"></a>数据库的分库分表</h3><ol>
+<li>​    原因：<ol>
+<li>用户请求量太大 单机器tps、io、内存都是有限的，解决办法：分散请求到多个服务器上，因为用户请求和执行sql本质是一样的，都是请求一个资源，只是用户请求还会经过网关 路由 http服务器等</li>
+<li>单表太大 curd都成问题 索引膨胀、查询超时， 解决办法 拆分成更多更小的表</li>
+<li>单库太大 单个数据库的处理能力是有限的，单库所在服务器上磁盘空间不足；单库上操作的io瓶颈 解决办法：拆分成更多的小库</li>
+</ol>
+</li>
+<li>垂直拆分<ol>
+<li>垂直分表：将不常用的字段拆分到一个新表中，一般是针对那种几百列的大表，避免了数据量太大造成 跨页的问题</li>
+<li>垂直分库： 针对一个系统中不同业务进行拆分、比如user一个库、商品一个库、订单一个库，然后将这些库不要放在同一个服务器上，防止单个数据库的处理能力成为瓶颈、而且对单个服务器的磁盘、内存、tps等都会相互有影响</li>
+</ol>
+</li>
+<li>水平拆分<ol>
+<li>水平分表  ：针对订单量这种大表，按照规则（range、hash 取模等）但是这些表还是再同一个库中，库级别的数据库操作还是有瓶颈</li>
+<li>水平分库分表：将单张表的数据切分到多个服务器上去，每隔服务器具有相应的库与表，只是表中数据集合不同。</li>
+<li>切分规则：<ol>
+<li>range </li>
+<li>hash</li>
+<li>地理区域</li>
+<li>时间</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="tcp-三次握手和挥手"><a href="#tcp-三次握手和挥手" class="headerlink" title="tcp 三次握手和挥手"></a>tcp 三次握手和挥手</h3><ol>
+<li><p>三次握手</p>
+<ol>
+<li>发送端 发送一个SYN=1，seq=n 到接收端</li>
+<li>接收端 发送SYN=1 ACK=1 ，seq=y，ack=n+1</li>
+<li>发送端发送 SYN=1 ack=y+1,seq=n+1</li>
+</ol>
+</li>
+<li><p>四次挥手</p>
+<ol>
+<li>客户端发送FIN=1，seq=n establish状态</li>
+<li>服务端收到 发送 ACK=1，ack=n+1 ，seq=v wait close</li>
+<li>服务端发送FIN=1，ack=n+1，seq=w ，ACK=1 fin2 wait</li>
+<li>客户端发送 ACK=1，ack=w+1，seq=n+1 closed</li>
+</ol>
+<h2 id="为什么需要四次挥手"><a href="#为什么需要四次挥手" class="headerlink" title="为什么需要四次挥手"></a>为什么需要四次挥手</h2><p>因为关闭连接时，当收到FIN报文通知时 紧紧表示 对方没有数据发送给你了；但是未必你所有的数据都发送给对方了，所以你可未必马上会关闭socket，再发送FIN报文时给对方表示你同意关闭连接了，所以这里的ack报文和FIN报文是分开发送的</p>
+</li>
+</ol>
+<h3 id="为什么需要三次握手"><a href="#为什么需要三次握手" class="headerlink" title="为什么需要三次握手"></a>为什么需要三次握手</h3><p>​    防止已过期的连接突然又传到服务器发生错误</p>
+<p>​    也发送client发送的请求因为网络延迟没有发送到服务端，但是当server接收到之后，如果没有三次握手，server是直接发送数据到client，这样会造成server资源的浪费</p>
+<p>mq的优势   </p>
+<h3 id="ActiveMQ-RabbitMQ-KafKa对比"><a href="#ActiveMQ-RabbitMQ-KafKa对比" class="headerlink" title="ActiveMQ RabbitMQ KafKa对比"></a>ActiveMQ RabbitMQ KafKa对比</h3><ol>
+<li>tps比较 kafka最高 RabbitMq次之 activityMq最差</li>
+<li>吞吐量对比 Kafka最高，因为内部采用的是消息批处理、零拷贝机制，数据的获取和存储是本地磁盘顺序批量操作，具有O（1）的复杂度，消息的处理效率很高，rabbitMq的吞吐量稍逊与kafka，因为他们的出发点不一样，rabbitMq支持对这消息的可靠性传递、支持事物、不支持批量操作；基于存储的可靠性的要求可以采用内存或者硬盘</li>
+<li>在架构方面 rabbitmq遵循amqp协议，rabbitmq的broker由exchange、binding、queue组成，其中exchange和binding组成了消息的路由键；客户端Producer通过channel和server进行通信，consumer从queue获取消息进行消费（长连接，queue有消息就会推送到consumer端，consumer循环从输入流读取数据）rabbitmq以broker为中心，有消息确认机制，kafka 遵从一般的mq结构，producer、consumer、borker，以consumer为中心，消息的消费信息保存在客户端的consumer上，consumer根据消费的点，从broker上批量pull数据，无消息确认机制</li>
+<li>在可用性方面： rabbitmq支持mirror的queue，主queue失效，mirror queue接管、kafka的broker支持主备模式，activeMq也支持主备模式</li>
+<li>在集群负载均衡方向：kafka采用的zookeeper对集群中broker和consumer进行管理，可以注册topic到zookeeper上，通过zookeeper的协调机制，producer保存对应的broker信息，可以随机或者轮询发送到broker上、并且producer可以基于语义指定分片，消息发送到broker的某分片上。rabbitmq的负载均衡需要单独的loadbalanceer进行支持</li>
+</ol>
+<p>activeMq和rabbitMq的区别 mq的高可用 <a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1460173">https://cloud.tencent.com/developer/article/1460173</a></p>
+<h3 id="消息丢失怎么处理"><a href="#消息丢失怎么处理" class="headerlink" title="消息丢失怎么处理"></a>消息丢失怎么处理</h3><ol>
+<li>​    生产者丢失 增加重试 重试间隔改长 防止一次网络波动就三次都失败了</li>
+<li>消费者丢失》消息被追加到分区parton的时候都会分配一个特定的偏移量offset，消费者拉取到分区的某个消息后 会自动提交offset，我们要把自动提交改为手动提交</li>
+<li>kafka丢失消息 ：引用多副本机制，设置acks=all</li>
+</ol>
+<h3 id="redis的高可用"><a href="#redis的高可用" class="headerlink" title="redis的高可用"></a>redis的高可用</h3><p>​    cluster 模式 3主3从</p>
+<h3 id="mysql是如何进行主从同步的"><a href="#mysql是如何进行主从同步的" class="headerlink" title="mysql是如何进行主从同步的"></a>mysql是如何进行主从同步的</h3><p>​    在master机器上操作：当master数据发送变化时，该事件变化会按照顺序写入到bin-log中，当slave连接到master的时候，master机器会为slave开启binlog dump线程。当master的binlog发送变化的时候，bin log dump线程或通知slave，并将相应的bin log内容发送给slave</p>
+<p>在slave机器上操作，当主从同步开启的时候，slave会创建两个线程：io线程、该线程连接到master机器、master机器上的bin log dump线程会将binlog的内容发送给该io线程、该io线程接收到binlog内容后，再将内容写入到relay log；sql线程，该线程读取io线程写入到的relay log，并且根据relay log的内容对于slave数据库做相应的操作。</p>
+<h3 id="输入一个网址后面做了哪些事"><a href="#输入一个网址后面做了哪些事" class="headerlink" title="输入一个网址后面做了哪些事"></a>输入一个网址后面做了哪些事</h3><ol>
+<li>域名解析<ol>
+<li>从浏览器里找ip </li>
+<li>从hosts文件里找ip</li>
+<li>从路由器缓存里找ip</li>
+<li>从dns缓存里查找</li>
+<li>从域名解析器里找ip</li>
+</ol>
+</li>
+<li>tcp连接</li>
+<li>springmvc请求过程</li>
+<li>浏览器解析</li>
+<li>绘制网页</li>
+</ol>
+<p>###分布式锁的实现</p>
+<ol>
+<li><p>redis set key value px milliseconds nx    </p>
+</li>
+<li><p>redis setnx+lua</p>
+<p>前者的核心命令实现如下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">   </span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li>获取锁<br> set resource_name unique_value NX PX 30000</li>
+<li>释放锁(lua脚本中一定要比较value 防止误解锁)<br>  if redis.call(“get”,KEYS[1])==ARGV[1] then<br>   return redis.call(“del”,KEYS[1])<br>  else<br>   return 0<br>  end  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">实现这类锁有三个需要值得注意的地方</span><br><span class="line"></span><br><span class="line">1. set命令要使用set key value px millionseconds nx；</span><br><span class="line">2. value要具有唯一性</span><br><span class="line">3. 释放锁时要比较value 防止误解锁</span><br><span class="line"></span><br><span class="line">但是这类锁的最大缺点就是它加锁时只作用在一个redis节点上、即使这个redis通过sentinel保证高可用，如果master节点由于发送了主从切换，那么就会出现锁丢失的情况：</span><br><span class="line"></span><br><span class="line">1. 在redis的master节点拿到了锁</span><br><span class="line">2. 但是这个加锁的key还没有同步到slave节点</span><br><span class="line">3. master故障 发生故障转移。slave升级为master节点</span><br><span class="line">4. 导致锁丢失</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="3">
+<li><p>redis作者antiirez又提出了一种基于分布式环境下更高级的分布式锁实现方式：以redis集群有N个master节点为例，每个节点完全相互独立不存在主从复制或者其他集群的协调机制。</p>
+<p>为了获取锁，客户端应该执行以下操作：</p>
+<ol>
+<li>获取当前的unix时间，以毫秒为单位</li>
+<li>依次尝试从5个实例，使用相同的key和具有唯一性的value例如uuid+threadId获取锁，当想redis请求获取锁的时候，客户端应该设置一个网络连接和响应超时时间，这个响应超时时间应该小于锁的失效时间，例如你的锁的失效时间为10s，则超时时间应该在5-50ms之间。这样能够避免服务器redis已经挂掉的情况下，客户端还在死死的等待响应结果，如果服务没有在规定的时间内响应，客户端应该尽快尝试去另外一个redis实例请求获取锁</li>
+<li>客户端使用当前时间减去开始获取锁的时间就是获取锁使用的时间。当且仅当从大多数N/2+1个redis节点都获取锁，并且使用时间小于获取锁的失效时间，锁才算获取成功</li>
+<li>如果获得了锁，key的真正有效时间等于有效时间减去获取锁的时间</li>
+<li>如果因为某些原因，获取锁失败了，客户端应该在所有的redis实例上解锁，防止某些节点获取到锁但是客户端没有得到响应而导致接下来一段时间不能重新获取锁</li>
+</ol>
+</li>
+</ol>
+<p>http状态码</p>
+<p>200 状态正确</p>
+<p>301 永久的定向</p>
+<p>302 临时定向</p>
+<p>400  参数错误</p>
+<p>410 has gone 路由已经备转移了</p>
+<p>500  server error</p>
+<p>502 nginx gateway</p>
+<p>504 timeout</p>
+<h2 id="作业帮面试"><a href="#作业帮面试" class="headerlink" title="作业帮面试"></a>作业帮面试</h2><h4 id="channel是如何使用的"><a href="#channel是如何使用的" class="headerlink" title="channel是如何使用的"></a>channel是如何使用的</h4><h4 id="线程、协程、进程之间的区别"><a href="#线程、协程、进程之间的区别" class="headerlink" title="线程、协程、进程之间的区别"></a>线程、协程、进程之间的区别</h4><p>进程：进程就是应用程序的启动实例，代码和打开的文件资源、数据资源、独立的内存空间。</p>
+<p>线程：是进程的执行单位，一个进程至少有一个主线程和多个子线程</p>
+<p>对于操作系统来讲，线程是最小的执行单元，进程是最小的资源管理单元</p>
+<p>协程：像线程在进程中一样，协程也在线程中拥有自己独立的占空间，不被操作系统内核所管理，而完全是由程序所控制</p>
+<h2 id="字节准备"><a href="#字节准备" class="headerlink" title="字节准备"></a>字节准备</h2><h3 id="说说go的优点"><a href="#说说go的优点" class="headerlink" title="说说go的优点"></a>说说go的优点</h3><ol>
+<li>go的性能是Python的35倍</li>
+<li>性能 （因为golang是机器代码） 编译后的文件可以直接放在机器上执行</li>
+<li>开发的过程中 无效的字段或者包名引用 会强制提醒错误，有fmt 统一代码的格式</li>
+<li>并发支持  channel和goroutine的性能很出色，可以非常方便的启动一个协程，很容易的生出数百万个goroutine</li>
+<li>内置运行时gc，是通过三色法来对垃圾进行回收，可以满足大多数关于垃圾收集的请求</li>
+<li>简单易学，非常容易上手</li>
+<li>可以返回多个值，虽然java也支持（最多支持三个）</li>
+<li>非常节省内存 1.12之前一个goroutinue的内存大概占用2kb，而一个java线程默认是2mb，1.17之后已经改为8kb了</li>
+<li>接口的实现非常方便，可以通过内嵌struct来实现继承</li>
+<li>if…;… {} 可以将变量的作用域放在if内 很棒</li>
+<li>单元测试和并发测试都很方便</li>
+</ol>
+<p>缺点是</p>
+<ol>
+<li>缺乏框架、 没有像java那种开发小项目使用springboot springcloud 这种比较成熟的框架、不过对于goweb开发 有beego 、gin等、对于分布式有gomicro、gokit，</li>
+<li>错误处理，经常要对错误进行判断 </li>
+<li>使用的用法很多坑，比如slice传递的是引用不是副本 ，如果调用的func 不会对slice进行修改传递本身是没问题，如果需要修改就需要考虑使用copy（src，dest）来进行， 如果知道要slice要存储的空间是多少，在初始化的时候要使用 make([]int，nums)来声明，防止在append过程中会发生扩容操作。<br>nil切片、空切片、零切片的区别，var str []int 这种是nil切片 ，序列化之后是null，var str = []int{} 这种是空切片，序列化之后是[] 空数组，零切片就是 make([]int,10) 初始化之后 底层数组存储的数据都是0，官方不推荐创建空切片、也不推荐nil切片和nil进行对比</li>
+<li>map中struct的单个字段 是非法的，因为map中的元素是不能寻址的</li>
+</ol>
+<h3 id="谈谈golang的csp模型"><a href="#谈谈golang的csp模型" class="headerlink" title="谈谈golang的csp模型"></a>谈谈golang的csp模型</h3><p>​    不同于java的通过多线程共享内存来通信，而golang是以通信的方式共享内存，用于描述两个对立并发的实体，通过共享的通信（channel）进行通信的并发模型，而且它还有一个好处，它不关心发送消息的实体，而关心发送消息的channel，channel是可以单独被创建并在线程中进行传递的，类似于boss-worker模式。一个实体通过消息发送到channel中，然后又监听channel的实体处理，两个实体之间是匿名的，这样达到了实体之间的解耦，其中channel是同步的一个消息被发送到channal中，最终一定要被另一个实体消费掉，有些类似于阻塞队列，其实csp的模型底层就是通过goroutinue和channel实现的</p>
+<h3 id="说说GMP模型"><a href="#说说GMP模型" class="headerlink" title="说说GMP模型"></a>说说GMP模型</h3><p>G groutinue M workThread processer（上下文或者是cpu）</p>
+<p>单核情况下一所有的goroutine都运行在同一个工作线程M0上，每一个工作线程都维护一个上下文P，任何时刻一个上下文只有一个goroutine，其他的goroutine在runqueue中等待，一个goroutinue运行完之后会让出自己的时间片，返回到runqueue中，当运行中的goroutine阻塞时，会再启动一个新的线程M1，P转到新的线程中去执行，当M0返回时，它回尝试从其他的线程中偷取一个上下文过来，如果偷取不到 那么就会被放入到线程缓存中，把自己上面的goroutine都放在global runqueue中，上下文会定期检查global runqueue</p>
+<h3 id="死锁产生的四个必要条件"><a href="#死锁产生的四个必要条件" class="headerlink" title="死锁产生的四个必要条件"></a>死锁产生的四个必要条件</h3><ol>
+<li>互斥</li>
+<li>请求与保持</li>
+<li>不可剥夺</li>
+<li>循环等待</li>
+</ol>
+<h3 id="说说goGC的三色法"><a href="#说说goGC的三色法" class="headerlink" title="说说goGC的三色法"></a>说说goGC的三色法</h3><p>初始的时候 gc将引用的对象标记为灰色，然后继续扫描，如果其他对象被这些灰色标记的对象引用就会将灰色对象标记为黑色，然后将被引用的标记为灰色，直到灰色标记的对象不存在，此时gc回收白色对象，最后将黑色对象变为白色对象，并且重复之前所有过程。</p>
+<h3 id="gc和用户逻辑是如何并行的呢？"><a href="#gc和用户逻辑是如何并行的呢？" class="headerlink" title="gc和用户逻辑是如何并行的呢？"></a>gc和用户逻辑是如何并行的呢？</h3><p>标记清除法的stw操作就是runtime把所有的线程都冻结掉，这样就意味着所有的用户逻辑都是暂停的，这样所有的对象都不会被修改了，这时候去扫描绝对是安全的，</p>
+<p>Go是如何剪短这个过程的呢？标记和清除算法包含两部分逻辑：标记和清除。我们指导golang三色标记法最后只剩下黑色和白色两种对象，如果不碰触黑色对象，只清除白色对象 ，肯定不会影响用户逻辑的 所以：清除操作和用户逻辑是可以并发的。</p>
+<p>这个时候你可能会问 那标记是怎么和用户逻辑并发的呢？用户逻辑经常会生成对象或者改变对象的引用，为了解决这个问题 go引入了写屏障：该屏障之前的写操作和之后的写操作相比 ，先被系统其他组件感知，通俗的讲：就是gc跑的过程中，可以监控对象的内存修改，并重新对对象进行标记，在上述的情况中 新生城的对象一律会被标记为灰色。就是说一旦gc开始起来，无论创建对象还是对象的引用改变，都会先变为灰色。</p>
+<h3 id="mysql的事务"><a href="#mysql的事务" class="headerlink" title="mysql的事务"></a>mysql的事务</h3><ol>
+<li>读未提交</li>
+<li>读已提交</li>
+<li>可重复读</li>
+<li>串行化</li>
+</ol>
+<h3 id="mysql的脏读、幻读、不可重复读"><a href="#mysql的脏读、幻读、不可重复读" class="headerlink" title="mysql的脏读、幻读、不可重复读"></a>mysql的脏读、幻读、不可重复读</h3><p>脏读是事物A读取到了事物B未提交的数据</p>
+<p>幻读：事物A查 select count（1）的两次结果不一致，事物B insert数据 加表锁</p>
+<p>不可重复读：事物A 查询的两次row的data数据不一致，事物B 进行delete update 数据  加行锁就可以 mvcc 可解决</p>
+<h3 id="mysql的执行顺序"><a href="#mysql的执行顺序" class="headerlink" title="mysql的执行顺序"></a>mysql的执行顺序</h3><p>开始-&gt;FROM子句-&gt;WHERE子句-&gt;GROUP BY子句-&gt;HAVING子句-&gt;ORDER BY子句-&gt;SELECT子句-&gt;LIMIT子句-&gt;最终结果 </p>
+<h3 id="当向MySQL发送一个请求的时候，MySQL到底做了什么："><a href="#当向MySQL发送一个请求的时候，MySQL到底做了什么：" class="headerlink" title="当向MySQL发送一个请求的时候，MySQL到底做了什么："></a>当向MySQL发送一个请求的时候，MySQL到底做了什么：</h3><ol>
+<li>客户端发送一条查询给服务器。</li>
+<li>服务器先检查查询缓存，如果命中了缓存，则立刻返回存储在缓存中的结果。否则进入下一阶段。</li>
+<li>服务器端进行SQL解析、预处理，再由优化器生成对应的执行计划。</li>
+<li>MySQL根据优化器生成的执行计划，再调用存储引擎的API来执行查询。</li>
+<li>将结果返回给客户端。</li>
+</ol>
+<h2 id="字节面试"><a href="#字节面试" class="headerlink" title="字节面试"></a>字节面试</h2><h3 id="说说你负责的项目"><a href="#说说你负责的项目" class="headerlink" title="说说你负责的项目"></a>说说你负责的项目</h3><h3 id="redis-主从复制是怎么实现的-master和是slave是如何复制的，谁来触发的"><a href="#redis-主从复制是怎么实现的-master和是slave是如何复制的，谁来触发的" class="headerlink" title="redis 主从复制是怎么实现的 master和是slave是如何复制的，谁来触发的"></a>redis 主从复制是怎么实现的 master和是slave是如何复制的，谁来触发的</h3><ol>
+<li>​    slave执行slaveof ip port ，连接master节点</li>
+<li>fsync ？ -1 因为不知道runid 和offset </li>
+<li>master节点返回runid 和offset </li>
+<li>master 执行bgsave 生成rdb文件</li>
+<li>发送rdb文件到salve节点</li>
+<li>slave记录master节点信息，flush db </li>
+<li>发送offset之后queue中的数据</li>
+<li>然后加载rdb文件和缓存区中的数据</li>
+</ol>
+<h3 id="rdb和aof"><a href="#rdb和aof" class="headerlink" title="rdb和aof"></a>rdb和aof</h3><h3 id="mysql是怎么调优的https-studygolang-com-articles-14865"><a href="#mysql是怎么调优的https-studygolang-com-articles-14865" class="headerlink" title="mysql是怎么调优的https://studygolang.com/articles/14865"></a>mysql是怎么调优的<a target="_blank" rel="noopener" href="https://studygolang.com/articles/14865">https://studygolang.com/articles/14865</a></h3><ol>
+<li>可以使用explain关键字来查看语句的性能</li>
+</ol>
+<p>all：表示全表查询</p>
+<p>range，说明使用的是有范围的索引查询</p>
+<p>index： 这里说明使用了索引，这种情况下，如果extra列中的值是Using Index，这种情况是索引覆盖，覆盖索引的含义就是我们要查询的数据，索引都已经存在了，这种情况下就不需要回表取数据了</p>
+<p>ref：说明条件使用了索引，但是不是主键和unique，所以即使使用了索引 但是索引值不唯一 存在重复</p>
+<p>eq_ref:相当于ref来说就是使用了唯一索引，对于每一个索引的键值，只有唯一的一条匹配记录</p>
+<p>const/system :单表中最多有一条匹配行，查询起来非常迅速、所以这个匹配行中的其他列值可以在优化器中当做常量来处理，例如主键或者唯一索引来进行查询。</p>
+<p>index_merge :说明使用了索引合并的方法，当使用了索引合并时就说明需要检查下创建的索引是否为单列索引。</p>
+<ol start="2">
+<li>索引失效的情况<ol>
+<li>条件中使用null 或者is not null</li>
+<li>使用了%like mysql时左匹配</li>
+<li>使用多列索引需要时建立索引的顺序，如果跳过第一个索引直接使用后面的索引，也会导致索引失败，因为mysql时最左匹配</li>
+<li>条件中包含or 只有所有列都是单独索引时才会使用索引</li>
+</ol>
+</li>
+<li>如何建立有效的索引<ol>
+<li>如果需要索引很长的字符串 此时需要考虑前缀索引</li>
+<li>使用多列索引</li>
+<li>选择合适的索引顺序</li>
+<li>使用覆盖索引  减少select(*)的操作</li>
+<li>使用索引扫描来做排序</li>
+<li>减少重复冗余已经未使用的索引</li>
+<li>减少索引和数据碎片  可以使用optimize table来重新导入或者整理数据</li>
+</ol>
+</li>
+</ol>
+<h3 id="mysql-创建索引的语句"><a href="#mysql-创建索引的语句" class="headerlink" title="mysql 创建索引的语句"></a>mysql 创建索引的语句</h3><p>create index index_name on tables(key)</p>
+<p>alter table table_name add index(colum_name)</p>
+<h3 id="go的sync-下了解吗？说下sync-once-和waitgroup"><a href="#go的sync-下了解吗？说下sync-once-和waitgroup" class="headerlink" title="go的sync 下了解吗？说下sync.once 和waitgroup"></a>go的sync 下了解吗？说下sync.once 和waitgroup</h3><h3 id="lru算法实现"><a href="#lru算法实现" class="headerlink" title="lru算法实现"></a>lru算法实现</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 双向链表加hashmap</span><br><span class="line"><span class="keyword">type</span> LinkNode <span class="keyword">struct</span> &#123;</span><br><span class="line">    key, val  <span class="keyword">int</span></span><br><span class="line">    pre, next *LinkNode</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> LRUCache <span class="keyword">struct</span> &#123;</span><br><span class="line">    m          <span class="keyword">map</span>[<span class="keyword">int</span>]*LinkNode</span><br><span class="line">    <span class="built_in">cap</span>        <span class="keyword">int</span></span><br><span class="line">    head, tail *LinkNode</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="mysql和redis的区别"><a href="#mysql和redis的区别" class="headerlink" title="mysql和redis的区别"></a>mysql和redis的区别</h3><h3 id="innodb和myisam的区别"><a href="#innodb和myisam的区别" class="headerlink" title="innodb和myisam的区别"></a>innodb和myisam的区别</h3><ol>
+<li>innodb支持事物、myisam不支持事物</li>
+<li>innodb支持行锁、myisam支持表锁</li>
+<li>innodb时聚集索引 myisam是非聚集索引</li>
+<li>innodb支持外键、myisam不支持</li>
+<li>innodb 如果select count*  from会全表扫描 myisam不会</li>
+</ol>
+<h3 id="redis-hash扩容："><a href="#redis-hash扩容：" class="headerlink" title="redis hash扩容："></a>redis hash扩容：</h3><p>单线程渐进式rehash ht[0]，是存放数据的table，作为非扩容时容器。ht[1]，只有正在进行扩容时才会使用，它也是存放数据的table，长度为ht[0]的两倍。<br>扩容时，单线程A负责把数据从ht[0] copy到ht[1] 中。如果这时有其他线程进行读操作：会先去ht[0]中找，找不到再去ht[1]中找。进行写操作：直接写在ht[1]中。进行删除操作：与读类似。<br>多线程协同式rehash，线程A在扩容把数据从oldTable搬到到newTable，这时其他线程，进行get操作：这个线程知道数据存放在oldTable或是newTable中，直接取即可。进行写操作：如果要写的桶位，已经被线程A搬运到了newTable。那么这个线程知道正在扩容，它也一起帮着扩容，扩容完成后才进行put操作，进行删除操作：与写一致。</p>
+<h3 id="redis-redlock-实现原理-为什么需要这个"><a href="#redis-redlock-实现原理-为什么需要这个" class="headerlink" title="redis redlock 实现原理 为什么需要这个"></a>redis redlock 实现原理 为什么需要这个</h3><p>因为单节点redis nx 会存在丢失的可能性、为了防止锁丢失需要重新获取</p>
+<h3 id="session和cookie的区别是什么？"><a href="#session和cookie的区别是什么？" class="headerlink" title="session和cookie的区别是什么？"></a>session和cookie的区别是什么？</h3><ol>
+<li>由于HTTP协议是无状态的协议，在需要持久化用户的状态时，需要某种机制来识别，session是放在服务端的，cookie是放在客户端的。</li>
+<li>第一次创建Session的时候，服务端会在HTTP协议中告诉客户端，需要在 Cookie 里面记录一个Session ID，以后每次请求把这个会话ID发送到服务器，我就知道你是谁了。有人问，如果客户端的浏览器禁用了 Cookie 怎么办？一般这种情况下，会使用一种叫做URL重写的技术来进行会话跟踪，即每次HTTP交互，URL后面都会被附加上一个诸如 sid=xxxxx 这样的参数，服务端据此来识别用户。</li>
+<li>Cookie其实还可以用在一些方便用户的场景下，设想你某次登陆过一个网站，下次登录的时候不想再次输入账号了，怎么办？这个信息可以写到Cookie里面，访问网站的时候，网站页面的脚本可以读取这个信息，就自动帮你把用户名给填了，能够方便一下用户。这也是Cookie名称的由来，给用户的一点甜头。</li>
+</ol>
+<h3 id="说说视频聊天的这个项目-还有luck-quiz的这个项目"><a href="#说说视频聊天的这个项目-还有luck-quiz的这个项目" class="headerlink" title="说说视频聊天的这个项目 还有luck quiz的这个项目"></a>说说视频聊天的这个项目 还有luck quiz的这个项目</h3><p>new-meet是用户通过购买金币来和线上主播进行一对一视频聊天的服务、同时会采用通话流转、假主播流量吸引、勾引话术推送消息来吸引用户进行直播。我主要前期参与了用户模块、用户和主播like模块的设计、视频通话的过程梳理、已经近期对优质主播的流向倾斜和新主播流量扶持策略的设计。用户模块设计了限制用户单点登录，对jwt进行了简化，将用户id、过期时间、用户设备id 通过aes加密生成一个authkey、每次用户请求需要再header中添加入authkey、然后解密出来，使用责任链模式，通过设计router的正则来校验authkey，比如有些拉取数据通道的接口是和 用户无关的，就不需要校验authkey。 这个业务最主要的通话流程的设计，然后最近为了提升通话的时间和接通率 我又设计了一个主播流量倾斜和新主播流量扶持的策略。前期因为印度市场被下架 我们又设计了一个异构的框架、所有的请求被客户端加密之后，然后再异构框架进行解密 没有问题再发送到我真正的server服务。这样google是不知道我们在传输过程中因为壳包相似的接口名称和参数而进行app封杀下架。</p>
+<p>luck_quiz项目是基于beego框架研发的，主要有用户模块、答题、乐透、幸运转盘、刮刮卡兑换模块组成、用户可以在参与玩游戏的过程中获取金币、现金奖励，然后兑换aws或者paypal的充值卡。我们是在用户游戏的过程中通过查看奖励添或者解锁游戏次数来添加广告来进行获利、其中我负责的是整个产品的研发的推动、其中答题模块是相对复杂的。</p>
+<p>题目生成的策略是相对复杂的，题目本身有几个纬度的、难度、题目类型、奖励类型、初期用户拉取的题目是相对简单的，然后出现现金奖励的概率也会很大、然后需要每个人生成的题目不要和其他人一样，用户的现金到0-4、4-8、8-12、12以上、现金出现的奖励会越来越小直至不出现、同时题目的难度也会越来越难。这就需要我们每次再生成题目列表的时候实时计算了。<br>方案一： 使用mysql not in（性能太差）<br>方案二： 了解到 其实是给用户下发的题目和题库的题目做差集，使用redis sdiff 命令 redis key是这样的，因为sdiff key1 key2 ，<br>key1 key2 如果不在同一个slot上，就会发出redis 错误，所以开始用{}，先计算key的hash，将answer 用{}括起来，使其<br>落在同一个slot上,题库的题目 {answer}:load-questions:%questionType ,用户看过的题目 {answer}:load-questions-by:%userId<br>能到达预期目的<br>方案三： 方案二虽然能达到预期目的，但是随着用户量的增加、单个slot的容量总是有限的，所以在用户注册的时候，给每个用户都会将题库复制一份，<br>rediskey 与userId进行绑定,题库的题目 answer:load-questions:{userId}:questionType ,用户看过的题目 answer:load-questions-by:{userId}<br>这样解决了单个slot内存过于庞大的问题这个还有一个好处就是差集的计算都交给了redis 的机器去操作<br>方案四：使用bitset 指令 SETBIT key offset value 复杂度 O(1)<br>一个bit位来表示某个元素对应的值或者状态,其中的key就是对应元素本身。我们知道8个bit可以组成一个Byte，所以bitmap本身会极大的节省储存空间。之前存储一个questionId是int64类型 ，大概的空间占用计算公式是：($offset/8/1024/1024)MB，也就是说8388608 个题目在redis里才会占用1mb的内存空间， offset 标识题目id，0 标识未打过，1标识已经答过。</p>
+<h3 id="说说你觉得收获最大的项目是哪个-怎么去处理的"><a href="#说说你觉得收获最大的项目是哪个-怎么去处理的" class="headerlink" title="说说你觉得收获最大的项目是哪个 怎么去处理的"></a>说说你觉得收获最大的项目是哪个 怎么去处理的</h3><p>答题的这个模块吧，当时是使用火焰图对这个接口进行了分析 go tool pprof -http=:8080 火焰图文件，解析数据生成调用栈、分析程序响应变慢时，哪个函数占据了更多的处理时间。可以更直观的定位问题，因为再涉及到接口优化的过程中、发现了之前封装go公共基础库的性能不好、然后自己做了优化、接口的响应时间从2s优化到了300ms。 还有对go字符串调优也做了一个测试，字符串拼接、fmt.Sprintf、stringbuilder、byte.buff 来处理，使用go test -bench=. -run=none 可以看出StringBuilder是最快的 899 ns/op， bytes.buffer次之，string += 拼的方式性较差，fmt.Sprintf()的方式性能最差是17347 ns/op。，你可以使用bytes.Buffer来优化：一定程度上避免上面每进行一次拼接操作就重新申请新的内存空间存放中间字符串的问题。但这里依然有一个小问题： byte.String() 会有一次 []byte -&gt; string 类型转换。而这个操作是会进行一次内存分配和内容拷贝的。<br><br>如果你现在已经在使用 golang 1.10, 那么你还有一个更好的选择：strings.Builder</p>
+<ul>
+<li>1、与byte.Buffer思路类似，既然 string 在构建过程中会不断的被销毁重建，那么就尽量避免这个问题，底层使用一个 buf []byte 来存放字符串的内容。</li>
+<li>2、对于写操作，就是简单的将byte写入到 buf 即可。</li>
+<li>3、为了解决bytes.Buffer.String()存在的[]byte -&gt; string类型转换和内存拷贝问题，这里使用了一个unsafe.Pointer的存指针转换操作，实现了直接将buf []byte转换为 string类型，同时避免了内存充分配的问题</li>
+</ul>
+<p>结论：<br></p>
+<ul>
+<li>golang中的string类型也是只读且不可变的。因此，这种拼接字符串的方式会导致大量的string创建、销毁和内存分配。如果你拼接的字符串比较多的话，这显然不是一个正确的姿势。</li>
+<li>fmt.springf() 内部使用 []byte 实现，不像直接运算符这种会产生很多临时的字符串，但是内部的逻辑比较复杂，有很多额外的判断，还用到了 interface</li>
+<li>go1.10之前推荐使用buffer 、go1.10以后推荐使用builder</li>
+</ul>
+<h3 id="常用算法的时间复杂度"><a href="#常用算法的时间复杂度" class="headerlink" title="常用算法的时间复杂度"></a>常用算法的时间复杂度</h3><h4 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h4><table>
+<thead>
+<tr>
+<th align="left">算法</th>
+<th align="left">数据结构</th>
+<th align="left">时间复杂度</th>
+<th align="left">最坏情况下的辅助空间复杂度</th>
+<th align="left"></th>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">最佳</td>
+<td align="left">平均</td>
+<td align="left">最差</td>
+<td align="left">最差</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Quicksort">快速排序</a></td>
+<td align="left">数组</td>
+<td align="left"><code>O(n log(n))</code></td>
+<td align="left"><code>O(n log(n))</code></td>
+<td align="left"><code>O(n^2)</code></td>
+<td align="left"><code>O(n)</code></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Merge_sort">归并排序</a></td>
+<td align="left">数组</td>
+<td align="left"><code>O(n log(n))</code></td>
+<td align="left"><code>O(n log(n))</code></td>
+<td align="left"><code>O(n log(n))</code></td>
+<td align="left"><code>O(n)</code></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Heapsort">堆排序</a></td>
+<td align="left">数组</td>
+<td align="left"><code>O(n log(n))</code></td>
+<td align="left"><code>O(n log(n))</code></td>
+<td align="left"><code>O(n log(n))</code></td>
+<td align="left"><code>O(1)</code></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Bubble_sort">冒泡排序</a></td>
+<td align="left">数组</td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n^2)</code></td>
+<td align="left"><code>O(n^2)</code></td>
+<td align="left"><code>O(1)</code></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Insertion_sort">插入排序</a></td>
+<td align="left">数组</td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n^2)</code></td>
+<td align="left"><code>O(n^2)</code></td>
+<td align="left"><code>O(1)</code></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Selection_sort">选择排序</a></td>
+<td align="left">数组</td>
+<td align="left"><code>O(n^2)</code></td>
+<td align="left"><code>O(n^2)</code></td>
+<td align="left"><code>O(n^2)</code></td>
+<td align="left"><code>O(1)</code></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Bucket_sort">桶排序</a></td>
+<td align="left">数组</td>
+<td align="left"><code>O(n+k)</code></td>
+<td align="left"><code>O(n+k)</code></td>
+<td align="left"><code>O(n^2)</code></td>
+<td align="left"><code>O(nk)</code></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Radix_sort">基数排序</a></td>
+<td align="left">数组</td>
+<td align="left"><code>O(nk)</code></td>
+<td align="left"><code>O(nk)</code></td>
+<td align="left"><code>O(nk)</code></td>
+<td align="left"><code>O(n+k)</code></td>
+</tr>
+</tbody></table>
+<h4 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h4><table>
+<thead>
+<tr>
+<th align="left">数据结构</th>
+<th align="left">时间复杂度</th>
+<th align="left">空间复杂度</th>
+<th align="left"></th>
+<th align="left"></th>
+<th align="left"></th>
+<th align="left"></th>
+<th align="left"></th>
+<th align="left"></th>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"></td>
+<td align="left">平均</td>
+<td align="left">最差</td>
+<td align="left">最差</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">索引</td>
+<td align="left">查找</td>
+<td align="left">插入</td>
+<td align="left">删除</td>
+<td align="left">索引</td>
+<td align="left">查找</td>
+<td align="left">插入</td>
+<td align="left">删除</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Array_data_structure">基本数组</a></td>
+<td align="left"><code>O(1)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>-</code></td>
+<td align="left"><code>-</code></td>
+<td align="left"><code>O(1)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>-</code></td>
+<td align="left"><code>-</code></td>
+<td align="left"><code>O(n)</code></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Dynamic_array">动态数组</a></td>
+<td align="left"><code>O(1)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(1)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Singly_linked_list#Singly_linked_lists">单链表</a></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(1)</code></td>
+<td align="left"><code>O(1)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(1)</code></td>
+<td align="left"><code>O(1)</code></td>
+<td align="left"><code>O(n)</code></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Doubly_linked_list">双链表</a></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(1)</code></td>
+<td align="left"><code>O(1)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(1)</code></td>
+<td align="left"><code>O(1)</code></td>
+<td align="left"><code>O(n)</code></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Skip_list">跳表</a></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n log(n))</code></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Hash_table">哈希表</a></td>
+<td align="left"><code>-</code></td>
+<td align="left"><code>O(1)</code></td>
+<td align="left"><code>O(1)</code></td>
+<td align="left"><code>O(1)</code></td>
+<td align="left"><code>-</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Binary_search_tree">二叉搜索树</a></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Cartesian_tree">笛卡尔树</a></td>
+<td align="left"><code>-</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>-</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/B_tree">B-树</a></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(n)</code></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Red-black_tree">红黑树</a></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(n)</code></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Splay_tree">伸展树</a></td>
+<td align="left"><code>-</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>-</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(n)</code></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/AVL_tree">AVL 树</a></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(n)</code></td>
+</tr>
+</tbody></table>
 
       
     </div>
@@ -1231,7 +1795,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/5/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/5/">5</a><span class="page-number current">6</span><a class="page-number" href="/page/7/">7</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/7/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1299,20 +1863,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">85</span>
+          <span class="site-state-item-count">97</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-count">33</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1360,13 +1924,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">186k</span>
+    <span title="站点总字数">225k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">2:49</span>
+    <span title="站点阅读时长">3:24</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>

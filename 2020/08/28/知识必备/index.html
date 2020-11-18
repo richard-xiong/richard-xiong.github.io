@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"richard-xiong.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="为什么打算出来面试呢 ​    现在自己的技术成长有碰到瓶颈、加上一直对您公司钦慕有加 redis hash是怎么解决hash冲突的  链地址法 Redis 的哈希表使用链地址法（separate chaining）来解决键冲突： 每个哈希表节点都有一个 next 指针， 多个哈希表节点可以用 next 指针构成一个单向链表， 被分配到同一个索引上的多个节点可以用这个单向链表连接起来， 这就解决了">
+<meta property="og:type" content="article">
+<meta property="og:title" content="知识必备">
+<meta property="og:url" content="https://richard-xiong.github.io/2020/08/28/%E7%9F%A5%E8%AF%86%E5%BF%85%E5%A4%87/index.html">
+<meta property="og:site_name" content="XingServer">
+<meta property="og:description" content="为什么打算出来面试呢 ​    现在自己的技术成长有碰到瓶颈、加上一直对您公司钦慕有加 redis hash是怎么解决hash冲突的  链地址法 Redis 的哈希表使用链地址法（separate chaining）来解决键冲突： 每个哈希表节点都有一个 next 指针， 多个哈希表节点可以用 next 指针构成一个单向链表， 被分配到同一个索引上的多个节点可以用这个单向链表连接起来， 这就解决了">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2020-08-28T15:59:02.000Z">
+<meta property="article:modified_time" content="2020-11-18T12:39:51.521Z">
+<meta property="article:author" content="Richard">
+<meta property="article:tag" content="知识必备">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://richard-xiong.github.io/2020/08/28/%E7%9F%A5%E8%AF%86%E5%BF%85%E5%A4%87/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>知识必备 | XingServer</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="XingServer" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">XingServer</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">33</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">25</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">97</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/28/%E7%9F%A5%E8%AF%86%E5%BF%85%E5%A4%87/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          知识必备
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-08-28 15:59:02" itemprop="dateCreated datePublished" datetime="2020-08-28T15:59:02Z">2020-08-28</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-11-18 12:39:51" itemprop="dateModified" datetime="2020-11-18T12:39:51Z">2020-11-18</time>
+              </span>
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-folder"></i>
+              </span>
+              <span class="post-meta-item-text">分类于</span>
+                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
+                  <a href="/categories/%E7%9F%A5%E8%AF%86%E5%BF%85%E5%A4%87/" itemprop="url" rel="index"><span itemprop="name">知识必备</span></a>
+                </span>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>15k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>14 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id=""><a href="#" class="headerlink" title=""></a></h3><p>为什么打算出来面试呢</p>
+<p>​    现在自己的技术成长有碰到瓶颈、加上一直对您公司钦慕有加</p>
+<h3 id="redis-hash是怎么解决hash冲突的"><a href="#redis-hash是怎么解决hash冲突的" class="headerlink" title="redis hash是怎么解决hash冲突的"></a>redis hash是怎么解决hash冲突的</h3><p>  链地址法</p>
+<p>Redis 的哈希表使用链地址法（separate chaining）来解决键冲突： 每个哈希表节点都有一个 <code>next</code> 指针， 多个哈希表节点可以用 <code>next</code> 指针构成一个单向链表， 被分配到同一个索引上的多个节点可以用这个单向链表连接起来， 这就解决了键冲突的问题。</p>
+<h3 id="redis的持久化"><a href="#redis的持久化" class="headerlink" title="redis的持久化"></a>redis的持久化</h3><ol>
+<li><p>使用rdb，是周期性的对redis进行持久化操作，一般默认时间是5min，</p>
+</li>
+<li><p>使用了aof，是根据redis的每条写命令进行持久化操作，一般是append only的形式，同时也可以通过rewrite的方式来对aof的日志进行重构redis  的数据集</p>
+<p>通过rdb 和aof都可以将redis中的内存数据持久化到磁盘上来，然后将这些数据备份到aws 的s3或者其他的云服务上去，一旦redis挂了，或者服务器的内存和磁盘上的数据都丢失了，可以从云服务上拷贝之前的数据，放到指定目录中，然后启动redis，redis就会自动根据持久化数据文件中的数据，去恢复内存中的数据，继续对外提供服务。</p>
+<p>如果同时使用aof和rdb两种持久化机制，那么在redis重启的时候，会使用aof来重构数据，因为aof的数据会更加完整</p>
+</li>
+</ol>
+<p>   rdb的优缺点：</p>
+<p>   rdb会生成多个数据文件，每个数据文件都代表了某一时刻中redis中的数据，这个多个数据的方式非常时候做冷备份。</p>
+<p>   rdb对redis对外提供的读写服务非常小，因为redis 提供了bgsave的command，主线程可以fork一个子线程去执行磁盘io的持久化操作，进行rdb的持久化</p>
+<p>   相对于aof来说，直接基于rdb数据文件来重启和恢复redis进程会更加快速。</p>
+<p>   如果想要在redis出现故障的时候，尽可能少的丢失数据，rdb没有aof好，一般来说rdb的文件一般是每隔5分钟生成一次，或者更长的时间生成一次，这样在进行redis恢复的时候就要考虑可能要丢失最新5分钟的数据</p>
+<p>   rdb每次在fork子进程来进行rdb快照数据文件生成的时候，如果文件特别大，可能会导致对客户端提供的服务暂停数毫秒，甚至数秒</p>
+<p>   aof的优缺点</p>
+<p>   ​    aof可以很好的保证数据不丢失，一般aof会每隔一秒通过后台线程执行一次fsync操作，最多丢失1秒钟的数据</p>
+<p>   aof日志以append only模式写入，所以没有任何磁盘寻址的开销。写入性能非常高而且文件性能不容易被损坏，即使损坏也很容易修复。</p>
+<p>   aof日志文件即使过大的时候 出现后台的重写操作，也不会影响客户端的读写。因为在rewrite log的时候，会对其进行指导压缩，创建出一份需要恢复的数据的最小日志出来，在创建新日志文件的时候，老的日志文件照常写入，当新的merge后的日志文件ready的时候 再交换新老日志文件即可</p>
+<p>   aof日志文件记录的命令非常可读，也非常适合灾难性的误删除的紧急恢复，比如某人不小心使用flushall的命令清空所有数据，只有这个时候rewrite还没有发生，那么就可以拷贝aof文件，将最后一条的fluashll 命令删除，然后在将该aof文件放回去，通过恢复机制，自动恢复所有数据</p>
+<p>   对于同一份日志文件来说，aof的文件要比rdb的文件更大</p>
+<p>   aof开启后，支持redis的写的qps会比支持rdb写的qps低，因为aof一般会配置成每秒fsync一次日志，其实性能还是很高的，如果支持实时写入的化 那么qps会大降</p>
+<h3 id="redis的string-底层实现"><a href="#redis的string-底层实现" class="headerlink" title="redis的string 底层实现"></a>redis的string 底层实现</h3><p>​    embstr  小于39个字节</p>
+<p>​    long 长整型  在做自增自减</p>
+<p>​    raw 大于39的字节的字符串</p>
+<p>Redis会根据当前值的类型和长度决定使用哪种内部编码实现。</p>
+<h3 id="redis-hash的结构"><a href="#redis-hash的结构" class="headerlink" title="redis hash的结构"></a>redis hash的结构</h3><p>哈希类型的内部编码有两种：</p>
+<ul>
+<li><p>ziplist（压缩列表）：</p>
+<p>条件：</p>
+<ol>
+<li>当哈希类型元素个数小于hash-max-ziplist-entries配置（默认512个）</li>
+<li>所有值都小于hash-max-ziplist-value配置（默认64字节）</li>
+</ol>
+</li>
+<li><p>hashtable（哈希表）：当哈希类型无法满足ziplist的条件时使用hashtable</p>
+</li>
+</ul>
+<p>Redis使用ziplist作为哈希的内部实现，ziplist使用更加紧凑的结构实现多个元素的连续存储，所以在节省内存方面比hashtable更加优秀。</p>
+<p>使用hashtable作为哈希的内部实现，ziplist的读写效率会下降，而hashtable的读写时间复杂度为O（1）。</p>
+<h3 id="redis-为什么是单线程及高并发快的原因"><a href="#redis-为什么是单线程及高并发快的原因" class="headerlink" title="redis 为什么是单线程及高并发快的原因"></a>redis 为什么是单线程及高并发快的原因</h3><ol>
+<li>​    redis是基于内存的。读写都非常快</li>
+<li>redis是单线程的，减少了上下文切换的时间</li>
+<li>redis使用了io多路复用计数，可以并发的处理连接、非阻塞io内部实现了epoll，采用了epoll+自己实现的简单事件框架。epoll中的读写、关闭、连接都转化成了事件、然后采用了epoll的多路复用的特效 绝不在io上浪费一点事件 </li>
+</ol>
+<p>io多路复用主要有三种计数    select/poll/epoll  </p>
+<p>​    select的时间复杂度是）O（n），它仅仅知道了io事件发生了，但是不知道是哪个流，只能挨个轮训，同时处理的流越多，无差别轮训的时间越长，是无差别轮训</p>
+<p>​    poll 的时间复杂度也是O（n），它和select没啥区别，也是将用户传入的数组拷贝到内核空间、然后查询fb对应的设备状态。它比select的优点是因为他没有最大连接数的限制，原因是因为他是基于链表存储的，使用的是忙轮训，而select是基于数组存储的，默认是2048</p>
+<p>epoll 可以理解为event poll，不同于忙轮训和无差别轮训。epoll会把哪个流发生了怎样的io事件通知我们（内部调用了callback函数）、所以我们说epoll实际上是事件驱动的，每个事件关联着fd，此时我们对这些流的操作都是有意义的 ，内存拷贝 利用 mmap（）文件映射内存加速与内核空间的消息传递；（降低了复制开销）</p>
+<p>redis使用的epool</p>
+<h3 id="btree和b-tree的区别"><a href="#btree和b-tree的区别" class="headerlink" title="btree和b+tree的区别"></a>btree和b+tree的区别</h3><p>B树的特点：<br>（1）所有键值分布在整个树中<br>（2）任何关键字出现且只出现在一个节点中<br>（3）搜索有可能在非叶子节点结束<br>（4）在关键字全集内做一次查找，性能逼近二分查找算法</p>
+<p>B+树与B树的不同在于：<br>（1）所有关键字存储在叶子节点，非叶子节点不存储真正的data<br>（2）为所有叶子节点增加了一个链指针</p>
+<p>为什么mysql的索引使用B+树而不是B树呢？？<br> （1）B+树更适合外部存储(一般指磁盘存储),由于内节点(非叶子节点)不存储data，所以一个节点可以存储更多的内节点，每个节点能索引的范围更大更精确。也就是说使用B+树单次磁盘IO的信息量相比较B树更大，IO效率更高。<br> （2）mysql是关系型数据库，经常会按照区间来访问某个索引列，B+树的叶子节点间按顺序建立了链指针，加强了区间访问性，所以B+树对索引列上的区间范围查询很友好。而B树每个节点的key和data在一起，无法进行查询非</p>
+<h3 id="数据库的分库分表"><a href="#数据库的分库分表" class="headerlink" title="数据库的分库分表"></a>数据库的分库分表</h3><ol>
+<li>​    原因：<ol>
+<li>用户请求量太大 单机器tps、io、内存都是有限的，解决办法：分散请求到多个服务器上，因为用户请求和执行sql本质是一样的，都是请求一个资源，只是用户请求还会经过网关 路由 http服务器等</li>
+<li>单表太大 curd都成问题 索引膨胀、查询超时， 解决办法 拆分成更多更小的表</li>
+<li>单库太大 单个数据库的处理能力是有限的，单库所在服务器上磁盘空间不足；单库上操作的io瓶颈 解决办法：拆分成更多的小库</li>
+</ol>
+</li>
+<li>垂直拆分<ol>
+<li>垂直分表：将不常用的字段拆分到一个新表中，一般是针对那种几百列的大表，避免了数据量太大造成 跨页的问题</li>
+<li>垂直分库： 针对一个系统中不同业务进行拆分、比如user一个库、商品一个库、订单一个库，然后将这些库不要放在同一个服务器上，防止单个数据库的处理能力成为瓶颈、而且对单个服务器的磁盘、内存、tps等都会相互有影响</li>
+</ol>
+</li>
+<li>水平拆分<ol>
+<li>水平分表  ：针对订单量这种大表，按照规则（range、hash 取模等）但是这些表还是再同一个库中，库级别的数据库操作还是有瓶颈</li>
+<li>水平分库分表：将单张表的数据切分到多个服务器上去，每隔服务器具有相应的库与表，只是表中数据集合不同。</li>
+<li>切分规则：<ol>
+<li>range </li>
+<li>hash</li>
+<li>地理区域</li>
+<li>时间</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="tcp-三次握手和挥手"><a href="#tcp-三次握手和挥手" class="headerlink" title="tcp 三次握手和挥手"></a>tcp 三次握手和挥手</h3><ol>
+<li><p>三次握手</p>
+<ol>
+<li>发送端 发送一个SYN=1，seq=n 到接收端</li>
+<li>接收端 发送SYN=1 ACK=1 ，seq=y，ack=n+1</li>
+<li>发送端发送 SYN=1 ack=y+1,seq=n+1</li>
+</ol>
+</li>
+<li><p>四次挥手</p>
+<ol>
+<li>客户端发送FIN=1，seq=n establish状态</li>
+<li>服务端收到 发送 ACK=1，ack=n+1 ，seq=v wait close</li>
+<li>服务端发送FIN=1，ack=n+1，seq=w ，ACK=1 fin2 wait</li>
+<li>客户端发送 ACK=1，ack=w+1，seq=n+1 closed</li>
+</ol>
+<h2 id="为什么需要四次挥手"><a href="#为什么需要四次挥手" class="headerlink" title="为什么需要四次挥手"></a>为什么需要四次挥手</h2><p>因为关闭连接时，当收到FIN报文通知时 紧紧表示 对方没有数据发送给你了；但是未必你所有的数据都发送给对方了，所以你可未必马上会关闭socket，再发送FIN报文时给对方表示你同意关闭连接了，所以这里的ack报文和FIN报文是分开发送的</p>
+</li>
+</ol>
+<h3 id="为什么需要三次握手"><a href="#为什么需要三次握手" class="headerlink" title="为什么需要三次握手"></a>为什么需要三次握手</h3><p>​    防止已过期的连接突然又传到服务器发生错误</p>
+<p>​    也发送client发送的请求因为网络延迟没有发送到服务端，但是当server接收到之后，如果没有三次握手，server是直接发送数据到client，这样会造成server资源的浪费</p>
+<p>mq的优势   </p>
+<h3 id="ActiveMQ-RabbitMQ-KafKa对比"><a href="#ActiveMQ-RabbitMQ-KafKa对比" class="headerlink" title="ActiveMQ RabbitMQ KafKa对比"></a>ActiveMQ RabbitMQ KafKa对比</h3><ol>
+<li>tps比较 kafka最高 RabbitMq次之 activityMq最差</li>
+<li>吞吐量对比 Kafka最高，因为内部采用的是消息批处理、零拷贝机制，数据的获取和存储是本地磁盘顺序批量操作，具有O（1）的复杂度，消息的处理效率很高，rabbitMq的吞吐量稍逊与kafka，因为他们的出发点不一样，rabbitMq支持对这消息的可靠性传递、支持事物、不支持批量操作；基于存储的可靠性的要求可以采用内存或者硬盘</li>
+<li>在架构方面 rabbitmq遵循amqp协议，rabbitmq的broker由exchange、binding、queue组成，其中exchange和binding组成了消息的路由键；客户端Producer通过channel和server进行通信，consumer从queue获取消息进行消费（长连接，queue有消息就会推送到consumer端，consumer循环从输入流读取数据）rabbitmq以broker为中心，有消息确认机制，kafka 遵从一般的mq结构，producer、consumer、borker，以consumer为中心，消息的消费信息保存在客户端的consumer上，consumer根据消费的点，从broker上批量pull数据，无消息确认机制</li>
+<li>在可用性方面： rabbitmq支持mirror的queue，主queue失效，mirror queue接管、kafka的broker支持主备模式，activeMq也支持主备模式</li>
+<li>在集群负载均衡方向：kafka采用的zookeeper对集群中broker和consumer进行管理，可以注册topic到zookeeper上，通过zookeeper的协调机制，producer保存对应的broker信息，可以随机或者轮询发送到broker上、并且producer可以基于语义指定分片，消息发送到broker的某分片上。rabbitmq的负载均衡需要单独的loadbalanceer进行支持</li>
+</ol>
+<p>activeMq和rabbitMq的区别 mq的高可用 <a target="_blank" rel="noopener" href="https://cloud.tencent.com/developer/article/1460173">https://cloud.tencent.com/developer/article/1460173</a></p>
+<h3 id="消息丢失怎么处理"><a href="#消息丢失怎么处理" class="headerlink" title="消息丢失怎么处理"></a>消息丢失怎么处理</h3><ol>
+<li>​    生产者丢失 增加重试 重试间隔改长 防止一次网络波动就三次都失败了</li>
+<li>消费者丢失》消息被追加到分区parton的时候都会分配一个特定的偏移量offset，消费者拉取到分区的某个消息后 会自动提交offset，我们要把自动提交改为手动提交</li>
+<li>kafka丢失消息 ：引用多副本机制，设置acks=all</li>
+</ol>
+<h3 id="redis的高可用"><a href="#redis的高可用" class="headerlink" title="redis的高可用"></a>redis的高可用</h3><p>​    cluster 模式 3主3从</p>
+<h3 id="mysql是如何进行主从同步的"><a href="#mysql是如何进行主从同步的" class="headerlink" title="mysql是如何进行主从同步的"></a>mysql是如何进行主从同步的</h3><p>​    在master机器上操作：当master数据发送变化时，该事件变化会按照顺序写入到bin-log中，当slave连接到master的时候，master机器会为slave开启binlog dump线程。当master的binlog发送变化的时候，bin log dump线程或通知slave，并将相应的bin log内容发送给slave</p>
+<p>在slave机器上操作，当主从同步开启的时候，slave会创建两个线程：io线程、该线程连接到master机器、master机器上的bin log dump线程会将binlog的内容发送给该io线程、该io线程接收到binlog内容后，再将内容写入到relay log；sql线程，该线程读取io线程写入到的relay log，并且根据relay log的内容对于slave数据库做相应的操作。</p>
+<h3 id="输入一个网址后面做了哪些事"><a href="#输入一个网址后面做了哪些事" class="headerlink" title="输入一个网址后面做了哪些事"></a>输入一个网址后面做了哪些事</h3><ol>
+<li>域名解析<ol>
+<li>从浏览器里找ip </li>
+<li>从hosts文件里找ip</li>
+<li>从路由器缓存里找ip</li>
+<li>从dns缓存里查找</li>
+<li>从域名解析器里找ip</li>
+</ol>
+</li>
+<li>tcp连接</li>
+<li>springmvc请求过程</li>
+<li>浏览器解析</li>
+<li>绘制网页</li>
+</ol>
+<p>###分布式锁的实现</p>
+<ol>
+<li><p>redis set key value px milliseconds nx    </p>
+</li>
+<li><p>redis setnx+lua</p>
+<p>前者的核心命令实现如下</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">   </span><br></pre></td></tr></table></figure></li>
+</ol>
+<ul>
+<li>获取锁<br> set resource_name unique_value NX PX 30000</li>
+<li>释放锁(lua脚本中一定要比较value 防止误解锁)<br>  if redis.call(“get”,KEYS[1])==ARGV[1] then<br>   return redis.call(“del”,KEYS[1])<br>  else<br>   return 0<br>  end  <figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">实现这类锁有三个需要值得注意的地方</span><br><span class="line"></span><br><span class="line">1. set命令要使用set key value px millionseconds nx；</span><br><span class="line">2. value要具有唯一性</span><br><span class="line">3. 释放锁时要比较value 防止误解锁</span><br><span class="line"></span><br><span class="line">但是这类锁的最大缺点就是它加锁时只作用在一个redis节点上、即使这个redis通过sentinel保证高可用，如果master节点由于发送了主从切换，那么就会出现锁丢失的情况：</span><br><span class="line"></span><br><span class="line">1. 在redis的master节点拿到了锁</span><br><span class="line">2. 但是这个加锁的key还没有同步到slave节点</span><br><span class="line">3. master故障 发生故障转移。slave升级为master节点</span><br><span class="line">4. 导致锁丢失</span><br><span class="line"></span><br></pre></td></tr></table></figure></li>
+</ul>
+<ol start="3">
+<li><p>redis作者antiirez又提出了一种基于分布式环境下更高级的分布式锁实现方式：以redis集群有N个master节点为例，每个节点完全相互独立不存在主从复制或者其他集群的协调机制。</p>
+<p>为了获取锁，客户端应该执行以下操作：</p>
+<ol>
+<li>获取当前的unix时间，以毫秒为单位</li>
+<li>依次尝试从5个实例，使用相同的key和具有唯一性的value例如uuid+threadId获取锁，当想redis请求获取锁的时候，客户端应该设置一个网络连接和响应超时时间，这个响应超时时间应该小于锁的失效时间，例如你的锁的失效时间为10s，则超时时间应该在5-50ms之间。这样能够避免服务器redis已经挂掉的情况下，客户端还在死死的等待响应结果，如果服务没有在规定的时间内响应，客户端应该尽快尝试去另外一个redis实例请求获取锁</li>
+<li>客户端使用当前时间减去开始获取锁的时间就是获取锁使用的时间。当且仅当从大多数N/2+1个redis节点都获取锁，并且使用时间小于获取锁的失效时间，锁才算获取成功</li>
+<li>如果获得了锁，key的真正有效时间等于有效时间减去获取锁的时间</li>
+<li>如果因为某些原因，获取锁失败了，客户端应该在所有的redis实例上解锁，防止某些节点获取到锁但是客户端没有得到响应而导致接下来一段时间不能重新获取锁</li>
+</ol>
+</li>
+</ol>
+<p>http状态码</p>
+<p>200 状态正确</p>
+<p>301 永久的定向</p>
+<p>302 临时定向</p>
+<p>400  参数错误</p>
+<p>410 has gone 路由已经备转移了</p>
+<p>500  server error</p>
+<p>502 nginx gateway</p>
+<p>504 timeout</p>
+<h2 id="作业帮面试"><a href="#作业帮面试" class="headerlink" title="作业帮面试"></a>作业帮面试</h2><h4 id="channel是如何使用的"><a href="#channel是如何使用的" class="headerlink" title="channel是如何使用的"></a>channel是如何使用的</h4><h4 id="线程、协程、进程之间的区别"><a href="#线程、协程、进程之间的区别" class="headerlink" title="线程、协程、进程之间的区别"></a>线程、协程、进程之间的区别</h4><p>进程：进程就是应用程序的启动实例，代码和打开的文件资源、数据资源、独立的内存空间。</p>
+<p>线程：是进程的执行单位，一个进程至少有一个主线程和多个子线程</p>
+<p>对于操作系统来讲，线程是最小的执行单元，进程是最小的资源管理单元</p>
+<p>协程：像线程在进程中一样，协程也在线程中拥有自己独立的占空间，不被操作系统内核所管理，而完全是由程序所控制</p>
+<h2 id="字节准备"><a href="#字节准备" class="headerlink" title="字节准备"></a>字节准备</h2><h3 id="说说go的优点"><a href="#说说go的优点" class="headerlink" title="说说go的优点"></a>说说go的优点</h3><ol>
+<li>go的性能是Python的35倍</li>
+<li>性能 （因为golang是机器代码） 编译后的文件可以直接放在机器上执行</li>
+<li>开发的过程中 无效的字段或者包名引用 会强制提醒错误，有fmt 统一代码的格式</li>
+<li>并发支持  channel和goroutine的性能很出色，可以非常方便的启动一个协程，很容易的生出数百万个goroutine</li>
+<li>内置运行时gc，是通过三色法来对垃圾进行回收，可以满足大多数关于垃圾收集的请求</li>
+<li>简单易学，非常容易上手</li>
+<li>可以返回多个值，虽然java也支持（最多支持三个）</li>
+<li>非常节省内存 1.12之前一个goroutinue的内存大概占用2kb，而一个java线程默认是2mb，1.17之后已经改为8kb了</li>
+<li>接口的实现非常方便，可以通过内嵌struct来实现继承</li>
+<li>if…;… {} 可以将变量的作用域放在if内 很棒</li>
+<li>单元测试和并发测试都很方便</li>
+</ol>
+<p>缺点是</p>
+<ol>
+<li>缺乏框架、 没有像java那种开发小项目使用springboot springcloud 这种比较成熟的框架、不过对于goweb开发 有beego 、gin等、对于分布式有gomicro、gokit，</li>
+<li>错误处理，经常要对错误进行判断 </li>
+<li>使用的用法很多坑，比如slice传递的是引用不是副本 ，如果调用的func 不会对slice进行修改传递本身是没问题，如果需要修改就需要考虑使用copy（src，dest）来进行， 如果知道要slice要存储的空间是多少，在初始化的时候要使用 make([]int，nums)来声明，防止在append过程中会发生扩容操作。<br>nil切片、空切片、零切片的区别，var str []int 这种是nil切片 ，序列化之后是null，var str = []int{} 这种是空切片，序列化之后是[] 空数组，零切片就是 make([]int,10) 初始化之后 底层数组存储的数据都是0，官方不推荐创建空切片、也不推荐nil切片和nil进行对比</li>
+<li>map中struct的单个字段 是非法的，因为map中的元素是不能寻址的</li>
+</ol>
+<h3 id="谈谈golang的csp模型"><a href="#谈谈golang的csp模型" class="headerlink" title="谈谈golang的csp模型"></a>谈谈golang的csp模型</h3><p>​    不同于java的通过多线程共享内存来通信，而golang是以通信的方式共享内存，用于描述两个对立并发的实体，通过共享的通信（channel）进行通信的并发模型，而且它还有一个好处，它不关心发送消息的实体，而关心发送消息的channel，channel是可以单独被创建并在线程中进行传递的，类似于boss-worker模式。一个实体通过消息发送到channel中，然后又监听channel的实体处理，两个实体之间是匿名的，这样达到了实体之间的解耦，其中channel是同步的一个消息被发送到channal中，最终一定要被另一个实体消费掉，有些类似于阻塞队列，其实csp的模型底层就是通过goroutinue和channel实现的</p>
+<h3 id="说说GMP模型"><a href="#说说GMP模型" class="headerlink" title="说说GMP模型"></a>说说GMP模型</h3><p>G groutinue M workThread processer（上下文或者是cpu）</p>
+<p>单核情况下一所有的goroutine都运行在同一个工作线程M0上，每一个工作线程都维护一个上下文P，任何时刻一个上下文只有一个goroutine，其他的goroutine在runqueue中等待，一个goroutinue运行完之后会让出自己的时间片，返回到runqueue中，当运行中的goroutine阻塞时，会再启动一个新的线程M1，P转到新的线程中去执行，当M0返回时，它回尝试从其他的线程中偷取一个上下文过来，如果偷取不到 那么就会被放入到线程缓存中，把自己上面的goroutine都放在global runqueue中，上下文会定期检查global runqueue</p>
+<h3 id="死锁产生的四个必要条件"><a href="#死锁产生的四个必要条件" class="headerlink" title="死锁产生的四个必要条件"></a>死锁产生的四个必要条件</h3><ol>
+<li>互斥</li>
+<li>请求与保持</li>
+<li>不可剥夺</li>
+<li>循环等待</li>
+</ol>
+<h3 id="说说goGC的三色法"><a href="#说说goGC的三色法" class="headerlink" title="说说goGC的三色法"></a>说说goGC的三色法</h3><p>初始的时候 gc将引用的对象标记为灰色，然后继续扫描，如果其他对象被这些灰色标记的对象引用就会将灰色对象标记为黑色，然后将被引用的标记为灰色，直到灰色标记的对象不存在，此时gc回收白色对象，最后将黑色对象变为白色对象，并且重复之前所有过程。</p>
+<h3 id="gc和用户逻辑是如何并行的呢？"><a href="#gc和用户逻辑是如何并行的呢？" class="headerlink" title="gc和用户逻辑是如何并行的呢？"></a>gc和用户逻辑是如何并行的呢？</h3><p>标记清除法的stw操作就是runtime把所有的线程都冻结掉，这样就意味着所有的用户逻辑都是暂停的，这样所有的对象都不会被修改了，这时候去扫描绝对是安全的，</p>
+<p>Go是如何剪短这个过程的呢？标记和清除算法包含两部分逻辑：标记和清除。我们指导golang三色标记法最后只剩下黑色和白色两种对象，如果不碰触黑色对象，只清除白色对象 ，肯定不会影响用户逻辑的 所以：清除操作和用户逻辑是可以并发的。</p>
+<p>这个时候你可能会问 那标记是怎么和用户逻辑并发的呢？用户逻辑经常会生成对象或者改变对象的引用，为了解决这个问题 go引入了写屏障：该屏障之前的写操作和之后的写操作相比 ，先被系统其他组件感知，通俗的讲：就是gc跑的过程中，可以监控对象的内存修改，并重新对对象进行标记，在上述的情况中 新生城的对象一律会被标记为灰色。就是说一旦gc开始起来，无论创建对象还是对象的引用改变，都会先变为灰色。</p>
+<h3 id="mysql的事务"><a href="#mysql的事务" class="headerlink" title="mysql的事务"></a>mysql的事务</h3><ol>
+<li>读未提交</li>
+<li>读已提交</li>
+<li>可重复读</li>
+<li>串行化</li>
+</ol>
+<h3 id="mysql的脏读、幻读、不可重复读"><a href="#mysql的脏读、幻读、不可重复读" class="headerlink" title="mysql的脏读、幻读、不可重复读"></a>mysql的脏读、幻读、不可重复读</h3><p>脏读是事物A读取到了事物B未提交的数据</p>
+<p>幻读：事物A查 select count（1）的两次结果不一致，事物B insert数据 加表锁</p>
+<p>不可重复读：事物A 查询的两次row的data数据不一致，事物B 进行delete update 数据  加行锁就可以 mvcc 可解决</p>
+<h3 id="mysql的执行顺序"><a href="#mysql的执行顺序" class="headerlink" title="mysql的执行顺序"></a>mysql的执行顺序</h3><p>开始-&gt;FROM子句-&gt;WHERE子句-&gt;GROUP BY子句-&gt;HAVING子句-&gt;ORDER BY子句-&gt;SELECT子句-&gt;LIMIT子句-&gt;最终结果 </p>
+<h3 id="当向MySQL发送一个请求的时候，MySQL到底做了什么："><a href="#当向MySQL发送一个请求的时候，MySQL到底做了什么：" class="headerlink" title="当向MySQL发送一个请求的时候，MySQL到底做了什么："></a>当向MySQL发送一个请求的时候，MySQL到底做了什么：</h3><ol>
+<li>客户端发送一条查询给服务器。</li>
+<li>服务器先检查查询缓存，如果命中了缓存，则立刻返回存储在缓存中的结果。否则进入下一阶段。</li>
+<li>服务器端进行SQL解析、预处理，再由优化器生成对应的执行计划。</li>
+<li>MySQL根据优化器生成的执行计划，再调用存储引擎的API来执行查询。</li>
+<li>将结果返回给客户端。</li>
+</ol>
+<h2 id="字节面试"><a href="#字节面试" class="headerlink" title="字节面试"></a>字节面试</h2><h3 id="说说你负责的项目"><a href="#说说你负责的项目" class="headerlink" title="说说你负责的项目"></a>说说你负责的项目</h3><h3 id="redis-主从复制是怎么实现的-master和是slave是如何复制的，谁来触发的"><a href="#redis-主从复制是怎么实现的-master和是slave是如何复制的，谁来触发的" class="headerlink" title="redis 主从复制是怎么实现的 master和是slave是如何复制的，谁来触发的"></a>redis 主从复制是怎么实现的 master和是slave是如何复制的，谁来触发的</h3><ol>
+<li>​    slave执行slaveof ip port ，连接master节点</li>
+<li>fsync ？ -1 因为不知道runid 和offset </li>
+<li>master节点返回runid 和offset </li>
+<li>master 执行bgsave 生成rdb文件</li>
+<li>发送rdb文件到salve节点</li>
+<li>slave记录master节点信息，flush db </li>
+<li>发送offset之后queue中的数据</li>
+<li>然后加载rdb文件和缓存区中的数据</li>
+</ol>
+<h3 id="rdb和aof"><a href="#rdb和aof" class="headerlink" title="rdb和aof"></a>rdb和aof</h3><h3 id="mysql是怎么调优的https-studygolang-com-articles-14865"><a href="#mysql是怎么调优的https-studygolang-com-articles-14865" class="headerlink" title="mysql是怎么调优的https://studygolang.com/articles/14865"></a>mysql是怎么调优的<a target="_blank" rel="noopener" href="https://studygolang.com/articles/14865">https://studygolang.com/articles/14865</a></h3><ol>
+<li>可以使用explain关键字来查看语句的性能</li>
+</ol>
+<p>all：表示全表查询</p>
+<p>range，说明使用的是有范围的索引查询</p>
+<p>index： 这里说明使用了索引，这种情况下，如果extra列中的值是Using Index，这种情况是索引覆盖，覆盖索引的含义就是我们要查询的数据，索引都已经存在了，这种情况下就不需要回表取数据了</p>
+<p>ref：说明条件使用了索引，但是不是主键和unique，所以即使使用了索引 但是索引值不唯一 存在重复</p>
+<p>eq_ref:相当于ref来说就是使用了唯一索引，对于每一个索引的键值，只有唯一的一条匹配记录</p>
+<p>const/system :单表中最多有一条匹配行，查询起来非常迅速、所以这个匹配行中的其他列值可以在优化器中当做常量来处理，例如主键或者唯一索引来进行查询。</p>
+<p>index_merge :说明使用了索引合并的方法，当使用了索引合并时就说明需要检查下创建的索引是否为单列索引。</p>
+<ol start="2">
+<li>索引失效的情况<ol>
+<li>条件中使用null 或者is not null</li>
+<li>使用了%like mysql时左匹配</li>
+<li>使用多列索引需要时建立索引的顺序，如果跳过第一个索引直接使用后面的索引，也会导致索引失败，因为mysql时最左匹配</li>
+<li>条件中包含or 只有所有列都是单独索引时才会使用索引</li>
+</ol>
+</li>
+<li>如何建立有效的索引<ol>
+<li>如果需要索引很长的字符串 此时需要考虑前缀索引</li>
+<li>使用多列索引</li>
+<li>选择合适的索引顺序</li>
+<li>使用覆盖索引  减少select(*)的操作</li>
+<li>使用索引扫描来做排序</li>
+<li>减少重复冗余已经未使用的索引</li>
+<li>减少索引和数据碎片  可以使用optimize table来重新导入或者整理数据</li>
+</ol>
+</li>
+</ol>
+<h3 id="mysql-创建索引的语句"><a href="#mysql-创建索引的语句" class="headerlink" title="mysql 创建索引的语句"></a>mysql 创建索引的语句</h3><p>create index index_name on tables(key)</p>
+<p>alter table table_name add index(colum_name)</p>
+<h3 id="go的sync-下了解吗？说下sync-once-和waitgroup"><a href="#go的sync-下了解吗？说下sync-once-和waitgroup" class="headerlink" title="go的sync 下了解吗？说下sync.once 和waitgroup"></a>go的sync 下了解吗？说下sync.once 和waitgroup</h3><h3 id="lru算法实现"><a href="#lru算法实现" class="headerlink" title="lru算法实现"></a>lru算法实现</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 双向链表加hashmap</span><br><span class="line"><span class="keyword">type</span> LinkNode <span class="keyword">struct</span> &#123;</span><br><span class="line">    key, val  <span class="keyword">int</span></span><br><span class="line">    pre, next *LinkNode</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> LRUCache <span class="keyword">struct</span> &#123;</span><br><span class="line">    m          <span class="keyword">map</span>[<span class="keyword">int</span>]*LinkNode</span><br><span class="line">    <span class="built_in">cap</span>        <span class="keyword">int</span></span><br><span class="line">    head, tail *LinkNode</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="mysql和redis的区别"><a href="#mysql和redis的区别" class="headerlink" title="mysql和redis的区别"></a>mysql和redis的区别</h3><h3 id="innodb和myisam的区别"><a href="#innodb和myisam的区别" class="headerlink" title="innodb和myisam的区别"></a>innodb和myisam的区别</h3><ol>
+<li>innodb支持事物、myisam不支持事物</li>
+<li>innodb支持行锁、myisam支持表锁</li>
+<li>innodb时聚集索引 myisam是非聚集索引</li>
+<li>innodb支持外键、myisam不支持</li>
+<li>innodb 如果select count*  from会全表扫描 myisam不会</li>
+</ol>
+<h3 id="redis-hash扩容："><a href="#redis-hash扩容：" class="headerlink" title="redis hash扩容："></a>redis hash扩容：</h3><p>单线程渐进式rehash ht[0]，是存放数据的table，作为非扩容时容器。ht[1]，只有正在进行扩容时才会使用，它也是存放数据的table，长度为ht[0]的两倍。<br>扩容时，单线程A负责把数据从ht[0] copy到ht[1] 中。如果这时有其他线程进行读操作：会先去ht[0]中找，找不到再去ht[1]中找。进行写操作：直接写在ht[1]中。进行删除操作：与读类似。<br>多线程协同式rehash，线程A在扩容把数据从oldTable搬到到newTable，这时其他线程，进行get操作：这个线程知道数据存放在oldTable或是newTable中，直接取即可。进行写操作：如果要写的桶位，已经被线程A搬运到了newTable。那么这个线程知道正在扩容，它也一起帮着扩容，扩容完成后才进行put操作，进行删除操作：与写一致。</p>
+<h3 id="redis-redlock-实现原理-为什么需要这个"><a href="#redis-redlock-实现原理-为什么需要这个" class="headerlink" title="redis redlock 实现原理 为什么需要这个"></a>redis redlock 实现原理 为什么需要这个</h3><p>因为单节点redis nx 会存在丢失的可能性、为了防止锁丢失需要重新获取</p>
+<h3 id="session和cookie的区别是什么？"><a href="#session和cookie的区别是什么？" class="headerlink" title="session和cookie的区别是什么？"></a>session和cookie的区别是什么？</h3><ol>
+<li>由于HTTP协议是无状态的协议，在需要持久化用户的状态时，需要某种机制来识别，session是放在服务端的，cookie是放在客户端的。</li>
+<li>第一次创建Session的时候，服务端会在HTTP协议中告诉客户端，需要在 Cookie 里面记录一个Session ID，以后每次请求把这个会话ID发送到服务器，我就知道你是谁了。有人问，如果客户端的浏览器禁用了 Cookie 怎么办？一般这种情况下，会使用一种叫做URL重写的技术来进行会话跟踪，即每次HTTP交互，URL后面都会被附加上一个诸如 sid=xxxxx 这样的参数，服务端据此来识别用户。</li>
+<li>Cookie其实还可以用在一些方便用户的场景下，设想你某次登陆过一个网站，下次登录的时候不想再次输入账号了，怎么办？这个信息可以写到Cookie里面，访问网站的时候，网站页面的脚本可以读取这个信息，就自动帮你把用户名给填了，能够方便一下用户。这也是Cookie名称的由来，给用户的一点甜头。</li>
+</ol>
+<h3 id="说说视频聊天的这个项目-还有luck-quiz的这个项目"><a href="#说说视频聊天的这个项目-还有luck-quiz的这个项目" class="headerlink" title="说说视频聊天的这个项目 还有luck quiz的这个项目"></a>说说视频聊天的这个项目 还有luck quiz的这个项目</h3><p>new-meet是用户通过购买金币来和线上主播进行一对一视频聊天的服务、同时会采用通话流转、假主播流量吸引、勾引话术推送消息来吸引用户进行直播。我主要前期参与了用户模块、用户和主播like模块的设计、视频通话的过程梳理、已经近期对优质主播的流向倾斜和新主播流量扶持策略的设计。用户模块设计了限制用户单点登录，对jwt进行了简化，将用户id、过期时间、用户设备id 通过aes加密生成一个authkey、每次用户请求需要再header中添加入authkey、然后解密出来，使用责任链模式，通过设计router的正则来校验authkey，比如有些拉取数据通道的接口是和 用户无关的，就不需要校验authkey。 这个业务最主要的通话流程的设计，然后最近为了提升通话的时间和接通率 我又设计了一个主播流量倾斜和新主播流量扶持的策略。前期因为印度市场被下架 我们又设计了一个异构的框架、所有的请求被客户端加密之后，然后再异构框架进行解密 没有问题再发送到我真正的server服务。这样google是不知道我们在传输过程中因为壳包相似的接口名称和参数而进行app封杀下架。</p>
+<p>luck_quiz项目是基于beego框架研发的，主要有用户模块、答题、乐透、幸运转盘、刮刮卡兑换模块组成、用户可以在参与玩游戏的过程中获取金币、现金奖励，然后兑换aws或者paypal的充值卡。我们是在用户游戏的过程中通过查看奖励添或者解锁游戏次数来添加广告来进行获利、其中我负责的是整个产品的研发的推动、其中答题模块是相对复杂的。</p>
+<p>题目生成的策略是相对复杂的，题目本身有几个纬度的、难度、题目类型、奖励类型、初期用户拉取的题目是相对简单的，然后出现现金奖励的概率也会很大、然后需要每个人生成的题目不要和其他人一样，用户的现金到0-4、4-8、8-12、12以上、现金出现的奖励会越来越小直至不出现、同时题目的难度也会越来越难。这就需要我们每次再生成题目列表的时候实时计算了。<br>方案一： 使用mysql not in（性能太差）<br>方案二： 了解到 其实是给用户下发的题目和题库的题目做差集，使用redis sdiff 命令 redis key是这样的，因为sdiff key1 key2 ，<br>key1 key2 如果不在同一个slot上，就会发出redis 错误，所以开始用{}，先计算key的hash，将answer 用{}括起来，使其<br>落在同一个slot上,题库的题目 {answer}:load-questions:%questionType ,用户看过的题目 {answer}:load-questions-by:%userId<br>能到达预期目的<br>方案三： 方案二虽然能达到预期目的，但是随着用户量的增加、单个slot的容量总是有限的，所以在用户注册的时候，给每个用户都会将题库复制一份，<br>rediskey 与userId进行绑定,题库的题目 answer:load-questions:{userId}:questionType ,用户看过的题目 answer:load-questions-by:{userId}<br>这样解决了单个slot内存过于庞大的问题这个还有一个好处就是差集的计算都交给了redis 的机器去操作<br>方案四：使用bitset 指令 SETBIT key offset value 复杂度 O(1)<br>一个bit位来表示某个元素对应的值或者状态,其中的key就是对应元素本身。我们知道8个bit可以组成一个Byte，所以bitmap本身会极大的节省储存空间。之前存储一个questionId是int64类型 ，大概的空间占用计算公式是：($offset/8/1024/1024)MB，也就是说8388608 个题目在redis里才会占用1mb的内存空间， offset 标识题目id，0 标识未打过，1标识已经答过。</p>
+<h3 id="说说你觉得收获最大的项目是哪个-怎么去处理的"><a href="#说说你觉得收获最大的项目是哪个-怎么去处理的" class="headerlink" title="说说你觉得收获最大的项目是哪个 怎么去处理的"></a>说说你觉得收获最大的项目是哪个 怎么去处理的</h3><p>答题的这个模块吧，当时是使用火焰图对这个接口进行了分析 go tool pprof -http=:8080 火焰图文件，解析数据生成调用栈、分析程序响应变慢时，哪个函数占据了更多的处理时间。可以更直观的定位问题，因为再涉及到接口优化的过程中、发现了之前封装go公共基础库的性能不好、然后自己做了优化、接口的响应时间从2s优化到了300ms。 还有对go字符串调优也做了一个测试，字符串拼接、fmt.Sprintf、stringbuilder、byte.buff 来处理，使用go test -bench=. -run=none 可以看出StringBuilder是最快的 899 ns/op， bytes.buffer次之，string += 拼的方式性较差，fmt.Sprintf()的方式性能最差是17347 ns/op。，你可以使用bytes.Buffer来优化：一定程度上避免上面每进行一次拼接操作就重新申请新的内存空间存放中间字符串的问题。但这里依然有一个小问题： byte.String() 会有一次 []byte -&gt; string 类型转换。而这个操作是会进行一次内存分配和内容拷贝的。<br><br>如果你现在已经在使用 golang 1.10, 那么你还有一个更好的选择：strings.Builder</p>
+<ul>
+<li>1、与byte.Buffer思路类似，既然 string 在构建过程中会不断的被销毁重建，那么就尽量避免这个问题，底层使用一个 buf []byte 来存放字符串的内容。</li>
+<li>2、对于写操作，就是简单的将byte写入到 buf 即可。</li>
+<li>3、为了解决bytes.Buffer.String()存在的[]byte -&gt; string类型转换和内存拷贝问题，这里使用了一个unsafe.Pointer的存指针转换操作，实现了直接将buf []byte转换为 string类型，同时避免了内存充分配的问题</li>
+</ul>
+<p>结论：<br></p>
+<ul>
+<li>golang中的string类型也是只读且不可变的。因此，这种拼接字符串的方式会导致大量的string创建、销毁和内存分配。如果你拼接的字符串比较多的话，这显然不是一个正确的姿势。</li>
+<li>fmt.springf() 内部使用 []byte 实现，不像直接运算符这种会产生很多临时的字符串，但是内部的逻辑比较复杂，有很多额外的判断，还用到了 interface</li>
+<li>go1.10之前推荐使用buffer 、go1.10以后推荐使用builder</li>
+</ul>
+<h3 id="常用算法的时间复杂度"><a href="#常用算法的时间复杂度" class="headerlink" title="常用算法的时间复杂度"></a>常用算法的时间复杂度</h3><h4 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h4><table>
+<thead>
+<tr>
+<th align="left">算法</th>
+<th align="left">数据结构</th>
+<th align="left">时间复杂度</th>
+<th align="left">最坏情况下的辅助空间复杂度</th>
+<th align="left"></th>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left">最佳</td>
+<td align="left">平均</td>
+<td align="left">最差</td>
+<td align="left">最差</td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Quicksort">快速排序</a></td>
+<td align="left">数组</td>
+<td align="left"><code>O(n log(n))</code></td>
+<td align="left"><code>O(n log(n))</code></td>
+<td align="left"><code>O(n^2)</code></td>
+<td align="left"><code>O(n)</code></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Merge_sort">归并排序</a></td>
+<td align="left">数组</td>
+<td align="left"><code>O(n log(n))</code></td>
+<td align="left"><code>O(n log(n))</code></td>
+<td align="left"><code>O(n log(n))</code></td>
+<td align="left"><code>O(n)</code></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Heapsort">堆排序</a></td>
+<td align="left">数组</td>
+<td align="left"><code>O(n log(n))</code></td>
+<td align="left"><code>O(n log(n))</code></td>
+<td align="left"><code>O(n log(n))</code></td>
+<td align="left"><code>O(1)</code></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Bubble_sort">冒泡排序</a></td>
+<td align="left">数组</td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n^2)</code></td>
+<td align="left"><code>O(n^2)</code></td>
+<td align="left"><code>O(1)</code></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Insertion_sort">插入排序</a></td>
+<td align="left">数组</td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n^2)</code></td>
+<td align="left"><code>O(n^2)</code></td>
+<td align="left"><code>O(1)</code></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Selection_sort">选择排序</a></td>
+<td align="left">数组</td>
+<td align="left"><code>O(n^2)</code></td>
+<td align="left"><code>O(n^2)</code></td>
+<td align="left"><code>O(n^2)</code></td>
+<td align="left"><code>O(1)</code></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Bucket_sort">桶排序</a></td>
+<td align="left">数组</td>
+<td align="left"><code>O(n+k)</code></td>
+<td align="left"><code>O(n+k)</code></td>
+<td align="left"><code>O(n^2)</code></td>
+<td align="left"><code>O(nk)</code></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Radix_sort">基数排序</a></td>
+<td align="left">数组</td>
+<td align="left"><code>O(nk)</code></td>
+<td align="left"><code>O(nk)</code></td>
+<td align="left"><code>O(nk)</code></td>
+<td align="left"><code>O(n+k)</code></td>
+</tr>
+</tbody></table>
+<h4 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h4><table>
+<thead>
+<tr>
+<th align="left">数据结构</th>
+<th align="left">时间复杂度</th>
+<th align="left">空间复杂度</th>
+<th align="left"></th>
+<th align="left"></th>
+<th align="left"></th>
+<th align="left"></th>
+<th align="left"></th>
+<th align="left"></th>
+<th align="left"></th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left"></td>
+<td align="left">平均</td>
+<td align="left">最差</td>
+<td align="left">最差</td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"></td>
+<td align="left">索引</td>
+<td align="left">查找</td>
+<td align="left">插入</td>
+<td align="left">删除</td>
+<td align="left">索引</td>
+<td align="left">查找</td>
+<td align="left">插入</td>
+<td align="left">删除</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Array_data_structure">基本数组</a></td>
+<td align="left"><code>O(1)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>-</code></td>
+<td align="left"><code>-</code></td>
+<td align="left"><code>O(1)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>-</code></td>
+<td align="left"><code>-</code></td>
+<td align="left"><code>O(n)</code></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Dynamic_array">动态数组</a></td>
+<td align="left"><code>O(1)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(1)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Singly_linked_list#Singly_linked_lists">单链表</a></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(1)</code></td>
+<td align="left"><code>O(1)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(1)</code></td>
+<td align="left"><code>O(1)</code></td>
+<td align="left"><code>O(n)</code></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Doubly_linked_list">双链表</a></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(1)</code></td>
+<td align="left"><code>O(1)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(1)</code></td>
+<td align="left"><code>O(1)</code></td>
+<td align="left"><code>O(n)</code></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Skip_list">跳表</a></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n log(n))</code></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Hash_table">哈希表</a></td>
+<td align="left"><code>-</code></td>
+<td align="left"><code>O(1)</code></td>
+<td align="left"><code>O(1)</code></td>
+<td align="left"><code>O(1)</code></td>
+<td align="left"><code>-</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Binary_search_tree">二叉搜索树</a></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Cartesian_tree">笛卡尔树</a></td>
+<td align="left"><code>-</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>-</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+<td align="left"><code>O(n)</code></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/B_tree">B-树</a></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(n)</code></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/Red-black_tree">红黑树</a></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(n)</code></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="https://en.wikipedia.org/wiki/Splay_tree">伸展树</a></td>
+<td align="left"><code>-</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>-</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(n)</code></td>
+</tr>
+<tr>
+<td align="left"><a target="_blank" rel="noopener" href="http://en.wikipedia.org/wiki/AVL_tree">AVL 树</a></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(log(n))</code></td>
+<td align="left"><code>O(n)</code></td>
+</tr>
+</tbody></table>
+
+    </div>
+
+    
+    
+    
+      
+
+        <div class="reward-container">
+  <div>Donate comment here.</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.jpeg" alt="Richard 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpeg" alt="Richard 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+          <div class="post-tags">
+              <a href="/tags/%E7%9F%A5%E8%AF%86%E5%BF%85%E5%A4%87/" rel="tag"># 知识必备</a>
+          </div>
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/08/27/%E6%9E%B6%E6%9E%84-%E9%80%89%E5%9E%8B/" rel="prev" title="架构-选型">
+      <i class="fa fa-chevron-left"></i> 架构-选型
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2020/08/28/charles-https-%E6%8A%93%E5%8C%85/" rel="next" title="charles-https 抓包">
+      charles-https 抓包 <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link"><span class="nav-number">1.</span> <span class="nav-text"></span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis-hash%E6%98%AF%E6%80%8E%E4%B9%88%E8%A7%A3%E5%86%B3hash%E5%86%B2%E7%AA%81%E7%9A%84"><span class="nav-number">2.</span> <span class="nav-text">redis hash是怎么解决hash冲突的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis%E7%9A%84%E6%8C%81%E4%B9%85%E5%8C%96"><span class="nav-number">3.</span> <span class="nav-text">redis的持久化</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis%E7%9A%84string-%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0"><span class="nav-number">4.</span> <span class="nav-text">redis的string 底层实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis-hash%E7%9A%84%E7%BB%93%E6%9E%84"><span class="nav-number">5.</span> <span class="nav-text">redis hash的结构</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis-%E4%B8%BA%E4%BB%80%E4%B9%88%E6%98%AF%E5%8D%95%E7%BA%BF%E7%A8%8B%E5%8F%8A%E9%AB%98%E5%B9%B6%E5%8F%91%E5%BF%AB%E7%9A%84%E5%8E%9F%E5%9B%A0"><span class="nav-number">6.</span> <span class="nav-text">redis 为什么是单线程及高并发快的原因</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#btree%E5%92%8Cb-tree%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">7.</span> <span class="nav-text">btree和b+tree的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E5%BA%93%E7%9A%84%E5%88%86%E5%BA%93%E5%88%86%E8%A1%A8"><span class="nav-number">8.</span> <span class="nav-text">数据库的分库分表</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#tcp-%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B%E5%92%8C%E6%8C%A5%E6%89%8B"><span class="nav-number">9.</span> <span class="nav-text">tcp 三次握手和挥手</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E5%9B%9B%E6%AC%A1%E6%8C%A5%E6%89%8B"><span class="nav-number"></span> <span class="nav-text">为什么需要四次挥手</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E4%B8%89%E6%AC%A1%E6%8F%A1%E6%89%8B"><span class="nav-number">1.</span> <span class="nav-text">为什么需要三次握手</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#ActiveMQ-RabbitMQ-KafKa%E5%AF%B9%E6%AF%94"><span class="nav-number">2.</span> <span class="nav-text">ActiveMQ RabbitMQ KafKa对比</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B6%88%E6%81%AF%E4%B8%A2%E5%A4%B1%E6%80%8E%E4%B9%88%E5%A4%84%E7%90%86"><span class="nav-number">3.</span> <span class="nav-text">消息丢失怎么处理</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis%E7%9A%84%E9%AB%98%E5%8F%AF%E7%94%A8"><span class="nav-number">4.</span> <span class="nav-text">redis的高可用</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql%E6%98%AF%E5%A6%82%E4%BD%95%E8%BF%9B%E8%A1%8C%E4%B8%BB%E4%BB%8E%E5%90%8C%E6%AD%A5%E7%9A%84"><span class="nav-number">5.</span> <span class="nav-text">mysql是如何进行主从同步的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BE%93%E5%85%A5%E4%B8%80%E4%B8%AA%E7%BD%91%E5%9D%80%E5%90%8E%E9%9D%A2%E5%81%9A%E4%BA%86%E5%93%AA%E4%BA%9B%E4%BA%8B"><span class="nav-number">6.</span> <span class="nav-text">输入一个网址后面做了哪些事</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E4%BD%9C%E4%B8%9A%E5%B8%AE%E9%9D%A2%E8%AF%95"><span class="nav-number"></span> <span class="nav-text">作业帮面试</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#channel%E6%98%AF%E5%A6%82%E4%BD%95%E4%BD%BF%E7%94%A8%E7%9A%84"><span class="nav-number">0.1.</span> <span class="nav-text">channel是如何使用的</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E7%BA%BF%E7%A8%8B%E3%80%81%E5%8D%8F%E7%A8%8B%E3%80%81%E8%BF%9B%E7%A8%8B%E4%B9%8B%E9%97%B4%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">0.2.</span> <span class="nav-text">线程、协程、进程之间的区别</span></a></li></ol></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E8%8A%82%E5%87%86%E5%A4%87"><span class="nav-number"></span> <span class="nav-text">字节准备</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%B4%E8%AF%B4go%E7%9A%84%E4%BC%98%E7%82%B9"><span class="nav-number">1.</span> <span class="nav-text">说说go的优点</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%B0%88%E8%B0%88golang%E7%9A%84csp%E6%A8%A1%E5%9E%8B"><span class="nav-number">2.</span> <span class="nav-text">谈谈golang的csp模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%B4%E8%AF%B4GMP%E6%A8%A1%E5%9E%8B"><span class="nav-number">3.</span> <span class="nav-text">说说GMP模型</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%BB%E9%94%81%E4%BA%A7%E7%94%9F%E7%9A%84%E5%9B%9B%E4%B8%AA%E5%BF%85%E8%A6%81%E6%9D%A1%E4%BB%B6"><span class="nav-number">4.</span> <span class="nav-text">死锁产生的四个必要条件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%B4%E8%AF%B4goGC%E7%9A%84%E4%B8%89%E8%89%B2%E6%B3%95"><span class="nav-number">5.</span> <span class="nav-text">说说goGC的三色法</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#gc%E5%92%8C%E7%94%A8%E6%88%B7%E9%80%BB%E8%BE%91%E6%98%AF%E5%A6%82%E4%BD%95%E5%B9%B6%E8%A1%8C%E7%9A%84%E5%91%A2%EF%BC%9F"><span class="nav-number">6.</span> <span class="nav-text">gc和用户逻辑是如何并行的呢？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql%E7%9A%84%E4%BA%8B%E5%8A%A1"><span class="nav-number">7.</span> <span class="nav-text">mysql的事务</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql%E7%9A%84%E8%84%8F%E8%AF%BB%E3%80%81%E5%B9%BB%E8%AF%BB%E3%80%81%E4%B8%8D%E5%8F%AF%E9%87%8D%E5%A4%8D%E8%AF%BB"><span class="nav-number">8.</span> <span class="nav-text">mysql的脏读、幻读、不可重复读</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql%E7%9A%84%E6%89%A7%E8%A1%8C%E9%A1%BA%E5%BA%8F"><span class="nav-number">9.</span> <span class="nav-text">mysql的执行顺序</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%BD%93%E5%90%91MySQL%E5%8F%91%E9%80%81%E4%B8%80%E4%B8%AA%E8%AF%B7%E6%B1%82%E7%9A%84%E6%97%B6%E5%80%99%EF%BC%8CMySQL%E5%88%B0%E5%BA%95%E5%81%9A%E4%BA%86%E4%BB%80%E4%B9%88%EF%BC%9A"><span class="nav-number">10.</span> <span class="nav-text">当向MySQL发送一个请求的时候，MySQL到底做了什么：</span></a></li></ol></li><li class="nav-item nav-level-2"><a class="nav-link" href="#%E5%AD%97%E8%8A%82%E9%9D%A2%E8%AF%95"><span class="nav-number"></span> <span class="nav-text">字节面试</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%B4%E8%AF%B4%E4%BD%A0%E8%B4%9F%E8%B4%A3%E7%9A%84%E9%A1%B9%E7%9B%AE"><span class="nav-number">1.</span> <span class="nav-text">说说你负责的项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis-%E4%B8%BB%E4%BB%8E%E5%A4%8D%E5%88%B6%E6%98%AF%E6%80%8E%E4%B9%88%E5%AE%9E%E7%8E%B0%E7%9A%84-master%E5%92%8C%E6%98%AFslave%E6%98%AF%E5%A6%82%E4%BD%95%E5%A4%8D%E5%88%B6%E7%9A%84%EF%BC%8C%E8%B0%81%E6%9D%A5%E8%A7%A6%E5%8F%91%E7%9A%84"><span class="nav-number">2.</span> <span class="nav-text">redis 主从复制是怎么实现的 master和是slave是如何复制的，谁来触发的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#rdb%E5%92%8Caof"><span class="nav-number">3.</span> <span class="nav-text">rdb和aof</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql%E6%98%AF%E6%80%8E%E4%B9%88%E8%B0%83%E4%BC%98%E7%9A%84https-studygolang-com-articles-14865"><span class="nav-number">4.</span> <span class="nav-text">mysql是怎么调优的https:&#x2F;&#x2F;studygolang.com&#x2F;articles&#x2F;14865</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql-%E5%88%9B%E5%BB%BA%E7%B4%A2%E5%BC%95%E7%9A%84%E8%AF%AD%E5%8F%A5"><span class="nav-number">5.</span> <span class="nav-text">mysql 创建索引的语句</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#go%E7%9A%84sync-%E4%B8%8B%E4%BA%86%E8%A7%A3%E5%90%97%EF%BC%9F%E8%AF%B4%E4%B8%8Bsync-once-%E5%92%8Cwaitgroup"><span class="nav-number">6.</span> <span class="nav-text">go的sync 下了解吗？说下sync.once 和waitgroup</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#lru%E7%AE%97%E6%B3%95%E5%AE%9E%E7%8E%B0"><span class="nav-number">7.</span> <span class="nav-text">lru算法实现</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#mysql%E5%92%8Credis%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">8.</span> <span class="nav-text">mysql和redis的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#innodb%E5%92%8Cmyisam%E7%9A%84%E5%8C%BA%E5%88%AB"><span class="nav-number">9.</span> <span class="nav-text">innodb和myisam的区别</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis-hash%E6%89%A9%E5%AE%B9%EF%BC%9A"><span class="nav-number">10.</span> <span class="nav-text">redis hash扩容：</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#redis-redlock-%E5%AE%9E%E7%8E%B0%E5%8E%9F%E7%90%86-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81%E8%BF%99%E4%B8%AA"><span class="nav-number">11.</span> <span class="nav-text">redis redlock 实现原理 为什么需要这个</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#session%E5%92%8Ccookie%E7%9A%84%E5%8C%BA%E5%88%AB%E6%98%AF%E4%BB%80%E4%B9%88%EF%BC%9F"><span class="nav-number">12.</span> <span class="nav-text">session和cookie的区别是什么？</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%B4%E8%AF%B4%E8%A7%86%E9%A2%91%E8%81%8A%E5%A4%A9%E7%9A%84%E8%BF%99%E4%B8%AA%E9%A1%B9%E7%9B%AE-%E8%BF%98%E6%9C%89luck-quiz%E7%9A%84%E8%BF%99%E4%B8%AA%E9%A1%B9%E7%9B%AE"><span class="nav-number">13.</span> <span class="nav-text">说说视频聊天的这个项目 还有luck quiz的这个项目</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%AF%B4%E8%AF%B4%E4%BD%A0%E8%A7%89%E5%BE%97%E6%94%B6%E8%8E%B7%E6%9C%80%E5%A4%A7%E7%9A%84%E9%A1%B9%E7%9B%AE%E6%98%AF%E5%93%AA%E4%B8%AA-%E6%80%8E%E4%B9%88%E5%8E%BB%E5%A4%84%E7%90%86%E7%9A%84"><span class="nav-number">14.</span> <span class="nav-text">说说你觉得收获最大的项目是哪个 怎么去处理的</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%B8%B8%E7%94%A8%E7%AE%97%E6%B3%95%E7%9A%84%E6%97%B6%E9%97%B4%E5%A4%8D%E6%9D%82%E5%BA%A6"><span class="nav-number">15.</span> <span class="nav-text">常用算法的时间复杂度</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%8E%92%E5%BA%8F"><span class="nav-number">15.1.</span> <span class="nav-text">排序</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E6%95%B0%E6%8D%AE%E7%BB%93%E6%9E%84"><span class="nav-number">15.2.</span> <span class="nav-text">数据结构</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Richard"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Richard</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">97</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/RomanSeven7" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;RomanSeven7" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:nizhidaoiedeyisima@gmail.com" title="E-Mail → mailto:nizhidaoiedeyisima@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/p/1005056204086487" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;p&#x2F;1005056204086487" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2020</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Richard</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">225k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">3:24</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

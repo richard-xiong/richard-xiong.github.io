@@ -123,17 +123,17 @@
   </li>
         <li class="menu-item menu-item-tags">
 
-    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">31</span></a>
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">33</span></a>
 
   </li>
         <li class="menu-item menu-item-categories">
 
-    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">24</span></a>
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">25</span></a>
 
   </li>
         <li class="menu-item menu-item-archives">
 
-    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">85</span></a>
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">97</span></a>
 
   </li>
         <li class="menu-item menu-item-sitemap">
@@ -200,7 +200,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/09/04/git-%E6%89%93tag/">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/09/16/Go-kit%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%83-Go%E9%80%80%E5%87%BA%E6%97%B6%E5%90%91Consul%E5%8F%8D%E6%B3%A8%E5%86%8C%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95%E3%80%81%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%E6%9C%8D%E5%8A%A1/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -214,7 +214,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/09/04/git-%E6%89%93tag/" class="post-title-link" itemprop="url">git-打tag</a>
+            <a href="/2020/09/16/Go-kit%20%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%83-Go%E9%80%80%E5%87%BA%E6%97%B6%E5%90%91Consul%E5%8F%8D%E6%B3%A8%E5%86%8C%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95%E3%80%81%E4%BC%98%E9%9B%85%E5%85%B3%E9%97%AD%E6%9C%8D%E5%8A%A1/" class="post-title-link" itemprop="url">Go-kit 学习笔记七-Go退出时向Consul反注册服务的基本方法、优雅关闭服务</a>
         </h2>
 
         <div class="post-meta">
@@ -225,7 +225,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-09-03 20:05:43 / 修改时间：12:11:18" itemprop="dateCreated datePublished" datetime="2020-09-03T20:05:43Z">2020-09-03</time>
+              <time title="创建时间：2020-09-15 17:53:55 / 修改时间：12:09:23" itemprop="dateCreated datePublished" datetime="2020-09-15T17:53:55Z">2020-09-15</time>
             </span>
 
           <br>
@@ -234,388 +234,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>159</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <ol>
-<li><p>先执行commit 保存数据</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git commit  -m &quot;注释&quot;</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ol>
-<ol start="2">
-<li><p>添加tag 标签&amp;注释</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag -a 版本号 -m &quot;注释&quot;</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ol>
-<ol start="3">
-<li><p>推送数据到远端 origin</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ol>
-<ol start="4">
-<li><p>将tag推送到远程 origin</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git push origin master --tags</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>查看 所有tag</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">git tag -l</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/09/01/k8s-%E6%9C%8D%E5%8A%A1%E6%B7%BB%E5%8A%A0tag/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/01/k8s-%E6%9C%8D%E5%8A%A1%E6%B7%BB%E5%8A%A0tag/" class="post-title-link" itemprop="url">k8s-服务添加tag</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-08-31 22:33:39 / 修改时间：14:38:19" itemprop="dateCreated datePublished" datetime="2020-08-31T22:33:39Z">2020-08-31</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/k8s/" itemprop="url" rel="index"><span itemprop="name">k8s</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>182</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>需求：由于随时对k8s的使用，有些node节点配置很高，会存在服务混布的情况，这样就需要对每个服务打tag，月末对机器的使用情况各个业务线来进行分摊成本</p>
-<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">alb.ingress.kubernetes.io/tags:</span> <span class="string">PDB1=xxxxYourTag</span></span><br></pre></td></tr></table></figure>
-
-<p>打完标签之后 不会立即生效 大约10分钟之后就能再<code>aws</code>的控制台上看到<code>ingress</code> 已经出现了yaml文件中配置的<code>tag</code></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/09/01/curl-%E7%9A%84%E4%BD%BF%E7%94%A8/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/01/curl-%E7%9A%84%E4%BD%BF%E7%94%A8/" class="post-title-link" itemprop="url">curl的使用</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-08-31 22:08:01 / 修改时间：14:10:59" itemprop="dateCreated datePublished" datetime="2020-08-31T22:08:01Z">2020-08-31</time>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>655</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h2 id="查看响应头"><a href="#查看响应头" class="headerlink" title="查看响应头"></a>查看响应头</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"> curl -v http://localhost:8080?uid=102 </span><br><span class="line">*   Trying ::1...</span><br><span class="line">* TCP_NODELAY set</span><br><span class="line">* Connected to localhost (::1) port 8080 (#0)</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> GET /?uid=102 HTTP/1.1</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Host: localhost:8080</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> User-Agent: curl/7.64.1</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> Accept: */*</span></span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> </span></span><br><span class="line">&lt; HTTP/1.1 200 OK</span><br><span class="line">&lt; Content-Type: application/json;charset=utf-8</span><br><span class="line">&lt; Date: Mon, 31 Aug 2020 14:07:32 GMT</span><br><span class="line">&lt; Content-Length: 19</span><br><span class="line">&lt; </span><br><span class="line">&#123;&quot;result&quot;:&quot;guest&quot;&#125;</span><br><span class="line">* Connection #0 to host localhost left intact</span><br><span class="line">* Closing connection 0</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-
-
-<h2 id="查看请求头"><a href="#查看请求头" class="headerlink" title="查看请求头"></a>查看请求头</h2><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">mfxing  curl  http://localhost:8080?uid=102 -i</span><br><span class="line">HTTP/1.1 200 OK</span><br><span class="line">Content-Type: application/json;charset=utf-8</span><br><span class="line">Date: Mon, 31 Aug 2020 14:10:37 GMT</span><br><span class="line">Content-Length: 19</span><br><span class="line"></span><br><span class="line">&#123;&quot;result&quot;:&quot;guest&quot;&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/09/01/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%BA%8C/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/01/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%BA%8C/" class="post-title-link" itemprop="url">Go-kit 学习笔记-二</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-31 21:55:58" itemprop="dateCreated datePublished" datetime="2020-08-31T21:55:58Z">2020-08-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-05 03:41:09" itemprop="dateModified" datetime="2020-09-05T03:41:09Z">2020-09-05</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>666</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h4 id="将上节的服务进行发布-在main-go-中添加"><a href="#将上节的服务进行发布-在main-go-中添加" class="headerlink" title="将上节的服务进行发布 在main.go 中添加"></a>将上节的服务进行发布 在<code>main.go</code> 中添加</h4><ol>
-<li><p>第一层 先获取service</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">user:=Services.UserService&#123;&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>第二层 创建endpoint</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">endP:&#x3D;Services.GenUserEndpoint(user)    </span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ol>
-<ol start="3">
-<li><p>第三步 使用<code>go-kit</code>创建<code>handler</code>  借助<code>newServer</code>函数 返回了一个<code>server struct</code> 内部实现了<code>func (s Server) ServeHTTP(w http.ResponseWriter, r *http.Request) </code>  如何对请求进行处理</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">serverHandler:=httpTransport.NewServer(endP,Services.DecodeUserRequest,Services.EncodeUserRequest)</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ol>
-<ol start="4">
-<li><p>因为serverHandler 已经实现了handler 接口 所以http.ListenAndServe 可以直接调用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">_ &#x3D; http.ListenAndServe(&quot;:8080&quot;, serverHandler)</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>由于 <code>httpTransport.NewServer</code> 是<code>go-kit</code>中<code>http</code>包的方法<code> http.ListenAndServe</code> 是原生<code>http</code>包 包名重复 需要对<code>go-kit</code>的http 起alias</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">httpTransport &quot;github.com&#x2F;go-kit&#x2F;kit&#x2F;transport&#x2F;http&quot;</span><br><span class="line">    &quot;net&#x2F;http&quot;</span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/09/01/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%9B%9B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/09/01/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%9B%9B/" class="post-title-link" itemprop="url">Go-kit 学习笔记-四</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-31 20:52:15" itemprop="dateCreated datePublished" datetime="2020-08-31T20:52:15Z">2020-08-31</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-14 14:41:11" itemprop="dateModified" datetime="2020-09-14T14:41:11Z">2020-09-14</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>2.1k</span>
+              <span>2k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -634,518 +253,44 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <h3 id="通过httpmethod-执行不同的服务方法"><a href="#通过httpmethod-执行不同的服务方法" class="headerlink" title="通过httpmethod 执行不同的服务方法"></a>通过httpmethod 执行不同的服务方法</h3><ol>
-<li><p>将获取到的method 保存到request 中</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">DecodeUserRequest</span><span class="params">(c context.Context, r *http.Request)</span> <span class="params">(<span class="keyword">interface</span>&#123;&#125;, error)</span></span> &#123;</span><br><span class="line">    <span class="comment">// 这个主要是判断参数是怎么来的,代码可以写成</span></span><br><span class="line"></span><br><span class="line">    vars:=mux.Vars(r)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>  uid,ok:=vars[<span class="string">&quot;uid&quot;</span>];ok&#123;</span><br><span class="line">        uid, _ := strconv.Atoi(uid)</span><br><span class="line">        <span class="keyword">return</span> UserRequest&#123;Uid: uid,Method: r.Method&#125;, <span class="literal">nil</span>  <span class="comment">// 通过r.method 获取</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span>,errors.New(<span class="string">&quot;参数错误&quot;</span>)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在service中实现相应的方法</p>
+          <h3 id="Go退出时向Consul反注册服务的基本方法、优雅关闭服务"><a href="#Go退出时向Consul反注册服务的基本方法、优雅关闭服务" class="headerlink" title="Go退出时向Consul反注册服务的基本方法、优雅关闭服务"></a>Go退出时向Consul反注册服务的基本方法、优雅关闭服务</h3><h4 id="需求背景："><a href="#需求背景：" class="headerlink" title="需求背景："></a>需求背景：</h4><p>比如我们再<code>consul</code>注册服务之后，如果服务宕机之后，再次重启服务会注册不上服务，因为我们代码里设置在<code>consul</code>注册的服务id是唯一的，需要把<code>consul</code>上不可用的服务移除掉，提供的服务如果不可用需要在<code>consul</code>调用反注册</p>
+<h4 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h4><ol>
+<li><p>创建<code>consul</code>反注册的<code>func</code></p>
 <ol>
-<li><p>​    添加删除的接口</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> IUserService <span class="keyword">interface</span> &#123;</span><br><span class="line">    GetName(userId <span class="keyword">int</span>) <span class="keyword">string</span></span><br><span class="line">    DeleteName(userId <span class="keyword">int</span>) error <span class="comment">// 新增删除接口 返回错误信息</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li><p>修改之前的注册<code>service</code>的<code>func</code> 将创建<code>client</code>抽取出来放在<code>init()</code>函数中</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> ConsulClient *consulapi.Client</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">init</span><span class="params">()</span></span>&#123;</span><br><span class="line">    config := consulapi.DefaultConfig()</span><br><span class="line">    <span class="comment">// 设置consul 地址</span></span><br><span class="line">    config.Address = <span class="string">&quot;192.168.236.2:8500&quot;</span></span><br><span class="line">    <span class="comment">// 创建一个client 把我们的服务注册到consul上</span></span><br><span class="line">    clinet, err := consulapi.NewClient(config)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="comment">// 异常处理</span></span><br><span class="line">        log.Fatal(err)</span><br><span class="line">    &#125;</span><br><span class="line">    ConsulClient=clinet</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>实现删除的接口 (这里101标识是管理员用户)</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this UserService)</span> <span class="title">DeleteName</span><span class="params">(userId <span class="keyword">int</span>)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> userId == <span class="number">101</span> &#123; </span><br><span class="line">        <span class="keyword">return</span> errors.New(<span class="string">&quot;无权限&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<li><p>修改注册<code>service</code>的<code>func</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">RegService</span><span class="params">()</span></span> &#123;</span><br><span class="line">    </span><br><span class="line">    <span class="comment">// 创建AgentServiceRegistration 对象</span></span><br><span class="line">    reg := consulapi.AgentServiceRegistration&#123;&#125;</span><br><span class="line">    <span class="comment">// 设置注册的id  这个不能重复</span></span><br><span class="line">    reg.ID = <span class="string">&quot;userservice&quot;</span></span><br><span class="line">    <span class="comment">// 注册服务的name 可以重复</span></span><br><span class="line">    reg.Name = <span class="string">&quot;userservice&quot;</span></span><br><span class="line">    <span class="comment">// 注册服务的地址</span></span><br><span class="line">    reg.Address = <span class="string">&quot;192.168.236.2&quot;</span></span><br><span class="line">    <span class="comment">// 注册服务的端口</span></span><br><span class="line">    reg.Port = <span class="number">8080</span></span><br><span class="line">    <span class="comment">// 注册服务的tags 可以多个</span></span><br><span class="line">    reg.Tags = []<span class="keyword">string</span>&#123;<span class="string">&quot;primary&quot;</span>, <span class="string">&quot;v1&quot;</span>&#125;</span><br><span class="line">    <span class="comment">// 创建 AgentServiceCheck 来设置checkhealth</span></span><br><span class="line">    check := consulapi.AgentServiceCheck&#123;&#125;</span><br><span class="line">    <span class="comment">// 触发的时长 5s</span></span><br><span class="line">    check.Interval = <span class="string">&quot;1s&quot;</span></span><br><span class="line">    <span class="comment">// 健康检测的接口</span></span><br><span class="line">    check.HTTP = <span class="string">&quot;http://192.168.236.2:8080/health&quot;</span></span><br><span class="line">    <span class="comment">// 这里需要传递一个指针</span></span><br><span class="line">    reg.Check = &amp;check</span><br><span class="line">    err := ConsulClient.Agent().ServiceRegister(&amp;reg)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="comment">// 异常处理</span></span><br><span class="line">        log.Fatal(err)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 </li>
-<li><p>根据method 执行不同的方法 调用service中声明好的方法</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 因为这个IUserService 可能有多个版本的实现 所以这里使 用接口</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">GenUserEndpoint</span><span class="params">(userService IUserService)</span> <span class="title">endpoint</span>.<span class="title">Endpoint</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(ctx context.Context, request <span class="keyword">interface</span>&#123;&#125;)</span> <span class="params">(response <span class="keyword">interface</span>&#123;&#125;, err error)</span></span> &#123;</span><br><span class="line">        r := request.(UserRequest)</span><br><span class="line">        <span class="keyword">var</span> result <span class="keyword">string</span></span><br><span class="line">        <span class="keyword">if</span> r.Method == <span class="string">&quot;GET&quot;</span> &#123;  <span class="comment">// 判断不同的method</span></span><br><span class="line">            result = userService.GetName(r.Uid)</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> r.Method == <span class="string">&quot;DELETE&quot;</span> &#123;</span><br><span class="line">            err := userService.DeleteName(r.Uid)</span><br><span class="line">            <span class="keyword">if</span> err != <span class="literal">nil</span> &#123; <span class="comment">// 代表没有权限</span></span><br><span class="line">                result = err.Error()</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                result = fmt.Sprintf(<span class="string">&quot;用户%d删除成功&quot;</span>, r.Uid)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> UserResponse&#123;Result: result&#125;, <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在路由中支持 <code>GET</code> <code>DELETE</code> 方法</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">r:=myMux.NewRouter()</span><br><span class="line">&#123;</span><br><span class="line">    r.Methods(<span class="string">&quot;GET&quot;</span>,<span class="string">&quot;DELETE&quot;</span>).Path(<span class="string">&quot;/user/&#123;uid:[0-9]+&#125;&quot;</span>).Handler(serverHandler)</span><br><span class="line">&#125;</span><br><span class="line">    <span class="comment">// 因为serverHandler 已经实现了handler 接口 所以http.ListenAndServe 可以直接调用</span></span><br><span class="line">_ = http.ListenAndServe(<span class="string">&quot;:8080&quot;</span>, r)</span><br></pre></td></tr></table></figure>
+<li><p>创建再服务宕机时候触发consul反注册的func</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 取消注册</span></span><br><span class="line"><span class="function"><span class="keyword">func</span>  <span class="title">UnRegService</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="comment">// 反注册只需要传 注册的id</span></span><br><span class="line">    err :=ConsulClient.Agent().ServiceDeregister(<span class="string">&quot;userservice&quot;</span>)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="comment">// 异常处理</span></span><br><span class="line">        log.Fatal(err)</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 
 
 </li>
 </ol>
-</li>
-</ol>
-<h3 id="验证结果"><a href="#验证结果" class="headerlink" title="验证结果"></a>验证结果</h3><ol>
-<li><p>GET 获取管理员用户</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">curl --request GET \</span><br><span class="line">  --url http://localhost:8080/user/101</span><br><span class="line"> </span><br><span class="line"><span class="meta">&gt;</span></span><br><span class="line">&#123;</span><br><span class="line">  &quot;result&quot;: &quot;richard&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>GET 获取普通用户</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">curl --request GET \</span><br><span class="line">  --url http://localhost:8080/user/102</span><br><span class="line"> </span><br><span class="line"><span class="meta">&gt;</span></span><br><span class="line">&#123;</span><br><span class="line">  &quot;result&quot;: &quot;guest&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>删除普通用户</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">curl --request DELETE \</span><br><span class="line">  --url http://localhost:8080/user/102</span><br><span class="line"> </span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> </span></span><br><span class="line">&#123;</span><br><span class="line">  &quot;result&quot;: &quot;用户102删除成功&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>删除管理员用户</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">curl --request DELETE \</span><br><span class="line">  --url http://localhost:8080/user/101</span><br><span class="line">  </span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> </span></span><br><span class="line">&#123;</span><br><span class="line">  &quot;result&quot;: &quot;无权限&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ol>
-<ol start="5">
-<li><p>其他http method 请求</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">curl --request POST \</span><br><span class="line">  --url http://localhost:8080/user/101</span><br><span class="line">  </span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> </span></span><br><span class="line">405 Method Not Allowed</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/30/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%89/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/30/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%89/" class="post-title-link" itemprop="url">Go-kit 学习笔记-三</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-30 10:40:24" itemprop="dateCreated datePublished" datetime="2020-08-30T10:40:24Z">2020-08-30</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-09-14 14:36:01" itemprop="dateModified" datetime="2020-09-14T14:36:01Z">2020-09-14</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>760</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p><img src="/images/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%89/image-20200901224625446.png" alt="image-20200901224625446"></p>
-<h3 id="介绍一个第三方路由"><a href="#介绍一个第三方路由" class="headerlink" title="介绍一个第三方路由"></a>介绍一个第三方路由</h3><p>使用第三方库<a target="_blank" rel="noopener" href="https://github.com/gorilla/mux">mux</a>  来设置路由</p>
-<p>安装方式</p>
-<p>go get github.com/gotilla/mux</p>
-<ol>
-<li><p>创建路由</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">r := mux.NewRouter()</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>简单的使用 、这种是不指定<code>http method</code></p>
-</li>
-</ol>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    r := mux.NewRouter()</span><br><span class="line">    r.HandleFunc(<span class="string">&quot;/&quot;</span>, HomeHandler)</span><br><span class="line">    r.HandleFunc(<span class="string">&quot;/products&quot;</span>, ProductsHandler)</span><br><span class="line">    r.HandleFunc(<span class="string">&quot;/articles&quot;</span>, ArticlesHandler)</span><br><span class="line">    http.Handle(<span class="string">&quot;/&quot;</span>, r)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-<ol start="3">
-<li>路由规则支持正则</li>
-</ol>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">r := mux.NewRouter()</span><br><span class="line">r.HandleFunc(<span class="string">&quot;/products/&#123;key&#125;&quot;</span>, ProductHandler)</span><br><span class="line">r.HandleFunc(<span class="string">&quot;/articles/&#123;category&#125;/&quot;</span>, ArticlesCategoryHandler)</span><br><span class="line">r.HandleFunc(<span class="string">&quot;/articles/&#123;category&#125;/&#123;id:[0-9]+&#125;&quot;</span>, ArticleHandler)</span><br></pre></td></tr></table></figure>
-
-
-
-<ol start="4">
-<li>指定<code>http method</code>  post请求 /specific</li>
-</ol>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">r.Methods(<span class="string">&quot;POST&quot;</span>)</span><br><span class="line">r.HandleFunc(<span class="string">&quot;/specific&quot;</span>, specificHandler)</span><br><span class="line"># 也可以</span><br><span class="line">r.r.PathPrefix(<span class="string">&quot;/products&quot;</span>).Handler(catchAllHandler)</span><br></pre></td></tr></table></figure>
-
-
-
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/29/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%80/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/29/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E4%B8%80/" class="post-title-link" itemprop="url">Go-kit 学习笔记 一</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-
-              <time title="创建时间：2020-08-29 10:57:56" itemprop="dateCreated datePublished" datetime="2020-08-29T10:57:56Z">2020-08-29</time>
-            </span>
-              <span class="post-meta-item">
-                <span class="post-meta-item-icon">
-                  <i class="far fa-calendar-check"></i>
-                </span>
-                <span class="post-meta-item-text">更新于</span>
-                <time title="修改时间：2020-08-31 13:55:34" itemprop="dateModified" datetime="2020-08-31T13:55:34Z">2020-08-31</time>
-              </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.3k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <p>Go-kit 的三层架构</p>
-<ol>
-<li><p>transport</p>
-<p>主要负责与http、gRPC、thrift等相关逻辑</p>
-</li>
-<li><p>endpoint</p>
-<p>定义request与response格式、并可以使用装饰器包装函数，以此来实现各种中间件之间的嵌套</p>
-</li>
-<li><p>service</p>
-<p>这里定义的就是业务类、接口等</p>
-</li>
-</ol>
-<p>我实现的时候是倒着创建</p>
-<p>​    </p>
-<ol>
-<li><p>第一步 创建接口 以及关联词</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">type</span> IUserService <span class="keyword">interface</span> &#123;</span><br><span class="line">    GetName(userId <span class="keyword">int</span>) <span class="keyword">string</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> UserService <span class="keyword">struct</span> &#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this UserService)</span><span class="title">GetName</span><span class="params">(userId <span class="keyword">int</span>)</span><span class="title">string</span></span>&#123;</span><br><span class="line">    <span class="keyword">if</span> userId==<span class="number">101</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;richard&quot;</span></span><br><span class="line">    &#125;<span class="keyword">else</span> &#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;guest&quot;</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
 </li>
 </ol>
 <ol start="2">
-<li><p>第二步 创建EndPoint</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="keyword">type</span> UserRequest <span class="keyword">struct</span> &#123;</span><br><span class="line">    Uid <span class="keyword">int</span> <span class="string">`json:&quot;uid&quot;`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> UserResponse <span class="keyword">struct</span> &#123;</span><br><span class="line">    Result <span class="keyword">string</span> <span class="string">`json:&quot;result&quot;`</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"># 首先定义 请求和响应的 <span class="keyword">struct</span></span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ol>
-<ol start="3">
-<li><p>第三步 创建transport</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"># 当我们外部有请求过来的时候，我们需要对Request进行decode，</span><br><span class="line"># 注意：外部请求很有可能是rpc、http。参数形式也许是json也许是赤裸裸的url参数</span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">DecodeUserRequest</span><span class="params">(c context.Context,r *http.Request)</span><span class="params">(<span class="keyword">interface</span>&#123;&#125;,error)</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在代码块里写</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// 这个主要是判断参数是怎么来的,代码可以写成</span></span><br><span class="line">    <span class="keyword">if</span> r.URL.Query().Get(<span class="string">&quot;uid&quot;</span>) != <span class="string">&quot;&quot;</span> &#123;</span><br><span class="line">        uid, _ := strconv.Atoi(r.URL.Query().Get(<span class="string">&quot;uid&quot;</span>))</span><br><span class="line">        <span class="keyword">return</span> UserRequest&#123;Uid: uid&#125;, <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span>,errors.New(<span class="string">&quot;参数错误&quot;</span>)</span><br></pre></td></tr></table></figure>
-
-<p>对于响应：响应是我们发出的 我们需要encode，比较简单的就是json</p>
-<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">EncodeUserRequest</span><span class="params">(ctx context.Context,w http.ResponseWriter,response <span class="keyword">interface</span>&#123;&#125;)</span> <span class="title">error</span></span>&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在func里添加</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&#x2F;&#x2F; 返回一个json</span><br><span class="line">w.Header().Set(&quot;Content-type&quot;,&quot;application&#x2F;json;charset&#x3D;utf-8&quot;)</span><br><span class="line">return json.NewEncoder(w).Encode(response)</span><br></pre></td></tr></table></figure></li>
-</ol>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/28/charles-https-%E6%8A%93%E5%8C%85/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/28/charles-https-%E6%8A%93%E5%8C%85/" class="post-title-link" itemprop="url">charles-https 抓包</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-08-28 15:59:02 / 修改时间：08:24:49" itemprop="dateCreated datePublished" datetime="2020-08-28T15:59:02Z">2020-08-28</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%8A%93%E5%8C%85/" itemprop="url" rel="index"><span itemprop="name">抓包</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>1.4k</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="1-获取PC的IP地址"><a href="#1-获取PC的IP地址" class="headerlink" title="1. 获取PC的IP地址"></a>1. 获取PC的IP地址</h3><p>在Charles<code>菜单栏 -&gt; Help -&gt; Local IP Address</code>中可以查看PC的IP地址。图示如下：</p>
-<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161106090.png" alt="image-20200828161106090" style="zoom: 50%;" />
-
-
-
-<p>也可以在Mac终端使用命令<code>ifconfig en1</code>查看PC的IP地址。图示如下：</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">mfxing  ifconfig en1</span><br><span class="line">en1: flags=8963&lt;UP,BROADCAST,SMART,RUNNING,PROMISC,SIMPLEX,MULTICAST&gt; mtu 1500</span><br><span class="line">    options=460&lt;TSO4,TSO6,CHANNEL_IO&gt;</span><br><span class="line">    ether 82:0e:72:47:b8:01</span><br><span class="line">    media: autoselect &lt;full-duplex&gt;</span><br><span class="line">    status: inactive</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="2-配置iPhone代理"><a href="#2-配置iPhone代理" class="headerlink" title="2. 配置iPhone代理"></a>2. 配置iPhone代理</h3><p>在iPhone的<code>设置 -&gt; 无线局域网 -&gt; 局域网信息(i) -&gt; 配置代理 -&gt; 手动</code>中配置代理，服务器输入框中填写PC的IP地址，端口输入框中填写Charles的代理端口（一般是8888）。图示如下：</p>
-<img src="/images/charles-https-%E6%8A%93%E5%8C%85/7dff28a27b45adb7d3fecff3a085b315.jpg" alt="7dff28a27b45adb7d3fecff3a085b315" style="zoom:50%;" />
-
-
-
-<p>具体的端口可以从Charles<code>菜单栏 -&gt; Proxy -&gt; Proxy Settings</code>中查看。图示如下：</p>
-<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161401437.png" alt="image-20200828161401437" style="zoom:33%;" />
-
-
-
-<p>iPhone代理配置完成后，Charles会弹出连接提示框，点击<code>Allow</code>之后即可使用Charles对从该iPhone发出的请求进行抓包了。图示如下：<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161524821.png" alt="image-20200828161524821"></p>
-<h3 id="3-抓包HTTPS请求"><a href="#3-抓包HTTPS请求" class="headerlink" title="3. 抓包HTTPS请求"></a>3. 抓包HTTPS请求</h3><p>在配置iPhone代理完毕后，就可以通过Structure或者Sequence窗口预览HTTP请求的数据了。但由于HTTPS请求被加密过，预览请求时只能预览到乱码数据。要预览到HTTPS请求的数据明文，需要PC和iPhone安装证书授权。</p>
-<h4 id="1-PC安装证书"><a href="#1-PC安装证书" class="headerlink" title="1) PC安装证书"></a>1) PC安装证书</h4><p>在Charles<code>菜单栏 -&gt; Help -&gt; SSL Proxying -&gt; Install Charles Root Certificate</code>中可以为PC安装证书，证书可以在Mac的钥匙串中查看。图示如下：</p>
-<p><img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161742347.png" alt="image-20200828161742347"></p>
-<p>证书可以在Mac的钥匙串中查看，双击证书，将信任权限设定为<code>始终信任</code>。图示如下：</p>
-<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161820758.png" alt="image-20200828161820758" style="zoom:33%;" />
-
-
-
-<h4 id="2-iPhone安装证书"><a href="#2-iPhone安装证书" class="headerlink" title="2) iPhone安装证书"></a>2) iPhone安装证书</h4><p>在iPhone浏览器中访问<code>http://charlesproxy.com/getssl</code>可以下载证书并安装。此地址一般不会变化，可以在Charles<code>菜单栏 -&gt; Help -&gt; SSL Proxying -&gt; Install Charles Root Certificate on a Mobile Device or Remote Browser</code>中查看最新的官方证书下载地址。图示如下：</p>
-<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828161858697.png" alt="image-20200828161858697" style="zoom:50%;" />
-
-
-
-<p>基于iOS的证书信任机制，在安装完成并信任证书后，需要到iPhone<code>设置 -&gt; 关于本机 -&gt; 证书信任设置</code>中启用根证书。图示如下：</p>
-<img src="/images/charles-https-%E6%8A%93%E5%8C%85/635269d6c5f07cea0b29a7b859fe35b9.jpg" alt="635269d6c5f07cea0b29a7b859fe35b9" style="zoom:33%;" />
-
-
-
-<p>这样，就可以使用Charles中抓包iPhone发出的HTTPS请求并预览明文数据了。</p>
-<blockquote>
-<p>抓包模拟器上的HTTPS请求需要点击<code>Install Charles Root Certificate in iOS Simulators</code>安装证书。</p>
-</blockquote>
-<h4 id="3-启动抓包SSL权限"><a href="#3-启动抓包SSL权限" class="headerlink" title="3) 启动抓包SSL权限"></a>3) 启动抓包SSL权限</h4><p>在Charles<code>菜单栏 -&gt; Proxy -&gt; SSL Proxying Settings</code>中勾选<code>Enable SSL Proxying</code>，然后在<code>Locations</code>中添加需要抓包的Host和Port即可。图示如下：</p>
-<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828162130663.png" alt="image-20200828162130663" style="zoom:33%;" />
-
-
-
-<p>也可以在抓包界面，右键点击某条/组请求，在弹出的选项列表中点击<code>Enable SSL Proxying</code>启用权限。图示如下：</p>
-<img src="/images/charles-https-%E6%8A%93%E5%8C%85/image-20200828162231644.png" alt="image-20200828162231644" style="zoom: 33%;" />
-
-
-
-
-
-<p>基本的抓取到这里就完事了 </p>
-<p>charles 还支持 <code>请求断点</code>、<code>数据修改</code>、<code>请求重发</code>、<code>网速模拟</code></p>
-
-      
-    </div>
-
-    
-    
-    
-      <footer class="post-footer">
-        <div class="post-eof"></div>
-      </footer>
-  </article>
-  
-  
-  
-
-      
-  
-  
-  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/27/%E6%9E%B6%E6%9E%84-%E9%80%89%E5%9E%8B/">
-
-    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
-      <meta itemprop="image" content="/images/avatar.png">
-      <meta itemprop="name" content="Richard">
-      <meta itemprop="description" content="">
-    </span>
-
-    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
-      <meta itemprop="name" content="XingServer">
-    </span>
-      <header class="post-header">
-        <h2 class="post-title" itemprop="name headline">
-          
-            <a href="/2020/08/27/%E6%9E%B6%E6%9E%84-%E9%80%89%E5%9E%8B/" class="post-title-link" itemprop="url">架构-选型</a>
-        </h2>
-
-        <div class="post-meta">
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-calendar"></i>
-              </span>
-              <span class="post-meta-item-text">发表于</span>
-              
-
-              <time title="创建时间：2020-08-26 20:55:31 / 修改时间：13:32:12" itemprop="dateCreated datePublished" datetime="2020-08-26T20:55:31Z">2020-08-26</time>
-            </span>
-            <span class="post-meta-item">
-              <span class="post-meta-item-icon">
-                <i class="far fa-folder"></i>
-              </span>
-              <span class="post-meta-item-text">分类于</span>
-                <span itemprop="about" itemscope itemtype="http://schema.org/Thing">
-                  <a href="/categories/%E6%9E%B6%E6%9E%84/" itemprop="url" rel="index"><span itemprop="name">架构</span></a>
-                </span>
-            </span>
-
-          <br>
-            <span class="post-meta-item" title="本文字数">
-              <span class="post-meta-item-icon">
-                <i class="far fa-file-word"></i>
-              </span>
-                <span class="post-meta-item-text">本文字数：</span>
-              <span>131</span>
-            </span>
-            <span class="post-meta-item" title="阅读时长">
-              <span class="post-meta-item-icon">
-                <i class="far fa-clock"></i>
-              </span>
-                <span class="post-meta-item-text">阅读时长 &asymp;</span>
-              <span>1 分钟</span>
-            </span>
-
-        </div>
-      </header>
-
-    
-    
-    
-    <div class="post-body" itemprop="articleBody">
-
-      
-          <h3 id="是否需要使用mvc模式"><a href="#是否需要使用mvc模式" class="headerlink" title="是否需要使用mvc模式"></a>是否需要使用mvc模式</h3><ol>
-<li><p>mvc 模式</p>
-<p>​    <img src="/images/%E6%9E%B6%E6%9E%84-%E9%80%89%E5%9E%8B/mvc.png" alt="mvc模式"></p>
+<li><p>修改<code>main</code>方法的实现 （借助 从<code>chan</code> 无缓冲通道 如果没有数据会一直阻塞）</p>
 <ol>
-<li>controllers : 处理/user /pay 相关业务数据的输入和输出</li>
-<li>实体 譬如 数据库实体类</li>
-<li>Dao层 业务的实际处理层</li>
-</ol>
-<p>简单的业务 没什么并发</p>
+<li><p>创建<code>error chan</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">errChan := <span class="built_in">make</span>(<span class="keyword">chan</span> error) <span class="comment">// 创建无缓冲通道</span></span><br></pre></td></tr></table></figure>
 </li>
-<li><p>分布式模式</p>
+<li><p>启动协程来运行 consul注册和服务启动</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">        util.RegService() <span class="comment">// consul 注册服务</span></span><br><span class="line">        <span class="comment">// 因为serverHandler 已经实现了handler 接口 所以http.ListenAndServe 可以直接调用</span></span><br><span class="line">        err := http.ListenAndServe(<span class="string">&quot;:8080&quot;</span>, r)</span><br><span class="line">        <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">            errChan &lt;- err</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;()</span><br></pre></td></tr></table></figure>
 </li>
-</ol>
-<img src="/images/%E6%9E%B6%E6%9E%84-%E9%80%89%E5%9E%8B/%E5%88%86%E5%B8%83%E5%BC%8F.png" alt="分布式" style="zoom: 50%;" />
+<li><p>启动协程来监控 服务<code>Ctrl+C</code> 和<code>kill -9 pid</code> 的系统信号</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">go</span> <span class="function"><span class="keyword">func</span><span class="params">()</span></span> &#123;</span><br><span class="line">    signal_c := <span class="built_in">make</span>(<span class="keyword">chan</span> os.Signal)</span><br><span class="line">    signal.Notify(signal_c, syscall.SIGINT, syscall.SIGTERM)</span><br><span class="line">    errChan &lt;- fmt.Errorf(<span class="string">&quot;%s&quot;</span>, &lt;- signal_c)</span><br><span class="line">&#125;()</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>优雅退出</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//  从errChan 取值 如果没有会一直阻塞</span></span><br><span class="line">getErr := &lt;- errChan</span><br><span class="line">     util.UnRegService()</span><br><span class="line">log.Println(getErr)</span><br></pre></td></tr></table></figure>
 
-<p>分布式架构 可以很好的对具体的业务做流量的负载均衡，适合流量很高的业务，集群方式去部署 </p>
+</li>
+</ol>
+</li>
+</ol>
 
       
     </div>
@@ -1165,7 +310,7 @@
   
   
   <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
-    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/08/26/mysql-%E6%9F%A5%E7%9C%8B%E5%AD%97%E7%AC%A6%E9%9B%86/">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/09/16/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD-%E4%BD%BF%E7%94%A8go%E5%90%91Consul%E6%B3%A8%E5%86%8C%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95/">
 
     <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
       <meta itemprop="image" content="/images/avatar.png">
@@ -1179,7 +324,7 @@
       <header class="post-header">
         <h2 class="post-title" itemprop="name headline">
           
-            <a href="/2020/08/26/mysql-%E6%9F%A5%E7%9C%8B%E5%AD%97%E7%AC%A6%E9%9B%86/" class="post-title-link" itemprop="url">mysql-查看字符集</a>
+            <a href="/2020/09/16/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD-%E4%BD%BF%E7%94%A8go%E5%90%91Consul%E6%B3%A8%E5%86%8C%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95/" class="post-title-link" itemprop="url">Go-kit 学习笔记六- 使用go向Consul注册服务的基本方法</a>
         </h2>
 
         <div class="post-meta">
@@ -1190,7 +335,7 @@
               <span class="post-meta-item-text">发表于</span>
               
 
-              <time title="创建时间：2020-08-26 15:14:53 / 修改时间：07:19:57" itemprop="dateCreated datePublished" datetime="2020-08-26T15:14:53Z">2020-08-26</time>
+              <time title="创建时间：2020-09-15 16:45:39 / 修改时间：09:53:24" itemprop="dateCreated datePublished" datetime="2020-09-15T16:45:39Z">2020-09-15</time>
             </span>
 
           <br>
@@ -1199,7 +344,7 @@
                 <i class="far fa-file-word"></i>
               </span>
                 <span class="post-meta-item-text">本文字数：</span>
-              <span>2.1k</span>
+              <span>1.7k</span>
             </span>
             <span class="post-meta-item" title="阅读时长">
               <span class="post-meta-item-icon">
@@ -1218,14 +363,883 @@
     <div class="post-body" itemprop="articleBody">
 
       
-          <p>一、查看MySQL数据库服务器和数据库MySQL字符集。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> show variables like <span class="string">&#x27;%char%&#x27;</span>;</span></span><br><span class="line">+--------------------------+-----------------------------------------------------------+</span><br><span class="line">| Variable_name            | Value                                                     |</span><br><span class="line">+--------------------------+-----------------------------------------------------------+</span><br><span class="line">| character_set_client     | utf8                                                      |</span><br><span class="line">| character_set_connection | utf8                                                      |</span><br><span class="line">| character_set_database   | utf8                                                      |</span><br><span class="line">| character_set_filesystem | binary                                                    |</span><br><span class="line">| character_set_results    | utf8                                                      |</span><br><span class="line">| character_set_server     | utf8                                                      |</span><br><span class="line">| character_set_system     | utf8                                                      |</span><br><span class="line">| character_sets_dir       | /usr/local/mysql-5.7.23-macos10.13-x86_64/share/charsets/ |</span><br><span class="line">+--------------------------+-----------------------------------------------------------+</span><br><span class="line">8 rows in set (0.02 sec)</span><br></pre></td></tr></table></figure>
+          <h3 id="使用go向Consul注册服务的基本方法"><a href="#使用go向Consul注册服务的基本方法" class="headerlink" title="使用go向Consul注册服务的基本方法"></a>使用go向Consul注册服务的基本方法</h3><h4 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h4><p> 下载<code>consul</code>的依赖 </p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">go get github.com/hashicorp/consul</span><br></pre></td></tr></table></figure>
 
-<p>二、查看MySQL数据表（table）的MySQL字符集。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> show table status from db_beego like <span class="string">&quot;%tb_category%&quot;</span> \G;</span></span><br><span class="line">*************************** 1. row ***************************</span><br><span class="line">           Name: tb_category</span><br><span class="line">         Engine: InnoDB</span><br><span class="line">        Version: 10</span><br><span class="line">     Row_format: Dynamic</span><br><span class="line">           Rows: 2</span><br><span class="line"> Avg_row_length: 8192</span><br><span class="line">    Data_length: 16384</span><br><span class="line">Max_data_length: 0</span><br><span class="line">   Index_length: 0</span><br><span class="line">      Data_free: 0</span><br><span class="line"> Auto_increment: 5</span><br><span class="line">    Create_time: 2020-07-21 22:03:14</span><br><span class="line">    Update_time: NULL</span><br><span class="line">     Check_time: NULL</span><br><span class="line">      Collation: utf8mb4_general_ci</span><br><span class="line">       Checksum: NULL</span><br><span class="line"> Create_options:</span><br><span class="line">        Comment:</span><br><span class="line">1 row in set (0.00 sec)</span><br></pre></td></tr></table></figure>
 
-<p>三、查看MySQL数据列（column）的MySQL字符集。</p>
-<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">mysql&gt;</span><span class="bash"> show full columns from tb_category \G;</span></span><br><span class="line">*************************** 1. row ***************************</span><br><span class="line">     Field: id</span><br><span class="line">      Type: int(11)</span><br><span class="line"> Collation: NULL</span><br><span class="line">      Null: NO</span><br><span class="line">       Key: PRI</span><br><span class="line">   Default: NULL</span><br><span class="line">     Extra: auto_increment</span><br><span class="line">Privileges: select,insert,update,references</span><br><span class="line">   Comment:</span><br><span class="line">*************************** 2. row ***************************</span><br><span class="line">     Field: name</span><br><span class="line">      Type: varchar(255)</span><br><span class="line"> Collation: utf8mb4_general_ci</span><br><span class="line">      Null: NO</span><br><span class="line">       Key:</span><br><span class="line">   Default: NULL</span><br><span class="line">     Extra:</span><br><span class="line">Privileges: select,insert,update,references</span><br><span class="line">   Comment:</span><br><span class="line">*************************** 3. row ***************************</span><br><span class="line">     Field: created</span><br><span class="line">      Type: timestamp</span><br><span class="line"> Collation: NULL</span><br><span class="line">      Null: NO</span><br><span class="line">       Key:</span><br><span class="line">   Default: CURRENT_TIMESTAMP</span><br><span class="line">     Extra:</span><br><span class="line">Privileges: select,insert,update,references</span><br><span class="line">   Comment:</span><br><span class="line">*************************** 4. row ***************************</span><br><span class="line">     Field: updated</span><br><span class="line">      Type: timestamp</span><br><span class="line"> Collation: NULL</span><br><span class="line">      Null: NO</span><br><span class="line">       Key:</span><br><span class="line">   Default: CURRENT_TIMESTAMP</span><br><span class="line">     Extra: on update CURRENT_TIMESTAMP</span><br><span class="line">Privileges: select,insert,update,references</span><br><span class="line">   Comment:</span><br><span class="line">4 rows in set (0.00 sec)</span><br></pre></td></tr></table></figure>
+
+<p>将<code>p.json</code>的文件使用<code>go</code>来调用</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;ID&quot;</span>: <span class="string">&quot;userservice&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;Name&quot;</span>: <span class="string">&quot;userservice&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;Tags&quot;</span>: [<span class="string">&quot;primary&quot;</span>, <span class="string">&quot;v1&quot;</span>],</span><br><span class="line">  <span class="attr">&quot;Address&quot;</span>:<span class="string">&quot;192.168.1.1&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;Port&quot;</span>:<span class="number">8080</span>,</span><br><span class="line">  <span class="attr">&quot;Check&quot;</span>:&#123;</span><br><span class="line">    <span class="attr">&quot;HTTP&quot;</span>:<span class="string">&quot;http://localhost:8080/health&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;Interval&quot;</span>:<span class="string">&quot;5s&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p><code>gofunc</code>如下</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    consulapi <span class="string">&quot;github.com/hashicorp/consul/api&quot;</span></span><br><span class="line">    <span class="string">&quot;log&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">RegService</span><span class="params">()</span></span> &#123;</span><br><span class="line">    config := consulapi.DefaultConfig()</span><br><span class="line">    <span class="comment">// 设置consul 地址</span></span><br><span class="line">    config.Address = <span class="string">&quot;192.168.236.2:8500&quot;</span></span><br><span class="line">    <span class="comment">// 创建AgentServiceRegistration 对象</span></span><br><span class="line">    reg := consulapi.AgentServiceRegistration&#123;&#125;</span><br><span class="line">    <span class="comment">// 设置注册的id  这个不能重复</span></span><br><span class="line">    reg.ID = <span class="string">&quot;userservice1&quot;</span></span><br><span class="line">    <span class="comment">// 注册服务的name 可以重复</span></span><br><span class="line">    reg.Name = <span class="string">&quot;userservice&quot;</span></span><br><span class="line">    <span class="comment">// 注册服务的地址</span></span><br><span class="line">    reg.Address = <span class="string">&quot;192.168.236.2&quot;</span></span><br><span class="line">    <span class="comment">// 注册服务的端口</span></span><br><span class="line">    reg.Port = <span class="number">8080</span></span><br><span class="line">    <span class="comment">// 注册服务的tags 可以多个</span></span><br><span class="line">    reg.Tags = []<span class="keyword">string</span>&#123;<span class="string">&quot;primary&quot;</span>, <span class="string">&quot;v1&quot;</span>&#125;</span><br><span class="line">    <span class="comment">// 创建 AgentServiceCheck 来设置checkhealth</span></span><br><span class="line">    check := consulapi.AgentServiceCheck&#123;&#125;</span><br><span class="line">    <span class="comment">// 触发的时长 5s</span></span><br><span class="line">    check.Interval = <span class="string">&quot;1s&quot;</span></span><br><span class="line">    <span class="comment">// 健康检测的接口</span></span><br><span class="line">    check.HTTP = <span class="string">&quot;http://192.168.236.2:8080/health&quot;</span></span><br><span class="line">    <span class="comment">// 这里需要传递一个指针</span></span><br><span class="line">    reg.Check = &amp;check</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建一个client 把我们的服务注册到consul上</span></span><br><span class="line">    client, err := consulapi.NewClient(config)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="comment">// 异常处理</span></span><br><span class="line">        log.Fatal(err)</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    err = client.Agent().ServiceRegister(&amp;reg)</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="comment">// 异常处理</span></span><br><span class="line">        log.Fatal(err)</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>然后在<code>main.go</code>中调用该<code>func</code></p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">util.RegService() <span class="comment">// consul 注册服务</span></span><br><span class="line">    <span class="comment">// 因为serverHandler 已经实现了handler 接口 所以http.ListenAndServe 可以直接调用</span></span><br><span class="line">    _ = http.ListenAndServe(<span class="string">&quot;:8080&quot;</span>, r)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>启动服务之后就可以在consul的内置web管理界面上看到注册的userservice服务了</p>
+<p><img src="/images/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD-%E4%BD%BF%E7%94%A8go%E5%90%91Consul%E6%B3%A8%E5%86%8C%E6%9C%8D%E5%8A%A1%E7%9A%84%E5%9F%BA%E6%9C%AC%E6%96%B9%E6%B3%95/image-20200915174630772.png" alt="image-20200915174630772"></p>
+<p>如果停止服务之后，过一会儿consul就看不到我们注册的服务了。</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/09/15/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%94-%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/15/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%94-%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0/" class="post-title-link" itemprop="url">Go-kit 学习笔记五-服务注册与发现</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-14 22:48:57" itemprop="dateCreated datePublished" datetime="2020-09-14T22:48:57Z">2020-09-14</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-15 10:03:56" itemprop="dateModified" datetime="2020-09-15T10:03:56Z">2020-09-15</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="服务注册与发现"><a href="#服务注册与发现" class="headerlink" title="服务注册与发现"></a>服务注册与发现</h3><p><img src="/images/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%9B%9B-%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0/image-20200914235250075.png" alt="image-20200914235250075"></p>
+<p>从图中我们能发现 注册中心除了能对api1和api2提供服务外 还能对服务本身进行健康检查</p>
+<h4 id="描述"><a href="#描述" class="headerlink" title="描述"></a>描述</h4><p>服务管理软件，支持多数据中心，分布式高可用，服务发现和配置共享、成员管理和消息广播，支持acl访问控制。 相关的软件有<code>Zookeeper</code>，<code>etcd</code>，<code>springcloud</code>里的<code>Eureka</code></p>
+<p>来到官网</p>
+<p><code>https://www.consul.io/downloads</code></p>
+<ol>
+<li>根据你的机器下载对应的文件</li>
+<li>解压后就是一个可执行文件</li>
+<li>拷贝到<code>/usr/local/bin</code>目录下 或者你喜欢的环境变量中</li>
+<li>执行<code>consul -v</code> 出现正常的版本就可以继续往下了</li>
+</ol>
+<h4 id="使用docker-镜像部署consul"><a href="#使用docker-镜像部署consul" class="headerlink" title="使用docker 镜像部署consul"></a>使用docker 镜像部署consul</h4><p>docker 镜像地址</p>
+<p><code>https://hub.docker.com/_/consul</code></p>
+<p>拉取镜像 （镜像是基于alpine 3.7的）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull consul</span><br></pre></td></tr></table></figure>
+
+<h4 id="最简单的容器启动"><a href="#最简单的容器启动" class="headerlink" title="最简单的容器启动"></a>最简单的容器启动</h4><p>启动一个服务端</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name=cs --network host -p 8500:8500 \</span><br><span class="line">consul agent -server -bootstrap -ui -client 0.0.0.0 -data-dir=/tmp/consul  </span><br></pre></td></tr></table></figure>
+
+<p>(8500是后台ui的端口，别忘了sudo iptables -I INPUT -p tcp -dport 8500 -j ACCEPT)</p>
+<p>接下来就可以访问 <a target="_blank" rel="noopener" href="http://localhost:8500/">http://localhost:8500</a> 查看后台情况</p>
+<p>-server 表示以服务端的方式启动</p>
+<p>-bootstrap 表示自己为leader 不需要选举</p>
+<p>-ui 启动一个内置管理web页面</p>
+<p>-client 表示客户端可以访问的ip，0.0.0.0 表示任意ip都可以访问，否则默认本机可以访问</p>
+<h4 id="使用文档"><a href="#使用文档" class="headerlink" title="使用文档"></a>使用文档</h4><ol>
+<li><p>基本api 教学 ，文档地址</p>
+<p><code>https://www.consul.io/api-docs</code></p>
+</li>
+<li><p>查看当前所有服务</p>
+<p><code>http://127.0.0.1:8500/v1/agent/services</code></p>
+</li>
+</ol>
+<h3 id="尝试手动注册一个服务"><a href="#尝试手动注册一个服务" class="headerlink" title="尝试手动注册一个服务"></a>尝试手动注册一个服务</h3><p>首先确保自己本地服务启动</p>
+<p>并确保虚拟机上能访问</p>
+<p>譬如我们代码里的请求：<code>http://localhost:8080/user/101</code></p>
+<p>然后增加一个<code>/health</code> 输出<code>&#123;&quot;status&quot;:200&#125; </code>  注意json头要加</p>
+<figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">r := myMux.NewRouter()</span><br><span class="line">    &#123;</span><br><span class="line">        r.Methods(<span class="string">&quot;GET&quot;</span>, <span class="string">&quot;DELETE&quot;</span>).Path(<span class="string">&quot;/user/&#123;uid:[0-9]+&#125;&quot;</span>).Handler(serverHandler)</span><br><span class="line">        r.Methods(<span class="string">&quot;GET&quot;</span>).Path(<span class="string">&quot;/health&quot;</span>).HandlerFunc(<span class="function"><span class="keyword">func</span><span class="params">(writer http.ResponseWriter, request *http.Request)</span></span> &#123;</span><br><span class="line">            writer.Header().Set(<span class="string">&quot;Content-type&quot;</span>, <span class="string">&quot;Application/json&quot;</span>)</span><br><span class="line">            _, _ = writer.Write([]<span class="keyword">byte</span>(<span class="string">`&#123;&quot;status&quot;:200&#125;`</span>))</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 因为serverHandler 已经实现了handler 接口 所以http.ListenAndServe 可以直接调用</span></span><br><span class="line">    _ = http.ListenAndServe(<span class="string">&quot;:8080&quot;</span>, r)</span><br></pre></td></tr></table></figure>
+
+
+
+<p>创建一个json文件,内容如下</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  <span class="attr">&quot;ID&quot;</span>: <span class="string">&quot;userservice&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;Name&quot;</span>: <span class="string">&quot;userservice&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;Tags&quot;</span>: [<span class="string">&quot;primary&quot;</span>, <span class="string">&quot;v1&quot;</span>],</span><br><span class="line">  <span class="attr">&quot;Address&quot;</span>:<span class="string">&quot;192.168.1.1&quot;</span>,</span><br><span class="line">  <span class="attr">&quot;Port&quot;</span>:<span class="number">8080</span>,</span><br><span class="line">  <span class="attr">&quot;Check&quot;</span>:&#123;</span><br><span class="line">    <span class="attr">&quot;HTTP&quot;</span>:<span class="string">&quot;http://localhost:8080/health&quot;</span>,</span><br><span class="line">    <span class="attr">&quot;Interval&quot;</span>:<span class="string">&quot;5s&quot;</span></span><br><span class="line">  &#125;</span><br><span class="line"> &#125;</span><br></pre></td></tr></table></figure>
+
+<p>提交服务</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl --request PUT  --data @p.json localhost:8500/v1/agent/service/register</span><br></pre></td></tr></table></figure>
+
+<p>这时我们继续查看</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl http://localhost:8500/v1/agent/services</span><br><span class="line">&#123;&quot;userservice&quot;:&#123;&quot;ID&quot;:&quot;userservice&quot;,&quot;Service&quot;:&quot;userservice&quot;,&quot;Tags&quot;:[&quot;primary&quot;,&quot;v1&quot;],&quot;Meta&quot;:&#123;&#125;,&quot;Port&quot;:8080,&quot;Address&quot;:&quot;192.168.0.1&quot;,&quot;TaggedAddresses&quot;:&#123;&quot;lan_ipv4&quot;:&#123;&quot;Address&quot;:&quot;192.168.0.1&quot;,&quot;Port&quot;:8080&#125;,&quot;wan_ipv4&quot;:&#123;&quot;Address&quot;:&quot;192.168.0.1&quot;,&quot;Port&quot;:8080&#125;&#125;,&quot;Weights&quot;:&#123;&quot;Passing&quot;:1,&quot;Warning&quot;:1&#125;,&quot;EnableTagOverride&quot;:false&#125;&#125;%</span><br></pre></td></tr></table></figure>
+
+<p>并且再本地的uiweb管理页面也能查看到 注册好的userservice了</p>
+<p>反注册</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">curl \</span><br><span class="line"> --request PUT \</span><br><span class="line">http://localhost:8500/v1/agent/service/deregister/userservice</span><br></pre></td></tr></table></figure>
+
+<p>这时再去查看服务列表就会发现变成空了</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"> curl http://localhost:8500/v1/agent/services</span><br><span class="line">&#123;&#125;%</span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/09/06/curl-%E8%AF%B7%E6%B1%82%E5%B8%A6%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E5%AF%86%E7%A0%81/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/06/curl-%E8%AF%B7%E6%B1%82%E5%B8%A6%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E5%AF%86%E7%A0%81/" class="post-title-link" itemprop="url">curl-请求带用户名和密码</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-05 20:29:00 / 修改时间：12:55:34" itemprop="dateCreated datePublished" datetime="2020-09-05T20:29:00Z">2020-09-05</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>347</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h3><p>我想访问一个需要用户名/密码的URL。我想尝试用 curl 来访问它。现在我正在做一些事情： </p>
+<p><a target="_blank" rel="noopener" href="http://localhost:9200/">http://localhost:9200/</a>  因为es服务开启安全认证 需要填写用户名和密码</p>
+<p>我收到一个错误。我想我需要指定一个用户名和密码以及上述命令。</p>
+<h3 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h3><ol>
+<li><p>使用<code>-u</code>标志来包含用户名，并且curl将提示输入密码：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl -u username http://example.com</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>您也可以在命令中包含密码，但您的密码将在bash历史记录中显示：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl -u username:password http://example.com</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>您也可以通过写入发送用户名：</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">curl http://username:password@api.somesite.com/test/blah?something=123</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/09/06/docker-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%8F%8A%E7%9B%B8%E5%85%B3%E5%8F%82%E6%95%B0/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/06/docker-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4%E5%8F%8A%E7%9B%B8%E5%85%B3%E5%8F%82%E6%95%B0/" class="post-title-link" itemprop="url">docker-常用命令及相关参数</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-05 20:12:51 / 修改时间：12:56:57" itemprop="dateCreated datePublished" datetime="2020-09-05T20:12:51Z">2020-09-05</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>3 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p><strong>docker run ：</strong>创建一个新的容器并运行一个命令</p>
+<h3 id="语法"><a href="#语法" class="headerlink" title="语法"></a>语法</h3><figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run [OPTIONS] IMAGE [COMMAND] [ARG...]</span><br></pre></td></tr></table></figure>
+
+<p>OPTIONS说明：</p>
+<ul>
+<li><strong>-a stdin:</strong> 指定标准输入输出内容类型，可选 STDIN/STDOUT/STDERR 三项；</li>
+<li><strong>-d:</strong> 后台运行容器，并返回容器ID；</li>
+<li><strong>-i:</strong> 以交互模式运行容器，通常与 -t 同时使用；</li>
+<li><strong>-P:</strong> 随机端口映射，容器内部端口<strong>随机</strong>映射到主机的端口</li>
+<li><strong>-p:</strong> 指定端口映射，格式为：<strong>主机(宿主)端口:容器端口</strong></li>
+<li><strong>-t:</strong> 为容器重新分配一个伪输入终端，通常与 -i 同时使用；</li>
+<li><strong>–name=”nginx-lb”:</strong> 为容器指定一个名称；</li>
+<li><strong>–dns 8.8.8.8:</strong> 指定容器使用的DNS服务器，默认和宿主一致；</li>
+<li><strong>–dns-search example.com:</strong> 指定容器DNS搜索域名，默认和宿主一致；</li>
+<li><strong>-h “mars”:</strong> 指定容器的hostname；</li>
+<li><strong>-e username=”ritchie”:</strong> 设置环境变量；</li>
+<li><strong>–env-file=[]:</strong> 从指定文件读入环境变量；</li>
+<li><strong>–cpuset=”0-2” or –cpuset=”0,1,2”:</strong> 绑定容器到指定CPU运行；</li>
+<li>**-m :**设置容器使用内存最大值；</li>
+<li><strong>–net=”bridge”:</strong> 指定容器的网络连接类型，支持 bridge/host/none/container: 四种类型；</li>
+<li><strong>–link=[]:</strong> 添加链接到另一个容器；</li>
+<li><strong>–expose=[]:</strong> 开放一个端口或一组端口；</li>
+<li><strong>–volume , -v:</strong> 绑定一个卷</li>
+</ul>
+<h3 id="实例"><a href="#实例" class="headerlink" title="实例"></a>实例</h3><p>使用docker镜像nginx:latest以后台模式启动一个容器,并将容器命名为mynginx。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run --name mynginx -d nginx:latest</span><br></pre></td></tr></table></figure>
+
+<p>使用镜像nginx:latest以后台模式启动一个容器,并将容器的80端口映射到主机随机端口。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -P -d nginx:latest</span><br></pre></td></tr></table></figure>
+
+<p>使用镜像 nginx:latest，以后台模式启动一个容器,将容器的 80 端口映射到主机的 80 端口,主机的目录 /data 映射到容器的 /data。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 80:80 -v /data:/data -d nginx:latest</span><br></pre></td></tr></table></figure>
+
+<p>绑定容器的 8080 端口，并将其映射到本地主机 127.0.0.1 的 80 端口上。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">$</span><span class="bash"> docker run -p 127.0.0.1:80:8080/tcp ubuntu bash</span></span><br></pre></td></tr></table></figure>
+
+<p>使用镜像nginx:latest以交互模式启动一个容器,在容器内执行/bin/bash命令。</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">runoob@runoob:~$ docker run -it nginx:latest /bin/bash</span><br><span class="line">root@b8573233d675:/# </span><br></pre></td></tr></table></figure>
+
+
+
+<p>参数拓展：</p>
+<figure class="highlight csharp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line">Usage: docker run [OPTIONS] IMAGE [COMMAND] [ARG...]    </span><br><span class="line"><span class="number">02.</span>  </span><br><span class="line"><span class="number">03.</span>  -d, --detach=<span class="literal">false</span>         指定容器运行于前台还是后台，默认为<span class="literal">false</span>     </span><br><span class="line"><span class="number">04.</span>  -i, --interactive=<span class="literal">false</span>   打开STDIN，用于控制台交互    </span><br><span class="line"><span class="number">05.</span>  -t, --tty=<span class="literal">false</span>            分配tty设备，该可以支持终端登录，默认为<span class="literal">false</span>    </span><br><span class="line"><span class="number">06.</span>  -u, --user=<span class="string">&quot;&quot;</span>              指定容器的用户    </span><br><span class="line"><span class="number">07.</span>  -a, --attach=[]            登录容器（必须是以docker run -d启动的容器）  </span><br><span class="line"><span class="number">08.</span>  -w, --workdir=<span class="string">&quot;&quot;</span>           指定容器的工作目录   </span><br><span class="line"><span class="number">09.</span>  -c, --cpu-shares=<span class="number">0</span>        设置容器CPU权重，在CPU共享场景使用    </span><br><span class="line"><span class="number">10.</span>  -e, --env=[]               指定环境变量，容器中可以使用该环境变量    </span><br><span class="line"><span class="number">11.</span>  -m, --memory=<span class="string">&quot;&quot;</span>            指定容器的内存上限    </span><br><span class="line"><span class="number">12.</span>  -P, --publish-all=<span class="literal">false</span>    指定容器暴露的端口    </span><br><span class="line"><span class="number">13.</span>  -p, --publish=[]           指定容器暴露的端口   </span><br><span class="line"><span class="number">14.</span>  -h, --hostname=<span class="string">&quot;&quot;</span>          指定容器的主机名    </span><br><span class="line"><span class="number">15.</span>  -v, --volume=[]            给容器挂载存储卷，挂载到容器的某个目录    </span><br><span class="line"><span class="number">16.</span>  --volumes-<span class="keyword">from</span>=[]          给容器挂载其他容器上的卷，挂载到容器的某个目录  </span><br><span class="line"><span class="number">17.</span>  --cap-<span class="keyword">add</span>=[]               添加权限，权限清单详见：http:<span class="comment">//linux.die.net/man/7/capabilities    </span></span><br><span class="line"><span class="number">18.</span>  --cap-drop=[]              删除权限，权限清单详见：http:<span class="comment">//linux.die.net/man/7/capabilities    </span></span><br><span class="line"><span class="number">19.</span>  --cidfile=<span class="string">&quot;&quot;</span>               运行容器后，在指定文件中写入容器PID值，一种典型的监控系统用法    </span><br><span class="line"><span class="number">20.</span>  --cpuset=<span class="string">&quot;&quot;</span>                设置容器可以使用哪些CPU，此参数可以用来容器独占CPU    </span><br><span class="line"><span class="number">21.</span>  --device=[]                添加主机设备给容器，相当于设备直通    </span><br><span class="line"><span class="number">22.</span>  --dns=[]                   指定容器的dns服务器    </span><br><span class="line"><span class="number">23.</span>  --dns-search=[]            指定容器的dns搜索域名，写入到容器的/etc/resolv.conf文件    </span><br><span class="line"><span class="number">24.</span>  --entrypoint=<span class="string">&quot;&quot;</span>            覆盖image的入口点    </span><br><span class="line"><span class="number">25.</span>  --env-file=[]              指定环境变量文件，文件格式为每行一个环境变量    </span><br><span class="line"><span class="number">26.</span>  --expose=[]                指定容器暴露的端口，即修改镜像的暴露端口    </span><br><span class="line"><span class="number">27.</span>  --link=[]                  指定容器间的关联，使用其他容器的IP、env等信息    </span><br><span class="line"><span class="number">28.</span>  --lxc-conf=[]              指定容器的配置文件，只有在指定--exec-driver=lxc时使用    </span><br><span class="line"><span class="number">29.</span>  --name=<span class="string">&quot;&quot;</span>                  指定容器名字，后续可以通过名字进行容器管理，links特性需要使用名字    </span><br><span class="line"><span class="number">30.</span>  --net=<span class="string">&quot;bridge&quot;</span>             容器网络设置:  </span><br><span class="line"><span class="number">31.</span>                                bridge 使用docker daemon指定的网桥       </span><br><span class="line"><span class="number">32.</span>                                host    <span class="comment">//容器使用主机的网络    </span></span><br><span class="line"><span class="number">33.</span>                                container:NAME_or_ID  &gt;<span class="comment">//使用其他容器的网路，共享IP和PORT等网络资源    </span></span><br><span class="line"><span class="number">34.</span>                                none 容器使用自己的网络（类似--net=bridge），但是不进行配置   </span><br><span class="line"><span class="number">35.</span>  --privileged=<span class="literal">false</span>         指定容器是否为特权容器，特权容器拥有所有的capabilities    </span><br><span class="line"><span class="number">36.</span>  --restart=<span class="string">&quot;no&quot;</span>             指定容器停止后的重启策略:  </span><br><span class="line"><span class="number">37.</span>                                no：容器退出时不重启    </span><br><span class="line"><span class="number">38.</span>                                <span class="keyword">on</span>-failure：容器故障退出（返回值非零）时重启   </span><br><span class="line"><span class="number">39.</span>                                always：容器退出时总是重启    </span><br><span class="line"><span class="number">40.</span>  --rm=<span class="literal">false</span>                 指定容器停止后自动删除容器(不支持以docker run -d启动的容器)    </span><br><span class="line"><span class="number">41.</span>  --sig-proxy=<span class="literal">true</span>           设置由代理接受并处理信号，但是SIGCHLD、SIGSTOP和SIGKILL不能被代理    </span><br></pre></td></tr></table></figure>
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/09/06/docker-%E5%90%AF%E5%8A%A8kibana/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/06/docker-%E5%90%AF%E5%8A%A8kibana/" class="post-title-link" itemprop="url">docker-启动kibana</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-05 19:39:47 / 修改时间：11:41:48" itemprop="dateCreated datePublished" datetime="2020-09-05T19:39:47Z">2020-09-05</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>223</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>执行脚本</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker run -d \</span><br><span class="line"> --name kibana \</span><br><span class="line"> --link esnode1:elasticsearch \</span><br><span class="line"> -e &quot;ELASTICSEARCH_USERNAME=elastic&quot; \</span><br><span class="line"> -e &quot;ELASTICSEARCH_PASSWORD=cJQ98i4M0fPyaVkbw0WT&quot; \</span><br><span class="line"> -e &quot;TZ=Asia/Shanghai&quot; \</span><br><span class="line"> -p 5601:5601 \</span><br><span class="line"> kibana:7.5.0</span><br></pre></td></tr></table></figure>
+
+
+
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/09/06/docker-%E5%90%AF%E5%8A%A8elasticsearch-k8s/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/06/docker-%E5%90%AF%E5%8A%A8elasticsearch-k8s/" class="post-title-link" itemprop="url">docker-启动elasticsearch</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-05 16:18:58" itemprop="dateCreated datePublished" datetime="2020-09-05T16:18:58Z">2020-09-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-22 10:03:29" itemprop="dateModified" datetime="2020-09-22T10:03:29Z">2020-09-22</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>6.8k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>6 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="常用kuberctl-命令"><a href="#常用kuberctl-命令" class="headerlink" title="常用kuberctl 命令"></a>常用kuberctl 命令</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">kubectl delete -f es-config-map.yml  # 删除es-config map</span><br><span class="line"></span><br><span class="line">kubectl apply -f es-config-map.yml   # 创建es-config map</span><br><span class="line"></span><br><span class="line">kubectl delete -f es-statefulset.yml  # 删除statefulset</span><br><span class="line"></span><br><span class="line">kubectl apply -f es-statefulset.yml  # 创建statefulset</span><br><span class="line"></span><br><span class="line">kubectl get pod -n es  # 查看es ns的pod</span><br><span class="line"></span><br><span class="line">kubectl logs --previous  # 查看之前的日志</span><br><span class="line"></span><br><span class="line">kubectl get pod --all-namespaces -o wide  # 查看所有pod的信息</span><br><span class="line"></span><br><span class="line">kubectl exec -it es-0 -- bash # 进入es-0 </span><br><span class="line"></span><br><span class="line">kubectl apply -f es-svc-in.yml # 创建service in</span><br><span class="line"></span><br><span class="line">kubectl apply -f es-svc-out.yml # 创建service out</span><br><span class="line"></span><br><span class="line">kubectl describe statefulset elasticsearch-master -n es</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<h2 id="生成私钥和证书"><a href="#生成私钥和证书" class="headerlink" title="生成私钥和证书"></a>生成私钥和证书</h2><p>首先创建一个docker容器用于执行es命令。执行密钥生成以后，通过docker cp把密钥取出来。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line">docker exec  docker-esId  &#x2F;usr&#x2F;share&#x2F;elasticsearch&#x2F;bin&#x2F;elasticsearch-certutil cert -out &#x2F;elastic-certificates.p12 -pass &quot;&quot;</span><br><span class="line"></span><br><span class="line">docker cp docker:&#x2F;elastic-certificates.p12 .&#x2F;</span><br></pre></td></tr></table></figure>
+
+<p>验证</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">openssl pkcs12 -nocerts -nodes -in  .&#x2F;elastic-certificates.p12 -info</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置elastic节点"><a href="#配置elastic节点" class="headerlink" title="配置elastic节点"></a>配置elastic节点</h2><p>将生成的密钥，存成k8s的的secret</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">kubectl -n es create secret generic es-keystore --from-file&#x3D;.&#x2F;elastic-certificates.p12</span><br></pre></td></tr></table></figure>
+
+<h2 id="配置es集群-amp-kibana"><a href="#配置es集群-amp-kibana" class="headerlink" title="配置es集群&amp;kibana"></a>配置es集群&amp;kibana</h2><figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br><span class="line">142</span><br><span class="line">143</span><br><span class="line">144</span><br><span class="line">145</span><br><span class="line">146</span><br><span class="line">147</span><br><span class="line">148</span><br><span class="line">149</span><br><span class="line">150</span><br><span class="line">151</span><br><span class="line">152</span><br><span class="line">153</span><br><span class="line">154</span><br><span class="line">155</span><br><span class="line">156</span><br><span class="line">157</span><br><span class="line">158</span><br><span class="line">159</span><br><span class="line">160</span><br><span class="line">161</span><br><span class="line">162</span><br><span class="line">163</span><br><span class="line">164</span><br><span class="line">165</span><br><span class="line">166</span><br><span class="line">167</span><br><span class="line">168</span><br><span class="line">169</span><br><span class="line">170</span><br><span class="line">171</span><br><span class="line">172</span><br><span class="line">173</span><br><span class="line">174</span><br><span class="line">175</span><br><span class="line">176</span><br><span class="line">177</span><br><span class="line">178</span><br><span class="line">179</span><br><span class="line">180</span><br><span class="line">181</span><br><span class="line">182</span><br><span class="line">183</span><br><span class="line">184</span><br><span class="line">185</span><br><span class="line">186</span><br><span class="line">187</span><br><span class="line">188</span><br><span class="line">189</span><br><span class="line">190</span><br><span class="line">191</span><br><span class="line">192</span><br><span class="line">193</span><br><span class="line">194</span><br><span class="line">195</span><br><span class="line">196</span><br><span class="line">197</span><br><span class="line">198</span><br><span class="line">199</span><br><span class="line">200</span><br><span class="line">201</span><br><span class="line">202</span><br><span class="line">203</span><br><span class="line">204</span><br><span class="line">205</span><br><span class="line">206</span><br><span class="line">207</span><br><span class="line">208</span><br><span class="line">209</span><br><span class="line">210</span><br><span class="line">211</span><br><span class="line">212</span><br><span class="line">213</span><br><span class="line">214</span><br><span class="line">215</span><br><span class="line">216</span><br><span class="line">217</span><br><span class="line">218</span><br><span class="line">219</span><br><span class="line">220</span><br><span class="line">221</span><br><span class="line">222</span><br><span class="line">223</span><br><span class="line">224</span><br><span class="line">225</span><br><span class="line">226</span><br><span class="line">227</span><br><span class="line">228</span><br><span class="line">229</span><br><span class="line">230</span><br><span class="line">231</span><br><span class="line">232</span><br><span class="line">233</span><br><span class="line">234</span><br><span class="line">235</span><br><span class="line">236</span><br><span class="line">237</span><br><span class="line">238</span><br><span class="line">239</span><br><span class="line">240</span><br><span class="line">241</span><br><span class="line">242</span><br><span class="line">243</span><br><span class="line">244</span><br><span class="line">245</span><br><span class="line">246</span><br><span class="line">247</span><br><span class="line">248</span><br><span class="line">249</span><br><span class="line">250</span><br><span class="line">251</span><br><span class="line">252</span><br><span class="line">253</span><br><span class="line">254</span><br><span class="line">255</span><br><span class="line">256</span><br><span class="line">257</span><br><span class="line">258</span><br><span class="line">259</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">StatefulSet</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">elasticsearch</span></span><br><span class="line">    <span class="attr">role:</span> <span class="string">master</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">elasticsearch-master</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">es</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">2</span></span><br><span class="line">  <span class="attr">serviceName:</span> <span class="string">elasticsearch-master</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">elasticsearch</span></span><br><span class="line">      <span class="attr">role:</span> <span class="string">master</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">elasticsearch</span></span><br><span class="line">        <span class="attr">role:</span> <span class="string">master</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">restartPolicy:</span> <span class="string">Always</span></span><br><span class="line">      <span class="attr">securityContext:</span></span><br><span class="line">        <span class="attr">fsGroup:</span> <span class="number">1000</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">elasticsearch-master</span></span><br><span class="line">          <span class="attr">image:</span> <span class="string">docker.elastic.co/elasticsearch/elasticsearch:7.5.0</span></span><br><span class="line">          <span class="attr">imagePullPolicy:</span> <span class="string">IfNotPresent</span></span><br><span class="line">          <span class="attr">securityContext:</span></span><br><span class="line">            <span class="attr">privileged:</span> <span class="literal">true</span></span><br><span class="line">          <span class="attr">ports:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">9200</span></span><br><span class="line">              <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">9200</span></span><br><span class="line">              <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">          <span class="attr">env:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">cluster.name</span></span><br><span class="line">              <span class="attr">value:</span> <span class="string">&quot;es_cluster&quot;</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">node.master</span></span><br><span class="line">              <span class="attr">value:</span> <span class="string">&quot;true&quot;</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">node.data</span></span><br><span class="line">              <span class="attr">value:</span> <span class="string">&quot;false&quot;</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">discovery.seed_hosts</span> </span><br><span class="line">              <span class="attr">value:</span> <span class="string">&quot;elasticsearch-discovery&quot;</span> </span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">cluster.initial_master_nodes</span> </span><br><span class="line">              <span class="attr">value:</span> <span class="string">&quot;elasticsearch-master-0,elasticsearch-master-1&quot;</span> </span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">node.ingest</span></span><br><span class="line">              <span class="attr">value:</span> <span class="string">&quot;false&quot;</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">ES_JAVA_OPTS</span></span><br><span class="line">              <span class="attr">value:</span> <span class="string">&quot;-Xms500m -Xmx500m&quot;</span> </span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">xpack.security.enabled</span></span><br><span class="line">              <span class="attr">value:</span> <span class="string">&quot;false&quot;</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">xpack.security.transport.ssl.enabled</span></span><br><span class="line">              <span class="attr">value:</span> <span class="string">&quot;false&quot;</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">xpack.security.transport.ssl.verification_mode</span></span><br><span class="line">              <span class="attr">value:</span> <span class="string">&quot;certificate&quot;</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">xpack.security.transport.ssl.keystore.path</span></span><br><span class="line">              <span class="attr">value:</span> <span class="string">&quot;/usr/share/elasticsearch/config/elastic-certificates.p12&quot;</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">xpack.security.transport.ssl.truststore.path</span></span><br><span class="line">              <span class="attr">value:</span> <span class="string">&quot;/usr/share/elasticsearch/config/elastic-certificates.p12&quot;</span>                                                        </span><br><span class="line">          <span class="attr">volumeMounts:</span></span><br><span class="line">            <span class="comment"># - name: es-persistent-storage</span></span><br><span class="line">            <span class="comment">#   mountPath: /data</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">mountPath:</span> <span class="string">/usr/share/elasticsearch/config/elastic-certificates.p12</span></span><br><span class="line">              <span class="attr">name:</span> <span class="string">keystore</span></span><br><span class="line">              <span class="attr">readOnly:</span> <span class="literal">true</span></span><br><span class="line">              <span class="attr">subPath:</span> <span class="string">elastic-certificates.p12</span></span><br><span class="line">      <span class="attr">volumes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">keystore</span></span><br><span class="line">          <span class="attr">secret:</span></span><br><span class="line">            <span class="attr">secretName:</span> <span class="string">es-keystore</span></span><br><span class="line">            <span class="attr">defaultMode:</span> <span class="number">0444</span> </span><br><span class="line">            </span><br><span class="line">              </span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"> <span class="attr">labels:</span></span><br><span class="line">   <span class="attr">app:</span> <span class="string">elasticsearch</span></span><br><span class="line"> <span class="attr">name:</span> <span class="string">elasticsearch-discovery</span></span><br><span class="line"> <span class="attr">namespace:</span> <span class="string">es</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"> <span class="attr">ports:</span></span><br><span class="line">   <span class="bullet">-</span> <span class="attr">port:</span> <span class="number">9300</span></span><br><span class="line">     <span class="attr">targetPort:</span> <span class="number">9300</span></span><br><span class="line"> <span class="attr">selector:</span></span><br><span class="line">   <span class="attr">app:</span> <span class="string">elasticsearch</span></span><br><span class="line">   <span class="attr">role:</span> <span class="string">master</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line"> <span class="attr">name:</span> <span class="string">elasticsearch-data-service</span></span><br><span class="line"> <span class="attr">namespace:</span> <span class="string">es</span></span><br><span class="line"> <span class="attr">labels:</span></span><br><span class="line">   <span class="attr">app:</span> <span class="string">elasticsearch</span></span><br><span class="line">   <span class="attr">role:</span> <span class="string">data</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line"> <span class="attr">ports:</span></span><br><span class="line">   <span class="bullet">-</span> <span class="attr">port:</span> <span class="number">9200</span></span><br><span class="line">     <span class="attr">name:</span> <span class="string">outer</span></span><br><span class="line">   <span class="bullet">-</span> <span class="attr">port:</span> <span class="number">9300</span></span><br><span class="line">     <span class="attr">name:</span> <span class="string">inner</span></span><br><span class="line"> <span class="comment">#clusterIP: None</span></span><br><span class="line"> <span class="attr">selector:</span></span><br><span class="line">   <span class="attr">app:</span> <span class="string">elasticsearch</span></span><br><span class="line">   <span class="attr">role:</span> <span class="string">data</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">StatefulSet</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">app:</span> <span class="string">elasticsearch</span></span><br><span class="line">    <span class="attr">role:</span> <span class="string">master</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">elasticsearch-data</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">es</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">2</span></span><br><span class="line">  <span class="attr">serviceName:</span> <span class="string">elasticsearch-data</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">app:</span> <span class="string">elasticsearch</span></span><br><span class="line">      <span class="attr">role:</span> <span class="string">data</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">app:</span> <span class="string">elasticsearch</span></span><br><span class="line">        <span class="attr">role:</span> <span class="string">data</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">restartPolicy:</span> <span class="string">Always</span></span><br><span class="line">      <span class="attr">securityContext:</span></span><br><span class="line">        <span class="attr">fsGroup:</span> <span class="number">1000</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">elasticsearch-data</span></span><br><span class="line">          <span class="attr">image:</span> <span class="string">docker.elastic.co/elasticsearch/elasticsearch:7.5.0</span></span><br><span class="line">          <span class="attr">imagePullPolicy:</span> <span class="string">IfNotPresent</span></span><br><span class="line">          <span class="attr">securityContext:</span></span><br><span class="line">            <span class="attr">privileged:</span> <span class="literal">true</span></span><br><span class="line">          <span class="attr">ports:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">9200</span></span><br><span class="line">              <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">9300</span></span><br><span class="line">              <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">          <span class="attr">env:</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">cluster.name</span></span><br><span class="line">              <span class="attr">value:</span> <span class="string">&quot;es_cluster&quot;</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">node.master</span></span><br><span class="line">              <span class="attr">value:</span> <span class="string">&quot;false&quot;</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">node.data</span></span><br><span class="line">              <span class="attr">value:</span> <span class="string">&quot;true&quot;</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">discovery.seed_hosts</span> <span class="comment"># </span></span><br><span class="line">              <span class="attr">value:</span> <span class="string">&quot;elasticsearch-discovery&quot;</span> </span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">cluster.initial_master_nodes</span> </span><br><span class="line">              <span class="attr">value:</span> <span class="string">&quot;elasticsearch-master-0,elasticsearch-master-1&quot;</span> </span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">node.ingest</span></span><br><span class="line">              <span class="attr">value:</span> <span class="string">&quot;false&quot;</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">ES_JAVA_OPTS</span></span><br><span class="line">              <span class="attr">value:</span> <span class="string">&quot;-Xms500m -Xmx500m&quot;</span> </span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">xpack.security.enabled</span></span><br><span class="line">              <span class="attr">value:</span> <span class="string">&quot;false&quot;</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">xpack.security.transport.ssl.enabled</span></span><br><span class="line">              <span class="attr">value:</span> <span class="string">&quot;false&quot;</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">xpack.security.transport.ssl.verification_mode</span></span><br><span class="line">              <span class="attr">value:</span> <span class="string">&quot;certificate&quot;</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">xpack.security.transport.ssl.keystore.path</span></span><br><span class="line">              <span class="attr">value:</span> <span class="string">&quot;/usr/share/elasticsearch/config/elastic-certificates.p12&quot;</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">xpack.security.transport.ssl.truststore.path</span></span><br><span class="line">              <span class="attr">value:</span> <span class="string">&quot;/usr/share/elasticsearch/config/elastic-certificates.p12&quot;</span>                                                        </span><br><span class="line">          <span class="attr">volumeMounts:</span></span><br><span class="line">            <span class="comment"># - name: es-persistent-storage</span></span><br><span class="line">            <span class="comment">#   mountPath: /data</span></span><br><span class="line">            <span class="bullet">-</span> <span class="attr">mountPath:</span> <span class="string">/usr/share/elasticsearch/config/elastic-certificates.p12</span></span><br><span class="line">              <span class="attr">name:</span> <span class="string">keystore</span></span><br><span class="line">              <span class="attr">readOnly:</span> <span class="literal">true</span></span><br><span class="line">              <span class="attr">subPath:</span> <span class="string">elastic-certificates.p12</span></span><br><span class="line">      <span class="attr">volumes:</span></span><br><span class="line">        <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">keystore</span></span><br><span class="line">          <span class="attr">secret:</span></span><br><span class="line">            <span class="attr">secretName:</span> <span class="string">es-keystore</span></span><br><span class="line">            <span class="attr">defaultMode:</span> <span class="number">0444</span> </span><br><span class="line"></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">ConfigMap</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">kibana-config</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">es</span></span><br><span class="line"><span class="attr">data:</span></span><br><span class="line">  <span class="attr">kibana.yml:</span> <span class="string">|</span></span><br><span class="line">    <span class="attr">server.name:</span> <span class="string">kibana</span></span><br><span class="line">    <span class="attr">server.port:</span> <span class="number">5601</span></span><br><span class="line">    <span class="attr">server.host:</span> <span class="string">&quot;0.0.0.0&quot;</span></span><br><span class="line">    <span class="attr">xpack.monitoring.ui.container.elasticsearch.enabled:</span> <span class="literal">true</span></span><br><span class="line">    <span class="attr">elasticsearch.username:</span> <span class="string">kibana</span></span><br><span class="line">    <span class="attr">elasticsearch.password:</span> <span class="string">changeme</span></span><br><span class="line">    <span class="attr">xpack.security.enabled:</span> <span class="literal">false</span> <span class="comment"># es 改为白金模式是才去改成true</span></span><br><span class="line"><span class="comment"># kubectl apply -f kibana-config.yaml</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Service</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">kibana</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">es</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">k8s-app:</span> <span class="string">kibana</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">type:</span> <span class="string">LoadBalancer</span></span><br><span class="line">  <span class="attr">ports:</span></span><br><span class="line">  <span class="bullet">-</span> <span class="attr">port:</span> <span class="number">5601</span></span><br><span class="line">    <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">    <span class="attr">targetPort:</span> <span class="string">http</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">k8s-app:</span> <span class="string">kibana</span></span><br><span class="line"><span class="comment"># kubectl apply -f kibana-service.yaml</span></span><br><span class="line"><span class="meta">---</span></span><br><span class="line"><span class="attr">apiVersion:</span> <span class="string">apps/v1</span></span><br><span class="line"><span class="attr">kind:</span> <span class="string">Deployment</span></span><br><span class="line"><span class="attr">metadata:</span></span><br><span class="line">  <span class="attr">name:</span> <span class="string">kibana</span></span><br><span class="line">  <span class="attr">namespace:</span> <span class="string">es</span></span><br><span class="line">  <span class="attr">labels:</span></span><br><span class="line">    <span class="attr">k8s-app:</span> <span class="string">kibana</span></span><br><span class="line"><span class="attr">spec:</span></span><br><span class="line">  <span class="attr">replicas:</span> <span class="number">1</span></span><br><span class="line">  <span class="attr">selector:</span></span><br><span class="line">    <span class="attr">matchLabels:</span></span><br><span class="line">      <span class="attr">k8s-app:</span> <span class="string">kibana</span></span><br><span class="line">  <span class="attr">template:</span></span><br><span class="line">    <span class="attr">metadata:</span></span><br><span class="line">      <span class="attr">labels:</span></span><br><span class="line">        <span class="attr">k8s-app:</span> <span class="string">kibana</span></span><br><span class="line">    <span class="attr">spec:</span></span><br><span class="line">      <span class="attr">containers:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">kibana</span></span><br><span class="line">        <span class="attr">image:</span> <span class="string">docker.elastic.co/kibana/kibana:7.5.0</span></span><br><span class="line">        <span class="attr">resources:</span></span><br><span class="line">          <span class="attr">requests:</span></span><br><span class="line">            <span class="attr">memory:</span> <span class="string">512Mi</span></span><br><span class="line">            <span class="attr">cpu:</span> <span class="string">512m</span></span><br><span class="line">          <span class="attr">limits:</span></span><br><span class="line">            <span class="attr">memory:</span> <span class="string">512Mi</span></span><br><span class="line">            <span class="attr">cpu:</span> <span class="string">512m</span></span><br><span class="line">        <span class="attr">env:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">ELASTICSEARCH_HOSTS</span></span><br><span class="line">            <span class="attr">value:</span> <span class="string">http://elasticsearch-data-service:9200</span></span><br><span class="line">        <span class="attr">ports:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="attr">containerPort:</span> <span class="number">5601</span></span><br><span class="line">            <span class="attr">name:</span> <span class="string">http</span></span><br><span class="line">            <span class="attr">protocol:</span> <span class="string">TCP</span></span><br><span class="line">        <span class="attr">volumeMounts:</span></span><br><span class="line">          <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">config</span></span><br><span class="line">            <span class="attr">mountPath:</span> <span class="string">/usr/share/kibana/config/kibana.yml</span></span><br><span class="line">            <span class="attr">subPath:</span> <span class="string">kibana.yml</span></span><br><span class="line">      <span class="attr">volumes:</span></span><br><span class="line">      <span class="bullet">-</span> <span class="attr">name:</span> <span class="string">config</span></span><br><span class="line">        <span class="attr">configMap:</span></span><br><span class="line">          <span class="attr">name:</span> <span class="string">kibana-config</span></span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+
+
+<p>注意: k8s每次apply 如果对应的statefulset有改动都会重新生成一个新的container </p>
+<p>部署成功之后 </p>
+<ol>
+<li><p>进入一个容器里 执行</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">curl localhost:9200/_xpack/license  # 查看证书</span><br><span class="line">curl localhost:9200/_cat/nodes  # 查看集群的节点情况</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>导入证书</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 导入到docker 容器中</span></span><br><span class="line">docker cp ../richard-xing-5a2c6c4f-60bf-4471-8941-1d037364a2e3-v5.json 73c1a7be3e6e:/usr/share/elasticsearch/</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 导入证书</span></span><br><span class="line">curl -XPUT -u elastic &#x27;http://localhost:9200/_xpack/license&#x27; -H &quot;Content-Type: application/json&quot; -d @richard-xing-5a2c6c4f-60bf-4471-8941-1d037364a2e3-v5.json</span><br></pre></td></tr></table></figure>
+</li>
+<li></li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/09/06/docker-%E5%90%AF%E5%8A%A8elasticsearch/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/06/docker-%E5%90%AF%E5%8A%A8elasticsearch/" class="post-title-link" itemprop="url">docker-启动elasticsearch</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-05 16:18:58" itemprop="dateCreated datePublished" datetime="2020-09-05T16:18:58Z">2020-09-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-09-09 09:27:55" itemprop="dateModified" datetime="2020-09-09T09:27:55Z">2020-09-09</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>5.2k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>5 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="准备环境-Set-vm-max-map-count-to-at-least-262144"><a href="#准备环境-Set-vm-max-map-count-to-at-least-262144" class="headerlink" title="准备环境 Set vm.max_map_count to at least 262144"></a>准备环境 Set <code>vm.max_map_count</code> to at least <code>262144</code></h3><ul>
+<li><p>Linux</p>
+<p>The <code>vm.max_map_count</code> setting should be set permanently in <code>/etc/sysctl.conf</code>:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">grep vm.max_map_count /etc/sysctl.conf</span><br><span class="line">vm.max_map_count=262144</span><br></pre></td></tr></table></figure>
+
+<p>To apply the setting on a live system, run:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl -w vm.max_map_count=262144</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>macOS with <a target="_blank" rel="noopener" href="https://docs.docker.com/docker-for-mac">Docker for Mac</a></p>
+</li>
+</ul>
+<p>The <code>vm.max_map_count</code> setting must be set within the xhyve virtual machine:</p>
+<ol>
+<li><p>From the command line, run:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">screen ~/Library/Containers/com.docker.docker/Data/vms/0/tty</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>Press enter and use<code>sysctl</code> to configure <code>vm.max_map_count</code>:</p>
+<figure class="highlight sh"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">sysctl -w vm.max_map_count=262144</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>To exit the <code>screen</code> session, type <code>Ctrl a d</code>.</p>
+</li>
+</ol>
+<p>The <code>vm.max_map_count</code> kernel setting must be set to at least <code>262144</code> for production use.</p>
+<p>How you set <code>vm.max_map_count</code> depends on your platform:</p>
+<p>###docker启动elasticsearch</p>
+<ol>
+<li><p>pull the image</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker pull docker.elastic.co/elasticsearch/elasticsearch:7.9.1</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="2">
+<li>starting a single node cluster with docker</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -p 9200:9200 -p 9300:9300 -e &quot;discovery.type=single-node&quot; docker.elastic.co/elasticsearch/elasticsearch:7.9.1 </span><br></pre></td></tr></table></figure>
+
+
+
+
+
+<p>将自己打包好的支持密码认证、破解之后的es推送到</p>
+<ol>
+<li>打包镜像</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker commit -a &quot;richard&quot; -m &quot;es 破解&quot; c4823af7ee60 coco2019/elasticsearch-7.5.0:v1 </span><br></pre></td></tr></table></figure>
+
+<ol start="2">
+<li>docker push coco2019/elasticsearch-7.5.0:v1</li>
+</ol>
+<p><img src="/images/docker-%E5%90%AF%E5%8A%A8elasticsearch/image-20200905195257681.png" alt="image-20200905195257681"></p>
+<p><code>docker pull coco2019/elasticsearch-7.5.0:v1</code></p>
+<ol start="3">
+<li><p>执行docker 脚本运行elasticsearch 7.5.0</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">docker run -d \</span><br><span class="line"> --name elasticsearch \</span><br><span class="line"> -v /data/elasticsearch:/usr/share/elasticsearch/data \</span><br><span class="line"> -e &quot;discovery.type=single-node&quot; \</span><br><span class="line"> -e &quot;xpack.security.enabled=true&quot; \</span><br><span class="line"> -e &quot;TZ=Asia/Shanghai&quot; \</span><br><span class="line"> -p 9200:9200 \</span><br><span class="line"> coco2019/elasticsearch-7.5.0:v1</span><br></pre></td></tr></table></figure>
+
+<p>参数含义:</p>
+<ul>
+<li>-d ： 后台运行</li>
+<li>–name 指定容器名称  elasticsearch</li>
+<li>-v  docker容器中的/usr/share/elasticsearch/data 绑定宿主机的/data/elasticsearch</li>
+<li>-e  设置环境变量 指定运行时的参数</li>
+<li>-p 指定端口映射 容器内部端口映射到主机的端口</li>
+</ul>
+<p>启动之后 通过curl 验证</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">curl   http://elastic:cJQ98i4M0fPyaVkbw0WT@localhost:9200/</span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> &#123;</span></span><br><span class="line">  &quot;name&quot; : &quot;0d8e8ed10863&quot;,</span><br><span class="line">  &quot;cluster_name&quot; : &quot;docker-cluster&quot;,</span><br><span class="line">  &quot;cluster_uuid&quot; : &quot;SY3ncYUgQESnqiwCUDaX3g&quot;,</span><br><span class="line">  &quot;version&quot; : &#123;</span><br><span class="line">    &quot;number&quot; : &quot;7.5.0&quot;,</span><br><span class="line">    &quot;build_flavor&quot; : &quot;default&quot;,</span><br><span class="line">    &quot;build_type&quot; : &quot;docker&quot;,</span><br><span class="line">    &quot;build_hash&quot; : &quot;e9ccaed468e2fac2275a3761849cbee64b39519f&quot;,</span><br><span class="line">    &quot;build_date&quot; : &quot;2019-11-26T01:06:52.518245Z&quot;,</span><br><span class="line">    &quot;build_snapshot&quot; : false,</span><br><span class="line">    &quot;lucene_version&quot; : &quot;8.3.0&quot;,</span><br><span class="line">    &quot;minimum_wire_compatibility_version&quot; : &quot;6.8.0&quot;,</span><br><span class="line">    &quot;minimum_index_compatibility_version&quot; : &quot;6.0.0-beta1&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  &quot;tagline&quot; : &quot;You Know, for Search&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+
+
+</li>
+</ol>
+<h3 id="Starting-a-multi-node-cluster-with-Docker-Compose"><a href="#Starting-a-multi-node-cluster-with-Docker-Compose" class="headerlink" title="Starting a multi-node cluster with Docker Compose"></a>Starting a multi-node cluster with Docker Compose</h3><ol>
+<li><p>创建一个network</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network create --driver bridge --subnet=192.168.236.0/16 --gateway=192.168.1.1 mynet</span><br></pre></td></tr></table></figure>
+
+<p>查看网络信息</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br></pre></td><td class="code"><pre><span class="line">docker network inspect mynet</span><br><span class="line"></span><br><span class="line"><span class="meta">&gt;</span><span class="bash">[</span></span><br><span class="line">    &#123;</span><br><span class="line">        &quot;Name&quot;: &quot;mynet&quot;,</span><br><span class="line">        &quot;Id&quot;: &quot;daab682103e90baea3f6c07496819793e555306fd314f241a237a96a62a266aa&quot;,</span><br><span class="line">        &quot;Created&quot;: &quot;2020-09-07T13:02:16.715965648Z&quot;,</span><br><span class="line">        &quot;Scope&quot;: &quot;local&quot;,</span><br><span class="line">        &quot;Driver&quot;: &quot;bridge&quot;,</span><br><span class="line">        &quot;EnableIPv6&quot;: false,</span><br><span class="line">        &quot;IPAM&quot;: &#123;</span><br><span class="line">            &quot;Driver&quot;: &quot;default&quot;,</span><br><span class="line">            &quot;Options&quot;: &#123;&#125;,</span><br><span class="line">            &quot;Config&quot;: [</span><br><span class="line">                &#123;</span><br><span class="line">                    &quot;Subnet&quot;: &quot;192.168.0.0/16&quot;,</span><br><span class="line">                    &quot;Gateway&quot;: &quot;192.168.1.1&quot;</span><br><span class="line">                &#125;</span><br><span class="line">            ]</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;Internal&quot;: false,</span><br><span class="line">        &quot;Attachable&quot;: false,</span><br><span class="line">        &quot;Ingress&quot;: false,</span><br><span class="line">        &quot;ConfigFrom&quot;: &#123;</span><br><span class="line">            &quot;Network&quot;: &quot;&quot;</span><br><span class="line">        &#125;,</span><br><span class="line">        &quot;ConfigOnly&quot;: false,</span><br><span class="line">        &quot;Containers&quot;: &#123;&#125;,</span><br><span class="line">        &quot;Options&quot;: &#123;&#125;,</span><br><span class="line">        &quot;Labels&quot;: &#123;&#125;</span><br><span class="line">    &#125;</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
+
+<p>以后使用 –network=mynet –ip=192.168.1.x 指定ip </p>
+</li>
+<li><p>准备3个master节点</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br></pre></td><td class="code"><pre><span class="line">for port in $(seq 1 3);\</span><br><span class="line">do \</span><br><span class="line">mkdir -p /Users/mengfanxing_g/elk/mydata/elasticsearch/master-$&#123;port&#125;/config</span><br><span class="line">mkdir -p /Users/mengfanxing_g/elk/mydata/elasticsearch/master-$&#123;port&#125;/data</span><br><span class="line">chmod -R 777 /Users/mengfanxing_g/elk/mydata/elasticsearch/master-$&#123;port&#125;</span><br><span class="line">cat &lt;&lt; EOF &gt; /Users/mengfanxing_g/elk/mydata/elasticsearch/master-$&#123;port&#125;/config/elasticsearch.yml</span><br><span class="line">cluster.name: my-es # 集群的名称 同一个集群改值必须设置成相同的</span><br><span class="line">node.name: es-mater-$&#123;port&#125; #改节点的名字</span><br><span class="line">node.master: true #该节点有机会成为master节点</span><br><span class="line">node.data: false # 该节点可以存储数据</span><br><span class="line">network.host: 0.0.0.0</span><br><span class="line">http.host: 0.0.0.0 # 所有http均可访问</span><br><span class="line">http.port: 920$&#123;port&#125;</span><br><span class="line">transport.tcp.port: 930$&#123;port&#125;</span><br><span class="line"><span class="meta">#</span><span class="bash">discovery.zen.mininum_master_nodes:2 <span class="comment">#设置这个参数来保证集权中的节点可有知道其它N个有master资格的节点。官方推荐（N/2)+1</span></span></span><br><span class="line">discovery.zen.ping_timeout: 10s # 设置集群自动发现其它节点时 ping连接的超时时间</span><br><span class="line">discovery.seed_hosts: [&quot;192.168.1.1:9301&quot;,&quot;192.168.1.1:9302&quot;,&quot;192.168.1.1:9303&quot;] #设置集群中master节点的初始列表，可以通过这些节点来自动发现其它新加入集群节点，es7的新增配置</span><br><span class="line">cluster.initial_master_nodes: [&quot;192.168.1.1&quot;] #新集群初始时的候选主节点，es的新增配置</span><br><span class="line">EOF</span><br><span class="line"></span><br><span class="line">docker run --name elasticsearch-node-$&#123;port&#125;  \</span><br><span class="line">-p 920$&#123;port&#125;:920$&#123;port&#125; -p 930$&#123;port&#125;:930$&#123;port&#125; \</span><br><span class="line">--network=mynet --ip 192.168.236.$&#123;port&#125; \</span><br><span class="line">-e ES_JAVA_OPTS=&quot;-Xms300m -Xmx300m&quot; \</span><br><span class="line">-e &quot;xpack.security.enabled=false&quot; \</span><br><span class="line">-v /Users/mengfanxing_g/elk/mydata/elasticsearch/master-$&#123;port&#125;/config/elasticsearch.yml:/usr/share/elasticsearch/config/elasticsearch.yml \</span><br><span class="line">-v /Users/mengfanxing_g/elk/mydata/elasticsearch/master-$&#123;port&#125;/data:/usr/share/elasticsearch/data \</span><br><span class="line">-v /Users/mengfanxing_g/elk/mydata/elasticsearch/master-$&#123;port&#125;/plugins:/usr/share/elasticsearch/plugins \</span><br><span class="line">-d docker.elastic.co/elasticsearch/elasticsearch:7.5.0 </span><br><span class="line">done </span><br><span class="line"></span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/09/05/docker-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/05/docker-%E5%B8%B8%E7%94%A8%E5%91%BD%E4%BB%A4/" class="post-title-link" itemprop="url">docker-常用命令</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-09-05 15:39:44" itemprop="dateCreated datePublished" datetime="2020-09-05T15:39:44Z">2020-09-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-11-02 02:44:41" itemprop="dateModified" datetime="2020-11-02T02:44:41Z">2020-11-02</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>373</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <p>1.停用全部运行中的容器:<br><code>docker stop $(docker ps -q)</code></p>
+<p>2.删除全部容器：<br><code>docker rm $(docker ps -aq)</code></p>
+<p>3.一条命令实现停用并删除容器：<br><code>docker stop (docker ps -q) &amp; docker rm(docker ps -q) &amp; docker rm(docker ps -aq)</code></p>
+<p>4、删除所有镜像<br>docker rmi <code>docker images -q</code></p>
+<p>5、按条件删除镜像<br>// 没有打标签<br>docker rmi <code>docker images -q | awk &#39;/^&lt;none&gt;/ &#123; print $3 &#125;&#39;</code></p>
+<p>//　镜像名包含关键字<br>docker rmi –force <code>docker images | grep doss-api | awk &#39;&#123;print $3&#125;&#39;</code> //其中doss-api为关键字</p>
+
+      
+    </div>
+
+    
+    
+    
+      <footer class="post-footer">
+        <div class="post-eof"></div>
+      </footer>
+  </article>
+  
+  
+  
+
+      
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/09/04/mysql-%E5%B8%B8%E7%94%A8%E8%84%9A%E6%9C%AC/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h2 class="post-title" itemprop="name headline">
+          
+            <a href="/2020/09/04/mysql-%E5%B8%B8%E7%94%A8%E8%84%9A%E6%9C%AC/" class="post-title-link" itemprop="url">mysql-常用脚本</a>
+        </h2>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+              
+
+              <time title="创建时间：2020-09-03 20:23:35 / 修改时间：12:42:12" itemprop="dateCreated datePublished" datetime="2020-09-03T20:23:35Z">2020-09-03</time>
+            </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>536</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>1 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+          <h3 id="连接mysql-脚本"><a href="#连接mysql-脚本" class="headerlink" title="连接mysql 脚本"></a>连接mysql 脚本</h3><figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysql -h $ip -u$username -P$port-p$password $database</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="导出表结构及表数据"><a href="#导出表结构及表数据" class="headerlink" title="导出表结构及表数据"></a>导出表结构及表数据</h3><p>  1、导出數據库為dbname的表结构（其中用戶名為root,密码為dbpasswd,生成的脚本名為db.sql）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -h 192.168.1.100 -uroot --single-transaction -pdbpasswd -d dbname &gt;db.sql;</span><br></pre></td></tr></table></figure>
+
+<p>  2、导出數據库為dbname某张表(test)结构</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -h 192.168.1.100 -uroot --single-transaction -pdbpasswd -d dbname test&gt;db.sql;</span><br></pre></td></tr></table></figure>
+
+<p>  3、导出數據库為dbname所有表结构及表數據（不加-d）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -h 192.168.1.100 -uroot --single-transaction -pdbpasswd dbname &gt;db.sql;</span><br></pre></td></tr></table></figure>
+
+<p>  4、导出數據库為dbname某张表(test)结构及表數據（不加-d）</p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">mysqldump -h 192.168.1.100 -uroot --single-transaction -pdbpasswd dbname test&gt;db.sql;</span><br></pre></td></tr></table></figure>
 
 
       
@@ -1245,7 +1259,7 @@
 
   
   <nav class="pagination">
-    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/9/">9</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
+    <a class="extend prev" rel="prev" href="/page/4/"><i class="fa fa-angle-left" aria-label="上一页"></i></a><a class="page-number" href="/">1</a><span class="space">&hellip;</span><a class="page-number" href="/page/4/">4</a><span class="page-number current">5</span><a class="page-number" href="/page/6/">6</a><span class="space">&hellip;</span><a class="page-number" href="/page/10/">10</a><a class="extend next" rel="next" href="/page/6/"><i class="fa fa-angle-right" aria-label="下一页"></i></a>
   </nav>
 
 
@@ -1313,20 +1327,20 @@
       <div class="site-state-item site-state-posts">
           <a href="/archives/">
         
-          <span class="site-state-item-count">85</span>
+          <span class="site-state-item-count">97</span>
           <span class="site-state-item-name">日志</span>
         </a>
       </div>
       <div class="site-state-item site-state-categories">
             <a href="/categories/">
           
-        <span class="site-state-item-count">24</span>
+        <span class="site-state-item-count">25</span>
         <span class="site-state-item-name">分类</span></a>
       </div>
       <div class="site-state-item site-state-tags">
             <a href="/tags/">
           
-        <span class="site-state-item-count">31</span>
+        <span class="site-state-item-count">33</span>
         <span class="site-state-item-name">标签</span></a>
       </div>
   </nav>
@@ -1374,13 +1388,13 @@
       <i class="fa fa-chart-area"></i>
     </span>
       <span class="post-meta-item-text">站点总字数：</span>
-    <span title="站点总字数">186k</span>
+    <span title="站点总字数">225k</span>
     <span class="post-meta-divider">|</span>
     <span class="post-meta-item-icon">
       <i class="fa fa-coffee"></i>
     </span>
       <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
-    <span title="站点阅读时长">2:49</span>
+    <span title="站点阅读时长">3:24</span>
 </div>
   <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
   </div>
