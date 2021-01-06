@@ -1,0 +1,662 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"richard-xiong.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="Flink流处理APi Environment getExecutionEnvironment 创建一个执行环境，表示当前执行程序的上下文。 如果程序是独立调用的，则 此方法返回本地执行环境;如果从命令行客户端调用程序以提交到集群，则此方法 返回此集群的执行环境，也就是说，getExecutionEnvironment 会根据查询运行的方 式决定返回什么样的运行环境，是最常用的一种创建执行环境的方">
+<meta property="og:type" content="article">
+<meta property="og:title" content="flink学习笔记六：Flink流处理APi">
+<meta property="og:url" content="https://richard-xiong.github.io/2020/12/31/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/index.html">
+<meta property="og:site_name" content="XingServer">
+<meta property="og:description" content="Flink流处理APi Environment getExecutionEnvironment 创建一个执行环境，表示当前执行程序的上下文。 如果程序是独立调用的，则 此方法返回本地执行环境;如果从命令行客户端调用程序以提交到集群，则此方法 返回此集群的执行环境，也就是说，getExecutionEnvironment 会根据查询运行的方 式决定返回什么样的运行环境，是最常用的一种创建执行环境的方">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="https://richard-xiong.github.io/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/java6-1598922850.png">
+<meta property="og:image" content="https://richard-xiong.github.io/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/java5-1598922850.png">
+<meta property="og:image" content="https://richard-xiong.github.io/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/java0-1598922850.png">
+<meta property="og:image" content="https://richard-xiong.github.io/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/java5-1598922850-3-20201231162508066.png">
+<meta property="og:image" content="https://richard-xiong.github.io/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/java5-1598922851.png">
+<meta property="og:image" content="https://richard-xiong.github.io/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/java6-1598922851.png">
+<meta property="og:image" content="https://richard-xiong.github.io/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/java6-1598922851-1.png">
+<meta property="og:image" content="https://richard-xiong.github.io/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/java10-1598922850-1.png">
+<meta property="og:image" content="https://richard-xiong.github.io/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/java8-1598922850.png">
+<meta property="og:image" content="https://richard-xiong.github.io/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/image-20201231165542283.png">
+<meta property="og:image" content="https://richard-xiong.github.io/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/java9-1598922850-1-20201231165603345.png">
+<meta property="og:image" content="https://richard-xiong.github.io/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/java3-1598922850.png">
+<meta property="article:published_time" content="2020-12-30T16:04:19.000Z">
+<meta property="article:modified_time" content="2020-12-31T09:32:17.063Z">
+<meta property="article:author" content="Richard">
+<meta property="article:tag" content="golang java elasticsearch">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="https://richard-xiong.github.io/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/java6-1598922850.png">
+
+<link rel="canonical" href="https://richard-xiong.github.io/2020/12/31/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>flink学习笔记六：Flink流处理APi | XingServer</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="XingServer" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">XingServer</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">33</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">25</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">110</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2020/12/31/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          flink学习笔记六：Flink流处理APi
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2020-12-30 16:04:19" itemprop="dateCreated datePublished" datetime="2020-12-30T16:04:19Z">2020-12-30</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2020-12-31 09:32:17" itemprop="dateModified" datetime="2020-12-31T09:32:17Z">2020-12-31</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>2.7k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>2 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="Flink流处理APi"><a href="#Flink流处理APi" class="headerlink" title="Flink流处理APi"></a>Flink流处理APi</h3><ol>
+<li><h4 id="Environment"><a href="#Environment" class="headerlink" title="Environment"></a>Environment</h4><ol>
+<li><p><strong>getExecutionEnvironment</strong></p>
+<p>创建一个执行环境，表示当前执行程序的上下文。 如果程序是独立调用的，则 此方法返回本地执行环境;如果从命令行客户端调用程序以提交到集群，则此方法 返回此集群的执行环境，也就是说，getExecutionEnvironment 会根据查询运行的方 式决定返回什么样的运行环境，是最常用的一种创建执行环境的方式。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">val env: ExecutionEnvironment &#x3D; ExecutionEnvironment.getExecutionEnvironment</span><br><span class="line"></span><br><span class="line">val env &#x3D; StreamExecutionEnvironment.getExecutionEnvironment 如果没有设置并行度，会以 flink-conf.yaml 中的配置为准，默认是 1。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>createLocalEnvironment</strong></p>
+<p>返回本地执行环境，需要在调用时指定默认的并行度。</p>
+<p>val env = StreamExecutionEnvironment.createLocalEnvironment(1)</p>
+</li>
+<li><p><strong>createRemoteEnvironment</strong></p>
+<p>返回集群执行环境，将 Jar 提交到远程服务器。需要在调用时指定 JobManager</p>
+<p>的 IP 和端口号，并指定要在集群中运行的 Jar 包。</p>
+<p>val env = ExecutionEnvironment.createRemoteEnvironment(“jobmanage-hostname”, 6123,”YOURPATH//wordcount.jar”)</p>
+</li>
+</ol>
+</li>
+<li><h4 id="source"><a href="#source" class="headerlink" title="source"></a>source</h4><ol>
+<li>从集合读取数据</li>
+<li>从文件读取数据</li>
+<li>以 <strong>kafka</strong> 消息队列的数据作为来源</li>
+<li>自定义 Source</li>
+</ol>
+</li>
+<li><h4 id="Transform-转换算子"><a href="#Transform-转换算子" class="headerlink" title="Transform  转换算子"></a><strong>Transform</strong>  转换算子</h4><p>在Spark中，算子分为转换算子和行动算子，转换算子的作用可以通过算子方法的调用将一个RDD转换另外一个RDD，Flink中也存在同样的操作，可以将一个数据流转换为其他的数据流。</p>
+<p><strong>转换过程中，数据流的类型也会发生变化，那么到底Flink支持什么样的数据类型呢，其实我们常用的数据类型，Flink都是支持的。比如：Long, String, Integer, Int, 元组，样例类，List, Map等。</strong></p>
+<ol>
+<li><h5 id="map"><a href="#map" class="headerlink" title="map"></a>map</h5><ol>
+<li>映射：将数据流中的数据进行转换, 形成新的数据流，消费一个元素并产出一个元素</li>
+<li>参数：Scala匿名函数或MapFunction</li>
+<li>返回：DataStream</li>
+</ol>
+</li>
+<li><h5 id="flatMap"><a href="#flatMap" class="headerlink" title="flatMap"></a>flatMap</h5><ol>
+<li><p>扁平映射：将数据流中的整体拆分成一个一个的个体使用，消费一个元素并产生零到多个元素</p>
+</li>
+<li><p>参数：Scala匿名函数或FlatMapFunction</p>
+</li>
+<li><p>返回：DataStream</p>
+<p><img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/java6-1598922850.png" alt="Flink从入门到入土"></p>
+</li>
+</ol>
+</li>
+<li><h5 id="Filter"><a href="#Filter" class="headerlink" title="Filter"></a>Filter</h5><ol>
+<li>过滤：根据指定的规则将满足条件（true）的数据保留，不满足条件(false)的数据丢弃</li>
+<li>参数：Scala匿名函数或FilterFunction</li>
+<li>返回：DataStream</li>
+</ol>
+</li>
+<li><h5 id="KeyBy"><a href="#KeyBy" class="headerlink" title="KeyBy"></a>KeyBy</h5><p>​    在Spark中有一个GroupBy的算子，用于根据指定的规则将数据进行分组，在flink中也有类似的功能，那就是keyBy，根据指定的key对数据进行分流</p>
+<ol>
+<li>分流：根据指定的Key将元素发送到不同的分区，相同的Key会被分到一个分区（这里分区指的就是下游算子多个并行节点的其中一个）。keyBy()是通过哈希来分区的</li>
+</ol>
+<p><img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/java5-1598922850.png" alt="Flink从入门到入土"></p>
+<ol start="2">
+<li><p>参数：Scala匿名函数或POJO属性或元组索引，不能使用数组</p>
+</li>
+<li><p>返回：KeyedStream</p>
+<img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/java0-1598922850.png" alt="Flink从入门到入土"  />
+</li>
+</ol>
+</li>
+<li><h5 id="滚动聚合算子Rolling-Aggregation"><a href="#滚动聚合算子Rolling-Aggregation" class="headerlink" title="滚动聚合算子Rolling Aggregation"></a>滚动聚合算子Rolling Aggregation</h5><ol>
+<li><p>这些算子可以针对KeyedStream的每一个支流做聚合。执行完成后，会将聚合的结果合成一个流返回，所以结果都是DataStream</p>
+<p>sum()</p>
+<p><img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/java5-1598922850-3-20201231162508066.png" alt="Flink从入门到入土"></p>
+<p>min()</p>
+<p><img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/java5-1598922851.png" alt="Flink从入门到入土"></p>
+<p>max()</p>
+<p><img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/java6-1598922851.png" alt="Flink从入门到入土"></p>
+</li>
+<li><h5 id="reduce"><a href="#reduce" class="headerlink" title="reduce"></a>reduce</h5><ol>
+<li><p>一个分组数据流的聚合操作，合并当前的元素和上次聚合的结果，产生一个新的值，返回的流中包含每一次聚合的结果，而不是只返回最后一次聚合的最终结果。</p>
+<p><img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/java6-1598922851-1.png" alt="Flink从入门到入土">    </p>
+</li>
+</ol>
+</li>
+<li><h5 id="Split-和Select"><a href="#Split-和Select" class="headerlink" title="Split 和Select"></a>Split 和Select</h5><ol>
+<li><p>在某些情况下，我们需要将数据流根据某些特征拆分成两个或者多个数据流，给不同数据流增加标记以便于从流中取出。</p>
+<p><img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/java10-1598922850-1.png" alt="Flink从入门到入土"></p>
+</li>
+<li><p>将数据流进行切分后，如何从流中将不同的标记取出呢，这时就需要使用select算子了。</p>
+<p><img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/java8-1598922850.png" alt="Flink从入门到入土"></p>
+</li>
+</ol>
+</li>
+<li><h5 id="Connect和CoMap"><a href="#Connect和CoMap" class="headerlink" title="Connect和CoMap"></a>Connect和CoMap</h5><ol>
+<li><p><strong>DataStream,DataStream</strong> → <strong>ConnectedStreams</strong>:连接两个保持他们类型的数</p>
+<p>据流，两个数据流被 Connect 之后，只是被放在了一个同一个流中，内部依然保持 各自的数据和形式不发生任何变化，两个流相互独立。</p>
+<p><img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/image-20201231165542283.png" alt="image-20201231165542283"></p>
+</li>
+<li><p>在某些情况下，我们需要将两个不同来源的数据流进行连接，实现数据匹配，比如订单支付和第三方交易信息，这两个信息的数据就来自于不同数据源，连接后，将订单支付和第三方交易信息进行对账，此时，才能算真正的支付完成。</p>
+<p>Flink中的connect算子可以连接两个保持他们类型的数据流，两个数据流被Connect之后，只是被放在了一个同一个流中，内部依然保持各自的数据和形式不发生任何变化，两个流相互独立。</p>
+<p>​    <img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/java9-1598922850-1-20201231165603345.png" alt="Flink从入门到入土"></p>
+</li>
+</ol>
+</li>
+<li><h5 id="union"><a href="#union" class="headerlink" title="union"></a>union</h5><ol>
+<li><p>对两个或者两个以上的DataStream进行union操作，产生一个包含所有DataStream元素的新DataStream</p>
+<p><img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/java3-1598922850.png" alt="Flink从入门到入土"></p>
+</li>
+<li><p>connect与 union 区别：</p>
+<ol>
+<li>union之前两个流的类型必须是一样，connect可以不一样</li>
+<li>connect只能操作两个流，union可以操作多个。</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><h4 id="实现-UDF-函数——更细粒度的控制流"><a href="#实现-UDF-函数——更细粒度的控制流" class="headerlink" title="实现 UDF 函数——更细粒度的控制流"></a>实现 UDF 函数——更细粒度的控制流</h4><ol>
+<li><p>函数类(<strong>Function Classes</strong>)Flink 暴露了所有 udf 函数的接口(实现方式为接口或者抽象类)。例如 MapFunction, FilterFunction, ProcessFunction 等等。</p>
+</li>
+<li><p>匿名函数(<strong>Lambda Functions</strong>)</p>
+</li>
+<li><p>富函数(<strong>Rich Functions</strong>)</p>
+<p>“富函数”是 DataStream API 提供的一个函数类的接口，所有 Flink 函数类都 有其 Rich 版本。它与常规函数的不同在于，可以获取运行环境的上下文，并拥有一 些生命周期方法，所以可以实现更复杂的功能。</p>
+<ul>
+<li>RichMapFunction</li>
+<li>RichFlatMapFunction</li>
+<li>RichFilterFunction</li>
+<li>…​</li>
+<li>Rich Function 有一个生命周期的概念。典型的生命周期方法有:<ul>
+<li>open()方法是 rich function 的初始化方法，当一个算子例如 map 或者 filter被调用之前 open()会被调用。</li>
+<li>close()方法是生命周期中的最后一个调用的方法，做一些清理工作。</li>
+<li>getRuntimeContext()方法提供了函数的 RuntimeContext 的一些信息，例如函</li>
+</ul>
+</li>
+</ul>
+<p>数执行的并行度，任务的名字，以及 state 状态</p>
+</li>
+</ol>
+</li>
+</ol>
+
+    </div>
+
+    
+    
+    
+      
+
+        <div class="reward-container">
+  <div>Donate comment here.</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.jpeg" alt="Richard 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpeg" alt="Richard 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/29/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%94%EF%BC%9A%E8%BF%90%E8%A1%8C%E6%97%B6%E6%9E%B6%E6%9E%84/" rel="prev" title="flink学习笔记五：运行时架构">
+      <i class="fa fa-chevron-left"></i> flink学习笔记五：运行时架构
+    </a></div>
+      <div class="post-nav-item">
+    <a href="/2021/01/06/mac-init/" rel="next" title="mac init">
+      mac init <i class="fa fa-chevron-right"></i>
+    </a></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#Flink%E6%B5%81%E5%A4%84%E7%90%86APi"><span class="nav-number">1.</span> <span class="nav-text">Flink流处理APi</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#Environment"><span class="nav-number">1.1.</span> <span class="nav-text">Environment</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#source"><span class="nav-number">1.2.</span> <span class="nav-text">source</span></a></li><li class="nav-item nav-level-4"><a class="nav-link" href="#Transform-%E8%BD%AC%E6%8D%A2%E7%AE%97%E5%AD%90"><span class="nav-number">1.3.</span> <span class="nav-text">Transform  转换算子</span></a><ol class="nav-child"><li class="nav-item nav-level-5"><a class="nav-link" href="#map"><span class="nav-number">1.3.1.</span> <span class="nav-text">map</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#flatMap"><span class="nav-number">1.3.2.</span> <span class="nav-text">flatMap</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Filter"><span class="nav-number">1.3.3.</span> <span class="nav-text">Filter</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#KeyBy"><span class="nav-number">1.3.4.</span> <span class="nav-text">KeyBy</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#%E6%BB%9A%E5%8A%A8%E8%81%9A%E5%90%88%E7%AE%97%E5%AD%90Rolling-Aggregation"><span class="nav-number">1.3.5.</span> <span class="nav-text">滚动聚合算子Rolling Aggregation</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#reduce"><span class="nav-number">1.3.6.</span> <span class="nav-text">reduce</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Split-%E5%92%8CSelect"><span class="nav-number">1.3.7.</span> <span class="nav-text">Split 和Select</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#Connect%E5%92%8CCoMap"><span class="nav-number">1.3.8.</span> <span class="nav-text">Connect和CoMap</span></a></li><li class="nav-item nav-level-5"><a class="nav-link" href="#union"><span class="nav-number">1.3.9.</span> <span class="nav-text">union</span></a></li></ol></li><li class="nav-item nav-level-4"><a class="nav-link" href="#%E5%AE%9E%E7%8E%B0-UDF-%E5%87%BD%E6%95%B0%E2%80%94%E2%80%94%E6%9B%B4%E7%BB%86%E7%B2%92%E5%BA%A6%E7%9A%84%E6%8E%A7%E5%88%B6%E6%B5%81"><span class="nav-number">1.4.</span> <span class="nav-text">实现 UDF 函数——更细粒度的控制流</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Richard"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Richard</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/RomanSeven7" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;RomanSeven7" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:nizhidaoiedeyisima@gmail.com" title="E-Mail → mailto:nizhidaoiedeyisima@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/p/1005056204086487" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;p&#x2F;1005056204086487" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Richard</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">264k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">4:01</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>

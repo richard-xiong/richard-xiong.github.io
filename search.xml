@@ -544,60 +544,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>Go-kit 学习笔记-四</title>
-    <url>/2020/09/01/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%9B%9B/</url>
-    <content><![CDATA[<h3 id="通过httpmethod-执行不同的服务方法"><a href="#通过httpmethod-执行不同的服务方法" class="headerlink" title="通过httpmethod 执行不同的服务方法"></a>通过httpmethod 执行不同的服务方法</h3><ol>
-<li><p>将获取到的method 保存到request 中</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">DecodeUserRequest</span><span class="params">(c context.Context, r *http.Request)</span> <span class="params">(<span class="keyword">interface</span>&#123;&#125;, error)</span></span> &#123;</span><br><span class="line">    <span class="comment">// 这个主要是判断参数是怎么来的,代码可以写成</span></span><br><span class="line"></span><br><span class="line">    vars:=mux.Vars(r)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>  uid,ok:=vars[<span class="string">&quot;uid&quot;</span>];ok&#123;</span><br><span class="line">        uid, _ := strconv.Atoi(uid)</span><br><span class="line">        <span class="keyword">return</span> UserRequest&#123;Uid: uid,Method: r.Method&#125;, <span class="literal">nil</span>  <span class="comment">// 通过r.method 获取</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span>,errors.New(<span class="string">&quot;参数错误&quot;</span>)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在service中实现相应的方法</p>
-<ol>
-<li><p>​    添加删除的接口</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> IUserService <span class="keyword">interface</span> &#123;</span><br><span class="line">    GetName(userId <span class="keyword">int</span>) <span class="keyword">string</span></span><br><span class="line">    DeleteName(userId <span class="keyword">int</span>) error <span class="comment">// 新增删除接口 返回错误信息</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>实现删除的接口 (这里101标识是管理员用户)</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this UserService)</span> <span class="title">DeleteName</span><span class="params">(userId <span class="keyword">int</span>)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> userId == <span class="number">101</span> &#123; </span><br><span class="line">        <span class="keyword">return</span> errors.New(<span class="string">&quot;无权限&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>根据method 执行不同的方法 调用service中声明好的方法</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 因为这个IUserService 可能有多个版本的实现 所以这里使 用接口</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">GenUserEndpoint</span><span class="params">(userService IUserService)</span> <span class="title">endpoint</span>.<span class="title">Endpoint</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(ctx context.Context, request <span class="keyword">interface</span>&#123;&#125;)</span> <span class="params">(response <span class="keyword">interface</span>&#123;&#125;, err error)</span></span> &#123;</span><br><span class="line">        r := request.(UserRequest)</span><br><span class="line">        <span class="keyword">var</span> result <span class="keyword">string</span></span><br><span class="line">        <span class="keyword">if</span> r.Method == <span class="string">&quot;GET&quot;</span> &#123;  <span class="comment">// 判断不同的method</span></span><br><span class="line">            result = userService.GetName(r.Uid)</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> r.Method == <span class="string">&quot;DELETE&quot;</span> &#123;</span><br><span class="line">            err := userService.DeleteName(r.Uid)</span><br><span class="line">            <span class="keyword">if</span> err != <span class="literal">nil</span> &#123; <span class="comment">// 代表没有权限</span></span><br><span class="line">                result = err.Error()</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                result = fmt.Sprintf(<span class="string">&quot;用户%d删除成功&quot;</span>, r.Uid)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> UserResponse&#123;Result: result&#125;, <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>在路由中支持 <code>GET</code> <code>DELETE</code> 方法</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">r:=myMux.NewRouter()</span><br><span class="line">&#123;</span><br><span class="line">    r.Methods(<span class="string">&quot;GET&quot;</span>,<span class="string">&quot;DELETE&quot;</span>).Path(<span class="string">&quot;/user/&#123;uid:[0-9]+&#125;&quot;</span>).Handler(serverHandler)</span><br><span class="line">&#125;</span><br><span class="line">    <span class="comment">// 因为serverHandler 已经实现了handler 接口 所以http.ListenAndServe 可以直接调用</span></span><br><span class="line">_ = http.ListenAndServe(<span class="string">&quot;:8080&quot;</span>, r)</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ol>
-</li>
-</ol>
-<h3 id="验证结果"><a href="#验证结果" class="headerlink" title="验证结果"></a>验证结果</h3><ol>
-<li><p>GET 获取管理员用户</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl --request GET \</span><br><span class="line">  --url http://localhost:8080/user/101</span><br><span class="line"> </span><br><span class="line"><span class="meta">&gt;</span></span><br><span class="line">&#123;</span><br><span class="line">  &quot;result&quot;: &quot;richard&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>GET 获取普通用户</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl --request GET \</span><br><span class="line">  --url http://localhost:8080/user/102</span><br><span class="line"> </span><br><span class="line"><span class="meta">&gt;</span></span><br><span class="line">&#123;</span><br><span class="line">  &quot;result&quot;: &quot;guest&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>删除普通用户</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl --request DELETE \</span><br><span class="line">  --url http://localhost:8080/user/102</span><br><span class="line"> </span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> </span></span><br><span class="line">&#123;</span><br><span class="line">  &quot;result&quot;: &quot;用户102删除成功&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>删除管理员用户</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl --request DELETE \</span><br><span class="line">  --url http://localhost:8080/user/101</span><br><span class="line">  </span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> </span></span><br><span class="line">&#123;</span><br><span class="line">  &quot;result&quot;: &quot;无权限&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ol>
-<ol start="5">
-<li><p>其他http method 请求</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl --request POST \</span><br><span class="line">  --url http://localhost:8080/user/101</span><br><span class="line">  </span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> </span></span><br><span class="line">405 Method Not Allowed</span><br></pre></td></tr></table></figure>
-
-
-
-</li>
-</ol>
-]]></content>
-  </entry>
-  <entry>
     <title>Go-kit 学习笔记五-服务注册与发现</title>
     <url>/2020/09/15/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%94-%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0/</url>
     <content><![CDATA[<h3 id="服务注册与发现"><a href="#服务注册与发现" class="headerlink" title="服务注册与发现"></a>服务注册与发现</h3><p><img src="/images/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%9B%9B-%E6%9C%8D%E5%8A%A1%E6%B3%A8%E5%86%8C%E4%B8%8E%E5%8F%91%E7%8E%B0/image-20200914235250075.png" alt="image-20200914235250075"></p>
@@ -657,6 +603,60 @@
 <p>这时再去查看服务列表就会发现变成空了</p>
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"> curl http://localhost:8500/v1/agent/services</span><br><span class="line">&#123;&#125;%</span><br></pre></td></tr></table></figure>
 
+]]></content>
+  </entry>
+  <entry>
+    <title>Go-kit 学习笔记-四</title>
+    <url>/2020/09/01/Go-kit-%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-%E5%9B%9B/</url>
+    <content><![CDATA[<h3 id="通过httpmethod-执行不同的服务方法"><a href="#通过httpmethod-执行不同的服务方法" class="headerlink" title="通过httpmethod 执行不同的服务方法"></a>通过httpmethod 执行不同的服务方法</h3><ol>
+<li><p>将获取到的method 保存到request 中</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">DecodeUserRequest</span><span class="params">(c context.Context, r *http.Request)</span> <span class="params">(<span class="keyword">interface</span>&#123;&#125;, error)</span></span> &#123;</span><br><span class="line">    <span class="comment">// 这个主要是判断参数是怎么来的,代码可以写成</span></span><br><span class="line"></span><br><span class="line">    vars:=mux.Vars(r)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">if</span>  uid,ok:=vars[<span class="string">&quot;uid&quot;</span>];ok&#123;</span><br><span class="line">        uid, _ := strconv.Atoi(uid)</span><br><span class="line">        <span class="keyword">return</span> UserRequest&#123;Uid: uid,Method: r.Method&#125;, <span class="literal">nil</span>  <span class="comment">// 通过r.method 获取</span></span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span>,errors.New(<span class="string">&quot;参数错误&quot;</span>)</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在service中实现相应的方法</p>
+<ol>
+<li><p>​    添加删除的接口</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> IUserService <span class="keyword">interface</span> &#123;</span><br><span class="line">    GetName(userId <span class="keyword">int</span>) <span class="keyword">string</span></span><br><span class="line">    DeleteName(userId <span class="keyword">int</span>) error <span class="comment">// 新增删除接口 返回错误信息</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>实现删除的接口 (这里101标识是管理员用户)</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(this UserService)</span> <span class="title">DeleteName</span><span class="params">(userId <span class="keyword">int</span>)</span> <span class="title">error</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> userId == <span class="number">101</span> &#123; </span><br><span class="line">        <span class="keyword">return</span> errors.New(<span class="string">&quot;无权限&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span> <span class="literal">nil</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>根据method 执行不同的方法 调用service中声明好的方法</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="comment">// 因为这个IUserService 可能有多个版本的实现 所以这里使 用接口</span></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">GenUserEndpoint</span><span class="params">(userService IUserService)</span> <span class="title">endpoint</span>.<span class="title">Endpoint</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="function"><span class="keyword">func</span><span class="params">(ctx context.Context, request <span class="keyword">interface</span>&#123;&#125;)</span> <span class="params">(response <span class="keyword">interface</span>&#123;&#125;, err error)</span></span> &#123;</span><br><span class="line">        r := request.(UserRequest)</span><br><span class="line">        <span class="keyword">var</span> result <span class="keyword">string</span></span><br><span class="line">        <span class="keyword">if</span> r.Method == <span class="string">&quot;GET&quot;</span> &#123;  <span class="comment">// 判断不同的method</span></span><br><span class="line">            result = userService.GetName(r.Uid)</span><br><span class="line">        &#125; <span class="keyword">else</span> <span class="keyword">if</span> r.Method == <span class="string">&quot;DELETE&quot;</span> &#123;</span><br><span class="line">            err := userService.DeleteName(r.Uid)</span><br><span class="line">            <span class="keyword">if</span> err != <span class="literal">nil</span> &#123; <span class="comment">// 代表没有权限</span></span><br><span class="line">                result = err.Error()</span><br><span class="line">            &#125; <span class="keyword">else</span> &#123;</span><br><span class="line">                result = fmt.Sprintf(<span class="string">&quot;用户%d删除成功&quot;</span>, r.Uid)</span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="keyword">return</span> UserResponse&#123;Result: result&#125;, <span class="literal">nil</span></span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>在路由中支持 <code>GET</code> <code>DELETE</code> 方法</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">r:=myMux.NewRouter()</span><br><span class="line">&#123;</span><br><span class="line">    r.Methods(<span class="string">&quot;GET&quot;</span>,<span class="string">&quot;DELETE&quot;</span>).Path(<span class="string">&quot;/user/&#123;uid:[0-9]+&#125;&quot;</span>).Handler(serverHandler)</span><br><span class="line">&#125;</span><br><span class="line">    <span class="comment">// 因为serverHandler 已经实现了handler 接口 所以http.ListenAndServe 可以直接调用</span></span><br><span class="line">_ = http.ListenAndServe(<span class="string">&quot;:8080&quot;</span>, r)</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="验证结果"><a href="#验证结果" class="headerlink" title="验证结果"></a>验证结果</h3><ol>
+<li><p>GET 获取管理员用户</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl --request GET \</span><br><span class="line">  --url http://localhost:8080/user/101</span><br><span class="line"> </span><br><span class="line"><span class="meta">&gt;</span></span><br><span class="line">&#123;</span><br><span class="line">  &quot;result&quot;: &quot;richard&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>GET 获取普通用户</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl --request GET \</span><br><span class="line">  --url http://localhost:8080/user/102</span><br><span class="line"> </span><br><span class="line"><span class="meta">&gt;</span></span><br><span class="line">&#123;</span><br><span class="line">  &quot;result&quot;: &quot;guest&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除普通用户</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl --request DELETE \</span><br><span class="line">  --url http://localhost:8080/user/102</span><br><span class="line"> </span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> </span></span><br><span class="line">&#123;</span><br><span class="line">  &quot;result&quot;: &quot;用户102删除成功&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>删除管理员用户</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl --request DELETE \</span><br><span class="line">  --url http://localhost:8080/user/101</span><br><span class="line">  </span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> </span></span><br><span class="line">&#123;</span><br><span class="line">  &quot;result&quot;: &quot;无权限&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="5">
+<li><p>其他http method 请求</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl --request POST \</span><br><span class="line">  --url http://localhost:8080/user/101</span><br><span class="line">  </span><br><span class="line"><span class="meta">&gt;</span><span class="bash"> </span></span><br><span class="line">405 Method Not Allowed</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
 ]]></content>
   </entry>
   <entry>
@@ -814,38 +814,6 @@
       </tags>
   </entry>
   <entry>
-    <title>Go 语言学习笔记 Gin框架(二)</title>
-    <url>/2020/08/06/Go-%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Gin%E6%A1%86%E6%9E%B6-%E4%BA%8C/</url>
-    <content><![CDATA[<h1 id="使用viper读取配置文件"><a href="#使用viper读取配置文件" class="headerlink" title="使用viper读取配置文件"></a>使用viper读取配置文件</h1><p>应用系统的配置信息，一般分为两种，一是经常变化的配置则保存到数据库，另外一种则是不常变化的则以配置文件的形式保存。一般而言，应用系统至少有三组运行环境：开发环境、测试环境、生产环境</p>
-<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h2 id="青铜时代"><a href="#青铜时代" class="headerlink" title="青铜时代"></a>青铜时代</h2><p>一开始的时候，我针对每个环境配置各自的yaml，在启动的时候根据环境变量读取相应的配置文件，处理代码如下：</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">initConfig</span><span class="params">()</span> <span class="params">(err error)</span></span> &#123;</span><br><span class="line">    env := os.Getenv(<span class="string">&quot;GO_ENV&quot;</span>)</span><br><span class="line">    viper.SetConfigName(env)</span><br><span class="line">    viper.AddConfigPath(<span class="string">&quot;./configs&quot;</span>)</span><br><span class="line">    viper.SetConfigType(<span class="string">&quot;yml&quot;</span>)</span><br><span class="line">    err = viper.ReadInConfig()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    err := initConfig()</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="built_in">panic</span>(err)</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Println(viper.GetString(<span class="string">&quot;db.uri&quot;</span>))</span><br><span class="line">    fmt.Println(viper.GetString(<span class="string">&quot;db.poolSize&quot;</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>不同环境的配置文件如下：</p>
-<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># test</span></span><br><span class="line"><span class="attr">app:</span> <span class="string">viper-test</span></span><br><span class="line"><span class="attr">db:</span></span><br><span class="line">  <span class="attr">uri:</span> <span class="string">postgres://tree:mypwd@127.0.0.1:5432/viper-test?connect_timeout=5&amp;sslmode=disable</span></span><br><span class="line">  <span class="attr">poolSize:</span> <span class="number">100</span></span><br><span class="line"><span class="comment"># production</span></span><br><span class="line"><span class="attr">app:</span> <span class="string">viper-test</span></span><br><span class="line"><span class="attr">db:</span></span><br><span class="line">  <span class="attr">uri:</span> <span class="string">postgres://tree:mypwd@10.1.1.1:5432/viper?connect_timeout=5&amp;sslmode=disable</span></span><br><span class="line">  <span class="attr">poolSize:</span> <span class="number">100</span></span><br></pre></td></tr></table></figure>
-
-<p>由上面的代码可以看出，因为viper读取的配置只有一份，因此需要在每个配置中将所有的配置都一一填写，而不同环境的配置绝大部分都是相同的，只有小部分是不一致。一开始只有不到10个配置项的时候还好维护，后面配置信息越来越多，几十个的时候就是一个深坑了，看到眼都花了，太难管理。</p>
-<h2 id="白银时代"><a href="#白银时代" class="headerlink" title="白银时代"></a>白银时代</h2><p>各运行环境中的配置90%左右是相同，而剩下的10%才是各环境的差异配置，是否可以将相同的配置以默认值的形式保存，而各环境与默认值不相同的再覆盖呢？查看了一下文档，发现了 <code>viper.SetDefault</code> 的函数，一开始是直接在代码一行行的把默认配置写上，但是这样无法利用yaml的便利，在研究了相关的代码之后，最后调整为如下的处理形式，代码如下：</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">initConfig</span><span class="params">()</span> <span class="params">(err error)</span></span> &#123;</span><br><span class="line">    configType := <span class="string">&quot;yml&quot;</span></span><br><span class="line">    defaultPath := <span class="string">&quot;./configs&quot;</span></span><br><span class="line">    v := viper.New()</span><br><span class="line">    <span class="comment">// 从default中读取默认的配置</span></span><br><span class="line">    v.SetConfigName(<span class="string">&quot;default&quot;</span>)</span><br><span class="line">    v.AddConfigPath(defaultPath)</span><br><span class="line">    v.SetConfigType(configType)</span><br><span class="line">    err = v.ReadInConfig()</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    configs := v.AllSettings()</span><br><span class="line">    <span class="comment">// 将default中的配置全部以默认配置写入</span></span><br><span class="line">    <span class="keyword">for</span> k, v := <span class="keyword">range</span> configs &#123;</span><br><span class="line">        viper.SetDefault(k, v)</span><br><span class="line">    &#125;</span><br><span class="line">    env := os.Getenv(<span class="string">&quot;GO_ENV&quot;</span>)</span><br><span class="line">    <span class="comment">// 根据配置的env读取相应的配置信息</span></span><br><span class="line">    <span class="keyword">if</span> env != <span class="string">&quot;&quot;</span> &#123;</span><br><span class="line">        viper.SetConfigName(env)</span><br><span class="line">        viper.AddConfigPath(defaultPath)</span><br><span class="line">        viper.SetConfigType(configType)</span><br><span class="line">        err = viper.ReadInConfig()</span><br><span class="line">        <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>此函数将 <code>default.yml</code> 的所有配置读取至一个新的viper实例中，再以 <code>SetDefault</code> 将所有配置写入为默认配置，而各环境配置文件只需要配置差异部分，配置如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># default</span><br><span class="line">app: viper-test</span><br><span class="line">db:</span><br><span class="line">  uri: postgres:&#x2F;&#x2F;tree:mypwd@127.0.0.1:5432&#x2F;viper-test?connect_timeout&#x3D;5&amp;sslmode&#x3D;disable</span><br><span class="line">  poolSize: 100</span><br><span class="line"># test与default完全一致，为空文件</span><br><span class="line"># production只是数据库连接串不一致，只需要配置此项</span><br><span class="line">db:</span><br><span class="line">  uri: postgres:&#x2F;&#x2F;tree:mypwd@10.1.1.1:5432&#x2F;viper?connect_timeout&#x3D;5&amp;sslmode&#x3D;disable</span><br></pre></td></tr></table></figure>
-
-<p>通过此调整，不再需要重复的维护相同的配置项，而且也能直观的看出各运行环境的配置差异，减少配置信息的出错概率。</p>
-<hr>
-<h2 id="王者时代"><a href="#王者时代" class="headerlink" title="王者时代"></a>王者时代</h2><p>因为主要是后端程序应用，程序交付一般都是通过docker镜像的形式，配置文件与编译后的应用程序一起打包至镜像中，在多个项目中也使用得挺顺畅。最近有一个项目非运行在docker环境下，因此希望能将配置文件一起打包至应用程序的方式，在了解了几个相关的项目，最终选择了使用 <a href="https://www.jishuwen.com/jump/aHR0cHM6Ly9naXRodWIuY29tL2dvYnVmZmFsby9wYWNrcg==">packr</a> 来将配置文件打包，调整之后的代码如下：</p>
-<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func initConfig() (err error) &#123;</span><br><span class="line">    box :&#x3D; packr.NewBox(&quot;.&#x2F;configs&quot;)</span><br><span class="line">    configType :&#x3D; &quot;yml&quot;</span><br><span class="line">    defaultConfig :&#x3D; box.Bytes(&quot;default.yml&quot;)</span><br><span class="line">    v :&#x3D; viper.New()</span><br><span class="line">    v.SetConfigType(configType)</span><br><span class="line">    err &#x3D; v.ReadConfig(bytes.NewReader(defaultConfig))</span><br><span class="line">    if err !&#x3D; nil &#123;</span><br><span class="line">        return</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    configs :&#x3D; v.AllSettings()</span><br><span class="line">    &#x2F;&#x2F; 将default中的配置全部以默认配置写入</span><br><span class="line">    for k, v :&#x3D; range configs &#123;</span><br><span class="line">        viper.SetDefault(k, v)</span><br><span class="line">    &#125;</span><br><span class="line">    env :&#x3D; os.Getenv(&quot;GO_ENV&quot;)</span><br><span class="line">    &#x2F;&#x2F; 根据配置的env读取相应的配置信息</span><br><span class="line">    if env !&#x3D; &quot;&quot; &#123;</span><br><span class="line">        envConfig :&#x3D; box.Bytes(env + &quot;.yml&quot;)</span><br><span class="line"></span><br><span class="line">        viper.SetConfigType(configType)</span><br><span class="line">        err &#x3D; viper.ReadConfig(bytes.NewReader(envConfig))</span><br><span class="line">        if err !&#x3D; nil &#123;</span><br><span class="line">            return</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>调整之后，配置文件也编译至程序中，后续可以单执行文件交付，只通过在启动时指定 <code>GO_ENV</code> 则可。</p>
-]]></content>
-      <categories>
-        <category>go</category>
-        <category>gin</category>
-      </categories>
-      <tags>
-        <tag>viper</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>Go 语言学习笔记 Gin框架(五)</title>
     <url>/2020/08/06/Go-%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Gin%E6%A1%86%E6%9E%B6-%E4%BA%94/</url>
     <content><![CDATA[<h1 id="gin-router的使用"><a href="#gin-router的使用" class="headerlink" title="gin router的使用"></a>gin router的使用</h1><h2 id="gin简单的router-启动一个http服务"><a href="#gin简单的router-启动一个http服务" class="headerlink" title="gin简单的router 启动一个http服务"></a>gin简单的router 启动一个http服务</h2><h3 id="基本的router-注册"><a href="#基本的router-注册" class="headerlink" title="基本的router 注册"></a>基本的router 注册</h3><figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">package</span> main</span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;net/http&quot;</span></span><br><span class="line"></span><br><span class="line">    <span class="string">&quot;github.com/gin-gonic/gin&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">helloHandler</span><span class="params">(c *gin.Context)</span></span> &#123;</span><br><span class="line">    c.JSON(http.StatusOK, gin.H&#123;</span><br><span class="line">        <span class="string">&quot;message&quot;</span>: <span class="string">&quot;Hello q1mi!&quot;</span>,</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    r := gin.Default()</span><br><span class="line">    r.GET(<span class="string">&quot;/hello&quot;</span>, helloHandler)</span><br><span class="line">    <span class="keyword">if</span> err := r.Run(); err != <span class="literal">nil</span> &#123;</span><br><span class="line">        fmt.Println(<span class="string">&quot;startup service failed, err:%v\n&quot;</span>, err)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
@@ -909,6 +877,38 @@
       <tags>
         <tag>gin</tag>
         <tag>router</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>Go 语言学习笔记 Gin框架(二)</title>
+    <url>/2020/08/06/Go-%E8%AF%AD%E8%A8%80%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0-Gin%E6%A1%86%E6%9E%B6-%E4%BA%8C/</url>
+    <content><![CDATA[<h1 id="使用viper读取配置文件"><a href="#使用viper读取配置文件" class="headerlink" title="使用viper读取配置文件"></a>使用viper读取配置文件</h1><p>应用系统的配置信息，一般分为两种，一是经常变化的配置则保存到数据库，另外一种则是不常变化的则以配置文件的形式保存。一般而言，应用系统至少有三组运行环境：开发环境、测试环境、生产环境</p>
+<h2 id="使用"><a href="#使用" class="headerlink" title="使用"></a>使用</h2><h2 id="青铜时代"><a href="#青铜时代" class="headerlink" title="青铜时代"></a>青铜时代</h2><p>一开始的时候，我针对每个环境配置各自的yaml，在启动的时候根据环境变量读取相应的配置文件，处理代码如下：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">initConfig</span><span class="params">()</span> <span class="params">(err error)</span></span> &#123;</span><br><span class="line">    env := os.Getenv(<span class="string">&quot;GO_ENV&quot;</span>)</span><br><span class="line">    viper.SetConfigName(env)</span><br><span class="line">    viper.AddConfigPath(<span class="string">&quot;./configs&quot;</span>)</span><br><span class="line">    viper.SetConfigType(<span class="string">&quot;yml&quot;</span>)</span><br><span class="line">    err = viper.ReadInConfig()</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;</span><br><span class="line">    err := initConfig()</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="built_in">panic</span>(err)</span><br><span class="line">    &#125;</span><br><span class="line">    fmt.Println(viper.GetString(<span class="string">&quot;db.uri&quot;</span>))</span><br><span class="line">    fmt.Println(viper.GetString(<span class="string">&quot;db.poolSize&quot;</span>))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>不同环境的配置文件如下：</p>
+<figure class="highlight yaml"><table><tr><td class="code"><pre><span class="line"><span class="comment"># test</span></span><br><span class="line"><span class="attr">app:</span> <span class="string">viper-test</span></span><br><span class="line"><span class="attr">db:</span></span><br><span class="line">  <span class="attr">uri:</span> <span class="string">postgres://tree:mypwd@127.0.0.1:5432/viper-test?connect_timeout=5&amp;sslmode=disable</span></span><br><span class="line">  <span class="attr">poolSize:</span> <span class="number">100</span></span><br><span class="line"><span class="comment"># production</span></span><br><span class="line"><span class="attr">app:</span> <span class="string">viper-test</span></span><br><span class="line"><span class="attr">db:</span></span><br><span class="line">  <span class="attr">uri:</span> <span class="string">postgres://tree:mypwd@10.1.1.1:5432/viper?connect_timeout=5&amp;sslmode=disable</span></span><br><span class="line">  <span class="attr">poolSize:</span> <span class="number">100</span></span><br></pre></td></tr></table></figure>
+
+<p>由上面的代码可以看出，因为viper读取的配置只有一份，因此需要在每个配置中将所有的配置都一一填写，而不同环境的配置绝大部分都是相同的，只有小部分是不一致。一开始只有不到10个配置项的时候还好维护，后面配置信息越来越多，几十个的时候就是一个深坑了，看到眼都花了，太难管理。</p>
+<h2 id="白银时代"><a href="#白银时代" class="headerlink" title="白银时代"></a>白银时代</h2><p>各运行环境中的配置90%左右是相同，而剩下的10%才是各环境的差异配置，是否可以将相同的配置以默认值的形式保存，而各环境与默认值不相同的再覆盖呢？查看了一下文档，发现了 <code>viper.SetDefault</code> 的函数，一开始是直接在代码一行行的把默认配置写上，但是这样无法利用yaml的便利，在研究了相关的代码之后，最后调整为如下的处理形式，代码如下：</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">initConfig</span><span class="params">()</span> <span class="params">(err error)</span></span> &#123;</span><br><span class="line">    configType := <span class="string">&quot;yml&quot;</span></span><br><span class="line">    defaultPath := <span class="string">&quot;./configs&quot;</span></span><br><span class="line">    v := viper.New()</span><br><span class="line">    <span class="comment">// 从default中读取默认的配置</span></span><br><span class="line">    v.SetConfigName(<span class="string">&quot;default&quot;</span>)</span><br><span class="line">    v.AddConfigPath(defaultPath)</span><br><span class="line">    v.SetConfigType(configType)</span><br><span class="line">    err = v.ReadInConfig()</span><br><span class="line">    <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">        <span class="keyword">return</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    configs := v.AllSettings()</span><br><span class="line">    <span class="comment">// 将default中的配置全部以默认配置写入</span></span><br><span class="line">    <span class="keyword">for</span> k, v := <span class="keyword">range</span> configs &#123;</span><br><span class="line">        viper.SetDefault(k, v)</span><br><span class="line">    &#125;</span><br><span class="line">    env := os.Getenv(<span class="string">&quot;GO_ENV&quot;</span>)</span><br><span class="line">    <span class="comment">// 根据配置的env读取相应的配置信息</span></span><br><span class="line">    <span class="keyword">if</span> env != <span class="string">&quot;&quot;</span> &#123;</span><br><span class="line">        viper.SetConfigName(env)</span><br><span class="line">        viper.AddConfigPath(defaultPath)</span><br><span class="line">        viper.SetConfigType(configType)</span><br><span class="line">        err = viper.ReadInConfig()</span><br><span class="line">        <span class="keyword">if</span> err != <span class="literal">nil</span> &#123;</span><br><span class="line">            <span class="keyword">return</span></span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">return</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>此函数将 <code>default.yml</code> 的所有配置读取至一个新的viper实例中，再以 <code>SetDefault</code> 将所有配置写入为默认配置，而各环境配置文件只需要配置差异部分，配置如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># default</span><br><span class="line">app: viper-test</span><br><span class="line">db:</span><br><span class="line">  uri: postgres:&#x2F;&#x2F;tree:mypwd@127.0.0.1:5432&#x2F;viper-test?connect_timeout&#x3D;5&amp;sslmode&#x3D;disable</span><br><span class="line">  poolSize: 100</span><br><span class="line"># test与default完全一致，为空文件</span><br><span class="line"># production只是数据库连接串不一致，只需要配置此项</span><br><span class="line">db:</span><br><span class="line">  uri: postgres:&#x2F;&#x2F;tree:mypwd@10.1.1.1:5432&#x2F;viper?connect_timeout&#x3D;5&amp;sslmode&#x3D;disable</span><br></pre></td></tr></table></figure>
+
+<p>通过此调整，不再需要重复的维护相同的配置项，而且也能直观的看出各运行环境的配置差异，减少配置信息的出错概率。</p>
+<hr>
+<h2 id="王者时代"><a href="#王者时代" class="headerlink" title="王者时代"></a>王者时代</h2><p>因为主要是后端程序应用，程序交付一般都是通过docker镜像的形式，配置文件与编译后的应用程序一起打包至镜像中，在多个项目中也使用得挺顺畅。最近有一个项目非运行在docker环境下，因此希望能将配置文件一起打包至应用程序的方式，在了解了几个相关的项目，最终选择了使用 <a href="https://www.jishuwen.com/jump/aHR0cHM6Ly9naXRodWIuY29tL2dvYnVmZmFsby9wYWNrcg==">packr</a> 来将配置文件打包，调整之后的代码如下：</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">func initConfig() (err error) &#123;</span><br><span class="line">    box :&#x3D; packr.NewBox(&quot;.&#x2F;configs&quot;)</span><br><span class="line">    configType :&#x3D; &quot;yml&quot;</span><br><span class="line">    defaultConfig :&#x3D; box.Bytes(&quot;default.yml&quot;)</span><br><span class="line">    v :&#x3D; viper.New()</span><br><span class="line">    v.SetConfigType(configType)</span><br><span class="line">    err &#x3D; v.ReadConfig(bytes.NewReader(defaultConfig))</span><br><span class="line">    if err !&#x3D; nil &#123;</span><br><span class="line">        return</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    configs :&#x3D; v.AllSettings()</span><br><span class="line">    &#x2F;&#x2F; 将default中的配置全部以默认配置写入</span><br><span class="line">    for k, v :&#x3D; range configs &#123;</span><br><span class="line">        viper.SetDefault(k, v)</span><br><span class="line">    &#125;</span><br><span class="line">    env :&#x3D; os.Getenv(&quot;GO_ENV&quot;)</span><br><span class="line">    &#x2F;&#x2F; 根据配置的env读取相应的配置信息</span><br><span class="line">    if env !&#x3D; &quot;&quot; &#123;</span><br><span class="line">        envConfig :&#x3D; box.Bytes(env + &quot;.yml&quot;)</span><br><span class="line"></span><br><span class="line">        viper.SetConfigType(configType)</span><br><span class="line">        err &#x3D; viper.ReadConfig(bytes.NewReader(envConfig))</span><br><span class="line">        if err !&#x3D; nil &#123;</span><br><span class="line">            return</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    return</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>调整之后，配置文件也编译至程序中，后续可以单执行文件交付，只通过在启动时指定 <code>GO_ENV</code> 则可。</p>
+]]></content>
+      <categories>
+        <category>go</category>
+        <category>gin</category>
+      </categories>
+      <tags>
+        <tag>viper</tag>
       </tags>
   </entry>
   <entry>
@@ -1078,19 +1078,6 @@
 ]]></content>
   </entry>
   <entry>
-    <title>Golang疑问 Use of new vs var in Go</title>
-    <url>/2020/10/13/Golang%E7%96%91%E9%97%AE-Use-of-new-vs-var-in-Go/</url>
-    <content><![CDATA[<p><strong>Q： Is there any difference between:</strong></p>
-<figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> b bar</span><br><span class="line">foo(&amp;b)</span><br></pre></td></tr></table></figure>
-
-<p>and</p>
-<figure class="highlight golang"><table><tr><td class="code"><pre><span class="line">b := <span class="built_in">new</span>(bar)</span><br><span class="line">foo(b)</span><br></pre></td></tr></table></figure>
-
-<p>The use of new creates an allocation.</p>
-<p><strong>A： No, there is no difference, as, contrary to C, Go explicitly states that you can give a pointer to a locally created variable.</strong></p>
-]]></content>
-  </entry>
-  <entry>
     <title>algorithm-希尔排序</title>
     <url>/2020/08/07/algorithm-%E5%B8%8C%E5%B0%94%E6%8E%92%E5%BA%8F/</url>
     <content><![CDATA[<h3 id="希尔排序的思路"><a href="#希尔排序的思路" class="headerlink" title="希尔排序的思路"></a>希尔排序的思路</h3><p><strong>希尔排序是把记录按下标的一定增量分组，对每组使用直接插入排序算法排序；随着增量逐渐减少，每组包含的关键词越来越多，当增量减至1时，整个文件恰被分成一组，算法便终止。</strong></p>
@@ -1112,6 +1099,19 @@
         <tag>希尔排序</tag>
         <tag>sort</tag>
       </tags>
+  </entry>
+  <entry>
+    <title>Golang疑问 Use of new vs var in Go</title>
+    <url>/2020/10/13/Golang%E7%96%91%E9%97%AE-Use-of-new-vs-var-in-Go/</url>
+    <content><![CDATA[<p><strong>Q： Is there any difference between:</strong></p>
+<figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="keyword">var</span> b bar</span><br><span class="line">foo(&amp;b)</span><br></pre></td></tr></table></figure>
+
+<p>and</p>
+<figure class="highlight golang"><table><tr><td class="code"><pre><span class="line">b := <span class="built_in">new</span>(bar)</span><br><span class="line">foo(b)</span><br></pre></td></tr></table></figure>
+
+<p>The use of new creates an allocation.</p>
+<p><strong>A： No, there is no difference, as, contrary to C, Go explicitly states that you can give a pointer to a locally created variable.</strong></p>
+]]></content>
   </entry>
   <entry>
     <title>algorithm-归并排序</title>
@@ -1353,6 +1353,26 @@
       </tags>
   </entry>
   <entry>
+    <title>curl-请求带用户名和密码</title>
+    <url>/2020/09/06/curl-%E8%AF%B7%E6%B1%82%E5%B8%A6%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E5%AF%86%E7%A0%81/</url>
+    <content><![CDATA[<h3 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h3><p>我想访问一个需要用户名/密码的URL。我想尝试用 curl 来访问它。现在我正在做一些事情： </p>
+<p><a href="http://localhost:9200/">http://localhost:9200/</a>  因为es服务开启安全认证 需要填写用户名和密码</p>
+<p>我收到一个错误。我想我需要指定一个用户名和密码以及上述命令。</p>
+<h3 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h3><ol>
+<li><p>使用<code>-u</code>标志来包含用户名，并且curl将提示输入密码：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl -u username http://example.com</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>您也可以在命令中包含密码，但您的密码将在bash历史记录中显示：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl -u username:password http://example.com</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>您也可以通过写入发送用户名：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl http://username:password@api.somesite.com/test/blah?something=123</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+]]></content>
+  </entry>
+  <entry>
     <title>docker-启动elasticsearch</title>
     <url>/2020/09/06/docker-%E5%90%AF%E5%8A%A8elasticsearch-k8s/</url>
     <content><![CDATA[<h3 id="常用kuberctl-命令"><a href="#常用kuberctl-命令" class="headerlink" title="常用kuberctl 命令"></a>常用kuberctl 命令</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">kubectl delete -f es-config-map.yml  # 删除es-config map</span><br><span class="line"></span><br><span class="line">kubectl apply -f es-config-map.yml   # 创建es-config map</span><br><span class="line"></span><br><span class="line">kubectl delete -f es-statefulset.yml  # 删除statefulset</span><br><span class="line"></span><br><span class="line">kubectl apply -f es-statefulset.yml  # 创建statefulset</span><br><span class="line"></span><br><span class="line">kubectl get pod -n es  # 查看es ns的pod</span><br><span class="line"></span><br><span class="line">kubectl logs --previous  # 查看之前的日志</span><br><span class="line"></span><br><span class="line">kubectl get pod --all-namespaces -o wide  # 查看所有pod的信息</span><br><span class="line"></span><br><span class="line">kubectl exec -it es-0 -- bash # 进入es-0 </span><br><span class="line"></span><br><span class="line">kubectl apply -f es-svc-in.yml # 创建service in</span><br><span class="line"></span><br><span class="line">kubectl apply -f es-svc-out.yml # 创建service out</span><br><span class="line"></span><br><span class="line">kubectl describe statefulset elasticsearch-master -n es</span><br><span class="line"></span><br></pre></td></tr></table></figure>
@@ -1382,26 +1402,6 @@
 <figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 导入到docker 容器中</span></span><br><span class="line">docker cp ../richard-xing-5a2c6c4f-60bf-4471-8941-1d037364a2e3-v5.json 73c1a7be3e6e:/usr/share/elasticsearch/</span><br><span class="line"></span><br><span class="line"><span class="meta">#</span><span class="bash"> 导入证书</span></span><br><span class="line">curl -XPUT -u elastic &#x27;http://localhost:9200/_xpack/license&#x27; -H &quot;Content-Type: application/json&quot; -d @richard-xing-5a2c6c4f-60bf-4471-8941-1d037364a2e3-v5.json</span><br></pre></td></tr></table></figure>
 </li>
 <li></li>
-</ol>
-]]></content>
-  </entry>
-  <entry>
-    <title>curl-请求带用户名和密码</title>
-    <url>/2020/09/06/curl-%E8%AF%B7%E6%B1%82%E5%B8%A6%E7%94%A8%E6%88%B7%E5%90%8D%E5%92%8C%E5%AF%86%E7%A0%81/</url>
-    <content><![CDATA[<h3 id="问题描述："><a href="#问题描述：" class="headerlink" title="问题描述："></a>问题描述：</h3><p>我想访问一个需要用户名/密码的URL。我想尝试用 curl 来访问它。现在我正在做一些事情： </p>
-<p><a href="http://localhost:9200/">http://localhost:9200/</a>  因为es服务开启安全认证 需要填写用户名和密码</p>
-<p>我收到一个错误。我想我需要指定一个用户名和密码以及上述命令。</p>
-<h3 id="解决方案："><a href="#解决方案：" class="headerlink" title="解决方案："></a>解决方案：</h3><ol>
-<li><p>使用<code>-u</code>标志来包含用户名，并且curl将提示输入密码：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl -u username http://example.com</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>您也可以在命令中包含密码，但您的密码将在bash历史记录中显示：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl -u username:password http://example.com</span><br><span class="line"></span><br></pre></td></tr></table></figure>
-</li>
-<li><p>您也可以通过写入发送用户名：</p>
-<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">curl http://username:password@api.somesite.com/test/blah?something=123</span><br></pre></td></tr></table></figure>
-
-</li>
 </ol>
 ]]></content>
   </entry>
@@ -1648,6 +1648,332 @@
 ]]></content>
   </entry>
   <entry>
+    <title>flink学习笔记一 学习目标</title>
+    <url>/2020/12/27/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%80%20%E5%AD%A6%E4%B9%A0%E7%9B%AE%E6%A0%87/</url>
+    <content><![CDATA[<h3 id="学习目标"><a href="#学习目标" class="headerlink" title="学习目标"></a>学习目标</h3><ol>
+<li>对flink做下整体的介绍了解，</li>
+<li>写一个wordcount做一个快速上手</li>
+<li>做一个部署运行</li>
+<li>了解运行Ⅹ的架构和任务调度原理</li>
+<li>了解Flink里边各类api的用法，主要就是datastream api ，source 、transform 、sink三大部分</li>
+<li>窗口window相关的操作</li>
+<li>时间语义和watermark</li>
+<li>底层的api使用方法</li>
+<li>状态编程和容错机制</li>
+<li>更加高级的api与sql</li>
+<li>cep相关的内容</li>
+</ol>
+]]></content>
+  </entry>
+  <entry>
+    <title>flink学习笔记三：快速上手</title>
+    <url>/2020/12/28/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%B8%89%EF%BC%9A%E5%BF%AB%E9%80%9F%E4%B8%8A%E6%89%8B/</url>
+    <content><![CDATA[<h3 id="快速上手"><a href="#快速上手" class="headerlink" title="快速上手"></a>快速上手</h3><ol>
+<li><p><strong>创建一个pom工程</strong></p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">&lt;?xml version&#x3D;&quot;1.0&quot; encoding&#x3D;&quot;UTF-8&quot;?&gt;</span><br><span class="line">&lt;!--</span><br><span class="line">  ~ Copyright (C) 2020 Baidu, Inc. All Rights Reserved.</span><br><span class="line">  --&gt;</span><br><span class="line">&lt;project xmlns&#x3D;&quot;http:&#x2F;&#x2F;maven.apache.org&#x2F;POM&#x2F;4.0.0&quot;</span><br><span class="line">         xmlns:xsi&#x3D;&quot;http:&#x2F;&#x2F;www.w3.org&#x2F;2001&#x2F;XMLSchema-instance&quot;</span><br><span class="line">         xsi:schemaLocation&#x3D;&quot;http:&#x2F;&#x2F;maven.apache.org&#x2F;POM&#x2F;4.0.0 http:&#x2F;&#x2F;maven.apache.org&#x2F;xsd&#x2F;maven-4.0.0.xsd&quot;&gt;</span><br><span class="line">    &lt;modelVersion&gt;4.0.0&lt;&#x2F;modelVersion&gt;</span><br><span class="line"></span><br><span class="line">    &lt;groupId&gt;com.richard.flink&lt;&#x2F;groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;FlinkTutorial&lt;&#x2F;artifactId&gt;</span><br><span class="line">    &lt;version&gt;1.0-SNAPSHOT&lt;&#x2F;version&gt;</span><br><span class="line"></span><br><span class="line">    &lt;dependencies&gt;</span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.apache.flink&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;flink-scala_2.12&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;1.10.1&lt;&#x2F;version&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line"></span><br><span class="line">        &lt;dependency&gt;</span><br><span class="line">            &lt;groupId&gt;org.apache.flink&lt;&#x2F;groupId&gt;</span><br><span class="line">            &lt;artifactId&gt;flink-streaming-scala_2.12&lt;&#x2F;artifactId&gt;</span><br><span class="line">            &lt;version&gt;1.10.1&lt;&#x2F;version&gt;</span><br><span class="line">        &lt;&#x2F;dependency&gt;</span><br><span class="line">    &lt;&#x2F;dependencies&gt;</span><br><span class="line"></span><br><span class="line">    &lt;build&gt;</span><br><span class="line">        &lt;plugins&gt;</span><br><span class="line"></span><br><span class="line">            &lt;plugin&gt;</span><br><span class="line">                &lt;groupId&gt;net.alchim31.maven&lt;&#x2F;groupId&gt;</span><br><span class="line">                &lt;artifactId&gt;scala-maven-plugin&lt;&#x2F;artifactId&gt;</span><br><span class="line">                &lt;version&gt;3.4.6&lt;&#x2F;version&gt;</span><br><span class="line">                &lt;executions&gt;</span><br><span class="line">                    &lt;execution&gt;</span><br><span class="line">                        &lt;!-- 声明绑定到 maven 的 compile 阶段 --&gt;</span><br><span class="line">                        &lt;goals&gt;</span><br><span class="line">                            &lt;goal&gt;compile&lt;&#x2F;goal&gt;</span><br><span class="line">                        &lt;&#x2F;goals&gt;</span><br><span class="line">                    &lt;&#x2F;execution&gt;</span><br><span class="line">                &lt;&#x2F;executions&gt;</span><br><span class="line">            &lt;&#x2F;plugin&gt;</span><br><span class="line"></span><br><span class="line">            &lt;plugin&gt;</span><br><span class="line">                &lt;groupId&gt;org.apache.maven.plugins&lt;&#x2F;groupId&gt;</span><br><span class="line">                &lt;artifactId&gt;maven-assembly-plugin&lt;&#x2F;artifactId&gt;</span><br><span class="line">                &lt;version&gt;3.0.0&lt;&#x2F;version&gt;</span><br><span class="line">                &lt;configuration&gt;</span><br><span class="line">                    &lt;descriptorRefs&gt;</span><br><span class="line">                        &lt;descriptorRef&gt;jar-with-dependencies&lt;&#x2F;descriptorRef&gt;</span><br><span class="line">                    &lt;&#x2F;descriptorRefs&gt;</span><br><span class="line">                &lt;&#x2F;configuration&gt;</span><br><span class="line">                &lt;executions&gt;</span><br><span class="line">                    &lt;execution&gt;</span><br><span class="line">                        &lt;id&gt;make-assembly&lt;&#x2F;id&gt;</span><br><span class="line">                        &lt;phase&gt;package&lt;&#x2F;phase&gt;</span><br><span class="line">                        &lt;goals&gt;</span><br><span class="line">                            &lt;goal&gt;single&lt;&#x2F;goal&gt;</span><br><span class="line">                        &lt;&#x2F;goals&gt;</span><br><span class="line">                    &lt;&#x2F;execution&gt;</span><br><span class="line">                &lt;&#x2F;executions&gt;</span><br><span class="line">            &lt;&#x2F;plugin&gt;</span><br><span class="line">        &lt;&#x2F;plugins&gt;</span><br><span class="line">    &lt;&#x2F;build&gt;</span><br><span class="line">&lt;&#x2F;project&gt;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编写一个批处理程序 wordCount</p>
+<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.flink.api.scala._</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Copyright (C) 2020 Baidu, Inc. All Rights Reserved.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">WordCount</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line">    <span class="comment">// 创建执行环境</span></span><br><span class="line">    <span class="keyword">val</span> env = <span class="type">ExecutionEnvironment</span>.getExecutionEnvironment</span><br><span class="line">    <span class="comment">// 从文件中读取数据</span></span><br><span class="line">    <span class="keyword">val</span> inputPath = <span class="string">&quot;/Users/mengfanxing_g/duserver/FlinkTutorial/src/main/resources/hello.txt&quot;</span></span><br><span class="line">    <span class="keyword">val</span> inputDS: <span class="type">DataSet</span>[<span class="type">String</span>] = env.readTextFile(inputPath)</span><br><span class="line">    <span class="comment">// 分词之后，对单词进行 groupby 分组，然后用 sum 进行聚合</span></span><br><span class="line">    <span class="keyword">val</span> wordCountDS: <span class="type">AggregateDataSet</span>[(<span class="type">String</span>, <span class="type">Int</span>)] = inputDS.flatMap(_.split(<span class="string">&quot; &quot;</span>)).map((_, <span class="number">1</span>)).groupBy(<span class="number">0</span>).sum(<span class="number">1</span>)</span><br><span class="line">    <span class="comment">// 打印输出</span></span><br><span class="line">    wordCountDS.print()</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编写hello的内容</p>
+<figure class="highlight txt"><table><tr><td class="code"><pre><span class="line">hello</span><br><span class="line">scala</span><br><span class="line">hello Flink</span><br><span class="line">How are you</span><br><span class="line">I fine thank you</span><br><span class="line">And you</span><br><span class="line"></span><br></pre></td></tr></table></figure>
+</li>
+<li><p>运行输出结果</p>
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">(How,1)</span><br><span class="line">(I,1)</span><br><span class="line">(are,1)</span><br><span class="line">(scala,1)</span><br><span class="line">(thank,1)</span><br><span class="line">(you,3)</span><br><span class="line">(And,1)</span><br><span class="line">(fine,1)</span><br><span class="line">(Flink,1)</span><br><span class="line">(hello,2)</span><br><span class="line"></span><br><span class="line">Process finished with <span class="built_in">exit</span> code 0</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<ol start="5">
+<li><p>编写一个流处理程序 StreamWordCount</p>
+<figure class="highlight scala"><table><tr><td class="code"><pre><span class="line"><span class="keyword">import</span> org.apache.flink.api.java.utils.<span class="type">ParameterTool</span></span><br><span class="line"><span class="keyword">import</span> org.apache.flink.streaming.api.scala._</span><br><span class="line"></span><br><span class="line"><span class="comment">/*</span></span><br><span class="line"><span class="comment"> * Copyright (C) 2020 Baidu, Inc. All Rights Reserved.</span></span><br><span class="line"><span class="comment"> */</span></span><br><span class="line"><span class="class"><span class="keyword">object</span> <span class="title">StreamWordCount</span> </span>&#123;</span><br><span class="line">  <span class="function"><span class="keyword">def</span> <span class="title">main</span></span>(args: <span class="type">Array</span>[<span class="type">String</span>]): <span class="type">Unit</span> = &#123;</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 从外部命令获取参数</span></span><br><span class="line">    <span class="keyword">val</span> params: <span class="type">ParameterTool</span> = <span class="type">ParameterTool</span>.fromArgs(args)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> host :<span class="type">String</span> = params.get(<span class="string">&quot;host&quot;</span>)</span><br><span class="line"></span><br><span class="line">    println(host)</span><br><span class="line"></span><br><span class="line">    <span class="keyword">val</span> port :<span class="type">Int</span> = params.getInt(<span class="string">&quot;port&quot;</span>)</span><br><span class="line">    println(port)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 创建流处理环境</span></span><br><span class="line">    <span class="keyword">val</span> env: <span class="type">StreamExecutionEnvironment</span> = <span class="type">StreamExecutionEnvironment</span>.getExecutionEnvironment</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 接收socket 文本流</span></span><br><span class="line">    <span class="keyword">val</span> textDstream:<span class="type">DataStream</span>[<span class="type">String</span>] = env.socketTextStream(host,port)</span><br><span class="line"></span><br><span class="line">    <span class="comment">// flatMap 和 Map 需要引用的隐式转换</span></span><br><span class="line">    <span class="keyword">val</span> dataStream: <span class="type">DataStream</span>[(<span class="type">String</span>,<span class="type">Int</span>)] = textDstream</span><br><span class="line">      .flatMap(_.split(<span class="string">&quot; &quot;</span>))</span><br><span class="line">      .filter(_.nonEmpty)</span><br><span class="line">      .map((_,<span class="number">1</span>))</span><br><span class="line">      .keyBy(<span class="number">0</span>)</span><br><span class="line">      .sum(<span class="number">1</span>)</span><br><span class="line"></span><br><span class="line">    dataStream.print()</span><br><span class="line"></span><br><span class="line">    <span class="comment">// 启动executor ， 执行任务</span></span><br><span class="line">    env.execute(<span class="string">&quot;socket stream word count&quot;</span>)</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+</li>
+<li><p>编辑idea的Program arguments:  –host localhost –port 7777</p>
+</li>
+<li><p>启动nc </p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">mfxing  nc -lk 7777</span><br><span class="line">hello Flink</span><br><span class="line">hello Scala</span><br></pre></td></tr></table></figure>
+
+<p>程序输出结果:</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">...</span><br><span class="line">SLF4J: See http:&#x2F;&#x2F;www.slf4j.org&#x2F;codes.html#StaticLoggerBinder for further details.</span><br><span class="line">2&gt; (hello,1)</span><br><span class="line">4&gt; (Flink,1)</span><br><span class="line">4&gt; (Scala,1)</span><br><span class="line">2&gt; (hello,2)</span><br></pre></td></tr></table></figure>
+
+</li>
+</ol>
+]]></content>
+  </entry>
+  <entry>
+    <title>flink学习笔记二：Flink简介</title>
+    <url>/2020/12/28/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%8C%EF%BC%9AFlink%E7%AE%80%E4%BB%8B/</url>
+    <content><![CDATA[<h3 id="主要内容"><a href="#主要内容" class="headerlink" title="主要内容"></a>主要内容</h3><ol>
+<li><h4 id="Flink是什么"><a href="#Flink是什么" class="headerlink" title="Flink是什么"></a>Flink是什么</h4><ol>
+<li>Apache Flink 是一个框架和分布式处理引擎，用于对无界和有界数据流进行有 状态计算。Flink 被设计在所有常见的集群环境中运行，以内存执行速度和任意规模 来执行计算。</li>
+<li>Flink 项目的理念是:“Apache Flink 是为分布式、高性能、随时可用以及准确的流处理应用程序打造的开源流处理框架”。</li>
+</ol>
+</li>
+<li><h4 id="为什么要用Flink"><a href="#为什么要用Flink" class="headerlink" title="为什么要用Flink"></a>为什么要用Flink</h4><ol>
+<li>流数据更真实的反应我们的生活方式</li>
+<li>传统的数据框架是基于有限的数据集的</li>
+<li>我们的目标<ol>
+<li>低延迟</li>
+<li>高吞吐</li>
+<li>结果的准确性和良好的容错性</li>
+</ol>
+</li>
+<li>哪些行业需要处理流数据<ol>
+<li>电商行业和市场营销<ol>
+<li>数据报表、广告投放、业务流程需要</li>
+</ol>
+</li>
+<li>物联网（IOT）<ol>
+<li>传感器实时数据采集和显示、实时报警、交通运输业</li>
+</ol>
+</li>
+<li>电信业<ol>
+<li>基站流量调配</li>
+</ol>
+</li>
+<li>银行和金融业<ol>
+<li>实时结算和通知推送，实时检测和异常行为 </li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<p>ps: gps的信息就是流式数据，金融中的交易数据，服务器的日志</p>
+</li>
+<li><h4 id="流处理的发展和转变"><a href="#流处理的发展和转变" class="headerlink" title="流处理的发展和转变"></a>流处理的发展和转变</h4><ol>
+<li>传统数据处理架构<ol>
+<li><img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%8C%EF%BC%9AFlink%E7%AE%80%E4%BB%8B/image-20201228144234884.png" alt="image-20201228144234884" style="zoom:50%;" /><img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%8C%EF%BC%9AFlink%E7%AE%80%E4%BB%8B/image-20201228144600428.png" alt="image-20201228144600428"></li>
+<li><img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%8C%EF%BC%9AFlink%E7%AE%80%E4%BB%8B/image-20201228144624819.png" alt="image-20201228144624819" style="zoom:50%;" /></li>
+<li><img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%8C%EF%BC%9AFlink%E7%AE%80%E4%BB%8B/image-20201228145047007.png" alt="image-20201228145047007" style="zoom:50%;" /><img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%8C%EF%BC%9AFlink%E7%AE%80%E4%BB%8B/image-20201228145311986.png" alt="image-20201228145311986"></li>
+<li><img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%8C%EF%BC%9AFlink%E7%AE%80%E4%BB%8B/image-20201228145338461.png" alt="image-20201228145338461" style="zoom:50%;" /><img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%8C%EF%BC%9AFlink%E7%AE%80%E4%BB%8B/image-20201228145536693.png" alt="image-20201228145536693"></li>
+<li><img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%8C%EF%BC%9AFlink%E7%AE%80%E4%BB%8B/image-20201228145556588.png" alt="image-20201228145556588" style="zoom:50%;" />
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><h4 id="Flink的主要特点"><a href="#Flink的主要特点" class="headerlink" title="Flink的主要特点"></a>Flink的主要特点</h4><ol>
+<li><p>事件驱动（Eveny-driven）</p>
+<ol>
+<li><img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%8C%EF%BC%9AFlink%E7%AE%80%E4%BB%8B/image-20201228145907225.png" alt="image-20201228145907225" style="zoom:50%;" />
+</li>
+<li><p>基于流的世界观</p>
+<ol>
+<li>在Flink的世界观中，一切都是流组成的，离线数据是有界的流，实时数据是一个没有界限的流；这就是所谓的有界流和无界流<img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%8C%EF%BC%9AFlink%E7%AE%80%E4%BB%8B/image-20201228150125877.png" alt="image-20201228150125877" style="zoom:50%;" /></li>
+</ol>
+</li>
+<li><p>分层API</p>
+<ol>
+<li><p>越顶层越抽象，表达含义越简明，使用越方便</p>
+</li>
+<li><p>越底层越具体，表达能力越丰富，使用越灵活</p>
+<p><img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%8C%EF%BC%9AFlink%E7%AE%80%E4%BB%8B/image-20201228150350452.png" alt="image-20201228150350452"></p>
+</li>
+</ol>
+</li>
+<li><p>Flink的其他特定</p>
+<ol>
+<li>支持事件时间（event-time）和处理时间（processing-time）语义</li>
+<li>精确一次（exactly-once）的状态一致性保证</li>
+<li>低延迟，每秒处理数百万个时间，毫秒级延迟</li>
+<li>与众多常用存储系统的链接</li>
+<li>高可用动态扩展，实现7<em>24小时全天候运行</em></li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><h4 id="Flink-Vs-Spark-streaming"><a href="#Flink-Vs-Spark-streaming" class="headerlink" title="Flink Vs Spark streaming"></a>Flink Vs Spark streaming</h4><ol>
+<li><p>流（stream）和微批（micro-batching）</p>
+<img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%8C%EF%BC%9AFlink%E7%AE%80%E4%BB%8B/image-20201228151003997.png" alt="image-20201228151003997" style="zoom: 50%;" />
+</li>
+<li><p>数据模型</p>
+<ul>
+<li>sprark 采用的是RDD模型，spark streaming的DStream实际上也就是一组组小批数据的RDD的集合</li>
+<li>Flink基本数据模型是数据流，以及事件（Event）序列</li>
+</ul>
+</li>
+<li><p>运行时架构</p>
+<ul>
+<li>spark是批计算，将DAG划分为不同的stage，一个完成后才可以计算下一个</li>
+<li>Flink是标准的流执行模式，一个事件在一个节点处理完后可以直接发往下一个节点进行处理</li>
+</ul>
+</li>
+</ol>
+</li>
+</ol>
+]]></content>
+  </entry>
+  <entry>
+    <title>flink学习笔记五：运行时架构</title>
+    <url>/2020/12/29/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%94%EF%BC%9A%E8%BF%90%E8%A1%8C%E6%97%B6%E6%9E%B6%E6%9E%84/</url>
+    <content><![CDATA[<h3 id="运行时架构"><a href="#运行时架构" class="headerlink" title="运行时架构"></a>运行时架构</h3><ol>
+<li><h4 id="Flink运行时组件"><a href="#Flink运行时组件" class="headerlink" title="Flink运行时组件"></a>Flink运行时组件</h4><ol>
+<li><img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%94%EF%BC%9A%E8%BF%90%E8%A1%8C%E6%97%B6%E6%9E%B6%E6%9E%84/image-20201230142923266.png" alt="image-20201230142923266" style="zoom:50%;" />
+</li>
+</ol>
+</li>
+<li><h4 id="任务提交流程"><a href="#任务提交流程" class="headerlink" title="任务提交流程"></a>任务提交流程</h4><ol>
+<li><img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%94%EF%BC%9A%E8%BF%90%E8%A1%8C%E6%97%B6%E6%9E%B6%E6%9E%84/image-20201230144136573.png" alt="image-20201230144136573"></li>
+</ol>
+</li>
+<li><h4 id="任务调度原理"><a href="#任务调度原理" class="headerlink" title="任务调度原理"></a>任务调度原理</h4><img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E4%BA%94%EF%BC%9A%E8%BF%90%E8%A1%8C%E6%97%B6%E6%9E%B6%E6%9E%84/image-20201230145253536.png" alt="image-20201230145253536" style="zoom: 33%;" />
+
+</li>
+</ol>
+<p><strong>是否合并任务链的小技巧：</strong></p>
+<ol>
+<li>​    disableChaining() 取消合并</li>
+<li>.startNewCHain() 开启一个新的任务链  </li>
+<li>.slotSharingSolt(“name”)    独享一个slot </li>
+</ol>
+]]></content>
+  </entry>
+  <entry>
+    <title>flink学习笔记六：Flink流处理APi</title>
+    <url>/2020/12/31/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/</url>
+    <content><![CDATA[<h3 id="Flink流处理APi"><a href="#Flink流处理APi" class="headerlink" title="Flink流处理APi"></a>Flink流处理APi</h3><ol>
+<li><h4 id="Environment"><a href="#Environment" class="headerlink" title="Environment"></a>Environment</h4><ol>
+<li><p><strong>getExecutionEnvironment</strong></p>
+<p>创建一个执行环境，表示当前执行程序的上下文。 如果程序是独立调用的，则 此方法返回本地执行环境;如果从命令行客户端调用程序以提交到集群，则此方法 返回此集群的执行环境，也就是说，getExecutionEnvironment 会根据查询运行的方 式决定返回什么样的运行环境，是最常用的一种创建执行环境的方式。</p>
+<figure class="highlight plain"><table><tr><td class="code"><pre><span class="line">val env: ExecutionEnvironment &#x3D; ExecutionEnvironment.getExecutionEnvironment</span><br><span class="line"></span><br><span class="line">val env &#x3D; StreamExecutionEnvironment.getExecutionEnvironment 如果没有设置并行度，会以 flink-conf.yaml 中的配置为准，默认是 1。</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>createLocalEnvironment</strong></p>
+<p>返回本地执行环境，需要在调用时指定默认的并行度。</p>
+<p>val env = StreamExecutionEnvironment.createLocalEnvironment(1)</p>
+</li>
+<li><p><strong>createRemoteEnvironment</strong></p>
+<p>返回集群执行环境，将 Jar 提交到远程服务器。需要在调用时指定 JobManager</p>
+<p>的 IP 和端口号，并指定要在集群中运行的 Jar 包。</p>
+<p>val env = ExecutionEnvironment.createRemoteEnvironment(“jobmanage-hostname”, 6123,”YOURPATH//wordcount.jar”)</p>
+</li>
+</ol>
+</li>
+<li><h4 id="source"><a href="#source" class="headerlink" title="source"></a>source</h4><ol>
+<li>从集合读取数据</li>
+<li>从文件读取数据</li>
+<li>以 <strong>kafka</strong> 消息队列的数据作为来源</li>
+<li>自定义 Source</li>
+</ol>
+</li>
+<li><h4 id="Transform-转换算子"><a href="#Transform-转换算子" class="headerlink" title="Transform  转换算子"></a><strong>Transform</strong>  转换算子</h4><p>在Spark中，算子分为转换算子和行动算子，转换算子的作用可以通过算子方法的调用将一个RDD转换另外一个RDD，Flink中也存在同样的操作，可以将一个数据流转换为其他的数据流。</p>
+<p><strong>转换过程中，数据流的类型也会发生变化，那么到底Flink支持什么样的数据类型呢，其实我们常用的数据类型，Flink都是支持的。比如：Long, String, Integer, Int, 元组，样例类，List, Map等。</strong></p>
+<ol>
+<li><h5 id="map"><a href="#map" class="headerlink" title="map"></a>map</h5><ol>
+<li>映射：将数据流中的数据进行转换, 形成新的数据流，消费一个元素并产出一个元素</li>
+<li>参数：Scala匿名函数或MapFunction</li>
+<li>返回：DataStream</li>
+</ol>
+</li>
+<li><h5 id="flatMap"><a href="#flatMap" class="headerlink" title="flatMap"></a>flatMap</h5><ol>
+<li><p>扁平映射：将数据流中的整体拆分成一个一个的个体使用，消费一个元素并产生零到多个元素</p>
+</li>
+<li><p>参数：Scala匿名函数或FlatMapFunction</p>
+</li>
+<li><p>返回：DataStream</p>
+<p><img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/java6-1598922850.png" alt="Flink从入门到入土"></p>
+</li>
+</ol>
+</li>
+<li><h5 id="Filter"><a href="#Filter" class="headerlink" title="Filter"></a>Filter</h5><ol>
+<li>过滤：根据指定的规则将满足条件（true）的数据保留，不满足条件(false)的数据丢弃</li>
+<li>参数：Scala匿名函数或FilterFunction</li>
+<li>返回：DataStream</li>
+</ol>
+</li>
+<li><h5 id="KeyBy"><a href="#KeyBy" class="headerlink" title="KeyBy"></a>KeyBy</h5><p>​    在Spark中有一个GroupBy的算子，用于根据指定的规则将数据进行分组，在flink中也有类似的功能，那就是keyBy，根据指定的key对数据进行分流</p>
+<ol>
+<li>分流：根据指定的Key将元素发送到不同的分区，相同的Key会被分到一个分区（这里分区指的就是下游算子多个并行节点的其中一个）。keyBy()是通过哈希来分区的</li>
+</ol>
+<p><img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/java5-1598922850.png" alt="Flink从入门到入土"></p>
+<ol start="2">
+<li><p>参数：Scala匿名函数或POJO属性或元组索引，不能使用数组</p>
+</li>
+<li><p>返回：KeyedStream</p>
+<img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/java0-1598922850.png" alt="Flink从入门到入土"  />
+</li>
+</ol>
+</li>
+<li><h5 id="滚动聚合算子Rolling-Aggregation"><a href="#滚动聚合算子Rolling-Aggregation" class="headerlink" title="滚动聚合算子Rolling Aggregation"></a>滚动聚合算子Rolling Aggregation</h5><ol>
+<li><p>这些算子可以针对KeyedStream的每一个支流做聚合。执行完成后，会将聚合的结果合成一个流返回，所以结果都是DataStream</p>
+<p>sum()</p>
+<p><img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/java5-1598922850-3-20201231162508066.png" alt="Flink从入门到入土"></p>
+<p>min()</p>
+<p><img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/java5-1598922851.png" alt="Flink从入门到入土"></p>
+<p>max()</p>
+<p><img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/java6-1598922851.png" alt="Flink从入门到入土"></p>
+</li>
+<li><h5 id="reduce"><a href="#reduce" class="headerlink" title="reduce"></a>reduce</h5><ol>
+<li><p>一个分组数据流的聚合操作，合并当前的元素和上次聚合的结果，产生一个新的值，返回的流中包含每一次聚合的结果，而不是只返回最后一次聚合的最终结果。</p>
+<p><img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/java6-1598922851-1.png" alt="Flink从入门到入土">    </p>
+</li>
+</ol>
+</li>
+<li><h5 id="Split-和Select"><a href="#Split-和Select" class="headerlink" title="Split 和Select"></a>Split 和Select</h5><ol>
+<li><p>在某些情况下，我们需要将数据流根据某些特征拆分成两个或者多个数据流，给不同数据流增加标记以便于从流中取出。</p>
+<p><img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/java10-1598922850-1.png" alt="Flink从入门到入土"></p>
+</li>
+<li><p>将数据流进行切分后，如何从流中将不同的标记取出呢，这时就需要使用select算子了。</p>
+<p><img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/java8-1598922850.png" alt="Flink从入门到入土"></p>
+</li>
+</ol>
+</li>
+<li><h5 id="Connect和CoMap"><a href="#Connect和CoMap" class="headerlink" title="Connect和CoMap"></a>Connect和CoMap</h5><ol>
+<li><p><strong>DataStream,DataStream</strong> → <strong>ConnectedStreams</strong>:连接两个保持他们类型的数</p>
+<p>据流，两个数据流被 Connect 之后，只是被放在了一个同一个流中，内部依然保持 各自的数据和形式不发生任何变化，两个流相互独立。</p>
+<p><img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/image-20201231165542283.png" alt="image-20201231165542283"></p>
+</li>
+<li><p>在某些情况下，我们需要将两个不同来源的数据流进行连接，实现数据匹配，比如订单支付和第三方交易信息，这两个信息的数据就来自于不同数据源，连接后，将订单支付和第三方交易信息进行对账，此时，才能算真正的支付完成。</p>
+<p>Flink中的connect算子可以连接两个保持他们类型的数据流，两个数据流被Connect之后，只是被放在了一个同一个流中，内部依然保持各自的数据和形式不发生任何变化，两个流相互独立。</p>
+<p>​    <img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/java9-1598922850-1-20201231165603345.png" alt="Flink从入门到入土"></p>
+</li>
+</ol>
+</li>
+<li><h5 id="union"><a href="#union" class="headerlink" title="union"></a>union</h5><ol>
+<li><p>对两个或者两个以上的DataStream进行union操作，产生一个包含所有DataStream元素的新DataStream</p>
+<p><img src="/images/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/java3-1598922850.png" alt="Flink从入门到入土"></p>
+</li>
+<li><p>connect与 union 区别：</p>
+<ol>
+<li>union之前两个流的类型必须是一样，connect可以不一样</li>
+<li>connect只能操作两个流，union可以操作多个。</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+</li>
+<li><h4 id="实现-UDF-函数——更细粒度的控制流"><a href="#实现-UDF-函数——更细粒度的控制流" class="headerlink" title="实现 UDF 函数——更细粒度的控制流"></a>实现 UDF 函数——更细粒度的控制流</h4><ol>
+<li><p>函数类(<strong>Function Classes</strong>)Flink 暴露了所有 udf 函数的接口(实现方式为接口或者抽象类)。例如 MapFunction, FilterFunction, ProcessFunction 等等。</p>
+</li>
+<li><p>匿名函数(<strong>Lambda Functions</strong>)</p>
+</li>
+<li><p>富函数(<strong>Rich Functions</strong>)</p>
+<p>“富函数”是 DataStream API 提供的一个函数类的接口，所有 Flink 函数类都 有其 Rich 版本。它与常规函数的不同在于，可以获取运行环境的上下文，并拥有一 些生命周期方法，所以可以实现更复杂的功能。</p>
+<ul>
+<li>RichMapFunction</li>
+<li>RichFlatMapFunction</li>
+<li>RichFilterFunction</li>
+<li>…​</li>
+<li>Rich Function 有一个生命周期的概念。典型的生命周期方法有:<ul>
+<li>open()方法是 rich function 的初始化方法，当一个算子例如 map 或者 filter被调用之前 open()会被调用。</li>
+<li>close()方法是生命周期中的最后一个调用的方法，做一些清理工作。</li>
+<li>getRuntimeContext()方法提供了函数的 RuntimeContext 的一些信息，例如函</li>
+</ul>
+</li>
+</ul>
+<p>数执行的并行度，任务的名字，以及 state 状态</p>
+</li>
+</ol>
+</li>
+</ol>
+]]></content>
+  </entry>
+  <entry>
     <title>git-打tag</title>
     <url>/2020/09/04/git-%E6%89%93tag/</url>
     <content><![CDATA[<ol>
@@ -1889,6 +2215,46 @@
       </tags>
   </entry>
   <entry>
+    <title>golang开发技巧-实现抽象类</title>
+    <url>/2020/10/14/golang%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7-%E5%AE%9E%E7%8E%B0%E6%8A%BD%E8%B1%A1%E7%B1%BB/</url>
+    <content><![CDATA[<p>本文介绍了一种通过 struct 和 interface 来在 golang 中实现抽象类的方式。</p>
+<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在 Java 这种面向对象的语言中，抽象类和接口是我们经常会运用到的 2 种对抽象概念进行定义的机制。在 golang 中，没有类和继承的概念。golang 中有结构体（struct），和面向对象语言中的类相似。golang 中也有接口（interface），接口可以定义一组不含有具体实现的方法，其提供了一种方式来说明对象的行为。</p>
+<p>然而，在某些情况下，我们需要使用抽象类继承，来帮助我们写出更优雅的代码。可是在 golang 中又没有抽象类的概念，本文将介绍一种通过 struct 和 interface 来在 golang 中实现抽象类的方法。</p>
+<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>首先，我们会用 Java 语言作为示例，来看看如何在面向对象语言中实现抽象类。接着换 golang 语言，通过 struct 和 interface 来实现抽象类，完成相同的功能。</p>
+<h4 id="面向对象语言中抽象类的实现"><a href="#面向对象语言中抽象类的实现" class="headerlink" title="面向对象语言中抽象类的实现"></a>面向对象语言中抽象类的实现</h4><p>假设我们需要实现下面这样的几个类（使用 Java 为例）：</p>
+<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Game</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">play</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        System.out.println(<span class="keyword">this</span>.name() + <span class="string">&quot; is awesome!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> String <span class="title">name</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Dota</span> <span class="keyword">extends</span> <span class="title">Game</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">name</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Dota&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LOL</span> <span class="keyword">extends</span> <span class="title">Game</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">name</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;LOL&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>我们定义了 Game 抽象类，在此类中定义了 <code>public abstract String name();</code> 一个抽象方法和 <code>public void play()</code> 这样一个公开方法。然后我们定义了 <code>Dota</code> 和 <code>LOL</code> 2个类去继承 <code>Game</code>，并各自实现了 <code>public String name()</code>。</p>
+<p>接下来让我们看看如何在 golang 中实现抽象类。</p>
+<h4 id="golang-中实现抽象类的方式"><a href="#golang-中实现抽象类的方式" class="headerlink" title="golang 中实现抽象类的方式"></a>golang 中实现抽象类的方式</h4><ul>
+<li>定义 interface</li>
+</ul>
+<p>首先，我们需要将抽象方法定义在 interface 中。</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> IGame <span class="keyword">interface</span> &#123;</span><br><span class="line">    Name() <span class="keyword">string</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>定义”父类”</li>
+</ul>
+<p>然后，我们需要使用 struct 实现公共方法。</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Game <span class="keyword">struct</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(g *Game)</span> <span class="title">play</span><span class="params">(game IGame)</span></span> &#123;</span><br><span class="line">    fmt.Printf(fmt.Sprintf(<span class="string">&quot;%s is awesome!&quot;</span>, game.Name()))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>这里是重点，我们将 <code>game IGame</code> 传了进来。这样我们便可以调用”子类”的方法来获取名字。<strong>从而间接地实现了在公共方法中调用不同”子类”的实现的抽象方法。</strong></p>
+<ul>
+<li>定义”子类”</li>
+</ul>
+<p>接着，我们再定义”Dota”和”LOL”这 2 个 struct 即可。</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Dota <span class="keyword">struct</span> &#123;</span><br><span class="line">    Game</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(d *Dota)</span> <span class="title">Name</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Dota&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> LOL <span class="keyword">struct</span> &#123;</span><br><span class="line">    Game</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(l *LOL)</span> <span class="title">Name</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;LOL&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li>大功告成</li>
+</ul>
+<p>现在，在初始化”Dota”和”LOL”结构体后，便可以调用 <code>func (g *Game) play(game IGame)</code> 方法了。</p>
+<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">dota := &amp;Dota&#123;&#125;</span><br><span class="line">dota.play(dota)</span><br><span class="line"></span><br><span class="line">lol := &amp;LOL&#123;&#125;</span><br><span class="line">lol.play(lol)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出:</span></span><br><span class="line"><span class="comment">//Dota is awesome!</span></span><br><span class="line"><span class="comment">//LOL is awesome!</span></span><br></pre></td></tr></table></figure>
+
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文通过 struct 和 interface 的组合，提供了一种思路，间接实现了面向对象语言中的抽象类继承的模式。旨在提供一种思路，希望能帮助到需要的同学，欢迎讨论 :)</p>
+]]></content>
+  </entry>
+  <entry>
     <title>golang技术准备</title>
     <url>/2020/10/13/golang%E6%8A%80%E6%9C%AF%E5%87%86%E5%A4%87/</url>
     <content><![CDATA[<p>golang技术准备</p>
@@ -1932,43 +2298,42 @@
 ]]></content>
   </entry>
   <entry>
-    <title>golang开发技巧-实现抽象类</title>
-    <url>/2020/10/14/golang%E5%BC%80%E5%8F%91%E6%8A%80%E5%B7%A7-%E5%AE%9E%E7%8E%B0%E6%8A%BD%E8%B1%A1%E7%B1%BB/</url>
-    <content><![CDATA[<p>本文介绍了一种通过 struct 和 interface 来在 golang 中实现抽象类的方式。</p>
-<h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>在 Java 这种面向对象的语言中，抽象类和接口是我们经常会运用到的 2 种对抽象概念进行定义的机制。在 golang 中，没有类和继承的概念。golang 中有结构体（struct），和面向对象语言中的类相似。golang 中也有接口（interface），接口可以定义一组不含有具体实现的方法，其提供了一种方式来说明对象的行为。</p>
-<p>然而，在某些情况下，我们需要使用抽象类继承，来帮助我们写出更优雅的代码。可是在 golang 中又没有抽象类的概念，本文将介绍一种通过 struct 和 interface 来在 golang 中实现抽象类的方法。</p>
-<h2 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h2><p>首先，我们会用 Java 语言作为示例，来看看如何在面向对象语言中实现抽象类。接着换 golang 语言，通过 struct 和 interface 来实现抽象类，完成相同的功能。</p>
-<h4 id="面向对象语言中抽象类的实现"><a href="#面向对象语言中抽象类的实现" class="headerlink" title="面向对象语言中抽象类的实现"></a>面向对象语言中抽象类的实现</h4><p>假设我们需要实现下面这样的几个类（使用 Java 为例）：</p>
-<figure class="highlight java"><table><tr><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">abstract</span> <span class="class"><span class="keyword">class</span> <span class="title">Game</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title">play</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        System.out.println(<span class="keyword">this</span>.name() + <span class="string">&quot; is awesome!&quot;</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="function"><span class="keyword">public</span> <span class="keyword">abstract</span> String <span class="title">name</span><span class="params">()</span></span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">Dota</span> <span class="keyword">extends</span> <span class="title">Game</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">name</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;Dota&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">public</span> <span class="class"><span class="keyword">class</span> <span class="title">LOL</span> <span class="keyword">extends</span> <span class="title">Game</span></span></span><br><span class="line"><span class="class"></span>&#123;</span><br><span class="line">    <span class="function"><span class="keyword">public</span> String <span class="title">name</span><span class="params">()</span></span></span><br><span class="line"><span class="function">    </span>&#123;</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;LOL&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>我们定义了 Game 抽象类，在此类中定义了 <code>public abstract String name();</code> 一个抽象方法和 <code>public void play()</code> 这样一个公开方法。然后我们定义了 <code>Dota</code> 和 <code>LOL</code> 2个类去继承 <code>Game</code>，并各自实现了 <code>public String name()</code>。</p>
-<p>接下来让我们看看如何在 golang 中实现抽象类。</p>
-<h4 id="golang-中实现抽象类的方式"><a href="#golang-中实现抽象类的方式" class="headerlink" title="golang 中实现抽象类的方式"></a>golang 中实现抽象类的方式</h4><ul>
-<li>定义 interface</li>
-</ul>
-<p>首先，我们需要将抽象方法定义在 interface 中。</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> IGame <span class="keyword">interface</span> &#123;</span><br><span class="line">    Name() <span class="keyword">string</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
+    <title>golang源码学习之interface的底层实现</title>
+    <url>/2020/11/22/golang%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%E4%B9%8Binterface%E7%9A%84%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/</url>
+    <content><![CDATA[<h3 id="interface的底层实现"><a href="#interface的底层实现" class="headerlink" title="interface的底层实现"></a>interface的底层实现</h3><p>在golang中，interface也是一个结构体，记录了2个指针：</p>
 <ul>
-<li>定义”父类”</li>
+<li>指针1，指向该变量的类型</li>
+<li>指针2，指向该变量的value</li>
 </ul>
-<p>然后，我们需要使用 struct 实现公共方法。</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Game <span class="keyword">struct</span> &#123;&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(g *Game)</span> <span class="title">play</span><span class="params">(game IGame)</span></span> &#123;</span><br><span class="line">    fmt.Printf(fmt.Sprintf(<span class="string">&quot;%s is awesome!&quot;</span>, game.Name()))</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>_type<code>可以认为是Go语言中所有类型的公共描述，Go语言中几乎所有的数据结构都可以抽象成</code>_type<code>，是所有类型的表现，可以说是万能类型， </code>data`是指向具体数据的指针。 </p>
+]]></content>
+  </entry>
+  <entry>
+    <title>golang源码学习之如何判断一个channel已关闭</title>
+    <url>/2020/11/21/golang%E6%BA%90%E7%A0%81%E5%AD%A6%E4%B9%A0%E4%B9%8B%E5%A6%82%E4%BD%95%E5%88%A4%E6%96%AD%E4%B8%80%E4%B8%AAchannel%E5%B7%B2%E5%85%B3%E9%97%AD/</url>
+    <content><![CDATA[<h3 id="如何判断一个channel已经关闭"><a href="#如何判断一个channel已经关闭" class="headerlink" title="如何判断一个channel已经关闭"></a>如何判断一个channel已经关闭</h3><ol>
+<li><p>从channel中读取数据</p>
+<ol>
+<li>第二个字段为true时 证明channel可能没关闭、也可能已经关闭了、不能证明什么</li>
+<li>第二个字段为false时，可以证明channel中已经没有残留数据、且已经关闭</li>
+</ol>
+</li>
+<li><p>如果channel c已经被关闭,继续往它发送数据会导致<code>panic: send on closed channel</code>:</p>
+<p>但是从这个关闭的channel中不但可以读取出已发送的数据，还可以不断的读取零值:</p>
+</li>
+<li><p>如果通过<code>range</code>读取，channel关闭后for循环会跳出：</p>
+</li>
+<li><p>可以直接读取channel结构hchan的closed字段，但问题chan.go没有开放这样的api，所以我们要用reflect这个黑科技了。</p>
+<figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"><span class="comment">// xiaorui.cc  https://blog.csdn.net/cyb_17302190874/article/details/106771295</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">import</span> (</span><br><span class="line">    <span class="string">&quot;unsafe&quot;</span></span><br><span class="line">    <span class="string">&quot;reflect&quot;</span></span><br><span class="line">)</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">isChanClosed</span><span class="params">(ch <span class="keyword">interface</span>&#123;&#125;)</span> <span class="title">bool</span></span> &#123;</span><br><span class="line">    <span class="keyword">if</span> reflect.TypeOf(ch).Kind() != reflect.Chan &#123;</span><br><span class="line">        <span class="built_in">panic</span>(<span class="string">&quot;only channels!&quot;</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    cptr := *(*<span class="keyword">uintptr</span>)(unsafe.Pointer(</span><br><span class="line">        unsafe.Pointer(<span class="keyword">uintptr</span>(unsafe.Pointer(&amp;ch)) + unsafe.Sizeof(<span class="keyword">uint</span>(<span class="number">0</span>))),</span><br><span class="line">    ))</span><br><span class="line"></span><br><span class="line">    <span class="comment">// this function will return true if chan.closed &gt; 0</span></span><br><span class="line">    <span class="comment">// see hchan on https://github.com/golang/go/blob/master/src/runtime/chan.go</span></span><br><span class="line">    <span class="comment">// type hchan struct &#123;</span></span><br><span class="line">    <span class="comment">// qcount   uint           // total data in the queue</span></span><br><span class="line">    <span class="comment">// dataqsiz uint           // size of the circular queue</span></span><br><span class="line">    <span class="comment">// buf      unsafe.Pointer // points to an array of dataqsiz elements</span></span><br><span class="line">    <span class="comment">// elemsize uint16</span></span><br><span class="line">    <span class="comment">// closed   uint32</span></span><br><span class="line">    <span class="comment">// **</span></span><br><span class="line"></span><br><span class="line">    cptr += unsafe.Sizeof(<span class="keyword">uint</span>(<span class="number">0</span>))*<span class="number">2</span></span><br><span class="line">    cptr += unsafe.Sizeof(unsafe.Pointer(<span class="keyword">uintptr</span>(<span class="number">0</span>)))</span><br><span class="line">    cptr += unsafe.Sizeof(<span class="keyword">uint16</span>(<span class="number">0</span>))</span><br><span class="line">    <span class="keyword">return</span> *(*<span class="keyword">uint32</span>)(unsafe.Pointer(cptr)) &gt; <span class="number">0</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-<p>这里是重点，我们将 <code>game IGame</code> 传了进来。这样我们便可以调用”子类”的方法来获取名字。<strong>从而间接地实现了在公共方法中调用不同”子类”的实现的抽象方法。</strong></p>
-<ul>
-<li>定义”子类”</li>
-</ul>
-<p>接着，我们再定义”Dota”和”LOL”这 2 个 struct 即可。</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="keyword">type</span> Dota <span class="keyword">struct</span> &#123;</span><br><span class="line">    Game</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(d *Dota)</span> <span class="title">Name</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;Dota&quot;</span></span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="keyword">type</span> LOL <span class="keyword">struct</span> &#123;</span><br><span class="line">    Game</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">func</span> <span class="params">(l *LOL)</span> <span class="title">Name</span><span class="params">()</span> <span class="title">string</span></span> &#123;</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;LOL&quot;</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<ol start="5">
+<li><p>配合一个context或者一个变量来做。就拿context来说，那么select不仅可以读取数据chan，且同事监听&lt;- context.Done() , 当context.Done()有事件，直接退出就ok了。</p>
+<figure class="highlight golang"><table><tr><td class="code"><pre><span class="line"> <span class="comment">// 转自https://blog.csdn.net/cyb_17302190874/article/details/106771295</span></span><br><span class="line"> ...</span><br><span class="line">    ctx, cancel := context.WithCancel(context.Background())</span><br><span class="line">    <span class="built_in">close</span>(c)</span><br><span class="line">    cancel()</span><br><span class="line">exit:</span><br><span class="line">    <span class="keyword">for</span> &#123;</span><br><span class="line">        <span class="keyword">select</span> &#123;</span><br><span class="line">        <span class="keyword">case</span> data, ok := &lt;-c:</span><br><span class="line">            fmt.Println(data, ok)</span><br><span class="line"></span><br><span class="line">        <span class="keyword">case</span> &lt;-ctx.Done():</span><br><span class="line">            <span class="keyword">break</span> exit</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">     ...</span><br></pre></td></tr></table></figure>
 
-<ul>
-<li>大功告成</li>
-</ul>
-<p>现在，在初始化”Dota”和”LOL”结构体后，便可以调用 <code>func (g *Game) play(game IGame)</code> 方法了。</p>
-<figure class="highlight go"><table><tr><td class="code"><pre><span class="line">dota := &amp;Dota&#123;&#125;</span><br><span class="line">dota.play(dota)</span><br><span class="line"></span><br><span class="line">lol := &amp;LOL&#123;&#125;</span><br><span class="line">lol.play(lol)</span><br><span class="line"></span><br><span class="line"><span class="comment">// 输出:</span></span><br><span class="line"><span class="comment">//Dota is awesome!</span></span><br><span class="line"><span class="comment">//LOL is awesome!</span></span><br></pre></td></tr></table></figure>
-
-<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>本文通过 struct 和 interface 的组合，提供了一种思路，间接实现了面向对象语言中的抽象类继承的模式。旨在提供一种思路，希望能帮助到需要的同学，欢迎讨论 :)</p>
+</li>
+</ol>
+</li>
+</ol>
 ]]></content>
   </entry>
   <entry>
@@ -2522,6 +2887,11 @@
       </tags>
   </entry>
   <entry>
+    <title>k8s-初识1</title>
+    <url>/2020/12/18/k8s-%E5%88%9D%E8%AF%861/</url>
+    <content><![CDATA[]]></content>
+  </entry>
+  <entry>
     <title>k8s-服务添加tag</title>
     <url>/2020/09/01/k8s-%E6%9C%8D%E5%8A%A1%E6%B7%BB%E5%8A%A0tag/</url>
     <content><![CDATA[<p>需求：由于随时对k8s的使用，有些node节点配置很高，会存在服务混布的情况，这样就需要对每个服务打tag，月末对机器的使用情况各个业务线来进行分摊成本</p>
@@ -2532,6 +2902,25 @@
       <categories>
         <category>k8s</category>
       </categories>
+  </entry>
+  <entry>
+    <title>k8s-组件说明1</title>
+    <url>/2020/12/18/k8s-%E7%BB%84%E4%BB%B6%E8%AF%B4%E6%98%8E1/</url>
+    <content><![CDATA[<p>k8s-组件说明1</p>
+<p>borg系统的架构</p>
+<img src="/images/k8s-%E7%BB%84%E4%BB%B6%E8%AF%B4%E6%98%8E1/image-20201218221737256.png" alt="image-20201218221737256" style="zoom:50%;" />
+
+<ol>
+<li><p>borgmaster 是所有 任务得分发、是整个系统得大脑，为了防止单节点故障、会发现borgmaster有许多副本、并且副本数目是奇数、为了方便选举</p>
+</li>
+<li><p>borglet 是任务真正的工作节点，从borgmaster获取要执行得任务</p>
+</li>
+<li><p>scheduler 是对任务进行安排应该哪些borglet有能力去执行，对任务进行打分，将</p>
+</li>
+<li><p>可以通过配置文件、命令行、浏览器来访问borgmaster得配置</p>
+</li>
+</ol>
+]]></content>
   </entry>
   <entry>
     <title>合并区间</title>
@@ -2726,6 +3115,103 @@ right := intervals[i][1]
 <p>找到0的位置 然后遍历set 0 就可以</p>
 <figure class="highlight go"><table><tr><td class="code"><pre><span class="line"><span class="function"><span class="keyword">func</span> <span class="title">setZeroes</span><span class="params">(matrix [][]<span class="keyword">int</span>)</span></span>  &#123;</span><br><span class="line">    lenth1 := <span class="built_in">len</span>(matrix)</span><br><span class="line">    lenth2 := <span class="built_in">len</span>(matrix[<span class="number">0</span>])</span><br><span class="line">    hMap,lMap := <span class="built_in">make</span>([]<span class="keyword">bool</span>,lenth1),<span class="built_in">make</span>([]<span class="keyword">bool</span>,lenth2)</span><br><span class="line">    <span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;lenth1;i++&#123;</span><br><span class="line">        <span class="keyword">for</span> j:=<span class="number">0</span>;j&lt;lenth2;j++&#123;</span><br><span class="line">            <span class="keyword">if</span> matrix[i][j] == <span class="number">0</span>&#123;</span><br><span class="line">                hMap[i] = <span class="literal">true</span></span><br><span class="line">                lMap[j] = <span class="literal">true</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="keyword">for</span> i:=<span class="number">0</span>;i&lt;lenth1;i++&#123;</span><br><span class="line">        <span class="keyword">for</span> j:=<span class="number">0</span>;j&lt;lenth2;j++&#123;</span><br><span class="line">            <span class="keyword">if</span> hMap[i] || lMap[j]&#123;</span><br><span class="line">                matrix[i][j] = <span class="number">0</span></span><br><span class="line">            &#125;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
+]]></content>
+  </entry>
+  <entry>
+    <title></title>
+    <url>/2020/12/03/log-%E6%97%A5%E5%BF%97%E5%AE%9A%E6%97%B6%E6%B8%85%E7%90%86/</url>
+    <content><![CDATA[<h3 id="一、思路"><a href="#一、思路" class="headerlink" title="一、思路"></a>一、<a href="https://www.jianshu.com/p/c8751434b9fb">思路</a></h3><p>定时删除日志，其实分为两个过程：</p>
+<ol>
+<li>查找符合条件的日志并删除</li>
+<li>定时<br>过程1需要写一个查找脚本，过程2需要用到linux的crontab</li>
+</ol>
+<h3 id="二、查找并删除"><a href="#二、查找并删除" class="headerlink" title="二、查找并删除"></a>二、查找并删除</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># vim delete-logs.sh</span><br></pre></td></tr></table></figure>
+
+<p>删除指定目录下1天以上的日志文件：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash">!/bin/bash</span></span><br><span class="line"><span class="meta">#</span><span class="bash"> access.log</span></span><br><span class="line">find /home/work/local/cb-recommendation/logs -name &quot;access.log.*&quot; -mtime +1 -exec  rm -rf &#123;&#125;  \;</span><br><span class="line"><span class="meta">#</span><span class="bash"> counter.log</span></span><br><span class="line">find /home/work/local/cb-recommendation/logs -name &quot;counter.log.*&quot; -mtime +1 -exec  rm -rf &#123;&#125;  \; </span><br><span class="line"><span class="meta">#</span><span class="bash"> geo.log</span></span><br><span class="line">find /home/work/local/cb-recommendation/logs -name &quot;geo.log.*&quot; -mtime +1 -exec  rm -rf &#123;&#125;  \;</span><br><span class="line"><span class="meta">#</span><span class="bash"> recommend.err.log</span></span><br><span class="line">find /home/work/local/cb-recommendation/logs -name &quot;recommend.err.log.*&quot; -mtime +1 -exec  rm -rf &#123;&#125;  \;</span><br><span class="line"><span class="meta">#</span><span class="bash"> recommend.log</span></span><br><span class="line">find /home/work/local/cb-recommendation/logs -name &quot;recommend.log.*&quot; -mtime +1 -exec  rm -rf &#123;&#125;  \;</span><br><span class="line"><span class="meta">#</span><span class="bash"> timer.log</span></span><br><span class="line">find /home/work/local/cb-recommendation/logs -name &quot;timer.log.*&quot; -mtime +1 -exec  rm -rf &#123;&#125;  \;</span><br></pre></td></tr></table></figure>
+
+<p>授权</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> chmod +x delete-logs.sh</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="三、linux定时任务"><a href="#三、linux定时任务" class="headerlink" title="三、linux定时任务"></a>三、linux定时任务</h3><figure class="highlight plain"><table><tr><td class="code"><pre><span class="line"># crontab -e</span><br></pre></td></tr></table></figure>
+
+
+
+<figure class="highlight bash"><table><tr><td class="code"><pre><span class="line"><span class="comment"># For details see man 4 crontabs</span></span><br><span class="line"></span><br><span class="line"><span class="comment"># Example of job definition:</span></span><br><span class="line"><span class="comment"># .---------------- minute (0 - 59)</span></span><br><span class="line"><span class="comment"># | .-------------- hour (0 - 23)</span></span><br><span class="line"><span class="comment"># | | .---------- day of month (1 - 31)</span></span><br><span class="line"><span class="comment"># | | | .------- month (1 - 12) OR jan,feb,mar,apr ...</span></span><br><span class="line"><span class="comment"># | | | | .---- day of week (0 - 6) (Sunday=0 or 7) OR sun,mon,tue,wed,thu,fri,sat</span></span><br><span class="line"><span class="comment"># | | | | |</span></span><br><span class="line"><span class="comment"># * * * * * user-name command to be executed</span></span><br><span class="line"> 55 23 * * * /home/work/scripts/delete-logs.sh</span><br></pre></td></tr></table></figure>
+
+<p>完工</p>
+]]></content>
+  </entry>
+  <entry>
+    <title>mac init</title>
+    <url>/2021/01/06/mac-init/</url>
+    <content><![CDATA[<h3 id="软件下载"><a href="#软件下载" class="headerlink" title="软件下载"></a>软件下载</h3><ul>
+<li><p>goland</p>
+</li>
+<li><p>intelij </p>
+</li>
+<li><p>iterm</p>
+</li>
+<li><p>docker-desktop</p>
+</li>
+</ul>
+<h3 id="客户端插件"><a href="#客户端插件" class="headerlink" title="客户端插件"></a>客户端插件</h3><ul>
+<li><p>mysql</p>
+</li>
+<li><p>redis</p>
+</li>
+<li><p>git</p>
+</li>
+<li><p>jenv</p>
+</li>
+</ul>
+<h3 id="jdk-下载"><a href="#jdk-下载" class="headerlink" title="jdk 下载"></a>jdk 下载</h3><ul>
+<li><p>jdk 1.8</p>
+</li>
+<li><p>logstash</p>
+<ul>
+<li><p>filebeat</p>
+</li>
+<li><p>elasticsearch  <a href="https://www.elastic.co/cn/downloads/past-releases#elasticsearch">https://www.elastic.co/cn/downloads/past-releases#elasticsearch</a></p>
+</li>
+<li><p>kibana</p>
+</li>
+<li><p>go 1.8</p>
+</li>
+<li><p>python 3.7</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h3><ul>
+<li><pre><code class="shell">alias ll=&#39;ls -l&#39;
+&lt;!--hexoPostRenderEscape:&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;43&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;44&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;45&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;46&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;47&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;48&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;49&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;50&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;51&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;52&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;53&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;54&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;55&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;56&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;57&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;58&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;59&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;60&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;61&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;62&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;63&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;65&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;66&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;67&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;68&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;69&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;70&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;71&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;72&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;73&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;74&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;75&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;76&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;77&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;78&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;79&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;+ git 自动补全&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;+ bash_profile&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  + &amp;#96;&amp;#96;&amp;#96;bash&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    mfxing  cat ~&amp;#x2F;.bash_profile&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    if [ -f ~&amp;#x2F;.bashrc ] ; then&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ~&amp;#x2F;.bashrc&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    fi&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    # iterm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    CLICOLOR&amp;#x3D;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    LSCOLORS&amp;#x3D;gxfxcxdxbxegedabagacad&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export TERM&amp;#x3D;xterm-color&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export M2_HOME&amp;#x3D;&amp;#x2F;Users&amp;#x2F;mengfanxing_g&amp;#x2F;software&amp;#x2F;apache-maven-3.5.4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export PATH&amp;#x3D;$PATH:$M2_HOME&amp;#x2F;bin&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ##go&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export GOPATH&amp;#x3D;&amp;#x2F;Users&amp;#x2F;mengfanxing_g&amp;#x2F;godev&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export GOBIN&amp;#x3D;$GOPATH&amp;#x2F;bin&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export PATH&amp;#x3D;$PATH:$GOBIN&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    #export GOPROXY&amp;#x3D;https:&amp;#x2F;&amp;#x2F;goproxy.io,direct&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export PATH&amp;#x3D;$PATH:$GOROOT&amp;#x2F;bin&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export GOSUMDB&amp;#x3D;off&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export GO111MODULE&amp;#x3D;on&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    #export GOPROXY&amp;#x3D;http:&amp;#x2F;&amp;#x2F;10.120.1.209:3000&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ##mysql&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export PATH&amp;#x3D;$&amp;#123;PATH&amp;#125;:&amp;#x2F;usr&amp;#x2F;local&amp;#x2F;mysql&amp;#x2F;bin&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export PATH&amp;#x3D;&amp;#x2F;usr&amp;#x2F;local&amp;#x2F;mongodb&amp;#x2F;bin:$PATH&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export PATH&amp;#x3D;&amp;#x2F;usr&amp;#x2F;local&amp;#x2F;Cellar:$PATH&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export IME_SCRIPTS_PATH&amp;#x3D;&amp;#x2F;Users&amp;#x2F;mengfanxing_g&amp;#x2F;duserver&amp;#x2F;ime-theme-pkg&amp;#x2F;src&amp;#x2F;main&amp;#x2F;resources&amp;#x2F;scripts&amp;#x2F;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export PATH&amp;#x3D;$PATH:$IME_SCRIPTS_PATH&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export PATH&amp;#x3D;&amp;quot;$HOME&amp;#x2F;.jenv&amp;#x2F;bin:$PATH&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export PATH&amp;#x3D;$PATH:&amp;#x2F;Applications&amp;#x2F;Postgres.app&amp;#x2F;Contents&amp;#x2F;Versions&amp;#x2F;11&amp;#x2F;bin&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    # Setting PATH for android-sdk&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export ANDROID_SDK_ROOT&amp;#x3D;&amp;#x2F;usr&amp;#x2F;local&amp;#x2F;share&amp;#x2F;android-sdk&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export ANDROID_HOME&amp;#x3D;&amp;#x2F;usr&amp;#x2F;local&amp;#x2F;share&amp;#x2F;android-sdk&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export PATH&amp;#x3D;&amp;quot;$&amp;#123;PATH&amp;#125;:$&amp;#123;ANDROID_SDK_ROOT&amp;#125;&amp;#x2F;tools:$&amp;#123;ANDROID_SDK_ROOT&amp;#125;&amp;#x2F;platform-tools&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export PATH&amp;#x3D;&amp;quot;$&amp;#123;PATH&amp;#125;:&amp;#x2F;usr&amp;#x2F;local&amp;#x2F;Cellar&amp;#x2F;gradle&amp;#x2F;5.2.1&amp;#x2F;bin&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    #export PLAY_HOME&amp;#x3D;&amp;#x2F;Applications&amp;#x2F;play-1.2.4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export PLAY_HOME&amp;#x3D;&amp;#x2F;Users&amp;#x2F;mengfanxing_g&amp;#x2F;tools&amp;#x2F;play-1.2.4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export PATH&amp;#x3D;$PATH:$PLAY_HOME&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    #eval &amp;quot;$(jenv init -)&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    #enables colorin the terminal bash shell export&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export CLICOLOR&amp;#x3D;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    #setsup thecolor scheme for list export&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export LSCOLORS&amp;#x3D;gxfxcxdxbxegedabagacad&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    #sets up theprompt color (currently a green similar to linux terminal)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    #export PS1&amp;#x3D;&amp;#39;\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;36m\]\w\[\033[00m\]\$&amp;#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    #enables colorfor iTerm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export TERM&amp;#x3D;xterm-256color&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    alias gcc&amp;#x3D;&amp;#39;gcc-8&amp;#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    alias cc&amp;#x3D;&amp;#39;gcc-8&amp;#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    alias g++&amp;#x3D;&amp;#39;g++-8&amp;#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    alias c++&amp;#x3D;&amp;#39;c++-8&amp;#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export PATH&amp;#x3D;&amp;quot;&amp;#x2F;Users&amp;#x2F;mengfanxing_g&amp;#x2F;tools:$PATH&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export MICRO_REGISTRY&amp;#x3D;consul&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    alias hwrelaybj1&amp;#x3D;&amp;#39;ssh work@10.49.1.180&amp;#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    alias hwrelaybj4&amp;#x3D;&amp;#39;ssh work@119.3.170.35&amp;#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    alias injumper&amp;#x3D;&amp;#39;ssh work@35.154.102.190&amp;#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    alias hwhk&amp;#x3D;&amp;#39;ssh work@159.138.9.178&amp;#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    alias sandboxjumper&amp;#x3D;&amp;#39;ssh work@35.160.18.159&amp;#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    # java 1.6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    # JAVA_HOME&amp;#x3D;&amp;#x2F;Library&amp;#x2F;Java&amp;#x2F;JavaVirtualMachines&amp;#x2F;1.6.0.jdk&amp;#x2F;Contents&amp;#x2F;Home&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    # java 1.8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    JAVA_HOME&amp;#x3D;&amp;#x2F;Library&amp;#x2F;Java&amp;#x2F;JavaVirtualMachines&amp;#x2F;jdk1.8.0_172.jdk&amp;#x2F;Contents&amp;#x2F;Home&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    #jdk15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    #JAVA_HOME&amp;#x3D;&amp;#x2F;Library&amp;#x2F;Java&amp;#x2F;JavaVirtualMachines&amp;#x2F;jdk-15.0.1.jdk&amp;#x2F;Contents&amp;#x2F;Home&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    PATH&amp;#x3D;$JAVA_HOME&amp;#x2F;bin:$PATH:.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    #CLASSPATH&amp;#x3D;$JAVA_HOME&amp;#x2F;lib&amp;#x2F;tools.jar:$JAVA_HOME&amp;#x2F;lib&amp;#x2F;dt.jar:.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export JAVA_HOME&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export PATH&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export CLASSPATH&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;:hexoPostRenderEscape--&gt;
+
++ bashrc
+
+  &lt;!--hexoPostRenderEscape:&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;bash&quot;&gt;complete -C aws_completer aws&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias ll=&amp;#x27;ls -l&amp;#x27;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;bash&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;alias&lt;/span&gt; python=&lt;span class=&quot;string&quot;&gt;&amp;quot;/usr/local/Cellar/python/3.7.0/bin/python3.7&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias hwmysql=&amp;quot;mysql -h 10.48.1.125 -P 3306 -u root -pHua_xxx_111&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias hwredis=&amp;quot;redis-cli -h 10.49.1.109 -p6379 -c&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias python=&amp;quot;/usr/local/bin/python2&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias login-relay=&amp;quot;ssh mengfanxing@13.251.183.70&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias redis-cli-dev=&amp;quot;redis-cli -h hkg02-dx-gc04.hkg02.baidu.com -p 8501 -c&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias redis-cli-sandbox=&amp;quot;redis-cli -h 10.29.10.14 -p 8700 -c&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias mysql-dev=&amp;quot;mysql -h hkg02-dx-gc04.hkg02.baidu.com -P 8306 -u dev -p&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias apjumper=&amp;#x27;ssh work@13.251.183.70&amp;#x27;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias work-relay=&amp;quot;ssh mengfanxing@13.251.183.70&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias tencent-login=&amp;quot;ssh work@49.234.187.242&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias usjumper=&amp;#x27;ssh work@52.32.151.225&amp;#x27;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias inputjumper=&amp;#x27;ssh ec2-user@35.154.102.190&amp;#x27;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias rec01=&amp;#x27;ssh work@18.138.50.186&amp;#x27;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias rec02=&amp;#x27;ssh work@18.138.52.92&amp;#x27;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias huaweiJumper=&amp;#x27;ssh work@159.138.9.178&amp;#x27;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias lezhuan=&amp;#x27;ssh work@10.49.3.168&amp;#x27;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias hwrelaybj1=&amp;#x27;ssh work@10.49.1.180&amp;#x27;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias sandbox=&amp;#x27;ssh work@35.160.18.159&amp;#x27;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias sandboxk8s=&amp;#x27;ssh k8s@10.29.2.9&amp;#x27;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;function git_branch &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  branch=&amp;quot;`git branch 2&amp;gt;/dev/null | grep &amp;quot;^\*&amp;quot; | sed -e &amp;quot;s/^\*\ //&amp;quot;`&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  if [ &amp;quot;$&amp;#123;branch&amp;#125;&amp;quot; != &amp;quot;&amp;quot; ];then&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      if [ &amp;quot;$&amp;#123;branch&amp;#125;&amp;quot; = &amp;quot;(no branch)&amp;quot; ];then&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;          branch=&amp;quot;(`git rev-parse --short HEAD`...)&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      fi&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      echo &amp;quot; ($branch)&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  fi&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;bash&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;export&lt;/span&gt; PS1=&lt;span class=&quot;string&quot;&gt;&amp;#x27;\u@\h \[\033[01;36m\]\W\[\033[01;32m\]$(git_branch)\[\033[00m\] \$ &amp;#x27;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;export LANG=&amp;#x27;UTC-8&amp;#x27;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;export LC_ALL=&amp;#x27;en_US.UTF-8&amp;#x27;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;export TERM=xterm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias sandbox=&amp;quot;ssh work@10.29.10.97&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias sandbox_apollo=&amp;quot;ssh work@10.29.0.236&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias sandbox_1=&amp;quot;ssh work@35.160.18.159&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;:hexoPostRenderEscape--&gt;
+
+
+
+
+
+
+
+
+</code></pre>
+</li>
+</ul>
+<h4 id="es压测"><a href="#es压测" class="headerlink" title="es压测"></a>es压测</h4><ol>
+<li><p>jvm 从cms改G1 看看性能，然后在改为jdk11 使用ZGC 看看性能</p>
+</li>
+<li><p>新机器需要调整相应配置 <a href="https://www.elastic.co/guide/en/elasticsearch/reference/current/system-config.html">https://www.elastic.co/guide/en/elasticsearch/reference/current/system-config.html</a></p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">sudo sh -c &quot;ulimit -n 65535 &amp;&amp; exec su $LOGNAME&quot;</span><br><span class="line">sudo sh -c &quot;ulimit -u 4096 &amp;&amp; exec su $LOGNAME&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<p>pip install –upgrade “esrally==1.2.1”</p>
 ]]></content>
   </entry>
   <entry>
@@ -2955,28 +3441,34 @@ right := intervals[i][1]
 ]]></content>
   </entry>
   <entry>
-    <title>zip&amp;unzip的使用</title>
-    <url>/2020/08/07/zip-unzip%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
-    <content><![CDATA[<h3 id="zip的使用"><a href="#zip的使用" class="headerlink" title="zip的使用"></a>zip的使用</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">zip -r myfile.zip ./*</span><br><span class="line">将当前目录下的所有文件和文件夹全部压缩成myfile.zip文件,－r表示递归压缩子目录下所有文件.</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="unzip-的使用"><a href="#unzip-的使用" class="headerlink" title="unzip 的使用"></a>unzip 的使用</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">unzip -o -d /home/sunny myfile.zip</span><br><span class="line">把myfile.zip文件解压到 /home/sunny/</span><br><span class="line">-o:不提示的情况下覆盖文件；</span><br><span class="line">-d:-d /home/sunny 指明将文件解压缩到/home/sunny目录下；</span><br></pre></td></tr></table></figure>
-
-
-
-<h3 id="对已有zip包的更改"><a href="#对已有zip包的更改" class="headerlink" title="对已有zip包的更改"></a>对已有zip包的更改</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">zip -d myfile.zip smart.txt</span><br><span class="line">删除压缩文件中smart.txt文件</span><br><span class="line">zip -m myfile.zip ./rpm_info.txt</span><br><span class="line">向压缩文件中myfile.zip中添加rpm_info.txt文件</span><br></pre></td></tr></table></figure>
-
+    <title>tencent准备工作</title>
+    <url>/2020/12/17/tencent%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C/</url>
+    <content><![CDATA[<p>部门：未来实验室-车路协同平台组</p>
+<p>核心业务: </p>
+<ol>
+<li>端的工作（android端，小程序端）这部分工作不多</li>
+<li>纯后台的工作（go多）</li>
+<li>后台+web的工作（web管理类）这部分go+react </li>
+<li>交通仿真器的工作 python</li>
+<li>平台的工作 和边缘计算平台结合的如k8s之类的组件使用的之类的</li>
+</ol>
+<p>业务特性：</p>
+<ol>
+<li>大数据、这个大数据可能是超乎想象的大数据，一台无人车一天几tb的数据</li>
+<li>高实时两个非常重要的特性的、高实时也是超乎想象的，需要服务有百毫秒级别的延迟</li>
+<li>当然我们的这个产品是很多高实时的特性，有可能传统的组件都不适用、需要我们自己研发</li>
+</ol>
+<p>补充：</p>
+<ol>
+<li>这里的百毫秒是端到端的时延，不是服务时延，也就是服务时延可能只有10ms左右的，但是这里又有很多的计算、目前都处于探索和权衡的阶段，也就没有找到特别合适的组件，这里面最近正在做的也是要各种对比选型，看看情况</li>
+</ol>
+<p>自己负责的工作：</p>
+<ol>
+<li>平台的工作 和边缘计算平台结合的如k8s之类的组件使用的之类的</li>
+<li>组件化，之前我们的产品是poc层级的，现在要poc转化成可交付的产品，这里面有很多组件化的工作，比如引入redis，hbase等等组件去改造</li>
+<li>有兴趣可以研究一下flink之类的流处理组件的一些指标</li>
+</ol>
 ]]></content>
-      <categories>
-        <category>linux</category>
-        <category>运维</category>
-      </categories>
-      <tags>
-        <tag>linux</tag>
-        <tag>zip</tag>
-        <tag>unzip</tag>
-      </tags>
   </entry>
   <entry>
     <title>vim的常用命令</title>
@@ -3000,6 +3492,78 @@ right := intervals[i][1]
       <tags>
         <tag>linux</tag>
         <tag>vim</tag>
+      </tags>
+  </entry>
+  <entry>
+    <title>vmware-NAT配置</title>
+    <url>/2020/12/20/vmware-NAT%E9%85%8D%E7%BD%AE/</url>
+    <content><![CDATA[<h3 id="搭建前提"><a href="#搭建前提" class="headerlink" title="搭建前提"></a>搭建前提</h3><p>配置前提，没有连接宽带，使用的是wifi。</p>
+<h4 id="我们需要先了解一下什么是NAT"><a href="#我们需要先了解一下什么是NAT" class="headerlink" title="我们需要先了解一下什么是NAT"></a>我们需要先了解一下什么是NAT</h4><h5 id="一、引言"><a href="#一、引言" class="headerlink" title="一、引言"></a>一、引言</h5><p>在Windows上搭建集群实验环境时，为能够让集群结点之间相互通信，我们需要通过VMware进行网络设置。我们主要讲解NAT模式(网络地址转换模式)的原理及配置过程。</p>
+<h5 id="二、工作原理"><a href="#二、工作原理" class="headerlink" title="二、工作原理"></a>二、工作原理</h5><p>1.“NAT”类型，称为网络地址转换，在“仅主机”类型的基础上提供了guest可以访问外部host的能力<br>2.虚拟机之间、虚拟机和宿主机之间、虚拟机和外部host之间都可以进行通信<br>3.虚拟机的IP只需要配置NAT网段中的IP，访问外部host可以通过宿主机IP访问。它不需要有外部网络独立的IP（即物理交换机网段中的IP）<br>4.优点：虚拟机的网络配置确定后，就可以很少变动。因为NAT配置不变，宿主机连接的网络变化，不影响虚拟机。所以大部分集群实验选择的就是NAT模式</p>
+<img src="/images/vmware-NAT%E9%85%8D%E7%BD%AE/SouthEast.png" alt="这里写图片描述" style="zoom: 67%;" />
+
+
+
+<h3 id="准备工作"><a href="#准备工作" class="headerlink" title="准备工作"></a>准备工作</h3><ol>
+<li>需要宿主机关闭防火墙</li>
+<li>需要开启主机VMware的2个服务：NAT和DHCP（默认是开启的），如果没有开启，在虚拟机中添加vm0，vm1.vm8，在宿主机中就会自动创建出来了。</li>
+<li>NAT使用得是VMnet8得虚拟网卡，我们需要将<img src="/images/vmware-NAT%E9%85%8D%E7%BD%AE/image-20201219163743635.png" alt="image-20201219163743635"></li>
+</ol>
+<p>wlan配置共享给VMnet8，然后修改vmnet8得ip v4配置</p>
+<img src="/images/vmware-NAT%E9%85%8D%E7%BD%AE/image-20201219164052935.png" alt="image-20201219164052935" style="zoom:50%;" />
+
+<ol start="4">
+<li><p>设置vmnet8 ip地址为192.168.0.2,默认网关设置为192.168.0.1 子网掩码设置为255.255.255.0</p>
+</li>
+<li><p>设置虚拟机使用NAT模式进行和宿主机连接 <img src="/images/vmware-NAT%E9%85%8D%E7%BD%AE/image-20201219164519656.png" alt="image-20201219164519656" style="zoom: 25%;" /></p>
+</li>
+<li><p>编辑虚拟机中的网络配置<img src="/images/vmware-NAT%E9%85%8D%E7%BD%AE/image-20201219164645822.png" alt="image-20201219164645822" style="zoom:25%;" />，</p>
+<p>同时还需要设置图中得DHCP配置，配置虚拟机静态ip所属得网段。<img src="/images/vmware-NAT%E9%85%8D%E7%BD%AE/image-20201219164830809.png" alt="image-20201219164830809" style="zoom:25%;" /></p>
+<ol start="7">
+<li><p>配置虚拟机网卡信息：切换root用户，输入以下命令，进入VI编辑，配置保存即可</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">vi /etc/sysconfig/network-scripts/ifcfg-eth33</span><br></pre></td></tr></table></figure>
+
+<img src="/images/vmware-NAT%E9%85%8D%E7%BD%AE/image-20201219165024491.png" alt="image-20201219165024491" style="zoom:50%;" />
+
+<ol start="8">
+<li><p>重启网络服务 </p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line"><span class="meta">#</span><span class="bash"> 使用service命令</span></span><br><span class="line">service network restart </span><br><span class="line"><span class="meta">#</span><span class="bash"> 使用 systemctl </span></span><br><span class="line">systemctl restart network</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+</li>
+</ol>
+</li>
+</ol>
+<h3 id="借鉴的链接"><a href="#借鉴的链接" class="headerlink" title="借鉴的链接"></a>借鉴的链接</h3><ol>
+<li><a href="https://blog.csdn.net/dingguanyi/article/details/77829085">https://blog.csdn.net/dingguanyi/article/details/77829085</a> </li>
+</ol>
+]]></content>
+  </entry>
+  <entry>
+    <title>zip&amp;unzip的使用</title>
+    <url>/2020/08/07/zip-unzip%E7%9A%84%E4%BD%BF%E7%94%A8/</url>
+    <content><![CDATA[<h3 id="zip的使用"><a href="#zip的使用" class="headerlink" title="zip的使用"></a>zip的使用</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">zip -r myfile.zip ./*</span><br><span class="line">将当前目录下的所有文件和文件夹全部压缩成myfile.zip文件,－r表示递归压缩子目录下所有文件.</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="unzip-的使用"><a href="#unzip-的使用" class="headerlink" title="unzip 的使用"></a>unzip 的使用</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">unzip -o -d /home/sunny myfile.zip</span><br><span class="line">把myfile.zip文件解压到 /home/sunny/</span><br><span class="line">-o:不提示的情况下覆盖文件；</span><br><span class="line">-d:-d /home/sunny 指明将文件解压缩到/home/sunny目录下；</span><br></pre></td></tr></table></figure>
+
+
+
+<h3 id="对已有zip包的更改"><a href="#对已有zip包的更改" class="headerlink" title="对已有zip包的更改"></a>对已有zip包的更改</h3><figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">zip -d myfile.zip smart.txt</span><br><span class="line">删除压缩文件中smart.txt文件</span><br><span class="line">zip -m myfile.zip ./rpm_info.txt</span><br><span class="line">向压缩文件中myfile.zip中添加rpm_info.txt文件</span><br></pre></td></tr></table></figure>
+
+]]></content>
+      <categories>
+        <category>linux</category>
+        <category>运维</category>
+      </categories>
+      <tags>
+        <tag>linux</tag>
+        <tag>zip</tag>
+        <tag>unzip</tag>
       </tags>
   </entry>
   <entry>
@@ -3145,7 +3709,7 @@ right := intervals[i][1]
 <li>有带领团队的经验（5-8人）</li>
 <li>对于容器化的部署有丰富的经验</li>
 </ol>
-<h2 id="工作经历"><a href="#工作经历" class="headerlink" title="工作经历"></a>工作经历</h2><h3 id="2018-7月至今北京小熊博望（百度国际化）"><a href="#2018-7月至今北京小熊博望（百度国际化）" class="headerlink" title="2018.7月至今北京小熊博望（百度国际化）"></a>2018.7月至今北京小熊博望（百度国际化）</h3><h3 id="2017-10月2018-7中国中煤能源股份有限公司"><a href="#2017-10月2018-7中国中煤能源股份有限公司" class="headerlink" title="2017.10月2018.7中国中煤能源股份有限公司"></a>2017.10月2018.7<a href="https://www.baidu.com/link?url=LvM0KE2SlhWwuukv0f2xuySMWmdIx4Qe1WzDvim-m7UkX_HB1ZCZ2muEUsOyB_fE&wd=&eqid=ae8224ba0003a119000000035b4ad478">中国中煤能源股份有限公司</a></h3><p>###2016.3月2017.9北京智慧流科技教育有限公司</p>
+<h2 id="工作经历"><a href="#工作经历" class="headerlink" title="工作经历"></a>工作经历</h2><h3 id="2018-7月至今北京小熊博望（百度国际化）"><a href="#2018-7月至今北京小熊博望（百度国际化）" class="headerlink" title="2018.7月至今北京小熊博望（百度国际化）"></a>2018.7月至今北京小熊博望（百度国际化）</h3><h3 id="2017-10月2018-7中国中煤能源股份有限公司"><a href="#2017-10月2018-7中国中煤能源股份有限公司" class="headerlink" title="2017.10月2018.7中国中煤能源股份有限公司"></a>2017.10月2018.7<a href="https://www.baidu.com/link?url=LvM0KE2SlhWwuukv0f2xuySMWmdIx4Qe1WzDvim-m7UkX_HB1ZCZ2muEUsOyB_fE&wd=&eqid=ae8224ba0003a119000000035b4ad478">中国中煤能源股份有限公司</a></h3><p>###2016.12月2017.9北京智慧流科技教育有限公司</p>
 <h2 id="项目经历"><a href="#项目经历" class="headerlink" title="项目经历"></a>项目经历</h2><p><strong>2018.7-至今</strong></p>
 <p>Meet （视频聊天 reslet netty） </p>
 <p>Sleepiness （轻应用类 springboot）</p>
@@ -3324,6 +3888,11 @@ right := intervals[i][1]
   </entry>
   <entry>
     <title></title>
+    <url>/2020/11/17/%E7%BB%99%E4%BD%A0100w%E4%B8%AA%E6%95%B0%E5%AD%97%20%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E6%9C%80%E5%A4%A7%E7%9A%84100%E4%B8%AA%E6%95%B0%E5%AD%97%EF%BC%8C%E9%82%A3%E4%B9%88%E4%B8%80%E4%B8%AA%E4%BA%BF%E5%91%A2%20%E6%80%8E%E4%B9%88%E5%A4%84%E7%90%86/</url>
+    <content><![CDATA[<h3 id="给你100w个数字-如何获取最大的100个数字，那么一个亿呢-怎么处理"><a href="#给你100w个数字-如何获取最大的100个数字，那么一个亿呢-怎么处理" class="headerlink" title="给你100w个数字 如何获取最大的100个数字，那么一个亿呢 怎么处理"></a>给你100w个数字 如何获取最大的100个数字，那么一个亿呢 怎么处理</h3><h3 id="排序-用哪种排序-他的时间复杂度-最优情况是什么-最差情况是什么样"><a href="#排序-用哪种排序-他的时间复杂度-最优情况是什么-最差情况是什么样" class="headerlink" title="排序 用哪种排序 他的时间复杂度 最优情况是什么 最差情况是什么样"></a>排序 用哪种排序 他的时间复杂度 最优情况是什么 最差情况是什么样</h3><h3 id="你有什么要问面试官的吗？"><a href="#你有什么要问面试官的吗？" class="headerlink" title="你有什么要问面试官的吗？"></a>你有什么要问面试官的吗？</h3><h3 id="您的团队是什么样的？你对您的团队有什么规划吗？有没有定期的做技术分享呢？然后说说自己团队的技术分享是怎么做的"><a href="#您的团队是什么样的？你对您的团队有什么规划吗？有没有定期的做技术分享呢？然后说说自己团队的技术分享是怎么做的" class="headerlink" title="您的团队是什么样的？你对您的团队有什么规划吗？有没有定期的做技术分享呢？然后说说自己团队的技术分享是怎么做的"></a>您的团队是什么样的？你对您的团队有什么规划吗？有没有定期的做技术分享呢？然后说说自己团队的技术分享是怎么做的</h3><h3 id="你对我本次的面试评价觉得怎么样？"><a href="#你对我本次的面试评价觉得怎么样？" class="headerlink" title="你对我本次的面试评价觉得怎么样？"></a>你对我本次的面试评价觉得怎么样？</h3>]]></content>
+  </entry>
+  <entry>
+    <title></title>
     <url>/2020/11/02/%E7%BB%8F%E5%8E%86%E4%BB%8B%E7%BB%8D/</url>
     <content><![CDATA[<p>孟凡星</p>
 <p>电话：17600362123</p>
@@ -3444,11 +4013,6 @@ right := intervals[i][1]
 <p>电话：17600362123</p>
 <p>邮箱：<a href="mailto:nizhidaoIEdeyisima@gmail.com">nizhidaoIEdeyisima@gmail.com</a>  <a href="mailto:17600362123@yahoo.com">17600362123@yahoo.com</a></p>
 ]]></content>
-  </entry>
-  <entry>
-    <title></title>
-    <url>/2020/11/17/%E7%BB%99%E4%BD%A0100w%E4%B8%AA%E6%95%B0%E5%AD%97%20%E5%A6%82%E4%BD%95%E8%8E%B7%E5%8F%96%E6%9C%80%E5%A4%A7%E7%9A%84100%E4%B8%AA%E6%95%B0%E5%AD%97%EF%BC%8C%E9%82%A3%E4%B9%88%E4%B8%80%E4%B8%AA%E4%BA%BF%E5%91%A2%20%E6%80%8E%E4%B9%88%E5%A4%84%E7%90%86/</url>
-    <content><![CDATA[<h3 id="给你100w个数字-如何获取最大的100个数字，那么一个亿呢-怎么处理"><a href="#给你100w个数字-如何获取最大的100个数字，那么一个亿呢-怎么处理" class="headerlink" title="给你100w个数字 如何获取最大的100个数字，那么一个亿呢 怎么处理"></a>给你100w个数字 如何获取最大的100个数字，那么一个亿呢 怎么处理</h3><h3 id="排序-用哪种排序-他的时间复杂度-最优情况是什么-最差情况是什么样"><a href="#排序-用哪种排序-他的时间复杂度-最优情况是什么-最差情况是什么样" class="headerlink" title="排序 用哪种排序 他的时间复杂度 最优情况是什么 最差情况是什么样"></a>排序 用哪种排序 他的时间复杂度 最优情况是什么 最差情况是什么样</h3><h3 id="你有什么要问面试官的吗？"><a href="#你有什么要问面试官的吗？" class="headerlink" title="你有什么要问面试官的吗？"></a>你有什么要问面试官的吗？</h3><h3 id="您的团队是什么样的？你对您的团队有什么规划吗？有没有定期的做技术分享呢？然后说说自己团队的技术分享是怎么做的"><a href="#您的团队是什么样的？你对您的团队有什么规划吗？有没有定期的做技术分享呢？然后说说自己团队的技术分享是怎么做的" class="headerlink" title="您的团队是什么样的？你对您的团队有什么规划吗？有没有定期的做技术分享呢？然后说说自己团队的技术分享是怎么做的"></a>您的团队是什么样的？你对您的团队有什么规划吗？有没有定期的做技术分享呢？然后说说自己团队的技术分享是怎么做的</h3><h3 id="你对我本次的面试评价觉得怎么样？"><a href="#你对我本次的面试评价觉得怎么样？" class="headerlink" title="你对我本次的面试评价觉得怎么样？"></a>你对我本次的面试评价觉得怎么样？</h3>]]></content>
   </entry>
   <entry>
     <title>自己学习gRPC(一)</title>
@@ -4313,7 +4877,8 @@ right := intervals[i][1]
   <entry>
     <title>知识必备</title>
     <url>/2020/08/28/%E7%9F%A5%E8%AF%86%E5%BF%85%E5%A4%87/</url>
-    <content><![CDATA[<h3 id=""><a href="#" class="headerlink" title=""></a></h3><p>为什么打算出来面试呢</p>
+    <content><![CDATA[<p>###</p>
+<p>为什么打算出来面试呢</p>
 <p>​    现在自己的技术成长有碰到瓶颈、加上一直对您公司钦慕有加</p>
 <h3 id="redis-hash是怎么解决hash冲突的"><a href="#redis-hash是怎么解决hash冲突的" class="headerlink" title="redis hash是怎么解决hash冲突的"></a>redis hash是怎么解决hash冲突的</h3><p>  链地址法</p>
 <p>Redis 的哈希表使用链地址法（separate chaining）来解决键冲突： 每个哈希表节点都有一个 <code>next</code> 指针， 多个哈希表节点可以用 <code>next</code> 指针构成一个单向链表， 被分配到同一个索引上的多个节点可以用这个单向链表连接起来， 这就解决了键冲突的问题。</p>
@@ -4357,7 +4922,7 @@ right := intervals[i][1]
 <p>Redis使用ziplist作为哈希的内部实现，ziplist使用更加紧凑的结构实现多个元素的连续存储，所以在节省内存方面比hashtable更加优秀。</p>
 <p>使用hashtable作为哈希的内部实现，ziplist的读写效率会下降，而hashtable的读写时间复杂度为O（1）。</p>
 <h3 id="redis-为什么是单线程及高并发快的原因"><a href="#redis-为什么是单线程及高并发快的原因" class="headerlink" title="redis 为什么是单线程及高并发快的原因"></a>redis 为什么是单线程及高并发快的原因</h3><ol>
-<li>​    redis是基于内存的。读写都非常快</li>
+<li>redis是基于内存的。读写都非常快</li>
 <li>redis是单线程的，减少了上下文切换的时间</li>
 <li>redis使用了io多路复用计数，可以并发的处理连接、非阻塞io内部实现了epoll，采用了epoll+自己实现的简单事件框架。epoll中的读写、关闭、连接都转化成了事件、然后采用了epoll的多路复用的特效 绝不在io上浪费一点事件 </li>
 </ol>
@@ -4468,6 +5033,11 @@ right := intervals[i][1]
 <li>如果因为某些原因，获取锁失败了，客户端应该在所有的redis实例上解锁，防止某些节点获取到锁但是客户端没有得到响应而导致接下来一段时间不能重新获取锁</li>
 </ol>
 </li>
+<li><p>但是假设我们有5个redis实例a，b，c，d，e，线程A分别加锁，然后a，b，c加锁成功，因为网络分区问题，d，e失败。同时，线程B也加锁，因为网络分区问题，a，b加锁失败，但是d，e加锁成功。这时候，显然线程A会获得锁，但是如果这时候c的master挂了，然后切换成了slave，slave中没有A加锁的信息，恰巧这时线程B对c加锁的命令到了，那线程B就会加锁成功，这时候，线程A和B都给三个节点加锁成功了，他们同时拥有锁。所以我认为redlock仍然没有解决这个问题，只是让这个问题更不容易发生了</p>
+<ol>
+<li>解决办法指定加锁顺序, 按顺序加锁</li>
+</ol>
+</li>
 </ol>
 <p>http状态码</p>
 <p>200 状态正确</p>
@@ -4478,7 +5048,7 @@ right := intervals[i][1]
 <p>500  server error</p>
 <p>502 nginx gateway</p>
 <p>504 timeout</p>
-<h2 id="作业帮面试"><a href="#作业帮面试" class="headerlink" title="作业帮面试"></a>作业帮面试</h2><h4 id="channel是如何使用的"><a href="#channel是如何使用的" class="headerlink" title="channel是如何使用的"></a>channel是如何使用的</h4><h4 id="线程、协程、进程之间的区别"><a href="#线程、协程、进程之间的区别" class="headerlink" title="线程、协程、进程之间的区别"></a>线程、协程、进程之间的区别</h4><p>进程：进程就是应用程序的启动实例，代码和打开的文件资源、数据资源、独立的内存空间。</p>
+<h2 id="作业帮面试"><a href="#作业帮面试" class="headerlink" title="作业帮面试"></a>作业帮面试</h2><h4 id="channel是如何使用的"><a href="#channel是如何使用的" class="headerlink" title="channel是如何使用的"></a>channel是如何使用的</h4><h4 id="线程、协程、进程之间的区别"><a href="#线程、协程、进程之间的区别" class="headerlink" title="线程、协程、进程之间的区别"></a>线程、协程、进程之间的区别</h4><p>进程：进程就是应用程序的启动实例，拥有代码和打开的文件资源、数据资源、独立的内存空间。</p>
 <p>线程：是进程的执行单位，一个进程至少有一个主线程和多个子线程</p>
 <p>对于操作系统来讲，线程是最小的执行单元，进程是最小的资源管理单元</p>
 <p>协程：像线程在进程中一样，协程也在线程中拥有自己独立的占空间，不被操作系统内核所管理，而完全是由程序所控制</p>
@@ -4513,7 +5083,7 @@ right := intervals[i][1]
 </ol>
 <h3 id="说说goGC的三色法"><a href="#说说goGC的三色法" class="headerlink" title="说说goGC的三色法"></a>说说goGC的三色法</h3><p>初始的时候 gc将引用的对象标记为灰色，然后继续扫描，如果其他对象被这些灰色标记的对象引用就会将灰色对象标记为黑色，然后将被引用的标记为灰色，直到灰色标记的对象不存在，此时gc回收白色对象，最后将黑色对象变为白色对象，并且重复之前所有过程。</p>
 <h3 id="gc和用户逻辑是如何并行的呢？"><a href="#gc和用户逻辑是如何并行的呢？" class="headerlink" title="gc和用户逻辑是如何并行的呢？"></a>gc和用户逻辑是如何并行的呢？</h3><p>标记清除法的stw操作就是runtime把所有的线程都冻结掉，这样就意味着所有的用户逻辑都是暂停的，这样所有的对象都不会被修改了，这时候去扫描绝对是安全的，</p>
-<p>Go是如何剪短这个过程的呢？标记和清除算法包含两部分逻辑：标记和清除。我们指导golang三色标记法最后只剩下黑色和白色两种对象，如果不碰触黑色对象，只清除白色对象 ，肯定不会影响用户逻辑的 所以：清除操作和用户逻辑是可以并发的。</p>
+<p>Go是如何剪短这个过程的呢？标记和清除算法包含两部分逻辑：标记和清除。我们知道golang三色标记法最后只剩下黑色和白色两种对象，如果不碰触黑色对象，只清除白色对象 ，肯定不会影响用户逻辑的 所以：清除操作和用户逻辑是可以并发的。</p>
 <p>这个时候你可能会问 那标记是怎么和用户逻辑并发的呢？用户逻辑经常会生成对象或者改变对象的引用，为了解决这个问题 go引入了写屏障：该屏障之前的写操作和之后的写操作相比 ，先被系统其他组件感知，通俗的讲：就是gc跑的过程中，可以监控对象的内存修改，并重新对对象进行标记，在上述的情况中 新生城的对象一律会被标记为灰色。就是说一旦gc开始起来，无论创建对象还是对象的引用改变，都会先变为灰色。</p>
 <h3 id="mysql的事务"><a href="#mysql的事务" class="headerlink" title="mysql的事务"></a>mysql的事务</h3><ol>
 <li>读未提交</li>
@@ -4592,8 +5162,9 @@ right := intervals[i][1]
 <li>Cookie其实还可以用在一些方便用户的场景下，设想你某次登陆过一个网站，下次登录的时候不想再次输入账号了，怎么办？这个信息可以写到Cookie里面，访问网站的时候，网站页面的脚本可以读取这个信息，就自动帮你把用户名给填了，能够方便一下用户。这也是Cookie名称的由来，给用户的一点甜头。</li>
 </ol>
 <h3 id="说说视频聊天的这个项目-还有luck-quiz的这个项目"><a href="#说说视频聊天的这个项目-还有luck-quiz的这个项目" class="headerlink" title="说说视频聊天的这个项目 还有luck quiz的这个项目"></a>说说视频聊天的这个项目 还有luck quiz的这个项目</h3><p>new-meet是用户通过购买金币来和线上主播进行一对一视频聊天的服务、同时会采用通话流转、假主播流量吸引、勾引话术推送消息来吸引用户进行直播。我主要前期参与了用户模块、用户和主播like模块的设计、视频通话的过程梳理、已经近期对优质主播的流向倾斜和新主播流量扶持策略的设计。用户模块设计了限制用户单点登录，对jwt进行了简化，将用户id、过期时间、用户设备id 通过aes加密生成一个authkey、每次用户请求需要再header中添加入authkey、然后解密出来，使用责任链模式，通过设计router的正则来校验authkey，比如有些拉取数据通道的接口是和 用户无关的，就不需要校验authkey。 这个业务最主要的通话流程的设计，然后最近为了提升通话的时间和接通率 我又设计了一个主播流量倾斜和新主播流量扶持的策略。前期因为印度市场被下架 我们又设计了一个异构的框架、所有的请求被客户端加密之后，然后再异构框架进行解密 没有问题再发送到我真正的server服务。这样google是不知道我们在传输过程中因为壳包相似的接口名称和参数而进行app封杀下架。</p>
-<p>luck_quiz项目是基于beego框架研发的，主要有用户模块、答题、乐透、幸运转盘、刮刮卡兑换模块组成、用户可以在参与玩游戏的过程中获取金币、现金奖励，然后兑换aws或者paypal的充值卡。我们是在用户游戏的过程中通过查看奖励添或者解锁游戏次数来添加广告来进行获利、其中我负责的是整个产品的研发的推动、其中答题模块是相对复杂的。</p>
-<p>题目生成的策略是相对复杂的，题目本身有几个纬度的、难度、题目类型、奖励类型、初期用户拉取的题目是相对简单的，然后出现现金奖励的概率也会很大、然后需要每个人生成的题目不要和其他人一样，用户的现金到0-4、4-8、8-12、12以上、现金出现的奖励会越来越小直至不出现、同时题目的难度也会越来越难。这就需要我们每次再生成题目列表的时候实时计算了。<br>方案一： 使用mysql not in（性能太差）<br>方案二： 了解到 其实是给用户下发的题目和题库的题目做差集，使用redis sdiff 命令 redis key是这样的，因为sdiff key1 key2 ，<br>key1 key2 如果不在同一个slot上，就会发出redis 错误，所以开始用{}，先计算key的hash，将answer 用{}括起来，使其<br>落在同一个slot上,题库的题目 {answer}:load-questions:%questionType ,用户看过的题目 {answer}:load-questions-by:%userId<br>能到达预期目的<br>方案三： 方案二虽然能达到预期目的，但是随着用户量的增加、单个slot的容量总是有限的，所以在用户注册的时候，给每个用户都会将题库复制一份，<br>rediskey 与userId进行绑定,题库的题目 answer:load-questions:{userId}:questionType ,用户看过的题目 answer:load-questions-by:{userId}<br>这样解决了单个slot内存过于庞大的问题这个还有一个好处就是差集的计算都交给了redis 的机器去操作<br>方案四：使用bitset 指令 SETBIT key offset value 复杂度 O(1)<br>一个bit位来表示某个元素对应的值或者状态,其中的key就是对应元素本身。我们知道8个bit可以组成一个Byte，所以bitmap本身会极大的节省储存空间。之前存储一个questionId是int64类型 ，大概的空间占用计算公式是：($offset/8/1024/1024)MB，也就是说8388608 个题目在redis里才会占用1mb的内存空间， offset 标识题目id，0 标识未打过，1标识已经答过。</p>
+<p>luck_quiz项目是基于beego框架研发的，主要有用户模块、答题、乐透、幸运转盘、刮刮卡兑换模块组成、用户可以在参与玩游戏的过程中获取金币、现金奖励，然后兑换aws或者paypal的充值卡。我们是在用户游戏的过程中通过查看奖励添或者解锁游戏次数来添加广告进行获利、其中我负责的是整个产品的研发的推动、其中答题模块是相对复杂的。</p>
+<p>题目生成的策略是相对复杂的，题目本身有几个纬度的、难度、题目类型、奖励类型、初期用户拉取的题目是相对简单的，然后出现现金奖励的概率也会很大、然后需要每个人生成的题目不要和其他人一样，用户的现金到0-4、4-8、8-12、12以上、现金出现的奖励会越来越小直至不出现、同时题目的难度也会越来越难。这就需要我们每次再生成题目列表的时候实时计算了。<br>方案一： 使用mysql not in（性能太差）<br>方案二： 了解到 其实是给用户下发的题目和题库的题目做差集，使用redis sdiff 命令 redis key是这样的，因为sdiff key1 key2 ，<br>key1 key2 如果不在同一个slot上，就会发出redis 错误，所以开始用{}，先计算key的hash，将answer 用{}括起来，使其<br>落在同一个slot上,题库的题目 {answer}:load-questions:%questionType ,用户看过的题目 {answer}:load-questions-by:%userId<br>能到达预期目的<br>方案三： 方案二虽然能达到预期目的，但是随着</p>
+<p>用户量的增加、单个slot的容量总是有限的，所以在用户注册的时候，给每个用户都会将题库复制一份，<br>rediskey 与userId进行绑定,题库的题目 answer:load-questions:{userId}:questionType ,用户看过的题目 answer:load-questions-by:{userId}<br>这样解决了单个slot内存过于庞大的问题这个还有一个好处就是差集的计算都交给了redis 的机器去操作<br>方案四：使用bitset 指令 SETBIT key offset value 复杂度 O(1)<br>一个bit位来表示某个元素对应的值或者状态,其中的key就是对应元素本身。我们知道8个bit可以组成一个Byte，所以bitmap本身会极大的节省储存空间。之前存储一个questionId是int64类型 ，大概的空间占用计算公式是：($offset/8/1024/1024)MB，也就是说8388608 个题目在redis里才会占用1mb的内存空间， offset 标识题目id，0 标识未打过，1标识已经答过。 Xor</p>
 <h3 id="说说你觉得收获最大的项目是哪个-怎么去处理的"><a href="#说说你觉得收获最大的项目是哪个-怎么去处理的" class="headerlink" title="说说你觉得收获最大的项目是哪个 怎么去处理的"></a>说说你觉得收获最大的项目是哪个 怎么去处理的</h3><p>答题的这个模块吧，当时是使用火焰图对这个接口进行了分析 go tool pprof -http=:8080 火焰图文件，解析数据生成调用栈、分析程序响应变慢时，哪个函数占据了更多的处理时间。可以更直观的定位问题，因为再涉及到接口优化的过程中、发现了之前封装go公共基础库的性能不好、然后自己做了优化、接口的响应时间从2s优化到了300ms。 还有对go字符串调优也做了一个测试，字符串拼接、fmt.Sprintf、stringbuilder、byte.buff 来处理，使用go test -bench=. -run=none 可以看出StringBuilder是最快的 899 ns/op， bytes.buffer次之，string += 拼的方式性较差，fmt.Sprintf()的方式性能最差是17347 ns/op。，你可以使用bytes.Buffer来优化：一定程度上避免上面每进行一次拼接操作就重新申请新的内存空间存放中间字符串的问题。但这里依然有一个小问题： byte.String() 会有一次 []byte -&gt; string 类型转换。而这个操作是会进行一次内存分配和内容拷贝的。<br><br>如果你现在已经在使用 golang 1.10, 那么你还有一个更好的选择：strings.Builder</p>
 <ul>
 <li>1、与byte.Buffer思路类似，既然 string 在构建过程中会不断的被销毁重建，那么就尽量避免这个问题，底层使用一个 buf []byte 来存放字符串的内容。</li>
@@ -4690,190 +5261,186 @@ right := intervals[i][1]
 <td align="left"><code>O(n+k)</code></td>
 </tr>
 </tbody></table>
-<h4 id="数据结构"><a href="#数据结构" class="headerlink" title="数据结构"></a>数据结构</h4><table>
-<thead>
-<tr>
-<th align="left">数据结构</th>
-<th align="left">时间复杂度</th>
-<th align="left">空间复杂度</th>
-<th align="left"></th>
-<th align="left"></th>
-<th align="left"></th>
-<th align="left"></th>
-<th align="left"></th>
-<th align="left"></th>
-<th align="left"></th>
-</tr>
-</thead>
-<tbody><tr>
-<td align="left"></td>
-<td align="left">平均</td>
-<td align="left">最差</td>
-<td align="left">最差</td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left"></td>
-<td align="left">索引</td>
-<td align="left">查找</td>
-<td align="left">插入</td>
-<td align="left">删除</td>
-<td align="left">索引</td>
-<td align="left">查找</td>
-<td align="left">插入</td>
-<td align="left">删除</td>
-<td align="left"></td>
-</tr>
-<tr>
-<td align="left"><a href="http://en.wikipedia.org/wiki/Array_data_structure">基本数组</a></td>
-<td align="left"><code>O(1)</code></td>
-<td align="left"><code>O(n)</code></td>
-<td align="left"><code>-</code></td>
-<td align="left"><code>-</code></td>
-<td align="left"><code>O(1)</code></td>
-<td align="left"><code>O(n)</code></td>
-<td align="left"><code>-</code></td>
-<td align="left"><code>-</code></td>
-<td align="left"><code>O(n)</code></td>
-</tr>
-<tr>
-<td align="left"><a href="http://en.wikipedia.org/wiki/Dynamic_array">动态数组</a></td>
-<td align="left"><code>O(1)</code></td>
-<td align="left"><code>O(n)</code></td>
-<td align="left"><code>O(n)</code></td>
-<td align="left"><code>O(n)</code></td>
-<td align="left"><code>O(1)</code></td>
-<td align="left"><code>O(n)</code></td>
-<td align="left"><code>O(n)</code></td>
-<td align="left"><code>O(n)</code></td>
-<td align="left"><code>O(n)</code></td>
-</tr>
-<tr>
-<td align="left"><a href="http://en.wikipedia.org/wiki/Singly_linked_list#Singly_linked_lists">单链表</a></td>
-<td align="left"><code>O(n)</code></td>
-<td align="left"><code>O(n)</code></td>
-<td align="left"><code>O(1)</code></td>
-<td align="left"><code>O(1)</code></td>
-<td align="left"><code>O(n)</code></td>
-<td align="left"><code>O(n)</code></td>
-<td align="left"><code>O(1)</code></td>
-<td align="left"><code>O(1)</code></td>
-<td align="left"><code>O(n)</code></td>
-</tr>
-<tr>
-<td align="left"><a href="http://en.wikipedia.org/wiki/Doubly_linked_list">双链表</a></td>
-<td align="left"><code>O(n)</code></td>
-<td align="left"><code>O(n)</code></td>
-<td align="left"><code>O(1)</code></td>
-<td align="left"><code>O(1)</code></td>
-<td align="left"><code>O(n)</code></td>
-<td align="left"><code>O(n)</code></td>
-<td align="left"><code>O(1)</code></td>
-<td align="left"><code>O(1)</code></td>
-<td align="left"><code>O(n)</code></td>
-</tr>
-<tr>
-<td align="left"><a href="http://en.wikipedia.org/wiki/Skip_list">跳表</a></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(n)</code></td>
-<td align="left"><code>O(n)</code></td>
-<td align="left"><code>O(n)</code></td>
-<td align="left"><code>O(n)</code></td>
-<td align="left"><code>O(n log(n))</code></td>
-</tr>
-<tr>
-<td align="left"><a href="http://en.wikipedia.org/wiki/Hash_table">哈希表</a></td>
-<td align="left"><code>-</code></td>
-<td align="left"><code>O(1)</code></td>
-<td align="left"><code>O(1)</code></td>
-<td align="left"><code>O(1)</code></td>
-<td align="left"><code>-</code></td>
-<td align="left"><code>O(n)</code></td>
-<td align="left"><code>O(n)</code></td>
-<td align="left"><code>O(n)</code></td>
-<td align="left"><code>O(n)</code></td>
-</tr>
-<tr>
-<td align="left"><a href="http://en.wikipedia.org/wiki/Binary_search_tree">二叉搜索树</a></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(n)</code></td>
-<td align="left"><code>O(n)</code></td>
-<td align="left"><code>O(n)</code></td>
-<td align="left"><code>O(n)</code></td>
-<td align="left"><code>O(n)</code></td>
-</tr>
-<tr>
-<td align="left"><a href="https://en.wikipedia.org/wiki/Cartesian_tree">笛卡尔树</a></td>
-<td align="left"><code>-</code></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>-</code></td>
-<td align="left"><code>O(n)</code></td>
-<td align="left"><code>O(n)</code></td>
-<td align="left"><code>O(n)</code></td>
-<td align="left"><code>O(n)</code></td>
-</tr>
-<tr>
-<td align="left"><a href="http://en.wikipedia.org/wiki/B_tree">B-树</a></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(n)</code></td>
-</tr>
-<tr>
-<td align="left"><a href="http://en.wikipedia.org/wiki/Red-black_tree">红黑树</a></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(n)</code></td>
-</tr>
-<tr>
-<td align="left"><a href="https://en.wikipedia.org/wiki/Splay_tree">伸展树</a></td>
-<td align="left"><code>-</code></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>-</code></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(n)</code></td>
-</tr>
-<tr>
-<td align="left"><a href="http://en.wikipedia.org/wiki/AVL_tree">AVL 树</a></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(log(n))</code></td>
-<td align="left"><code>O(n)</code></td>
-</tr>
-</tbody></table>
+<p>探探</p>
+<ol>
+<li>一亿个数找10个重复出现最多的 桶排序 </li>
+<li>301 302 304 405 http状态<ol>
+<li>301 永久</li>
+<li>302 临时</li>
+<li>304 ）服务器端允许请求访问资源，但因发生请求未满足条件的情况后，直接返回304Modified（服务器端资源未改变，可直接使用客户端未过期的缓存）</li>
+<li>405 method not allowed ，请求的方法不对 </li>
+<li>415 请求的content-type不支持</li>
+</ol>
+</li>
+<li>客户端主动断开还是服务端主动断开 通过tcp的状态可以判断</li>
+<li>zookper注意事项</li>
+</ol>
+<p>京东一面：</p>
+<p>redis 主从同步</p>
+<p>lru实现</p>
+<p>csp</p>
+<p>gmp</p>
+<p>三色回收算法</p>
+<p>golang的内存分配</p>
+<h3 id="Go内存分配流程总结"><a href="#Go内存分配流程总结" class="headerlink" title="Go内存分配流程总结"></a>Go内存分配流程总结</h3><p>对象分三种：</p>
+<ul>
+<li>微小对象，size &lt; 16B</li>
+<li>一般小对象， 16 bytes &lt; size &lt;= 32k</li>
+<li>大对象 size &gt; 32k</li>
+</ul>
+<p>分配方式分三种：</p>
+<ul>
+<li>tinny allocations (size &lt; 16 bytes，no pointers) 微型分配器分配。</li>
+<li>small allocations ( size &lt;= 32k) 正常分配；首先通过计算使用的大小规格，然后使用 mcache 中对应大小规格的块分配</li>
+<li>large allocations (size &gt; 32k) 大对象分配；直接通过<code>mheap</code>分配。这些大对象的申请是以一个全局锁为代价的，因此任何给定的时间点只能同时供一个 P 申请。</li>
+</ul>
+<p>对象分配：</p>
+<ul>
+<li>size范围在在( size &lt; 16B)，不包含指针的对象。 <code>mcache</code>上的微型分配器分配</li>
+<li>size范围在(0 &lt; size &lt; 16B)， 包含指针的对象：正常分配</li>
+<li>size范围在(16B &lt; size &lt;= 32KB)， : 正常分配</li>
+<li>size范围在( size &gt; 32KB) : 大对象分配</li>
+</ul>
+<p>分配顺序：</p>
+<ul>
+<li>首先通过计算使用的大小规格。</li>
+<li>然后使用<code>mcache</code>中对应大小规格的块分配。</li>
+<li>如果<code>mcentral</code>中没有可用的块，则向<code>mheap</code>申请，并根据算法找到最合适的<code>mspan</code>。</li>
+<li>如果申请到的<code>mspan</code> 超出申请大小，将会根据需求进行切分，以返回用户所需的页数。剩余的页构成一个新的 mspan 放回 mheap 的空闲列表。</li>
+<li>如果 mheap 中没有可用 span，则向操作系统申请一系列新的页（最小 1MB）。</li>
+</ul>
+<p>Go的内存分配的核心思想可以分为以下几点：</p>
+<ul>
+<li>每次从操作系统申请一大块儿的内存，由Go来对这块儿内存做分配，减少系统调用</li>
+<li>内存分配算法采用Google的<code>TCMalloc算法</code>。算法比较复杂，究其原理可自行查阅。其核心思想就是把内存切分的非常的细小，分为多级管理，以降低锁的粒度。</li>
+<li>回收对象内存时，并没有将其真正释放掉，只是放回预先分配的大块内存中，以便复用。只有内存闲置过多的时候，才会尝试归还部分内存给操作系统，降低整体开销</li>
+</ul>
+<h4 id="内存管理组件"><a href="#内存管理组件" class="headerlink" title="内存管理组件"></a>内存管理组件</h4><p>go的内存管理组件主要有：<code>mspan</code>、<code>mcache</code>、<code>mcentral</code>和<code>mheap</code></p>
+<ul>
+<li><code>mspan</code>为内存管理的基础单元，直接存储数据的地方。</li>
+<li><code>mcache</code>：每个运行期的goroutine都会绑定的一个<code>mcache</code>(具体来讲是绑定的GMP并发模型中的P，所以可以无锁分配<code>mspan</code>，后续还会说到)，<code>mcache</code>会分配goroutine运行中所需要的内存空间(即<code>mspan</code>)。</li>
+<li><code>mcentral</code>为所有<code>mcache</code>切分好后备的<code>mspan</code></li>
+<li><code>mheap</code>代表Go程序持有的所有堆空间。还会管理闲置的span，需要时向操作系统申请新内存。</li>
+</ul>
+<p>字节教育</p>
+<p>如何判断一个channel是否关闭</p>
+<p>interface和nil怎么判断</p>
+<p>interface的底层是什么</p>
+<p>redlock 解决什么问题 还存在什么问题</p>
+<p>分布式锁还有其他的解决办法吗，mysql和zk怎么实现的</p>
+<p>java中的引用有哪些 四种 强 弱 虚 软</p>
+<p>jd</p>
+<p>多线程打印</p>
+<p>两个字符串最长公共子串</p>
+<p>csp</p>
+<p>三色回收算法</p>
+<p>GMP</p>
+<p>注册中心的原理是什么</p>
+<p>微服务之间消息通信使用的协议</p>
+<p>zookper是如何注册提供服务的</p>
+<h3 id="滴滴："><a href="#滴滴：" class="headerlink" title="滴滴："></a>滴滴：</h3><h4 id="redis集群如何扩展"><a href="#redis集群如何扩展" class="headerlink" title="redis集群如何扩展"></a>redis集群如何扩展</h4><p>已有集群为6个节点127.0.0.1:7000 - 127.0.0.1:7005，3组主从节点。现要增加第4组主从节点127.0.0.1:7006，127.0.0.1:7007.</p>
+<p>1.创建一个新的主节点127.0.0.1:7006。命令里需要指定一个已有节点以便于获取集群信息，本例是指定的127.0.0.1:7000。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">redis-cli --cluster add-node 127.0.0.1:7006 127.0.0.1:7000</span><br></pre></td></tr></table></figure>
+
+<p>2.将127.0.0.1:7007创建为127.0.0.1:7006的从节点。命令里需要指定一个已有节点以便于获取集群信息，本例是指定的127.0.0.1:7000。因为，集群会自动为从节点数最少的主节点创建从节点，所以这里不需要指定主节点。</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">redis-cli --cluster add-node 127.0.0.1:7007 127.0.0.1:7000 --cluster-slave</span><br></pre></td></tr></table></figure>
+
+<p>当然也可以指定主节点</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">redis-cli --cluster add-node 127.0.0.1:7007 127.0.0.1:7000 --cluster-slave --cluster-master-id e44678abed249e22482559136bf45280fd3ac281</span><br></pre></td></tr></table></figure>
+
+<p>7006的node ID可以由如下命令获取</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[root@dev redis-cluster]# ./redis-cli -p 7006 cluster nodes | grep myself</span><br><span class="line">e44678abed249e22482559136bf45280fd3ac281 127.0.0.1:7006@17006 myself,master - 0 1586936487000 0 connected</span><br></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>reshard slots. 因为redis 5现在还不支持自动平衡slot，所以需要自行计算需要移动的slot数量，并手动执行命令。这个例子，需要从3组已有的主节点上各移动1365个slot到新的主节点127.0.0.1:7006，以达到均衡。</li>
+</ol>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">redis-cli --cluster reshard 127.0.0.1:7000 --cluster-from e1a033e07f0064e6400825b4ddbcd6680c032d10 --cluster-to e44678abed249e22482559136bf45280fd3ac281 --cluster-slots 1365 --cluster-yes</span><br><span class="line">redis-cli --cluster reshard 127.0.0.1:7000 --cluster-from ad2f42a9068b6b7d11174f6770ae4d51e4f536d6 --cluster-to e44678abed249e22482559136bf45280fd3ac281 --cluster-slots 1365 --cluster-yes</span><br><span class="line">redis-cli --cluster reshard 127.0.0.1:7000 --cluster-from dbf8c247a5657b7a78890becb94a22f3482f5eca --cluster-to e44678abed249e22482559136bf45280fd3ac281 --cluster-slots 1365 --cluster-yes</span><br></pre></td></tr></table></figure>
+
+<p>需要指出的是上述3条命令不能放在一个脚本里连续执行，需要间隔一定时间，否则集群可能会报错：</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">[ERR] Nodes don&#x27;t agree about configuration!</span><br></pre></td></tr></table></figure>
+
+<p>4.reshard完成后，查看集群状态，可以看到127.0.0.1:7006作为主节点存储了3段slot分别是 0-1364 5461-6825 10923-12287</p>
+<figure class="highlight shell"><table><tr><td class="code"><pre><span class="line">127.0.0.1:7000&gt; cluster nodes</span><br><span class="line">5ca679d3fa5606d8c247595fc4eca622e6ec962c 127.0.0.1:7004@17004 slave e1a033e07f0064e6400825b4ddbcd6680c032d10 0 1586938032000 5 connected</span><br><span class="line">ad2f42a9068b6b7d11174f6770ae4d51e4f536d6 127.0.0.1:7003@17003 master - 0 1586938031000 8 connected 6826-10922</span><br><span class="line">620320cd85531d16f9508cf4c55c283186b3febb 127.0.0.1:7001@17001 slave ad2f42a9068b6b7d11174f6770ae4d51e4f536d6 0 1586938031875 8 connected</span><br><span class="line">dbf8c247a5657b7a78890becb94a22f3482f5eca 127.0.0.1:7005@17005 master - 0 1586938032375 7 connected 1365-5460</span><br><span class="line">cbb1740c5affb7e1d688d8433a9c7df70e87ecd7 127.0.0.1:7000@17000 myself,slave dbf8c247a5657b7a78890becb94a22f3482f5eca 0 1586938031000 1 connected</span><br><span class="line">391d622c24df9121b3c712c0d8a97ca985783ac3 127.0.0.1:7007@17007 slave e44678abed249e22482559136bf45280fd3ac281 0 1586938031000 9 connected</span><br><span class="line">e44678abed249e22482559136bf45280fd3ac281 127.0.0.1:7006@17006 master - 0 1586938031574 9 connected 0-1364 5461-6825 10923-12287</span><br><span class="line">e1a033e07f0064e6400825b4ddbcd6680c032d10 127.0.0.1:7002@17002 master - 0 1586938032375 3 connected 12288-16383</span><br></pre></td></tr></table></figure>
+
+<h4 id="redis-缓存穿透-击穿-血崩"><a href="#redis-缓存穿透-击穿-血崩" class="headerlink" title="redis 缓存穿透 击穿 血崩"></a>redis 缓存穿透 击穿 血崩</h4><ol>
+<li>redis 穿透<ol>
+<li>什么是？是指缓存和数据库中都没有的数据，而用户不断发起请求，我们数据库的 id 都是1开始自增上去的，如发起为id值为 -1 的数据或 id 为特别大不存在的数据。这时的用户很可能是攻击者，攻击会导致数据库压力过大，严重会击垮数据库。</li>
+<li>如何避免：我会在接口层增加校验，比如用户鉴权校验，参数做校验，不合法的参数直接代码Return，比如：id 做基础校验，id &lt;=0的直接拦截等 <ol>
+<li>缓存空值，然后设置一个较短的过期时间</li>
+<li>使用布隆过滤器：说法一：使用布隆过滤器,将所有可能存在的数据哈希到一个足够大的bitmap中,一定不存在与数据库的数据会被这个bitmap拦截掉。说法二：当一个查询请求过来，先经过布隆过滤器进行查，如果判断请求查询值存在 则继续查，如果判断查询的请求值不存在，直接丢弃</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>redis击穿<ol>
+<li>什么是？缓存中没有数据但数据库中有。由于并发用户特别多同时，没有读取到数据，都同时去数据库取数据。造成数据库压力瞬间增大。</li>
+<li>解决：<ol>
+<li>热点数据永不过期</li>
+<li>加分布式锁</li>
+<li>设置一个watcher进行锁续期</li>
+</ol>
+</li>
+</ol>
+</li>
+<li>redis 雪崩<ol>
+<li>什么是？某一个时间段里缓存集中过期失效。</li>
+<li>解决： 不同的对象设置不同的过期时间,或者过期时间加一个随机因子,尽量分散时间</li>
+</ol>
+</li>
+</ol>
+<h4 id="如何熔断"><a href="#如何熔断" class="headerlink" title="如何熔断"></a>如何熔断</h4><p><strong>降级一般而言指的是我们自身的系统出现了故障而降级。而熔断一般是指依赖的外部接口出现故障的情况断绝和外部接口的关系。</strong></p>
+<p>例如你的A服务里面的一个功能依赖B服务，这时候B服务出问题了，返回的很慢。这种情况可能会因为这么一个功能而拖慢了A服务里面的所有功能，因此我们这时候就需要熔断！即当发现A要调用这B时就直接返回错误(或者返回其他默认值啊啥的)，就不去请求B了。我这还是举了两个服务的调用，有些那真的是一环扣一环，出问题不熔断，那真的是会雪崩。</p>
+<h4 id="如何限流"><a href="#如何限流" class="headerlink" title="如何限流"></a>如何限流</h4><p>​    方法：漏桶和令牌桶</p>
+<p>​     核心的三个方法：</p>
+<ol>
+<li>wait/waitN  当使用 Wait 方法消费 Token 时，如果此时桶内 Token 数组不足 (小于 N)，那么 Wait 方法将会<strong>阻塞</strong>一段时间，直至 Token 满足条件。如果充足则直接返回。</li>
+<li>allow/allowN 截止到某一时刻，目前桶中数目是否至少为 n 个，满足则返回 true，同时从桶中消费 n 个 token。反之返回不消费 Token，false。 通常对应这样的线上场景，如果请求速率过快，就直接丢掉某些请求。</li>
+<li>reserve/reserveN</li>
+</ol>
+<p>总结起来：如果要让自己的系统不被打垮，用令牌桶。如果保证被别人的系统不被打垮，用漏桶算法。</p>
+<h4 id="负载均衡得方式有哪些"><a href="#负载均衡得方式有哪些" class="headerlink" title="负载均衡得方式有哪些"></a>负载均衡得方式有哪些</h4><ol>
+<li>​    算法：<ol>
+<li>轮询法</li>
+<li>随机</li>
+<li>源地址hash</li>
+<li>加权轮询</li>
+<li>加权随机 与加权轮询法一样，加权随机法也根据后端机器的配置，系统的负载分配不同的权重。不同的是，它是按照权重随机请求后端服务器，而非顺序。</li>
+<li>最小连接数 最小连接数算法比较灵活和智能，由于后端服务器的配置不尽相同，对于请求的处理有快有慢，它是根据后端服务器当前的连接情况，动态地选取其中当前 积压连接数最少的一台服务器来处理当前的请求，尽可能地提高后端服务的利用效率，将负责合理地分流到每一台服务器。</li>
+</ol>
+</li>
+<li>实现方式<ol>
+<li>重定向</li>
+<li>反向代理</li>
+<li>数据链路返回</li>
+</ol>
+</li>
+</ol>
+<p>redis redlock解决了什么问题 还有什么问题<br>redis slot为什么要是16384个<br>你项目的技术难点是什么</p>
+<p>学而思：</p>
+<p>zookper的注册发现</p>
+<p>移出node如何通知client</p>
+<p>gmp模型 goroutine阻塞会创建新的线程吗</p>
+<p>redis rehash是主线程执行的，只不过每次会复制一点</p>
+<p>redis 删除set 大量元素时 可以异步执行 only。。。</p>
+<p>nginx是进程还是线程  master-worker模式</p>
+<p>redis hash的底层</p>
+<p>redis hash或者set 移出一千万哥元素怎么操作呢</p>
+<p>如何平滑升级</p>
+<p>defer recover  能捕捉到其他协程的panic吗  不能 只能监听当前协程的</p>
+<p>context包 todo cancel timeout的底层实现</p>
+<p>redis的集群模式有哪些</p>
+<p>分布式锁的实现 redis和zk还有mysql</p>
+<p>slice底层的坑</p>
+<p>使用过哪些锁</p>
+<p>waitgroup的原理</p>
+<p>redis cli 指定一个机器 或者的key不在当前节点怎么处理？ proxy 提前计算出这个key</p>
+<p>秒杀如何设计？限流</p>
+<h2 id="最右"><a href="#最右" class="headerlink" title="最右"></a>最右</h2><p>jwt原理</p>
+<p>currenthashmap原理</p>
+<p>mysql死锁</p>
+<p>cas原理 CAS是英文单词<strong>CompareAndSwap</strong>的缩写，中文意思是：比较并替换。CAS需要有3个操作数：内存地址V，旧的预期值A，即将要更新的目标值B。</p>
+<p>synchronize原理</p>
+<p>i++ 的从内核考虑</p>
 ]]></content>
       <categories>
         <category>知识必备</category>

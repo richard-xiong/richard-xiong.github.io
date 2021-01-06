@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=2">
+<meta name="theme-color" content="#222">
+<meta name="generator" content="Hexo 5.0.0">
+  <link rel="apple-touch-icon" sizes="180x180" href="/images/apple-touch-icon-next.png">
+  <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32-next.png">
+  <link rel="icon" type="image/png" sizes="16x16" href="/images/favicon-16x16-next.png">
+  <link rel="mask-icon" href="/images/logo.svg" color="#222">
+
+<link rel="stylesheet" href="/css/main.css">
+
+<link rel="stylesheet" href="//fonts.googleapis.com/css?family=Monda:300,300italic,400,400italic,700,700italic|Roboto Slab:300,300italic,400,400italic,700,700italic|PT Mono:300,300italic,400,400italic,700,700italic&display=swap&subset=latin,latin-ext">
+<link rel="stylesheet" href="/lib/font-awesome/css/all.min.css">
+
+<script id="hexo-configurations">
+    var NexT = window.NexT || {};
+    var CONFIG = {"hostname":"richard-xiong.github.io","root":"/","scheme":"Gemini","version":"7.8.0","exturl":false,"sidebar":{"position":"left","display":"post","padding":18,"offset":12,"onmobile":false},"copycode":{"enable":true,"show_result":true,"style":null},"back2top":{"enable":true,"sidebar":false,"scrollpercent":false},"bookmark":{"enable":false,"color":"#222","save":"auto"},"fancybox":false,"mediumzoom":false,"lazyload":false,"pangu":false,"comments":{"style":"tabs","active":null,"storage":true,"lazyload":false,"nav":null},"algolia":{"hits":{"per_page":10},"labels":{"input_placeholder":"Search for Posts","hits_empty":"We didn't find any results for the search: ${query}","hits_stats":"${hits} results found in ${time} ms"}},"localsearch":{"enable":true,"trigger":"auto","top_n_per_article":1,"unescape":false,"preload":false},"motion":{"enable":true,"async":false,"transition":{"post_block":"fadeIn","post_header":"slideDownIn","post_body":"slideDownIn","coll_header":"slideLeftIn","sidebar":"slideUpIn"}},"path":"search.xml"};
+  </script>
+
+  <meta name="description" content="软件下载 goland  intelij   iterm  docker-desktop   客户端插件 mysql  redis  git  jenv   jdk 下载 jdk 1.8  logstash  filebeat  elasticsearch  https:&#x2F;&#x2F;www.elastic.co&#x2F;cn&#x2F;downloads&#x2F;past-releases#elasticsearch  kiban">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mac init">
+<meta property="og:url" content="https://richard-xiong.github.io/2021/01/06/mac-init/index.html">
+<meta property="og:site_name" content="XingServer">
+<meta property="og:description" content="软件下载 goland  intelij   iterm  docker-desktop   客户端插件 mysql  redis  git  jenv   jdk 下载 jdk 1.8  logstash  filebeat  elasticsearch  https:&#x2F;&#x2F;www.elastic.co&#x2F;cn&#x2F;downloads&#x2F;past-releases#elasticsearch  kiban">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2021-01-05T17:11:03.000Z">
+<meta property="article:modified_time" content="2021-01-06T09:05:14.431Z">
+<meta property="article:author" content="Richard">
+<meta property="article:tag" content="golang java elasticsearch">
+<meta name="twitter:card" content="summary">
+
+<link rel="canonical" href="https://richard-xiong.github.io/2021/01/06/mac-init/">
+
+
+<script id="page-configurations">
+  // https://hexo.io/docs/variables.html
+  CONFIG.page = {
+    sidebar: "",
+    isHome : false,
+    isPost : true,
+    lang   : 'zh-CN'
+  };
+</script>
+
+  <title>mac init | XingServer</title>
+  
+
+
+
+
+
+
+  <noscript>
+  <style>
+  .use-motion .brand,
+  .use-motion .menu-item,
+  .sidebar-inner,
+  .use-motion .post-block,
+  .use-motion .pagination,
+  .use-motion .comments,
+  .use-motion .post-header,
+  .use-motion .post-body,
+  .use-motion .collection-header { opacity: initial; }
+
+  .use-motion .site-title,
+  .use-motion .site-subtitle {
+    opacity: initial;
+    top: initial;
+  }
+
+  .use-motion .logo-line-before i { left: initial; }
+  .use-motion .logo-line-after i { right: initial; }
+  </style>
+</noscript>
+
+<link rel="alternate" href="/atom.xml" title="XingServer" type="application/atom+xml">
+</head>
+
+<body itemscope itemtype="http://schema.org/WebPage">
+  <div class="container use-motion">
+    <div class="headband"></div>
+
+    <header class="header" itemscope itemtype="http://schema.org/WPHeader">
+      <div class="header-inner"><div class="site-brand-container">
+  <div class="site-nav-toggle">
+    <div class="toggle" aria-label="切换导航栏">
+      <span class="toggle-line toggle-line-first"></span>
+      <span class="toggle-line toggle-line-middle"></span>
+      <span class="toggle-line toggle-line-last"></span>
+    </div>
+  </div>
+
+  <div class="site-meta">
+
+    <a href="/" class="brand" rel="start">
+      <span class="logo-line-before"><i></i></span>
+      <h1 class="site-title">XingServer</h1>
+      <span class="logo-line-after"><i></i></span>
+    </a>
+  </div>
+
+  <div class="site-nav-right">
+    <div class="toggle popup-trigger">
+        <i class="fa fa-search fa-fw fa-lg"></i>
+    </div>
+  </div>
+</div>
+
+
+
+
+<nav class="site-nav">
+  <ul id="menu" class="main-menu menu">
+        <li class="menu-item menu-item-home">
+
+    <a href="/" rel="section"><i class="fa fa-home fa-fw"></i>首页</a>
+
+  </li>
+        <li class="menu-item menu-item-about">
+
+    <a href="/about/" rel="section"><i class="fa fa-user fa-fw"></i>关于</a>
+
+  </li>
+        <li class="menu-item menu-item-tags">
+
+    <a href="/tags/" rel="section"><i class="fa fa-tags fa-fw"></i>标签<span class="badge">33</span></a>
+
+  </li>
+        <li class="menu-item menu-item-categories">
+
+    <a href="/categories/" rel="section"><i class="fa fa-th fa-fw"></i>分类<span class="badge">25</span></a>
+
+  </li>
+        <li class="menu-item menu-item-archives">
+
+    <a href="/archives/" rel="section"><i class="fa fa-archive fa-fw"></i>归档<span class="badge">110</span></a>
+
+  </li>
+        <li class="menu-item menu-item-sitemap">
+
+    <a href="/sitemap.xml" rel="section"><i class="fa fa-sitemap fa-fw"></i>站点地图</a>
+
+  </li>
+        <li class="menu-item menu-item-commonweal">
+
+    <a href="/404/" rel="section"><i class="fa fa-heartbeat fa-fw"></i>公益 404</a>
+
+  </li>
+      <li class="menu-item menu-item-search">
+        <a role="button" class="popup-trigger"><i class="fa fa-search fa-fw"></i>搜索
+        </a>
+      </li>
+  </ul>
+</nav>
+
+
+
+  <div class="search-pop-overlay">
+    <div class="popup search-popup">
+        <div class="search-header">
+  <span class="search-icon">
+    <i class="fa fa-search"></i>
+  </span>
+  <div class="search-input-container">
+    <input autocomplete="off" autocapitalize="off"
+           placeholder="搜索..." spellcheck="false"
+           type="search" class="search-input">
+  </div>
+  <span class="popup-btn-close">
+    <i class="fa fa-times-circle"></i>
+  </span>
+</div>
+<div id="search-result">
+  <div id="no-result">
+    <i class="fa fa-spinner fa-pulse fa-5x fa-fw"></i>
+  </div>
+</div>
+
+    </div>
+  </div>
+
+</div>
+    </header>
+
+    
+  <div class="back-to-top">
+    <i class="fa fa-arrow-up"></i>
+    <span>0%</span>
+  </div>
+
+
+    <main class="main">
+      <div class="main-inner">
+        <div class="content-wrap">
+          
+
+          <div class="content post posts-expand">
+            
+
+    
+  
+  
+  <article itemscope itemtype="http://schema.org/Article" class="post-block" lang="zh-CN">
+    <link itemprop="mainEntityOfPage" href="https://richard-xiong.github.io/2021/01/06/mac-init/">
+
+    <span hidden itemprop="author" itemscope itemtype="http://schema.org/Person">
+      <meta itemprop="image" content="/images/avatar.png">
+      <meta itemprop="name" content="Richard">
+      <meta itemprop="description" content="">
+    </span>
+
+    <span hidden itemprop="publisher" itemscope itemtype="http://schema.org/Organization">
+      <meta itemprop="name" content="XingServer">
+    </span>
+      <header class="post-header">
+        <h1 class="post-title" itemprop="name headline">
+          mac init
+        </h1>
+
+        <div class="post-meta">
+            <span class="post-meta-item">
+              <span class="post-meta-item-icon">
+                <i class="far fa-calendar"></i>
+              </span>
+              <span class="post-meta-item-text">发表于</span>
+
+              <time title="创建时间：2021-01-05 17:11:03" itemprop="dateCreated datePublished" datetime="2021-01-05T17:11:03Z">2021-01-05</time>
+            </span>
+              <span class="post-meta-item">
+                <span class="post-meta-item-icon">
+                  <i class="far fa-calendar-check"></i>
+                </span>
+                <span class="post-meta-item-text">更新于</span>
+                <time title="修改时间：2021-01-06 09:05:14" itemprop="dateModified" datetime="2021-01-06T09:05:14Z">2021-01-06</time>
+              </span>
+
+          <br>
+            <span class="post-meta-item" title="本文字数">
+              <span class="post-meta-item-icon">
+                <i class="far fa-file-word"></i>
+              </span>
+                <span class="post-meta-item-text">本文字数：</span>
+              <span>21k</span>
+            </span>
+            <span class="post-meta-item" title="阅读时长">
+              <span class="post-meta-item-icon">
+                <i class="far fa-clock"></i>
+              </span>
+                <span class="post-meta-item-text">阅读时长 &asymp;</span>
+              <span>19 分钟</span>
+            </span>
+
+        </div>
+      </header>
+
+    
+    
+    
+    <div class="post-body" itemprop="articleBody">
+
+      
+        <h3 id="软件下载"><a href="#软件下载" class="headerlink" title="软件下载"></a>软件下载</h3><ul>
+<li><p>goland</p>
+</li>
+<li><p>intelij </p>
+</li>
+<li><p>iterm</p>
+</li>
+<li><p>docker-desktop</p>
+</li>
+</ul>
+<h3 id="客户端插件"><a href="#客户端插件" class="headerlink" title="客户端插件"></a>客户端插件</h3><ul>
+<li><p>mysql</p>
+</li>
+<li><p>redis</p>
+</li>
+<li><p>git</p>
+</li>
+<li><p>jenv</p>
+</li>
+</ul>
+<h3 id="jdk-下载"><a href="#jdk-下载" class="headerlink" title="jdk 下载"></a>jdk 下载</h3><ul>
+<li><p>jdk 1.8</p>
+</li>
+<li><p>logstash</p>
+<ul>
+<li><p>filebeat</p>
+</li>
+<li><p>elasticsearch  <a target="_blank" rel="noopener" href="https://www.elastic.co/cn/downloads/past-releases#elasticsearch">https://www.elastic.co/cn/downloads/past-releases#elasticsearch</a></p>
+</li>
+<li><p>kibana</p>
+</li>
+<li><p>go 1.8</p>
+</li>
+<li><p>python 3.7</p>
+</li>
+</ul>
+</li>
+</ul>
+<h3 id="环境配置"><a href="#环境配置" class="headerlink" title="环境配置"></a>环境配置</h3><ul>
+<li><pre><code class="shell">alias ll=&#39;ls -l&#39;
+&lt;!--hexoPostRenderEscape:&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;41&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;42&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;43&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;44&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;45&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;46&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;47&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;48&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;49&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;50&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;51&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;52&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;53&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;54&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;55&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;56&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;57&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;58&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;59&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;60&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;61&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;62&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;63&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;64&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;65&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;66&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;67&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;68&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;69&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;70&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;71&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;72&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;73&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;74&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;75&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;76&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;77&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;78&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;79&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;+ git 自动补全&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;+ bash_profile&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  + &amp;#96;&amp;#96;&amp;#96;bash&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    mfxing  cat ~&amp;#x2F;.bash_profile&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    if [ -f ~&amp;#x2F;.bashrc ] ; then&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ~&amp;#x2F;.bashrc&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    fi&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    # iterm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    CLICOLOR&amp;#x3D;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    LSCOLORS&amp;#x3D;gxfxcxdxbxegedabagacad&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export TERM&amp;#x3D;xterm-color&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export M2_HOME&amp;#x3D;&amp;#x2F;Users&amp;#x2F;mengfanxing_g&amp;#x2F;software&amp;#x2F;apache-maven-3.5.4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export PATH&amp;#x3D;$PATH:$M2_HOME&amp;#x2F;bin&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ##go&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export GOPATH&amp;#x3D;&amp;#x2F;Users&amp;#x2F;mengfanxing_g&amp;#x2F;godev&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export GOBIN&amp;#x3D;$GOPATH&amp;#x2F;bin&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export PATH&amp;#x3D;$PATH:$GOBIN&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    #export GOPROXY&amp;#x3D;https:&amp;#x2F;&amp;#x2F;goproxy.io,direct&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export PATH&amp;#x3D;$PATH:$GOROOT&amp;#x2F;bin&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export GOSUMDB&amp;#x3D;off&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export GO111MODULE&amp;#x3D;on&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    #export GOPROXY&amp;#x3D;http:&amp;#x2F;&amp;#x2F;10.120.1.209:3000&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    ##mysql&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export PATH&amp;#x3D;$&amp;#123;PATH&amp;#125;:&amp;#x2F;usr&amp;#x2F;local&amp;#x2F;mysql&amp;#x2F;bin&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export PATH&amp;#x3D;&amp;#x2F;usr&amp;#x2F;local&amp;#x2F;mongodb&amp;#x2F;bin:$PATH&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export PATH&amp;#x3D;&amp;#x2F;usr&amp;#x2F;local&amp;#x2F;Cellar:$PATH&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export IME_SCRIPTS_PATH&amp;#x3D;&amp;#x2F;Users&amp;#x2F;mengfanxing_g&amp;#x2F;duserver&amp;#x2F;ime-theme-pkg&amp;#x2F;src&amp;#x2F;main&amp;#x2F;resources&amp;#x2F;scripts&amp;#x2F;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export PATH&amp;#x3D;$PATH:$IME_SCRIPTS_PATH&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export PATH&amp;#x3D;&amp;quot;$HOME&amp;#x2F;.jenv&amp;#x2F;bin:$PATH&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export PATH&amp;#x3D;$PATH:&amp;#x2F;Applications&amp;#x2F;Postgres.app&amp;#x2F;Contents&amp;#x2F;Versions&amp;#x2F;11&amp;#x2F;bin&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    # Setting PATH for android-sdk&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export ANDROID_SDK_ROOT&amp;#x3D;&amp;#x2F;usr&amp;#x2F;local&amp;#x2F;share&amp;#x2F;android-sdk&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export ANDROID_HOME&amp;#x3D;&amp;#x2F;usr&amp;#x2F;local&amp;#x2F;share&amp;#x2F;android-sdk&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export PATH&amp;#x3D;&amp;quot;$&amp;#123;PATH&amp;#125;:$&amp;#123;ANDROID_SDK_ROOT&amp;#125;&amp;#x2F;tools:$&amp;#123;ANDROID_SDK_ROOT&amp;#125;&amp;#x2F;platform-tools&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export PATH&amp;#x3D;&amp;quot;$&amp;#123;PATH&amp;#125;:&amp;#x2F;usr&amp;#x2F;local&amp;#x2F;Cellar&amp;#x2F;gradle&amp;#x2F;5.2.1&amp;#x2F;bin&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    #export PLAY_HOME&amp;#x3D;&amp;#x2F;Applications&amp;#x2F;play-1.2.4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export PLAY_HOME&amp;#x3D;&amp;#x2F;Users&amp;#x2F;mengfanxing_g&amp;#x2F;tools&amp;#x2F;play-1.2.4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export PATH&amp;#x3D;$PATH:$PLAY_HOME&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    #eval &amp;quot;$(jenv init -)&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    #enables colorin the terminal bash shell export&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export CLICOLOR&amp;#x3D;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    #setsup thecolor scheme for list export&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export LSCOLORS&amp;#x3D;gxfxcxdxbxegedabagacad&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    #sets up theprompt color (currently a green similar to linux terminal)&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    #export PS1&amp;#x3D;&amp;#39;\[\033[01;32m\]\u@\h\[\033[00m\]:\[\033[01;36m\]\w\[\033[00m\]\$&amp;#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    #enables colorfor iTerm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export TERM&amp;#x3D;xterm-256color&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    alias gcc&amp;#x3D;&amp;#39;gcc-8&amp;#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    alias cc&amp;#x3D;&amp;#39;gcc-8&amp;#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    alias g++&amp;#x3D;&amp;#39;g++-8&amp;#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    alias c++&amp;#x3D;&amp;#39;c++-8&amp;#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export PATH&amp;#x3D;&amp;quot;&amp;#x2F;Users&amp;#x2F;mengfanxing_g&amp;#x2F;tools:$PATH&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export MICRO_REGISTRY&amp;#x3D;consul&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    alias hwrelaybj1&amp;#x3D;&amp;#39;ssh work@10.49.1.180&amp;#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    alias hwrelaybj4&amp;#x3D;&amp;#39;ssh work@119.3.170.35&amp;#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    alias injumper&amp;#x3D;&amp;#39;ssh work@35.154.102.190&amp;#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    alias hwhk&amp;#x3D;&amp;#39;ssh work@159.138.9.178&amp;#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    alias sandboxjumper&amp;#x3D;&amp;#39;ssh work@35.160.18.159&amp;#39;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    # java 1.6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    # JAVA_HOME&amp;#x3D;&amp;#x2F;Library&amp;#x2F;Java&amp;#x2F;JavaVirtualMachines&amp;#x2F;1.6.0.jdk&amp;#x2F;Contents&amp;#x2F;Home&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    # java 1.8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    JAVA_HOME&amp;#x3D;&amp;#x2F;Library&amp;#x2F;Java&amp;#x2F;JavaVirtualMachines&amp;#x2F;jdk1.8.0_172.jdk&amp;#x2F;Contents&amp;#x2F;Home&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    #jdk15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    #JAVA_HOME&amp;#x3D;&amp;#x2F;Library&amp;#x2F;Java&amp;#x2F;JavaVirtualMachines&amp;#x2F;jdk-15.0.1.jdk&amp;#x2F;Contents&amp;#x2F;Home&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    PATH&amp;#x3D;$JAVA_HOME&amp;#x2F;bin:$PATH:.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    #CLASSPATH&amp;#x3D;$JAVA_HOME&amp;#x2F;lib&amp;#x2F;tools.jar:$JAVA_HOME&amp;#x2F;lib&amp;#x2F;dt.jar:.&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export JAVA_HOME&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export PATH&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    export CLASSPATH&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;:hexoPostRenderEscape--&gt;
+
++ bashrc
+
+  &lt;!--hexoPostRenderEscape:&lt;figure class=&quot;highlight shell&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;6&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;7&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;8&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;9&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;10&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;11&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;12&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;13&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;14&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;15&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;16&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;17&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;18&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;19&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;20&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;21&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;22&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;23&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;24&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;25&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;26&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;27&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;28&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;29&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;30&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;31&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;32&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;33&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;34&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;35&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;36&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;37&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;38&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;39&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;40&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;bash&quot;&gt;complete -C aws_completer aws&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias ll=&amp;#x27;ls -l&amp;#x27;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;bash&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;alias&lt;/span&gt; python=&lt;span class=&quot;string&quot;&gt;&amp;quot;/usr/local/Cellar/python/3.7.0/bin/python3.7&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias hwmysql=&amp;quot;mysql -h 10.48.1.125 -P 3306 -u root -pHua_xxx_111&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias hwredis=&amp;quot;redis-cli -h 10.49.1.109 -p6379 -c&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias python=&amp;quot;/usr/local/bin/python2&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias login-relay=&amp;quot;ssh mengfanxing@13.251.183.70&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias redis-cli-dev=&amp;quot;redis-cli -h hkg02-dx-gc04.hkg02.baidu.com -p 8501 -c&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias redis-cli-sandbox=&amp;quot;redis-cli -h 10.29.10.14 -p 8700 -c&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias mysql-dev=&amp;quot;mysql -h hkg02-dx-gc04.hkg02.baidu.com -P 8306 -u dev -p&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias apjumper=&amp;#x27;ssh work@13.251.183.70&amp;#x27;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias work-relay=&amp;quot;ssh mengfanxing@13.251.183.70&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias tencent-login=&amp;quot;ssh work@49.234.187.242&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias usjumper=&amp;#x27;ssh work@52.32.151.225&amp;#x27;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias inputjumper=&amp;#x27;ssh ec2-user@35.154.102.190&amp;#x27;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias rec01=&amp;#x27;ssh work@18.138.50.186&amp;#x27;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias rec02=&amp;#x27;ssh work@18.138.52.92&amp;#x27;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias huaweiJumper=&amp;#x27;ssh work@159.138.9.178&amp;#x27;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias lezhuan=&amp;#x27;ssh work@10.49.3.168&amp;#x27;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias hwrelaybj1=&amp;#x27;ssh work@10.49.1.180&amp;#x27;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias sandbox=&amp;#x27;ssh work@35.160.18.159&amp;#x27;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias sandboxk8s=&amp;#x27;ssh k8s@10.29.2.9&amp;#x27;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;function git_branch &amp;#123;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  branch=&amp;quot;`git branch 2&amp;gt;/dev/null | grep &amp;quot;^\*&amp;quot; | sed -e &amp;quot;s/^\*\ //&amp;quot;`&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  if [ &amp;quot;$&amp;#123;branch&amp;#125;&amp;quot; != &amp;quot;&amp;quot; ];then&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      if [ &amp;quot;$&amp;#123;branch&amp;#125;&amp;quot; = &amp;quot;(no branch)&amp;quot; ];then&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;          branch=&amp;quot;(`git rev-parse --short HEAD`...)&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      fi&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;      echo &amp;quot; ($branch)&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;  fi&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&amp;#125;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;span class=&quot;meta&quot;&gt;#&lt;/span&gt;&lt;span class=&quot;bash&quot;&gt;&lt;span class=&quot;built_in&quot;&gt;export&lt;/span&gt; PS1=&lt;span class=&quot;string&quot;&gt;&amp;#x27;\u@\h \[\033[01;36m\]\W\[\033[01;32m\]$(git_branch)\[\033[00m\] \$ &amp;#x27;&lt;/span&gt;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;export LANG=&amp;#x27;UTC-8&amp;#x27;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;export LC_ALL=&amp;#x27;en_US.UTF-8&amp;#x27;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;export TERM=xterm&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias sandbox=&amp;quot;ssh work@10.29.10.97&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias sandbox_apollo=&amp;quot;ssh work@10.29.0.236&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;alias sandbox_1=&amp;quot;ssh work@35.160.18.159&amp;quot;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;:hexoPostRenderEscape--&gt;
+
+
+
+
+
+
+
+
+</code></pre>
+</li>
+</ul>
+<h4 id="es压测"><a href="#es压测" class="headerlink" title="es压测"></a>es压测</h4><ol>
+<li><p>jvm 从cms改G1 看看性能，然后在改为jdk11 使用ZGC 看看性能</p>
+</li>
+<li><p>新机器需要调整相应配置 <a target="_blank" rel="noopener" href="https://www.elastic.co/guide/en/elasticsearch/reference/current/system-config.html">https://www.elastic.co/guide/en/elasticsearch/reference/current/system-config.html</a></p>
+<figure class="highlight shell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo sh -c &quot;ulimit -n 65535 &amp;&amp; exec su $LOGNAME&quot;</span><br><span class="line">sudo sh -c &quot;ulimit -u 4096 &amp;&amp; exec su $LOGNAME&quot;</span><br></pre></td></tr></table></figure>
+
+
+
+</li>
+</ol>
+<p>pip install –upgrade “esrally==1.2.1”</p>
+
+    </div>
+
+    
+    
+    
+      
+
+        <div class="reward-container">
+  <div>Donate comment here.</div>
+  <button onclick="var qr = document.getElementById('qr'); qr.style.display = (qr.style.display === 'none') ? 'block' : 'none';">
+    打赏
+  </button>
+  <div id="qr" style="display: none;">
+      
+      <div style="display: inline-block;">
+        <img src="/images/wechatpay.jpeg" alt="Richard 微信支付">
+        <p>微信支付</p>
+      </div>
+      
+      <div style="display: inline-block;">
+        <img src="/images/alipay.jpeg" alt="Richard 支付宝">
+        <p>支付宝</p>
+      </div>
+
+  </div>
+</div>
+
+
+      <footer class="post-footer">
+
+        
+
+
+        
+    <div class="post-nav">
+      <div class="post-nav-item">
+    <a href="/2020/12/31/flink%E5%AD%A6%E4%B9%A0%E7%AC%94%E8%AE%B0%E5%85%AD%EF%BC%9AFlink%E6%B5%81%E5%A4%84%E7%90%86APi/" rel="prev" title="flink学习笔记六：Flink流处理APi">
+      <i class="fa fa-chevron-left"></i> flink学习笔记六：Flink流处理APi
+    </a></div>
+      <div class="post-nav-item"></div>
+    </div>
+      </footer>
+    
+  </article>
+  
+  
+  
+
+
+
+          </div>
+          
+
+<script>
+  window.addEventListener('tabs:register', () => {
+    let { activeClass } = CONFIG.comments;
+    if (CONFIG.comments.storage) {
+      activeClass = localStorage.getItem('comments_active') || activeClass;
+    }
+    if (activeClass) {
+      let activeTab = document.querySelector(`a[href="#comment-${activeClass}"]`);
+      if (activeTab) {
+        activeTab.click();
+      }
+    }
+  });
+  if (CONFIG.comments.storage) {
+    window.addEventListener('tabs:click', event => {
+      if (!event.target.matches('.tabs-comment .tab-content .tab-pane')) return;
+      let commentClass = event.target.classList[1];
+      localStorage.setItem('comments_active', commentClass);
+    });
+  }
+</script>
+
+        </div>
+          
+  
+  <div class="toggle sidebar-toggle">
+    <span class="toggle-line toggle-line-first"></span>
+    <span class="toggle-line toggle-line-middle"></span>
+    <span class="toggle-line toggle-line-last"></span>
+  </div>
+
+  <aside class="sidebar">
+    <div class="sidebar-inner">
+
+      <ul class="sidebar-nav motion-element">
+        <li class="sidebar-nav-toc">
+          文章目录
+        </li>
+        <li class="sidebar-nav-overview">
+          站点概览
+        </li>
+      </ul>
+
+      <!--noindex-->
+      <div class="post-toc-wrap sidebar-panel">
+          <div class="post-toc motion-element"><ol class="nav"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E8%BD%AF%E4%BB%B6%E4%B8%8B%E8%BD%BD"><span class="nav-number">1.</span> <span class="nav-text">软件下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E5%AE%A2%E6%88%B7%E7%AB%AF%E6%8F%92%E4%BB%B6"><span class="nav-number">2.</span> <span class="nav-text">客户端插件</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#jdk-%E4%B8%8B%E8%BD%BD"><span class="nav-number">3.</span> <span class="nav-text">jdk 下载</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE"><span class="nav-number">4.</span> <span class="nav-text">环境配置</span></a><ol class="nav-child"><li class="nav-item nav-level-4"><a class="nav-link" href="#es%E5%8E%8B%E6%B5%8B"><span class="nav-number">4.1.</span> <span class="nav-text">es压测</span></a></li></ol></li></ol></div>
+      </div>
+      <!--/noindex-->
+
+      <div class="site-overview-wrap sidebar-panel">
+        <div class="site-author motion-element" itemprop="author" itemscope itemtype="http://schema.org/Person">
+    <img class="site-author-image" itemprop="image" alt="Richard"
+      src="/images/avatar.png">
+  <p class="site-author-name" itemprop="name">Richard</p>
+  <div class="site-description" itemprop="description"></div>
+</div>
+<div class="site-state-wrap motion-element">
+  <nav class="site-state">
+      <div class="site-state-item site-state-posts">
+          <a href="/archives/">
+        
+          <span class="site-state-item-count">110</span>
+          <span class="site-state-item-name">日志</span>
+        </a>
+      </div>
+      <div class="site-state-item site-state-categories">
+            <a href="/categories/">
+          
+        <span class="site-state-item-count">25</span>
+        <span class="site-state-item-name">分类</span></a>
+      </div>
+      <div class="site-state-item site-state-tags">
+            <a href="/tags/">
+          
+        <span class="site-state-item-count">33</span>
+        <span class="site-state-item-name">标签</span></a>
+      </div>
+  </nav>
+</div>
+  <div class="links-of-author motion-element">
+      <span class="links-of-author-item">
+        <a href="https://github.com/RomanSeven7" title="GitHub → https:&#x2F;&#x2F;github.com&#x2F;RomanSeven7" rel="noopener" target="_blank"><i class="fab fa-github fa-fw"></i>GitHub</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="mailto:nizhidaoiedeyisima@gmail.com" title="E-Mail → mailto:nizhidaoiedeyisima@gmail.com" rel="noopener" target="_blank"><i class="fa fa-envelope fa-fw"></i>E-Mail</a>
+      </span>
+      <span class="links-of-author-item">
+        <a href="https://weibo.com/p/1005056204086487" title="Weibo → https:&#x2F;&#x2F;weibo.com&#x2F;p&#x2F;1005056204086487" rel="noopener" target="_blank"><i class="fab fa-weibo fa-fw"></i>Weibo</a>
+      </span>
+  </div>
+
+
+
+      </div>
+
+    </div>
+  </aside>
+  <div id="sidebar-dimmer"></div>
+
+
+      </div>
+    </main>
+
+    <footer class="footer">
+      <div class="footer-inner">
+        
+
+        
+
+<div class="copyright">
+  
+  &copy; 
+  <span itemprop="copyrightYear">2021</span>
+  <span class="with-love">
+    <i class="fa fa-heart"></i>
+  </span>
+  <span class="author" itemprop="copyrightHolder">Richard</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-chart-area"></i>
+    </span>
+      <span class="post-meta-item-text">站点总字数：</span>
+    <span title="站点总字数">264k</span>
+    <span class="post-meta-divider">|</span>
+    <span class="post-meta-item-icon">
+      <i class="fa fa-coffee"></i>
+    </span>
+      <span class="post-meta-item-text">站点阅读时长 &asymp;</span>
+    <span title="站点阅读时长">4:01</span>
+</div>
+  <div class="powered-by">由 <a href="https://hexo.io/" class="theme-link" rel="noopener" target="_blank">Hexo</a> & <a href="https://theme-next.org/" class="theme-link" rel="noopener" target="_blank">NexT.Gemini</a> 强力驱动
+  </div>
+
+        
+
+
+
+
+
+
+
+
+      </div>
+    </footer>
+  </div>
+
+  
+  <script src="/lib/anime.min.js"></script>
+  <script src="/lib/velocity/velocity.min.js"></script>
+  <script src="/lib/velocity/velocity.ui.min.js"></script>
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/motion.js"></script>
+
+
+<script src="/js/schemes/pisces.js"></script>
+
+
+<script src="/js/next-boot.js"></script>
+
+
+
+
+  
+
+
+
+
+  
+<script src="/js/local-search.js"></script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+  
+
+  
+
+</body>
+</html>
